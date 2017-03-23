@@ -3,6 +3,8 @@ Thumbs.db
 ehthumbs.db
 
 **/vs/*
+**/bin/*
+**/obj/*
 
 # Folder config file
 Desktop.ini

@@ -4,17 +4,44 @@ using System.Windows.Forms;
 
 namespace tilecon
 {
-    public partial class Form1 : Form
+    public partial class FormXpMv : Form
     {
         private string filepath;
         private bool filepathExists;
-        public Form1()
+
+        public static FormXpMv xpmvController;
+
+        public FormXpMv()
         {
+            xpmvController = this;
             InitializeComponent();
             btnCutSave.Enabled = false;
             btnConvert.Enabled = false;
-            saveFileDialog1.Filter = "Png files (*.png) | *.png";
-            openFileDialog1.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.webp) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.webp";
+            changeLang(Vocab.lang.eng);
+        }
+
+        private void changeLang(Vocab.lang l)
+        {
+            Vocab.changeLang(l);
+            saveFileDialog1.Filter = Vocab.pgnFilesText + " (*.png) | *.png";
+            openFileDialog1.Filter = Vocab.imageFilesText + " (*.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.webp) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.webp";
+            btnConvert.Text = Vocab.btnConvert;
+            btnCutSave.Text = Vocab.btnCut;
+            btnSearch.Text = Vocab.btnSearch;
+
+            menuStrip1.Items[0].Text = Vocab.archiche;
+            exitToolStripMenuItem.Text = Vocab.archiveExit;
+
+            menuStrip1.Items[1].Text = Vocab.convert;
+            cutsaveIndividualFramesToolStripMenuItem.Text = Vocab.btnCut;
+            convertAndSaveToolStripMenuItem.Text = Vocab.btnConvert;
+
+            menuStrip1.Items[2].Text = Vocab.language;
+            englishToolStripMenuItem.Text = Vocab.languageEng;
+            portugueseToolStripMenuItem.Text = Vocab.languagePtbr;
+
+            menuStrip1.Items[3].Text = Vocab.help;
+            aboutToolStripMenuItem.Text = Vocab.helpAbout;
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
@@ -22,7 +49,7 @@ namespace tilecon
             Convert();
         }
 
-        private bool search()
+        private bool Search()
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -38,7 +65,7 @@ namespace tilecon
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            search();
+            Search();
         }
 
         private void btnCutSave_Click(object sender, EventArgs e)
@@ -53,20 +80,23 @@ namespace tilecon
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Tileset XP to MV Converter (tilecon)\n\nby Hermes Passer\ngladiocitrico.blogspot.com", "Tilecon");
+            FormAbout form = new FormAbout();
+            form.Show();
+            this.Enabled = false;
+            //MessageBox.Show(Vocab.aboutHelpText, "Tilecon");
         }
 
         private void CutSave()
         {
             ImageCrop.SaveEachSubimage(Image.FromFile(filepath), filepath);
-            MessageBox.Show("Done", "Tilecon");
+            MessageBox.Show(Vocab.doneMessage, "Tilecon");
         }
 
         private void cutsaveIndividualFramesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (filepath == null) 
             {
-                filepathExists = search();
+                filepathExists = Search();
                 if (filepathExists)
                 {
                     cutsaveIndividualFramesToolStripMenuItem_Click(sender, e);
@@ -92,7 +122,7 @@ namespace tilecon
         {
             if (filepath == null)
             {
-                filepathExists = search();
+                filepathExists = Search();
                 if (filepathExists)
                 {
                     convertAndSaveToolStripMenuItem_Click(sender, e);
@@ -101,6 +131,16 @@ namespace tilecon
             }
             if (filepathExists)
                 Convert();
+        }
+
+        private void englishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            changeLang(Vocab.lang.eng);
+        }
+
+        private void portugueseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            changeLang(Vocab.lang.ptbr);
         }
     }
 }
