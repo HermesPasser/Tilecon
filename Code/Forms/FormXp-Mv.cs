@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using tilecon.Conversor;
 
 namespace tilecon
 {
@@ -28,6 +29,9 @@ namespace tilecon
             btnConvert.Text = Vocab.btnConvert;
             btnCutSave.Text = Vocab.btnCut;
             btnSearch.Text = Vocab.btnSearch;
+
+            groupConversion.Text = Vocab.groupConversion;
+            groupUtilities.Text = Vocab.groupUtilities;
 
             menuStrip1.Items[0].Text = Vocab.archiche;
             exitToolStripMenuItem.Text = Vocab.archiveExit;
@@ -83,12 +87,11 @@ namespace tilecon
             FormAbout form = new FormAbout();
             form.Show();
             this.Enabled = false;
-            //MessageBox.Show(Vocab.aboutHelpText, "Tilecon");
         }
 
         private void CutSave()
         {
-            ImageCrop.SaveEachSubimage(Image.FromFile(filepath), filepath);
+            Converter.SaveEachSubimage(Image.FromFile(filepath), filepath, Maker.XP.SPRITE_SIZE);
             MessageBox.Show(Vocab.doneMessage, "Tilecon");
         }
 
@@ -107,14 +110,25 @@ namespace tilecon
                 CutSave();
         }
 
+        //Fazer botão salve e as check boxs
+        // alterar o nome do tool stip conversion já que isso não engloba o utilities
         private void Convert()
         {
-            Bitmap bitmap = ImageCrop.ConvertToMV(Image.FromFile(filepath));
-            pictureBoxXP.Image = bitmap;
-
+            Bitmap[] bitmaps = Converter.ConvertToMV(Image.FromFile(filepath));
+            pictureBox2.Image = bitmaps[0];
+   
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                bitmap.Save(saveFileDialog1.FileName);
+                int index = saveFileDialog1.FileName.LastIndexOf(".");
+                string fileDir = saveFileDialog1.FileName.Substring(0, index) + "_";
+
+                if (bitmaps.Length != 1)
+                {
+                    for (int i = 0; i < bitmaps.Length; i++)
+                        bitmaps[i].Save(fileDir + i + ".png");
+                }
+                else
+                    bitmaps[0].Save(saveFileDialog1.FileName);
             }
         }
 

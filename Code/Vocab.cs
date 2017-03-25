@@ -26,8 +26,10 @@ namespace tilecon
         public static string btnSearch;
         public static string btnCut;
         public static string btnConvert;
-
         public static string doneMessage;
+
+        public static string groupConversion;
+        public static string groupUtilities;
 
         public static string imageFilesText;
         public static string pgnFilesText;
@@ -47,9 +49,11 @@ namespace tilecon
 
                 btnSearch = "Search Tileset";
                 btnCut = "Cut/save each sprite";
-                btnConvert = "Convert and Save";
+                btnConvert = "Convert";
 
                 doneMessage = "Done.";
+                groupConversion = "Conversion";
+                groupUtilities = "Utilities";
 
                 imageFilesText = "Image files";
                 pgnFilesText = "Png Files";
@@ -66,9 +70,11 @@ namespace tilecon
 
                 btnSearch = "Procurar Tileset";
                 btnCut = "Cortar/salvar cada sprite";
-                btnConvert = "Converter e Salvar";
+                btnConvert = "Converter";
 
                 doneMessage = "Feito.";
+                groupConversion = "Conversão";
+                groupUtilities = "Utilidades";
 
                 imageFilesText = "Arquivo de Imagem";
                 pgnFilesText = "Arquivos Png";
