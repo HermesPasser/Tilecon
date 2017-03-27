@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
-using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 
 namespace tilecon.Conversor
 {
     class Converter
     {
+        public enum spriteMode
+        {
+            NONE, RESIZE, CENTRALIZE
+        }
+
         private static Bitmap Crop(Bitmap src, int x, int y, int width, int height)
         {
             Rectangle rect = new Rectangle(x, y, width, height);
@@ -55,57 +60,118 @@ namespace tilecon.Conversor
             return sprites;
         }
 
-        //Colocar opção, ignorar sprite se for transparente.
+        private static bool IsAlpha(Bitmap bmp)
+        {
+            for (int y = 0; y < bmp.Height; y++)
+                for (int x = 0; x < bmp.Width; x++)
+                    if (bmp.GetPixel(x, y).A == 0)
+                        return true;
+            return false;
+        }
+
+        private static Bitmap ResizeMV(Bitmap bmp)
+        {
+            // for encadeado, a cada img par copiar o pixel duas vezes
+            return bmp;
+        }
+
+        //Criar meu proprio metodo de resize?
+        private static int PasteMV(Bitmap bmp, List<Bitmap> sprites, int initY, int initX, int height, int width, int spriteIterator, bool ignoreAlpha, spriteMode mode)
+        {
+            Rectangle rect = new Rectangle(0, 0, sprites[0].Width, sprites[0].Height);
+            Graphics graphics = Graphics.FromImage(bmp);
+
+            //To resize
+             if (mode == spriteMode.RESIZE)
+                rect = new Rectangle(0, 0, Maker.MV.SPRITE_SIZE, Maker.MV.SPRITE_SIZE);
+
+            for (int y = initY; y < height; y += Maker.MV.SPRITE_SIZE)
+            {
+                for (int x = initX; x < width; x += Maker.MV.SPRITE_SIZE)
+                {
+                    if (spriteIterator >= sprites.Count || sprites[spriteIterator] == null)
+                        break;
+
+                    //To centralize
+                    int xx = x, yy = y;
+                    if (mode == spriteMode.CENTRALIZE)
+                    {
+                        xx += 8;
+                        yy += 8;
+                    } //To resize
+                    else if (mode == spriteMode.RESIZE)
+                         sprites[spriteIterator] = new Bitmap(sprites[spriteIterator], new Size(Maker.MV.SPRITE_SIZE, Maker.MV.SPRITE_SIZE));
+
+                    //To ignore alpha
+                    if (IsAlpha(sprites[spriteIterator]) && ignoreAlpha)
+                    {
+                        if (spriteIterator + 1 < sprites.Count)
+                        {
+                            //To resize
+                            if (mode == spriteMode.RESIZE)
+                                sprites[spriteIterator + 1] = new Bitmap(sprites[spriteIterator + 1], new Size(Maker.MV.SPRITE_SIZE, Maker.MV.SPRITE_SIZE));
+
+                            graphics.DrawImage(sprites[spriteIterator + 1], xx, yy, rect, GraphicsUnit.Pixel);
+                        }
+                        spriteIterator++;
+                    }
+                    else
+                        graphics.DrawImage(sprites[spriteIterator], xx, yy, rect, GraphicsUnit.Pixel);
+                    spriteIterator++;
+                }
+            }
+            graphics.Dispose();
+            return spriteIterator;
+        }
+
         //Colocar opção para redimencionar a imagem
-        //Colocar opção para centralizar imagem se ela não for redimensinada.
-        //Imprimir em uma metade da imagem e depois na outra ou colocando de oito em oito como no xp
-        public static Bitmap[] ConvertToMV(Image img)
+
+        public static Bitmap[] ConvertToMV(Image img, bool ignoreAlpha, spriteMode mode)
         {
             List<Bitmap> images = new List<Bitmap>();
             List<Bitmap> sprites = GetSprites(img, Maker.XP.SPRITE_SIZE).ToList<Bitmap>();
-            Rectangle rect = new Rectangle(0, 0, sprites[0].Width, sprites[0].Height);
-            Graphics graphics;
-            int iSprite = 0;
+            int i = 0;
 
             //For each image
-            while (iSprite < sprites.Count) {
-                
+            while (i < sprites.Count)
+            {
                 //Draw image
                 Bitmap tempBmp = new Bitmap(Maker.MV.BE.SIZE, Maker.MV.BE.SIZE);
                 tempBmp.SetPixel(0, 0, Color.White);
-                graphics = Graphics.FromImage(tempBmp);
 
                 //Draw in first part of bitmap
-                for (int y = 0; y < tempBmp.Height; y += Maker.MV.SPRITE_SIZE)
-                {
-                    for (int x = 0; x < tempBmp.Width / 2; x += Maker.MV.SPRITE_SIZE)
-                    {
-                        if (iSprite >= sprites.Count || sprites[iSprite] == null)
-                            break;
-
-                        graphics.DrawImage(sprites[iSprite], x, y, rect, GraphicsUnit.Pixel);
-                        iSprite++;
-                    }
-                }
+                i = PasteMV(tempBmp, sprites, 0, 0, tempBmp.Height, tempBmp.Width / 2, i, ignoreAlpha, mode);
 
                 //Draw in second part of bitmap
-                for (int y = 0; y < tempBmp.Height; y += Maker.MV.SPRITE_SIZE)
-                {
-                    for (int x = tempBmp.Width / 2; x < tempBmp.Width; x += Maker.MV.SPRITE_SIZE)
-                    {
-                        if (iSprite >= sprites.Count || sprites[iSprite] == null)
-                            break;
+                i = PasteMV(tempBmp, sprites, 0, tempBmp.Width / 2, tempBmp.Height, tempBmp.Width, i, ignoreAlpha, mode);
 
-                        graphics.DrawImage(sprites[iSprite], x, y, rect, GraphicsUnit.Pixel);
-                        iSprite++;
-                    }
-                }
-
-                //Add image in the list
+                //Add image to the list
                 images.Add(tempBmp);
             }
-            
+
             return images.ToArray();
         }
     }
 }
+
+// criar quadriculado
+//bool b = false;
+
+//for (int y = 0; y<Maker.MV.SPRITE_SIZE; y++)
+//    for (int x = 0; x<Maker.MV.SPRITE_SIZE; x++)
+//    {
+//        if (b)//&& xx < bmp.Width)
+//        {
+//            tempBmp.SetPixel(x, y, bmp.GetPixel(1, 1));
+//            tempBmp.SetPixel(x + 1, y, bmp.GetPixel(1, 1));
+
+//            x++;
+
+//        }
+//        else
+//        {
+//            // if (xx < bmp.Width)
+//                tempBmp.SetPixel(x, y, bmp.GetPixel(1, 1));
+//        }
+//        b = !b;
+//    }

@@ -11,9 +11,9 @@ namespace tilecon
         public enum lang{
             ptbr, eng
         }
-        public static string version = "0.5";
+        public static string version = "1.1";
 
-        public static string archiche;
+        public static string file;
         public static string archiveExit;
         public static string convert;
         public static string language;
@@ -23,11 +23,19 @@ namespace tilecon
         public static string helpAbout;
         public static string aboutHelpText = "2017 - Hermes Passer (gladiocitrico.blogspot.com)\nGitHub: HermesPasser/Tilecon";
 
-        public static string btnSearch;
+        public static string btnOpen;
         public static string btnCut;
         public static string btnConvert;
+        public static string btnSave;
+        public static string cbIgnore;
         public static string doneMessage;
 
+        public static string mode;
+
+        public static string comboNone;
+        public static string comboResize;
+        public static string comboCentralize;
+        
         public static string groupConversion;
         public static string groupUtilities;
 
@@ -38,7 +46,7 @@ namespace tilecon
         {
             if (l == lang.eng)
             {
-                archiche = "Archive";
+                file = "File";
                 archiveExit = "Exit";
                 convert = "Convert";
                 language = "Language";
@@ -47,9 +55,15 @@ namespace tilecon
                 help = "About";
                 helpAbout = "Help";
 
-                btnSearch = "Search Tileset";
+                btnOpen = "Open Tileset";
                 btnCut = "Cut/save each sprite";
                 btnConvert = "Convert";
+                btnSave = "Salve";
+                cbIgnore = "Ignore Alpha";
+
+                comboNone = "None";
+                comboCentralize = "Centralize";
+                comboResize = "Resize";
 
                 doneMessage = "Done.";
                 groupConversion = "Conversion";
@@ -57,9 +71,11 @@ namespace tilecon
 
                 imageFilesText = "Image files";
                 pgnFilesText = "Png Files";
+
+                mode = "Mode";
             } else
             {
-                archiche = "Arquivo";
+                file = "Arquivo";
                 archiveExit = "Sair";
                 convert = "Converter";
                 language = "Linguagem";
@@ -68,9 +84,15 @@ namespace tilecon
                 help = "Ajuda";
                 helpAbout = "Sobre";
 
-                btnSearch = "Procurar Tileset";
+                btnOpen = "Abrir Tileset";
                 btnCut = "Cortar/salvar cada sprite";
                 btnConvert = "Converter";
+                btnSave = "Salvar";
+                cbIgnore = "Ignorar Alfa";
+
+                comboNone = "Nada";
+                comboCentralize = "Centralizar";
+                comboResize = "Redimencionar";
 
                 doneMessage = "Feito.";
                 groupConversion = "Conversão";
@@ -78,6 +100,8 @@ namespace tilecon
 
                 imageFilesText = "Arquivo de Imagem";
                 pgnFilesText = "Arquivos Png";
+
+                mode = "Modo";
             }
         }
     }

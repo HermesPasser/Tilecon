@@ -34,40 +34,53 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnCutSave = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBoxXP = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openTilesetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.utilitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cutsaveIndividualFramesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.centralizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ignoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertAndSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.langaugeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portugueseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBoxXP = new System.Windows.Forms.PictureBox();
             this.groupConversion = new System.Windows.Forms.GroupBox();
+            this.cbMode = new System.Windows.Forms.ComboBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.checkIgnore = new System.Windows.Forms.CheckBox();
             this.groupUtilities = new System.Windows.Forms.GroupBox();
-            this.buttonSave = new System.Windows.Forms.Button();
+            this.btnNextImg = new System.Windows.Forms.Button();
+            this.btnPreviusImg = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxXP)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.groupConversion.SuspendLayout();
             this.groupUtilities.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnConvert
             // 
-            this.btnConvert.Location = new System.Drawing.Point(6, 19);
+            this.btnConvert.Enabled = false;
+            this.btnConvert.Location = new System.Drawing.Point(6, 69);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(141, 23);
             this.btnConvert.TabIndex = 0;
@@ -81,12 +94,13 @@
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(207, 23);
             this.btnSearch.TabIndex = 2;
-            this.btnSearch.Text = "Search Tileset";
+            this.btnSearch.Text = "Open Tileset";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnCutSave
             // 
+            this.btnCutSave.Enabled = false;
             this.btnCutSave.Location = new System.Drawing.Point(6, 19);
             this.btnCutSave.Name = "btnCutSave";
             this.btnCutSave.Size = new System.Drawing.Size(141, 23);
@@ -105,6 +119,15 @@
             this.panel1.Size = new System.Drawing.Size(207, 227);
             this.panel1.TabIndex = 5;
             // 
+            // pictureBoxXP
+            // 
+            this.pictureBoxXP.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxXP.Name = "pictureBoxXP";
+            this.pictureBoxXP.Size = new System.Drawing.Size(256, 2432);
+            this.pictureBoxXP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxXP.TabIndex = 1;
+            this.pictureBoxXP.TabStop = false;
+            // 
             // panel2
             // 
             this.panel2.AutoScroll = true;
@@ -114,20 +137,39 @@
             this.panel2.Size = new System.Drawing.Size(200, 227);
             this.panel2.TabIndex = 6;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(0, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(200, 206);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
             // panel3
             // 
             this.panel3.AutoScroll = true;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.pictureBox2);
-            this.panel3.Location = new System.Drawing.Point(384, 33);
+            this.panel3.Location = new System.Drawing.Point(384, 62);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(207, 256);
+            this.panel3.Size = new System.Drawing.Size(207, 227);
             this.panel3.TabIndex = 6;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(200, 206);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archiveToolStripMenuItem,
+            this.utilitiesToolStripMenuItem,
             this.convertToolStripMenuItem,
             this.langaugeToolStripMenuItem,
             this.helpToolStripMenuItem});
@@ -140,38 +182,109 @@
             // archiveToolStripMenuItem
             // 
             this.archiveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openTilesetToolStripMenuItem,
+            this.saveToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.archiveToolStripMenuItem.Name = "archiveToolStripMenuItem";
-            this.archiveToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.archiveToolStripMenuItem.Text = "Archive";
+            this.archiveToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.archiveToolStripMenuItem.Text = "File";
+            // 
+            // openTilesetToolStripMenuItem
+            // 
+            this.openTilesetToolStripMenuItem.Name = "openTilesetToolStripMenuItem";
+            this.openTilesetToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.openTilesetToolStripMenuItem.Text = "Open Tileset";
+            this.openTilesetToolStripMenuItem.Click += new System.EventHandler(this.openTilesetToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Enabled = false;
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // utilitiesToolStripMenuItem
+            // 
+            this.utilitiesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cutsaveIndividualFramesToolStripMenuItem});
+            this.utilitiesToolStripMenuItem.Name = "utilitiesToolStripMenuItem";
+            this.utilitiesToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.utilitiesToolStripMenuItem.Text = "Utilities";
+            // 
+            // cutsaveIndividualFramesToolStripMenuItem
+            // 
+            this.cutsaveIndividualFramesToolStripMenuItem.Enabled = false;
+            this.cutsaveIndividualFramesToolStripMenuItem.Name = "cutsaveIndividualFramesToolStripMenuItem";
+            this.cutsaveIndividualFramesToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.cutsaveIndividualFramesToolStripMenuItem.Text = "Cut/save individual frames";
+            this.cutsaveIndividualFramesToolStripMenuItem.Click += new System.EventHandler(this.cutsaveIndividualFramesToolStripMenuItem_Click_2);
             // 
             // convertToolStripMenuItem
             // 
             this.convertToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cutsaveIndividualFramesToolStripMenuItem,
+            this.modeToolStripMenuItem,
+            this.ignoreToolStripMenuItem,
             this.convertAndSaveToolStripMenuItem});
             this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
             this.convertToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.convertToolStripMenuItem.Text = "Convert";
             // 
-            // cutsaveIndividualFramesToolStripMenuItem
+            // modeToolStripMenuItem
             // 
-            this.cutsaveIndividualFramesToolStripMenuItem.Name = "cutsaveIndividualFramesToolStripMenuItem";
-            this.cutsaveIndividualFramesToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.cutsaveIndividualFramesToolStripMenuItem.Text = "Cut/save individual frames";
-            this.cutsaveIndividualFramesToolStripMenuItem.Click += new System.EventHandler(this.cutsaveIndividualFramesToolStripMenuItem_Click);
+            this.modeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.noneToolStripMenuItem,
+            this.centralizeToolStripMenuItem,
+            this.resizeToolStripMenuItem});
+            this.modeToolStripMenuItem.Enabled = false;
+            this.modeToolStripMenuItem.Name = "modeToolStripMenuItem";
+            this.modeToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.modeToolStripMenuItem.Text = "Mode";
+            // 
+            // noneToolStripMenuItem
+            // 
+            this.noneToolStripMenuItem.Name = "noneToolStripMenuItem";
+            this.noneToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.noneToolStripMenuItem.Text = "None";
+            this.noneToolStripMenuItem.Click += new System.EventHandler(this.noneToolStripMenuItem_Click);
+            // 
+            // centralizeToolStripMenuItem
+            // 
+            this.centralizeToolStripMenuItem.CheckOnClick = true;
+            this.centralizeToolStripMenuItem.Name = "centralizeToolStripMenuItem";
+            this.centralizeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.centralizeToolStripMenuItem.Text = "Centralize";
+            this.centralizeToolStripMenuItem.Click += new System.EventHandler(this.centralizeToolStripMenuItem_Click);
+            // 
+            // resizeToolStripMenuItem
+            // 
+            this.resizeToolStripMenuItem.CheckOnClick = true;
+            this.resizeToolStripMenuItem.Name = "resizeToolStripMenuItem";
+            this.resizeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.resizeToolStripMenuItem.Text = "Resize";
+            this.resizeToolStripMenuItem.Click += new System.EventHandler(this.resizeToolStripMenuItem_Click);
+            // 
+            // ignoreToolStripMenuItem
+            // 
+            this.ignoreToolStripMenuItem.CheckOnClick = true;
+            this.ignoreToolStripMenuItem.Enabled = false;
+            this.ignoreToolStripMenuItem.Name = "ignoreToolStripMenuItem";
+            this.ignoreToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.ignoreToolStripMenuItem.Text = "Ignore Alpha";
+            this.ignoreToolStripMenuItem.Click += new System.EventHandler(this.ignoreAlphaToolStripMenuItem_Click);
             // 
             // convertAndSaveToolStripMenuItem
             // 
+            this.convertAndSaveToolStripMenuItem.Enabled = false;
             this.convertAndSaveToolStripMenuItem.Name = "convertAndSaveToolStripMenuItem";
-            this.convertAndSaveToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.convertAndSaveToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.convertAndSaveToolStripMenuItem.Text = "Convert";
             this.convertAndSaveToolStripMenuItem.Click += new System.EventHandler(this.convertAndSaveToolStripMenuItem_Click);
             // 
@@ -182,7 +295,7 @@
             this.portugueseToolStripMenuItem});
             this.langaugeToolStripMenuItem.Name = "langaugeToolStripMenuItem";
             this.langaugeToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.langaugeToolStripMenuItem.Text = "Langauge";
+            this.langaugeToolStripMenuItem.Text = "Language";
             // 
             // englishToolStripMenuItem
             // 
@@ -213,43 +326,55 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(200, 206);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(0, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(200, 206);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pictureBoxXP
-            // 
-            this.pictureBoxXP.Location = new System.Drawing.Point(3, 3);
-            this.pictureBoxXP.Name = "pictureBoxXP";
-            this.pictureBoxXP.Size = new System.Drawing.Size(256, 2432);
-            this.pictureBoxXP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBoxXP.TabIndex = 1;
-            this.pictureBoxXP.TabStop = false;
-            // 
             // groupConversion
             // 
-            this.groupConversion.Controls.Add(this.buttonSave);
+            this.groupConversion.Controls.Add(this.cbMode);
+            this.groupConversion.Controls.Add(this.btnSave);
             this.groupConversion.Controls.Add(this.btnConvert);
+            this.groupConversion.Controls.Add(this.checkIgnore);
             this.groupConversion.Location = new System.Drawing.Point(225, 117);
             this.groupConversion.Name = "groupConversion";
-            this.groupConversion.Size = new System.Drawing.Size(153, 100);
+            this.groupConversion.Size = new System.Drawing.Size(153, 137);
             this.groupConversion.TabIndex = 8;
             this.groupConversion.TabStop = false;
             this.groupConversion.Text = "Conversion";
+            // 
+            // cbMode
+            // 
+            this.cbMode.DisplayMember = "None";
+            this.cbMode.Enabled = false;
+            this.cbMode.Items.AddRange(new object[] {
+            "None",
+            "Centralize",
+            "Resize"});
+            this.cbMode.Location = new System.Drawing.Point(6, 19);
+            this.cbMode.Name = "cbMode";
+            this.cbMode.Size = new System.Drawing.Size(141, 21);
+            this.cbMode.TabIndex = 3;
+            this.cbMode.ValueMember = "None";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(6, 97);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(141, 23);
+            this.btnSave.TabIndex = 1;
+            this.btnSave.Text = "Salve";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // checkIgnore
+            // 
+            this.checkIgnore.AutoSize = true;
+            this.checkIgnore.Enabled = false;
+            this.checkIgnore.Location = new System.Drawing.Point(6, 46);
+            this.checkIgnore.Name = "checkIgnore";
+            this.checkIgnore.Size = new System.Drawing.Size(86, 17);
+            this.checkIgnore.TabIndex = 2;
+            this.checkIgnore.Text = "Ignore Alpha";
+            this.checkIgnore.UseVisualStyleBackColor = true;
+            this.checkIgnore.CheckedChanged += new System.EventHandler(this.checkIgnore_CheckedChanged);
             // 
             // groupUtilities
             // 
@@ -261,20 +386,35 @@
             this.groupUtilities.TabStop = false;
             this.groupUtilities.Text = "Utilities";
             // 
-            // buttonSave
+            // btnNextImg
             // 
-            this.buttonSave.Location = new System.Drawing.Point(6, 48);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(141, 23);
-            this.buttonSave.TabIndex = 1;
-            this.buttonSave.Text = "Salve";
-            this.buttonSave.UseVisualStyleBackColor = true;
+            this.btnNextImg.Enabled = false;
+            this.btnNextImg.Location = new System.Drawing.Point(556, 33);
+            this.btnNextImg.Name = "btnNextImg";
+            this.btnNextImg.Size = new System.Drawing.Size(32, 23);
+            this.btnNextImg.TabIndex = 10;
+            this.btnNextImg.Text = ">";
+            this.btnNextImg.UseVisualStyleBackColor = true;
+            this.btnNextImg.Click += new System.EventHandler(this.btnNextImg_Click);
+            // 
+            // btnPreviusImg
+            // 
+            this.btnPreviusImg.Enabled = false;
+            this.btnPreviusImg.Location = new System.Drawing.Point(518, 33);
+            this.btnPreviusImg.Name = "btnPreviusImg";
+            this.btnPreviusImg.Size = new System.Drawing.Size(32, 23);
+            this.btnPreviusImg.TabIndex = 11;
+            this.btnPreviusImg.Text = "<";
+            this.btnPreviusImg.UseVisualStyleBackColor = true;
+            this.btnPreviusImg.Click += new System.EventHandler(this.btnPreviusImg_Click);
             // 
             // FormXpMv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 292);
+            this.Controls.Add(this.btnPreviusImg);
+            this.Controls.Add(this.btnNextImg);
             this.Controls.Add(this.groupUtilities);
             this.Controls.Add(this.groupConversion);
             this.Controls.Add(this.panel3);
@@ -289,16 +429,17 @@
             this.Text = "Tileset XP to MV Converter";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxXP)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxXP)).EndInit();
             this.groupConversion.ResumeLayout(false);
+            this.groupConversion.PerformLayout();
             this.groupUtilities.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -324,14 +465,26 @@
         private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cutsaveIndividualFramesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem convertAndSaveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem langaugeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem portugueseToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupConversion;
         private System.Windows.Forms.GroupBox groupUtilities;
-        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.ToolStripMenuItem openTilesetToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkIgnore;
+        private System.Windows.Forms.ComboBox cbMode;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem utilitiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cutsaveIndividualFramesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ignoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem centralizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
+        private System.Windows.Forms.Button btnNextImg;
+        private System.Windows.Forms.Button btnPreviusImg;
     }
 }
 
