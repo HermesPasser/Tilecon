@@ -7,7 +7,7 @@
     <ProjectGuid>{AE85D899-815B-44EB-9B5F-E0277BD80D8C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>tilecon</RootNamespace>
-    <AssemblyName>Tileset XP to MV Converter</AssemblyName>
+    <AssemblyName>Tileset Converter to MV</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -22,10 +22,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>https://github.com/HermesPasser/tilecon/build/</UpdateUrl>
+    <UpdateUrl>http://none.com/</UpdateUrl>
     <PublisherName>Gladio Citrico</PublisherName>
-    <ApplicationRevision>4</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>

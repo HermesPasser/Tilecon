@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using tilecon.Conversor;
 
@@ -18,14 +19,15 @@ namespace tilecon
             xpmvController = this;
             InitializeComponent();
             changeLang(Vocab.lang.eng);
-            cbMode.SelectedItem = Vocab.comboNone;
+            cBMaker.SelectedIndex = 2;
+            cbMode.SelectedIndex = 0;
         }
 
         private void changeLang(Vocab.lang l)
         {
             Vocab.changeLang(l);
             saveFileDialog1.Filter = Vocab.pgnFilesText + " (*.png) | *.png";
-            openFileDialog1.Filter = Vocab.imageFilesText + " (*.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.webp) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.webp";
+            openFileDialog1.Filter = Vocab.imageFilesText + " (*.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.webp) | *bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.webp";
             btnConvert.Text = Vocab.btnConvert;
             btnCutSave.Text = Vocab.btnCut;
             btnSearch.Text = Vocab.btnOpen;
@@ -86,27 +88,76 @@ namespace tilecon
 
         private void CutSave()
         {
-            Converter.SaveEachSubimage(Image.FromFile(filepath), filepath, Maker.XP.SPRITE_SIZE);
-            MessageBox.Show(Vocab.doneMessage, "Tilecon");
+            Converter con = new Converter(getVersion());
+            var thread = new Thread(() =>
+            {
+                try
+                { 
+                    con.SaveEachSubimage(Image.FromFile(filepath), filepath);
+                    MessageBox.Show(Vocab.doneMessage, "Tilecon");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            });
+            thread.Start();
         }
 
-        // alterar o nome do tool stip conversion já que isso não engloba o utilities
+        private spriteMode getMode()
+        {
+            if (cbMode.SelectedItem.ToString() == Vocab.comboNone)
+                return spriteMode.NONE;
+            else if (cbMode.SelectedItem.ToString() == Vocab.comboCentralize)
+                return spriteMode.CENTRALIZE;
+            else if (cbMode.SelectedItem.ToString() == Vocab.comboResize)
+                return spriteMode.RESIZE;
+            else
+                return spriteMode.NONE;
+        }
+
+        private Maker.version getVersion()
+        {
+            switch (cBMaker.SelectedItem.ToString())
+            {
+                case "RPG Maker 95":
+                    return Maker.version.R95;
+                case "Sim RPG Maker 97":
+                    return Maker.version.S97;
+                case "RPG Maker XP":
+                    return Maker.version.XP;
+                default:
+                    return Maker.version.XP;
+            }
+        }
+
         private void Convert()
         {
-            Converter.spriteMode mode = Converter.spriteMode.NONE;
+            Maker.version maker = getVersion();
+            spriteMode mode = getMode();
+            btnConvert.Text = Vocab.waitMessage;
 
-            if (cbMode.SelectedItem == null)
-                mode = Converter.spriteMode.NONE;
-            else if (cbMode.SelectedItem.ToString() == Vocab.comboCentralize)
-                mode = Converter.spriteMode.CENTRALIZE;
-            else if (cbMode.SelectedItem.ToString() == Vocab.comboResize)
-                mode = Converter.spriteMode.RESIZE;
+            Converter con = new Converter(maker, mode, checkIgnore.Checked);
+            var thread = new Thread(() =>
+            {
+                try
+                {
+                    bitmaps = con.ConvertToMV(Image.FromFile(filepath));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            });
 
-            bitmaps = Converter.ConvertToMV(Image.FromFile(filepath), checkIgnore.Checked, mode);
+            thread.Start();
+            thread.Join();
+
+            if (bitmaps[0] == null) return;
+
             pictureBox2.Image = bitmaps[0];
             btnSave.Enabled = true;
             saveToolStripMenuItem.Enabled = true;
-
             btnNextImg.Enabled = false;
             btnPreviusImg.Enabled = false;
 
@@ -114,7 +165,8 @@ namespace tilecon
             {
                 btnNextImg.Enabled = true;
                 btnPreviusImg.Enabled = true;
-            } 
+            }
+            btnConvert.Text = Vocab.btnConvert;
         }
 
         private void Save()
@@ -210,25 +262,46 @@ namespace tilecon
             ignoreToolStripMenuItem.Checked = checkIgnore.Checked;
         } 
 
+        private void noneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            centralizeToolStripMenuItem.Checked = false;
+            resizeToolStripMenuItem.Checked = false;
+            cbMode.SelectedIndex = 0;
+        }
+
         private void centralizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             resizeToolStripMenuItem.Checked = false;
             noneToolStripMenuItem.Checked = false;
-            cbMode.SelectedItem = Vocab.comboCentralize;
+            cbMode.SelectedIndex = 1;
         }
 
         private void resizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             centralizeToolStripMenuItem.Checked = false;
             noneToolStripMenuItem.Checked = false;
-            cbMode.SelectedItem = Vocab.comboResize;
+            cbMode.SelectedIndex = 2;
         }
 
-        private void noneToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rPGMaker95ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            centralizeToolStripMenuItem.Checked = false;
-            resizeToolStripMenuItem.Checked = false;
-            cbMode.SelectedItem = Vocab.comboNone;
+            simRPGMaker97ToolStripMenuItem.Checked = false;
+            rPGMakerXPToolStripMenuItem.Checked = false;
+            cBMaker.SelectedIndex = 0;
+        }
+
+        private void simRPGMaker97ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rPGMaker95ToolStripMenuItem.Checked = false;
+            rPGMakerXPToolStripMenuItem.Checked = false;
+            cBMaker.SelectedIndex = 1;
+        }
+
+        private void rPGMakerXPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rPGMaker95ToolStripMenuItem.Checked = false;
+            simRPGMaker97ToolStripMenuItem.Checked = false;
+            cBMaker.SelectedIndex = 2;
         }
 
         private void btnNextImg_Click(object sender, EventArgs e)
@@ -243,8 +316,8 @@ namespace tilecon
         private void btnPreviusImg_Click(object sender, EventArgs e)
         {
             bmpCurrentIndex--;
-            if (bmpCurrentIndex <= bitmaps.Length)
-                bmpCurrentIndex = bitmaps.Length - 1;
+            if (bmpCurrentIndex < 0)
+                bmpCurrentIndex = bitmaps.Length -1;
 
             pictureBox2.Image = bitmaps[bmpCurrentIndex];
         }

@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace tilecon
+﻿namespace tilecon
 {
     static class Vocab
     {
         public enum lang{
             ptbr, eng
         }
-        public static string version = "1.1";
+        public static string version = "1.2";
 
         public static string file;
         public static string archiveExit;
@@ -28,7 +22,10 @@ namespace tilecon
         public static string btnConvert;
         public static string btnSave;
         public static string cbIgnore;
+
         public static string doneMessage;
+        public static string waitMessage;
+        public static string[] errorMessage = new string[3]; 
 
         public static string mode;
 
@@ -65,7 +62,12 @@ namespace tilecon
                 comboCentralize = "Centralize";
                 comboResize = "Resize";
 
+                waitMessage = "Wait...";
                 doneMessage = "Done.";
+                errorMessage[0] = "The height of this image is different from the height for RM97 tilesets!";
+                errorMessage[1] = "Height too big!";
+                errorMessage[2] = "The width of this image is only convertible to Sim RM97 tilesets!";
+
                 groupConversion = "Conversion";
                 groupUtilities = "Utilities";
 
@@ -94,7 +96,12 @@ namespace tilecon
                 comboCentralize = "Centralizar";
                 comboResize = "Redimencionar";
 
+                waitMessage = "Espere...";
                 doneMessage = "Feito.";
+                errorMessage[0] = "";
+                errorMessage[1] = "Altura grande demais!";
+                errorMessage[2] = "A largura desta imagem somente é convertivél para tilesets do Sim RM97!";
+
                 groupConversion = "Conversão";
                 groupUtilities = "Utilidades";
 

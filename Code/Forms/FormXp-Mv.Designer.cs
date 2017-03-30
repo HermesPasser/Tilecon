@@ -66,6 +66,11 @@
             this.groupUtilities = new System.Windows.Forms.GroupBox();
             this.btnNextImg = new System.Windows.Forms.Button();
             this.btnPreviusImg = new System.Windows.Forms.Button();
+            this.cBMaker = new System.Windows.Forms.ComboBox();
+            this.tilesetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGMaker95ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.simRPGMaker97ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGMakerXPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxXP)).BeginInit();
             this.panel2.SuspendLayout();
@@ -92,7 +97,7 @@
             // 
             this.btnSearch.Location = new System.Drawing.Point(12, 33);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(207, 23);
+            this.btnSearch.Size = new System.Drawing.Size(96, 23);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Open Tileset";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -183,6 +188,7 @@
             // 
             this.archiveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openTilesetToolStripMenuItem,
+            this.tilesetToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.archiveToolStripMenuItem.Name = "archiveToolStripMenuItem";
@@ -192,7 +198,7 @@
             // openTilesetToolStripMenuItem
             // 
             this.openTilesetToolStripMenuItem.Name = "openTilesetToolStripMenuItem";
-            this.openTilesetToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.openTilesetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openTilesetToolStripMenuItem.Text = "Open Tileset";
             this.openTilesetToolStripMenuItem.Click += new System.EventHandler(this.openTilesetToolStripMenuItem_Click);
             // 
@@ -200,14 +206,14 @@
             // 
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -245,13 +251,13 @@
             this.resizeToolStripMenuItem});
             this.modeToolStripMenuItem.Enabled = false;
             this.modeToolStripMenuItem.Name = "modeToolStripMenuItem";
-            this.modeToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.modeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.modeToolStripMenuItem.Text = "Mode";
             // 
             // noneToolStripMenuItem
             // 
             this.noneToolStripMenuItem.Name = "noneToolStripMenuItem";
-            this.noneToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.noneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.noneToolStripMenuItem.Text = "None";
             this.noneToolStripMenuItem.Click += new System.EventHandler(this.noneToolStripMenuItem_Click);
             // 
@@ -259,7 +265,7 @@
             // 
             this.centralizeToolStripMenuItem.CheckOnClick = true;
             this.centralizeToolStripMenuItem.Name = "centralizeToolStripMenuItem";
-            this.centralizeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.centralizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.centralizeToolStripMenuItem.Text = "Centralize";
             this.centralizeToolStripMenuItem.Click += new System.EventHandler(this.centralizeToolStripMenuItem_Click);
             // 
@@ -267,7 +273,7 @@
             // 
             this.resizeToolStripMenuItem.CheckOnClick = true;
             this.resizeToolStripMenuItem.Name = "resizeToolStripMenuItem";
-            this.resizeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.resizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.resizeToolStripMenuItem.Text = "Resize";
             this.resizeToolStripMenuItem.Click += new System.EventHandler(this.resizeToolStripMenuItem_Click);
             // 
@@ -276,7 +282,7 @@
             this.ignoreToolStripMenuItem.CheckOnClick = true;
             this.ignoreToolStripMenuItem.Enabled = false;
             this.ignoreToolStripMenuItem.Name = "ignoreToolStripMenuItem";
-            this.ignoreToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.ignoreToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.ignoreToolStripMenuItem.Text = "Ignore Alpha";
             this.ignoreToolStripMenuItem.Click += new System.EventHandler(this.ignoreAlphaToolStripMenuItem_Click);
             // 
@@ -284,7 +290,7 @@
             // 
             this.convertAndSaveToolStripMenuItem.Enabled = false;
             this.convertAndSaveToolStripMenuItem.Name = "convertAndSaveToolStripMenuItem";
-            this.convertAndSaveToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.convertAndSaveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.convertAndSaveToolStripMenuItem.Text = "Convert";
             this.convertAndSaveToolStripMenuItem.Click += new System.EventHandler(this.convertAndSaveToolStripMenuItem_Click);
             // 
@@ -342,6 +348,7 @@
             // cbMode
             // 
             this.cbMode.DisplayMember = "None";
+            this.cbMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMode.Enabled = false;
             this.cbMode.Items.AddRange(new object[] {
             "None",
@@ -351,7 +358,6 @@
             this.cbMode.Name = "cbMode";
             this.cbMode.Size = new System.Drawing.Size(141, 21);
             this.cbMode.TabIndex = 3;
-            this.cbMode.ValueMember = "None";
             // 
             // btnSave
             // 
@@ -408,11 +414,59 @@
             this.btnPreviusImg.UseVisualStyleBackColor = true;
             this.btnPreviusImg.Click += new System.EventHandler(this.btnPreviusImg_Click);
             // 
+            // cBMaker
+            // 
+            this.cBMaker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBMaker.FormattingEnabled = true;
+            this.cBMaker.Items.AddRange(new object[] {
+            "RPG Maker 95",
+            "Sim RPG Maker 97",
+            "RPG Maker XP"});
+            this.cBMaker.Location = new System.Drawing.Point(114, 33);
+            this.cBMaker.Name = "cBMaker";
+            this.cBMaker.Size = new System.Drawing.Size(105, 21);
+            this.cBMaker.TabIndex = 12;
+            // 
+            // tilesetToolStripMenuItem
+            // 
+            this.tilesetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rPGMaker95ToolStripMenuItem,
+            this.simRPGMaker97ToolStripMenuItem,
+            this.rPGMakerXPToolStripMenuItem});
+            this.tilesetToolStripMenuItem.Name = "tilesetToolStripMenuItem";
+            this.tilesetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tilesetToolStripMenuItem.Text = "Tileset";
+            // 
+            // rPGMaker95ToolStripMenuItem
+            // 
+            this.rPGMaker95ToolStripMenuItem.CheckOnClick = true;
+            this.rPGMaker95ToolStripMenuItem.Name = "rPGMaker95ToolStripMenuItem";
+            this.rPGMaker95ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.rPGMaker95ToolStripMenuItem.Text = "RPG Maker 95";
+            this.rPGMaker95ToolStripMenuItem.Click += new System.EventHandler(this.rPGMaker95ToolStripMenuItem_Click);
+            // 
+            // simRPGMaker97ToolStripMenuItem
+            // 
+            this.simRPGMaker97ToolStripMenuItem.CheckOnClick = true;
+            this.simRPGMaker97ToolStripMenuItem.Name = "simRPGMaker97ToolStripMenuItem";
+            this.simRPGMaker97ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.simRPGMaker97ToolStripMenuItem.Text = "Sim RPG Maker 97";
+            this.simRPGMaker97ToolStripMenuItem.Click += new System.EventHandler(this.simRPGMaker97ToolStripMenuItem_Click);
+            // 
+            // rPGMakerXPToolStripMenuItem
+            // 
+            this.rPGMakerXPToolStripMenuItem.CheckOnClick = true;
+            this.rPGMakerXPToolStripMenuItem.Name = "rPGMakerXPToolStripMenuItem";
+            this.rPGMakerXPToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.rPGMakerXPToolStripMenuItem.Text = "RPG Maker XP";
+            this.rPGMakerXPToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerXPToolStripMenuItem_Click);
+            // 
             // FormXpMv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 292);
+            this.Controls.Add(this.cBMaker);
             this.Controls.Add(this.btnPreviusImg);
             this.Controls.Add(this.btnNextImg);
             this.Controls.Add(this.groupUtilities);
@@ -426,7 +480,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormXpMv";
-            this.Text = "Tileset XP to MV Converter";
+            this.Text = "Tileset Converter to MV";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxXP)).EndInit();
@@ -485,6 +539,11 @@
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
         private System.Windows.Forms.Button btnNextImg;
         private System.Windows.Forms.Button btnPreviusImg;
+        private System.Windows.Forms.ComboBox cBMaker;
+        private System.Windows.Forms.ToolStripMenuItem tilesetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rPGMaker95ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem simRPGMaker97ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rPGMakerXPToolStripMenuItem;
     }
 }
 

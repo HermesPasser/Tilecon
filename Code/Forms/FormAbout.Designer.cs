@@ -62,7 +62,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(260, 21);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Tileset XP to MV Converter";
+            this.label2.Text = "Tileset Converter to MV";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // button1
