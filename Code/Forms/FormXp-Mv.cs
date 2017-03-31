@@ -88,7 +88,12 @@ namespace tilecon
 
         private void CutSave()
         {
-            Converter con = new Converter(getVersion());
+            Maker.version v = getVersion();
+            Converter con = new Converter(v);
+
+            if (v == Maker.version.R2000_2003_B)
+                MessageBox.Show(Vocab.r2kMessageCut);
+
             var thread = new Thread(() =>
             {
                 try
@@ -124,6 +129,14 @@ namespace tilecon
                     return Maker.version.R95;
                 case "Sim RPG Maker 97":
                     return Maker.version.S97;
+                case "RPG Maker Alpha":
+                    return Maker.version.Alpha;
+                case "RPG Maker 2000/2003 (Tileset A-B)":
+                    return Maker.version.R2000_2003_AB;
+                case "RPG Maker 2000/2003 (Tileset A)":
+                    return Maker.version.R2000_2003_A;
+                case "RPG Maker 2000/2003 (Tileset B)":
+                    return Maker.version.R2000_2003_B;
                 case "RPG Maker XP":
                     return Maker.version.XP;
                 default:
@@ -137,6 +150,9 @@ namespace tilecon
             spriteMode mode = getMode();
             btnConvert.Text = Vocab.waitMessage;
 
+            if (maker == Maker.version.R2000_2003_B)
+                MessageBox.Show(Vocab.r2kMessageConvert);
+
             Converter con = new Converter(maker, mode, checkIgnore.Checked);
             var thread = new Thread(() =>
             {
@@ -146,7 +162,7 @@ namespace tilecon
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.Source);
                 }
             });
 
@@ -181,8 +197,7 @@ namespace tilecon
                 for (int i = 0; i < bitmaps.Length; i++)
                     bitmaps[i].Save(fileDir + i + ".png");
             }
-            else
-                bitmaps[0].Save(saveFileDialog1.FileName);
+            else bitmaps[0].Save(saveFileDialog1.FileName);
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
@@ -285,23 +300,68 @@ namespace tilecon
 
         private void rPGMaker95ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            simRPGMaker97ToolStripMenuItem.Checked = false;
-            rPGMakerXPToolStripMenuItem.Checked = false;
+            rPGMaker20002003TilesetAB_SMItem.Checked = false;
+            rPGMaker20002003TilesetA_SMItem.Checked = false;
+            rPGMaker20002003TilesetB_SMItem.Checked = false;
+            simRPGMaker97_SMItem.Checked = false;
+            rPGMakerXP_SMItem.Checked = false;
             cBMaker.SelectedIndex = 0;
         }
 
-        private void simRPGMaker97ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void simRPGMaker97_SMItem_Click(object sender, EventArgs e)
         {
-            rPGMaker95ToolStripMenuItem.Checked = false;
-            rPGMakerXPToolStripMenuItem.Checked = false;
+            rPGMaker20002003TilesetAB_SMItem.Checked = false;
+            rPGMaker20002003TilesetA_SMItem.Checked = false;
+            rPGMaker20002003TilesetB_SMItem.Checked = false;
+            rPGMaker95_SMItem.Checked = false;
+            rPGMakerXP_SMItem.Checked = false;
             cBMaker.SelectedIndex = 1;
         }
 
-        private void rPGMakerXPToolStripMenuItem_Click(object sender, EventArgs e)
+        //aplha aqui
+
+        //cBMaker.SelectedIndex = 2;
+
+        //
+
+        private void rPGMaker20002003TilesetAB_SMItem_Click(object sender, EventArgs e)
         {
-            rPGMaker95ToolStripMenuItem.Checked = false;
-            simRPGMaker97ToolStripMenuItem.Checked = false;
-            cBMaker.SelectedIndex = 2;
+            rPGMaker20002003TilesetA_SMItem.Checked = false;
+            rPGMaker20002003TilesetB_SMItem.Checked = false;
+            simRPGMaker97_SMItem.Checked = false;
+            rPGMaker95_SMItem.Checked = false;
+            rPGMakerXP_SMItem.Checked = false;
+            cBMaker.SelectedIndex = 3;
+        }
+
+        private void rPGMaker20002003TilesetA_SMItem_Click(object sender, EventArgs e)
+        {
+            rPGMaker20002003TilesetAB_SMItem.Checked = false;
+            rPGMaker20002003TilesetB_SMItem.Checked = false;
+            simRPGMaker97_SMItem.Checked = false;
+            rPGMaker95_SMItem.Checked = false;
+            rPGMakerXP_SMItem.Checked = false;
+            cBMaker.SelectedIndex = 4;
+        }
+
+        private void rPGMaker20002003TilesetB_SMItem_Click(object sender, EventArgs e)
+        {
+            rPGMaker20002003TilesetAB_SMItem.Checked = false;
+            rPGMaker20002003TilesetA_SMItem.Checked = false;
+            simRPGMaker97_SMItem.Checked = false;
+            rPGMaker95_SMItem.Checked = false;
+            rPGMakerXP_SMItem.Checked = false;
+            cBMaker.SelectedIndex = 5;
+        }
+
+        private void rPGMakerXP_SMItem_Click(object sender, EventArgs e)
+        {
+            rPGMaker20002003TilesetAB_SMItem.Checked = false;
+            rPGMaker20002003TilesetA_SMItem.Checked = false;
+            rPGMaker20002003TilesetB_SMItem.Checked = false;
+            rPGMaker95_SMItem.Checked = false;
+            simRPGMaker97_SMItem.Checked = false;
+            cBMaker.SelectedIndex = 6;
         }
 
         private void btnNextImg_Click(object sender, EventArgs e)

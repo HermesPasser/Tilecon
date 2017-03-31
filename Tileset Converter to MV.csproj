@@ -24,8 +24,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://none.com/</UpdateUrl>
     <PublisherName>Gladio Citrico</PublisherName>
-    <ApplicationRevision>6</ApplicationRevision>
-    <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
+    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationVersion>1.3.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="Code\Converter.cs" />
     <Compile Include="Code\Program.cs" />
+    <Compile Include="Code\ImageProcessing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Code\Vocab.cs" />
     <EmbeddedResource Include="Code\Forms\FormAbout.resx">

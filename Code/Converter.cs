@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 using System.Drawing;
 using System.Linq;
 
@@ -10,7 +9,7 @@ namespace tilecon.Conversor
         NONE, RESIZE, CENTRALIZE
     }
 
-    class Converter
+    class Converter : ImageProcessing
     { 
         private bool ignoreAlpha;
         private spriteMode mode;
@@ -29,19 +28,7 @@ namespace tilecon.Conversor
             this.mode = spriteMode.NONE;
             this.ignoreAlpha = false;
         }
-
-        private Bitmap Crop(Bitmap src, int x, int y, int width, int height)
-        {
-            Rectangle rect = new Rectangle(x, y, width, height);
-            Bitmap bmp = new Bitmap(rect.Width, rect.Height);
-            using (Graphics gph = Graphics.FromImage(bmp))
-            {
-                gph.DrawImage(src, new Rectangle(0, 0, bmp.Width, bmp.Height), rect, GraphicsUnit.Pixel);
-                gph.Dispose();
-            }
-            return bmp;
-        }
-
+        
         public void SaveEachSubimage(Image img, string fileDir)
         {
             int spriteSize = Maker.GetSpriteSize(maker);
@@ -54,7 +41,7 @@ namespace tilecon.Conversor
 
             for (int i = 0, y = 0; y < height; y += spriteSize)
             {
-                for (int x = 0; x < width; x += spriteSize)
+                for (int x = 192; x < width; x += spriteSize)
                 {
                     int ipp = i + 1;
                     string s = ipp > 99 ? s = ipp.ToString() : ipp > 9 ? s = ipp.ToString() : s = "0" + ipp;
@@ -74,6 +61,12 @@ namespace tilecon.Conversor
 
             if (height == -1) height = img.Height;
 
+            if (Maker.Is2k_2k3(maker))
+            {
+                width = (img as Bitmap).Width;
+                height = (img as Bitmap).Height;
+            }
+
             Bitmap[] sprites = new Bitmap[cropSize];
 
             for (int y = 0, i = 0; y < height; y += spriteSize)
@@ -87,63 +80,7 @@ namespace tilecon.Conversor
             return sprites;
         }
 
-        private bool IsAlpha(Bitmap bmp)
-        {
-            for (int y = 0; y < bmp.Height; y++)
-                for (int x = 0; x < bmp.Width; x++)
-                    if (bmp.GetPixel(x, y).A == 0)
-                        return true;
-            return false;
-        }
-
-        private Bitmap Resize(Bitmap bmp, int newSpriteSize)
-        {
-            Bitmap tempBmp = new Bitmap(newSpriteSize, newSpriteSize);
-            bool b = false;
-
-            int i = 0;//, i = 0
-            for (int y = 0; y < bmp.Height; y++)
-            {
-                i = 0;
-                for (int x = 0; x < bmp.Width; x++, i++)
-                {
-                    if (i < tempBmp.Width)
-                        tempBmp.SetPixel(i, y, bmp.GetPixel(x, y));
-                    if (b && i + 1 < tempBmp.Width)
-                    {
-                        tempBmp.SetPixel(i + 1, y, bmp.GetPixel(x, y));
-                        i++;
-                    }  
-                    
-                    b = !b;
-                }
-            }
-
-            bmp = tempBmp;
-            tempBmp = new Bitmap(newSpriteSize, newSpriteSize);
-
-            for (int x = 0; x < bmp.Width; x++)
-            {
-                i = 0;
-                for (int y = 0; y < bmp.Height; y++, i++)
-                {
-                    if (i < tempBmp.Height)
-                    {
-                        tempBmp.SetPixel(x, i, bmp.GetPixel(x, y));
-                        if (b && i + 1 < tempBmp.Height)
-                        {
-                            tempBmp.SetPixel(x, i + 1, bmp.GetPixel(x, y));
-                            i++;
-                        }
-                    }
-                    b = !b;
-                }
-            }
-            //tempBmp.Save("C:\\Users\\DSL\\Desktop\\tilecon\\0D + " + g + ".png");
-            return tempBmp;
-        }
-
-        private int PasteMV(Bitmap bmp, List<Bitmap> sprites, int initY, int initX, int height, int width, int spriteIterator)
+        private int PasteEachSprite(Bitmap bmp, List<Bitmap> sprites, int initY, int initX, int height, int width, int spriteIterator)
         {
             Rectangle rect = new Rectangle(0, 0, sprites[0].Width, sprites[0].Height);
             Graphics graphics = Graphics.FromImage(bmp);
@@ -159,36 +96,26 @@ namespace tilecon.Conversor
                     if (spriteIterator >= sprites.Count || sprites[spriteIterator] == null)
                         break;
 
+                    //To jump null sprite in r2k
+                    if ((maker == Maker.version.R2000_2003_A && spriteIterator == 137) || 
+                        (maker == Maker.version.R2000_2003_AB && (spriteIterator == 24 || spriteIterator == 163)))
+                    {
+                        spriteIterator++;
+                        continue;
+                    }
+                    
                     //To centralize
                     int xx = x, yy = y;
                     if (mode == spriteMode.CENTRALIZE)
                     {
-                        xx += Maker.GetSpriteSize(maker) - (Maker.MV.SPRITE_SIZE / 2);
-                        yy += Maker.GetSpriteSize(maker) - (Maker.MV.SPRITE_SIZE / 2);
-                    } //To resize
-                    //else if (mode == spriteMode.RESIZE)
-                    //    sprites[spriteIterator] = Resize(sprites[spriteIterator], Maker.MV.SPRITE_SIZE);
+                        int z = 0;
+                        if (Maker.GetSpriteSize(maker) == 32) z = 8;
+                        else if (Maker.GetSpriteSize(maker) == 16) z = 16;
 
-                    //so o fato desse if estar descomentado ja buga tudo mesmo que o resize dentro dele esteja comentado
-                    //To ignore alpha
-                    //if (ignoreAlpha && IsAlpha(sprites[spriteIterator], spriteIterator))
-                    //{
-                    //    if (spriteIterator + 1 < sprites.Count)
-                    //    {
-                    //        //        // AQUI MORA O ERRO
-
-                    //        //        //To resize
-                    //        //        if (mode == spriteMode.RESIZE)
-                    //        //            sprites[spriteIterator + 1] = Resize(sprites[spriteIterator], Maker.MV.SPRITE_SIZE);
-
-                    //        graphics.DrawImage(sprites[spriteIterator + 1], xx, yy, rect, GraphicsUnit.Pixel);
-
-                    //    }
-                    //    spriteIterator++;
-                    //}
-                    else
-                        graphics.DrawImage(sprites[spriteIterator], xx, yy, rect, GraphicsUnit.Pixel);
-
+                        xx += z;
+                        yy += z;
+                    }
+                    graphics.DrawImage(sprites[spriteIterator], xx, yy, rect, GraphicsUnit.Pixel);
                     spriteIterator++;
                 }
             }
@@ -198,64 +125,125 @@ namespace tilecon.Conversor
 
         private bool IsConvertible(Image img)
         {
-            if (maker == Maker.version.S97)
+            switch (maker)
             {
-                if (img.Width != Maker.S97.SIZE_WIDTH)
+                case Maker.version.S97:
+                    if (img.Width != Maker.S97.SIZE_WIDTH)
+                    {
+                        System.Windows.Forms.MessageBox.Show(Vocab.errorMessage[0]);
+                        return false;
+                    }
+                    else if (img.Height > Maker.S97.SIZE_HEIGHT)
+                    {
+                        System.Windows.Forms.MessageBox.Show(Vocab.errorMessage[1]);
+                        return false;
+                    }
+                    break;
+            }
+
+            if (Maker.Is2k_2k3(maker))
+            {
+                if ((img as Bitmap).Width != Maker.R2000_2003.SIZE_WIDTH || (img as Bitmap).Height != Maker.R2000_2003.SIZE_HEIGHT)
                 {
-                    System.Windows.Forms.MessageBox.Show(Vocab.errorMessage[0]);
-                    return false;
-                }
-                else if (img.Height > Maker.S97.SIZE_HEIGHT)
-                {
-                    System.Windows.Forms.MessageBox.Show(Vocab.errorMessage[1]);
                     return false;
                 }
             }
+
             return true;
         }
 
+        public Bitmap Get2kTileset(Bitmap bmp)
+        {
+            Bitmap temp, bmp1, bmp2;
+
+            if (maker == Maker.version.R2000_2003_B)
+            {
+                temp = Crop(bmp, 288, 0, 192, Maker.R2000_2003.SIZE_HEIGHT); ;
+                bmp1 = Crop(temp, 0, Maker.R2000_2003.SIZE_HEIGHT / 2, 192, Maker.R2000_2003.SIZE_HEIGHT / 2);
+                bmp2 = Crop(temp, 96, 0, 96, Maker.R2000_2003.SIZE_HEIGHT / 2);
+            }
+            else
+            {
+                temp = Crop(bmp, 192, 0, 288, Maker.R2000_2003.SIZE_HEIGHT);
+                bmp1 = Crop(temp, 0, 0, 192, Maker.R2000_2003.SIZE_HEIGHT / 2);
+                bmp2 = Crop(temp, 0, Maker.R2000_2003.SIZE_HEIGHT / 2, 96, Maker.R2000_2003.SIZE_HEIGHT / 2);
+            }
+
+            if (maker == Maker.version.R2000_2003_AB)
+            {
+                temp = Crop(bmp, 288, 0, 192, Maker.R2000_2003.SIZE_HEIGHT); ;
+                Bitmap bmp4 = Crop(temp, 0, Maker.R2000_2003.SIZE_HEIGHT / 2, 192, Maker.R2000_2003.SIZE_HEIGHT / 2);
+                Bitmap bmp3 = Crop(temp, 96, 0, 96, Maker.R2000_2003.SIZE_HEIGHT / 2);
+
+                temp = new Bitmap(576, Maker.R2000_2003.SIZE_HEIGHT / 2);
+                temp = Paste(temp, bmp1, 0, 0, 192, 197);
+                temp = Paste(temp, bmp2, 192, 0, 192, 197);
+
+                temp = Paste(temp, bmp3, 288, 0, 575, Maker.R2000_2003.SIZE_HEIGHT / 2);
+                temp = Paste(temp, bmp4, 384, 0, 575, Maker.R2000_2003.SIZE_HEIGHT / 2);
+            }
+            else
+            {
+                temp = new Bitmap(288, Maker.R2000_2003.SIZE_HEIGHT / 2);
+                temp = Paste(temp, bmp1, 0, 0, 192, 197);
+                temp = Paste(temp, bmp2, 192, 0, 191, 197);
+            }
+            return temp;
+        }
 
         public Bitmap[] ConvertToMV(Image img)
         {
             if (!IsConvertible(img)) return new Bitmap[1];
 
+            if (Maker.Is2k_2k3(maker))
+                img = Get2kTileset(img as Bitmap);
+            
             List<Bitmap> images = new List<Bitmap>();
             List<Bitmap> sprites = GetSprites(img).ToList<Bitmap>();
-
-            //TESTANDO SE DAR RESIZE ANTES MUDA ALGO
 
             //To ignore alpha
             if (ignoreAlpha)
                 for (int g = 0; g < sprites.Count; g++)
-                    if (IsAlpha(sprites[g])) sprites.Remove(sprites[g]);
-
+                    if (IsAllAlphaImage(sprites[g])) sprites.Remove(sprites[g]);
+            
             //To resize
             if (mode == spriteMode.RESIZE)
                 for (int g = 0; g < sprites.Count; g++)
-                    sprites[g] = Resize(sprites[g], Maker.MV.SPRITE_SIZE);
+                    sprites[g] = Stretch(sprites[g], Maker.MV.SPRITE_SIZE);
 
-        //FIM TESTE
 
             int i = 0;
 
+            //To jump alpha tile in RM2000
+            if (Maker.Is2k_2k3(maker))
+            {
+                i = Maker.R2000_2003.SPRITE_SIZE;
+                //To resize
+                if (mode == spriteMode.RESIZE)
+                {
+                    i = Maker.MV.SPRITE_SIZE; 
+                    for (int g = 0; g < sprites.Count; g++) // To resiz more
+                        sprites[g] = Stretch(sprites[g], Maker.MV.SPRITE_SIZE);
+                }    
+            }
+                
             //For each image
-            while (i < 1)//sprites.Count)
+            while (i < sprites.Count)
             {
                 //Draw image
                 Bitmap tempBmp = new Bitmap(Maker.MV.BE.SIZE, Maker.MV.BE.SIZE);
                 tempBmp.SetPixel(0, 0, Color.White);
 
                 //Draw in first part of bitmap
-                i = PasteMV(tempBmp, sprites, 0, 0, tempBmp.Height, tempBmp.Width / 2, i);
+                i = PasteEachSprite(tempBmp, sprites, 0, 0, tempBmp.Height, tempBmp.Width / 2, i);
 
                 //Draw in second part of bitmap
-                i = PasteMV(tempBmp, sprites, 0, tempBmp.Width / 2, tempBmp.Height, tempBmp.Width, i);
+                i = PasteEachSprite(tempBmp, sprites, 0, tempBmp.Width / 2, tempBmp.Height, tempBmp.Width, i);
 
                 //Add image to the list
                 images.Add(tempBmp);
             }
 
-            //System.Windows.Forms.MessageBox.Show("Done");
             return images.ToArray();
         }
     }

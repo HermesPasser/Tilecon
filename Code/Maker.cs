@@ -6,17 +6,29 @@ namespace tilecon.Conversor
     {
         public enum version
         {
-            R95, S97, XP
+            R95, S97, Alpha, R2000_2003_A, R2000_2003_B, R2000_2003_AB, XP
+        }
+
+        public static bool Is2k_2k3(version ver)
+        {
+            if (ver == version.R2000_2003_A || ver == version.R2000_2003_B || ver == version.R2000_2003_AB)
+                return true;
+            return false;
         }
 
         public static int GetSpriteSize(version maker)
         {
+            if (Is2k_2k3(maker))
+                return R2000_2003.SPRITE_SIZE;
+
             switch (maker)
             {
                 case version.R95:
                     return R95.SPRITE_SIZE;
                 case version.S97:
                     return S97.SPRITE_SIZE;
+                case version.Alpha:
+                    return Alpha.SPRITE_SIZE;
                 case version.XP:
                     return XP.SPRITE_SIZE;
                 default:
@@ -26,12 +38,17 @@ namespace tilecon.Conversor
 
         public static int GetSizeWidth(version maker)
         {
+            if (Is2k_2k3(maker))
+                return R2000_2003.SIZE_WIDTH;
+
             switch (maker)
             {
                 case version.R95:
                     return R95.SIZE_WIDTH;
                 case version.S97:
                     return S97.SIZE_WIDTH;
+                case version.Alpha:
+                    return Alpha.SIZE_WIDTH;
                 case version.XP:
                     return XP.SIZE_WIDTH;
                 default:
@@ -41,12 +58,17 @@ namespace tilecon.Conversor
 
         public static int GetSizeHeight(version maker)
         {
+            if (Is2k_2k3(maker))
+                return R2000_2003.SIZE_HEIGHT;
+
             switch (maker)
             {
                 case version.R95:
                     return R95.SIZE_HEIGHT;
                 case version.S97:
                     return S97.SIZE_HEIGHT;
+                case version.Alpha:
+                    return Alpha.SIZE_HEIGHT;
                 case version.XP:
                     return -1;
                 default:
@@ -57,24 +79,36 @@ namespace tilecon.Conversor
         public static class R95
         {
             public static readonly int SPRITE_SIZE = 32;
-            public static readonly int SIZE_WIDTH = 256;
+            public static readonly int SIZE_WIDTH  = 256;
             public static readonly int SIZE_HEIGHT = 1024;
         }
 
         public static class S97
         {
+            public static readonly int SPRITE_SIZE = 16;
+            public static readonly int SIZE_WIDTH  = 64;
+            public static readonly int SIZE_HEIGHT = 128;
+        }
+
+        
+        public static class Alpha
+        {
             public static readonly int SPRITE_SIZE = 32;
-            public static readonly int SIZE_WIDTH = 384;
+            public static readonly int SIZE_WIDTH  = 384;
             public static readonly int SIZE_HEIGHT = 1024;
         }
 
-        //public static class R2000 { }
-        //public static class R2003 { }
+        public static class R2000_2003
+        { 
+            public static readonly int SPRITE_SIZE = 16;
+            public static readonly int SIZE_WIDTH  = 480;
+            public static readonly int SIZE_HEIGHT = 256;
+        }
 
         public static class XP
         {
             public static readonly int SPRITE_SIZE = 32;
-            public static readonly int SIZE_WIDTH = 256;
+            public static readonly int SIZE_WIDTH  = 256;
         }
 
         //public static class VX { }
@@ -84,31 +118,31 @@ namespace tilecon.Conversor
         {
             public static class A12
             {
-                public static readonly int SIZE_WIDTH = 512;
+                public static readonly int SIZE_WIDTH  = 512;
                 public static readonly int SIZE_HEIGHT = 384;
             }
 
             public static class A3
             {
-                public static readonly int SIZE_WIDTH = 512;
+                public static readonly int SIZE_WIDTH  = 512;
                 public static readonly int SIZE_HEIGHT = 256;
             }
 
             public static class A4
             {
-                public static readonly int SIZE_WIDTH = 512;
+                public static readonly int SIZE_WIDTH  = 512;
                 public static readonly int SIZE_HEIGHT = 480;
             }
 
             public static class A5
             {
-                public static readonly int SIZE_WIDTH = 512;
+                public static readonly int SIZE_WIDTH  = 512;
                 public static readonly int SIZE_HEIGHT = 512;
             }
 
             public static class BE
             {
-                public static readonly int SIZE_WIDTH = 512;
+                public static readonly int SIZE_WIDTH  = 512;
                 public static readonly int SIZE_HEIGHT = 512;
             }
         }
@@ -119,19 +153,19 @@ namespace tilecon.Conversor
 
             public static class A12
             {
-                public static readonly int SIZE_WIDTH = 768;
+                public static readonly int SIZE_WIDTH  = 768;
                 public static readonly int SIZE_HEIGHT = 576;
             }
 
             public static class A3
             {
-                public static readonly int SIZE_WIDTH = 768;
+                public static readonly int SIZE_WIDTH  = 768;
                 public static readonly int SIZE_HEIGHT = 384;
             }
 
             public static class A4
             {
-                public static readonly int SIZE_WIDTH = 384;
+                public static readonly int SIZE_WIDTH  = 384;
                 public static readonly int SIZE_HEIGHT = 768;
             }
 

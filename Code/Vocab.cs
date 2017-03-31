@@ -5,7 +5,7 @@
         public enum lang{
             ptbr, eng
         }
-        public static string version = "1.2";
+        public static string version = "1.3";
 
         public static string file;
         public static string archiveExit;
@@ -23,6 +23,8 @@
         public static string btnSave;
         public static string cbIgnore;
 
+        public static string r2kMessageConvert;
+        public static string r2kMessageCut;
         public static string doneMessage;
         public static string waitMessage;
         public static string[] errorMessage = new string[3]; 
@@ -62,6 +64,8 @@
                 comboCentralize = "Centralize";
                 comboResize = "Resize";
 
+                r2kMessageCut = "The autotiles will also be saved.";
+                r2kMessageConvert = "The sprites that represent the \"autotile\" are disregarded.";
                 waitMessage = "Wait...";
                 doneMessage = "Done.";
                 errorMessage[0] = "The height of this image is different from the height for RM97 tilesets!";
@@ -96,6 +100,8 @@
                 comboCentralize = "Centralizar";
                 comboResize = "Redimencionar";
 
+                r2kMessageCut = "Os autotiles também serão salvos.";
+                r2kMessageConvert = "Os sprites que representam um \"autotile\" serão desconsiderados.";
                 waitMessage = "Espere...";
                 doneMessage = "Feito.";
                 errorMessage[0] = "";
