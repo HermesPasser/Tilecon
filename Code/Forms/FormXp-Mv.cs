@@ -18,16 +18,17 @@ namespace tilecon
         {
             xpmvController = this;
             InitializeComponent();
-            changeLang(Vocab.lang.eng);
-            cBMaker.SelectedIndex = 2;
+            cbMaker.SelectedIndexChanged += new EventHandler(cbMaker_SelectedIndexChanged);
+            ChangeLang(Vocab.lang.eng);
+            cbMaker.SelectedIndex = 6;
             cbMode.SelectedIndex = 0;
         }
 
-        private void changeLang(Vocab.lang l)
+        private void ChangeLang(Vocab.lang l)
         {
             Vocab.changeLang(l);
             saveFileDialog1.Filter = Vocab.pgnFilesText + " (*.png) | *.png";
-            openFileDialog1.Filter = Vocab.imageFilesText + " (*.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.webp) | *bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.webp";
+            openFileDialog1.Filter = Vocab.imageFilesText + " (*.gif, *.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.webp) | *.gif; *bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.webp";
             btnConvert.Text = Vocab.btnConvert;
             btnCutSave.Text = Vocab.btnCut;
             btnSearch.Text = Vocab.btnOpen;
@@ -88,10 +89,10 @@ namespace tilecon
 
         private void CutSave()
         {
-            Maker.version v = getVersion();
+            Maker.Tileset v = GetTileset();
             Converter con = new Converter(v);
 
-            if (v == Maker.version.R2000_2003_B)
+            if (v == Maker.Tileset.R2000_2003_B)
                 MessageBox.Show(Vocab.r2kMessageCut);
 
             var thread = new Thread(() =>
@@ -109,48 +110,54 @@ namespace tilecon
             thread.Start();
         }
 
-        private spriteMode getMode()
+        private spriteMode GetMode()
         {
-            if (cbMode.SelectedItem.ToString() == Vocab.comboNone)
-                return spriteMode.NONE;
-            else if (cbMode.SelectedItem.ToString() == Vocab.comboCentralize)
+            if (cbMode.SelectedIndex == 1)
                 return spriteMode.CENTRALIZE;
-            else if (cbMode.SelectedItem.ToString() == Vocab.comboResize)
+            else if (cbMode.SelectedIndex == 2)
                 return spriteMode.RESIZE;
-            else
-                return spriteMode.NONE;
+            else return spriteMode.NONE;
         }
 
-        private Maker.version getVersion()
+        private Maker.Tileset GetTileset()
         {
-            switch (cBMaker.SelectedItem.ToString())
+            switch (cbMaker.SelectedItem.ToString())
             {
                 case "RPG Maker 95":
-                    return Maker.version.R95;
+                    return Maker.Tileset.R95;
                 case "Sim RPG Maker 97":
-                    return Maker.version.S97;
+                    return Maker.Tileset.S97;
                 case "RPG Maker Alpha":
-                    return Maker.version.Alpha;
+                    return Maker.Tileset.Alpha;
                 case "RPG Maker 2000/2003 (Tileset A-B)":
-                    return Maker.version.R2000_2003_AB;
+                    return Maker.Tileset.R2000_2003_AB;
                 case "RPG Maker 2000/2003 (Tileset A)":
-                    return Maker.version.R2000_2003_A;
+                    return Maker.Tileset.R2000_2003_A;
                 case "RPG Maker 2000/2003 (Tileset B)":
-                    return Maker.version.R2000_2003_B;
+                    return Maker.Tileset.R2000_2003_B;
+                case "RPG Maker VX/Ace (Tileset A1-2)":
+                    return Maker.Tileset.VX_Ace_A12;
+                case "RPG Maker VX (Tileset A3)":
+                    return Maker.Tileset.VX_A3;
+                case "RPG Maker VX/Ace (Tileset A4)":
+                    return Maker.Tileset.VX_Ace_A4;
+                case "RPG Maker VX/Ace (Tileset A5)":
+                    return Maker.Tileset.VX_Ace_A5;
+                case "RPG Maker VX/Ace (Tileset B-E)":
+                    return Maker.Tileset.VX_BE_Ace_BC;
                 case "RPG Maker XP":
-                    return Maker.version.XP;
                 default:
-                    return Maker.version.XP;
+                    return Maker.Tileset.XP;
             }
         }
 
         private void Convert()
         {
-            Maker.version maker = getVersion();
-            spriteMode mode = getMode();
+            Maker.Tileset maker = GetTileset();
+            spriteMode mode = GetMode();
             btnConvert.Text = Vocab.waitMessage;
 
-            if (maker == Maker.version.R2000_2003_B)
+            if (maker == Maker.Tileset.R2000_2003_B)
                 MessageBox.Show(Vocab.r2kMessageConvert);
 
             Converter con = new Converter(maker, mode, checkIgnore.Checked);
@@ -162,14 +169,15 @@ namespace tilecon
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Source);
+                    MessageBox.Show(ex+"");
+                    return;
                 }
             });
 
             thread.Start();
             thread.Join();
 
-            if (bitmaps[0] == null) return;
+            if (bitmaps == null || bitmaps[0] == null) return;
 
             pictureBox2.Image = bitmaps[0];
             btnSave.Enabled = true;
@@ -198,6 +206,29 @@ namespace tilecon
                     bitmaps[i].Save(fileDir + i + ".png");
             }
             else bitmaps[0].Save(saveFileDialog1.FileName);
+        }
+
+        private void OnIndexChange()
+        {
+            Converter con = new Converter(GetTileset(), GetMode(), checkIgnore.Checked);
+            switch (con.GetOutputMaker())
+            {
+                case Maker.Tileset.MV_A12:
+                    labelMVTilesetName.Text = "A1-2";
+                    break;
+                case Maker.Tileset.MV_A4:
+                    labelMVTilesetName.Text = "A4";
+                    break;
+                case Maker.Tileset.MV_A5:
+                    labelMVTilesetName.Text = "A5";
+                    break;
+                case Maker.Tileset.MV_BC:
+                    labelMVTilesetName.Text = "B-C";
+                    break;
+                default:
+                    labelMVTilesetName.Text = "B-C";
+                    break;
+            }
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
@@ -229,22 +260,22 @@ namespace tilecon
 
         private void cutsaveIndividualFramesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-                CutSave();
+            CutSave();
         }
 
         private void convertAndSaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-                Convert();
+            Convert();
         }
 
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            changeLang(Vocab.lang.eng);
+            ChangeLang(Vocab.lang.eng);
         }
 
         private void portugueseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            changeLang(Vocab.lang.ptbr);
+            ChangeLang(Vocab.lang.ptbr);
         }
 
         private void openTilesetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -300,68 +331,62 @@ namespace tilecon
 
         private void rPGMaker95ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            rPGMaker20002003TilesetAB_SMItem.Checked = false;
-            rPGMaker20002003TilesetA_SMItem.Checked = false;
-            rPGMaker20002003TilesetB_SMItem.Checked = false;
-            simRPGMaker97_SMItem.Checked = false;
-            rPGMakerXP_SMItem.Checked = false;
-            cBMaker.SelectedIndex = 0;
+            cbMaker.SelectedIndex = 0;
         }
 
         private void simRPGMaker97_SMItem_Click(object sender, EventArgs e)
         {
-            rPGMaker20002003TilesetAB_SMItem.Checked = false;
-            rPGMaker20002003TilesetA_SMItem.Checked = false;
-            rPGMaker20002003TilesetB_SMItem.Checked = false;
-            rPGMaker95_SMItem.Checked = false;
-            rPGMakerXP_SMItem.Checked = false;
-            cBMaker.SelectedIndex = 1;
+            cbMaker.SelectedIndex = 1;
         }
 
-        //aplha aqui
-
-        //cBMaker.SelectedIndex = 2;
-
-        //
+        private void rPGMakerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cbMaker.SelectedIndex = 2;
+        }
 
         private void rPGMaker20002003TilesetAB_SMItem_Click(object sender, EventArgs e)
         {
-            rPGMaker20002003TilesetA_SMItem.Checked = false;
-            rPGMaker20002003TilesetB_SMItem.Checked = false;
-            simRPGMaker97_SMItem.Checked = false;
-            rPGMaker95_SMItem.Checked = false;
-            rPGMakerXP_SMItem.Checked = false;
-            cBMaker.SelectedIndex = 3;
+            cbMaker.SelectedIndex = 3;
         }
 
         private void rPGMaker20002003TilesetA_SMItem_Click(object sender, EventArgs e)
         {
-            rPGMaker20002003TilesetAB_SMItem.Checked = false;
-            rPGMaker20002003TilesetB_SMItem.Checked = false;
-            simRPGMaker97_SMItem.Checked = false;
-            rPGMaker95_SMItem.Checked = false;
-            rPGMakerXP_SMItem.Checked = false;
-            cBMaker.SelectedIndex = 4;
+            cbMaker.SelectedIndex = 4;
         }
 
         private void rPGMaker20002003TilesetB_SMItem_Click(object sender, EventArgs e)
         {
-            rPGMaker20002003TilesetAB_SMItem.Checked = false;
-            rPGMaker20002003TilesetA_SMItem.Checked = false;
-            simRPGMaker97_SMItem.Checked = false;
-            rPGMaker95_SMItem.Checked = false;
-            rPGMakerXP_SMItem.Checked = false;
-            cBMaker.SelectedIndex = 5;
+            cbMaker.SelectedIndex = 5;
         }
 
         private void rPGMakerXP_SMItem_Click(object sender, EventArgs e)
         {
-            rPGMaker20002003TilesetAB_SMItem.Checked = false;
-            rPGMaker20002003TilesetA_SMItem.Checked = false;
-            rPGMaker20002003TilesetB_SMItem.Checked = false;
-            rPGMaker95_SMItem.Checked = false;
-            simRPGMaker97_SMItem.Checked = false;
-            cBMaker.SelectedIndex = 6;
+            cbMaker.SelectedIndex = 6;
+        }
+
+        private void rPGMakerVXAceTilesetA12ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cbMaker.SelectedIndex = 7;
+        }
+
+        private void rPGMakerVXTilesetA3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cbMaker.SelectedIndex = 8;
+        }
+
+        private void rPGMakerVXAceTilesetA4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cbMaker.SelectedIndex = 9;
+        }
+
+        private void rPGMakerVXAceTilesetA5ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cbMaker.SelectedIndex = 10;
+        }
+
+        private void rPGMakerVXAceTilesetBEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cbMaker.SelectedIndex = 11;
         }
 
         private void btnNextImg_Click(object sender, EventArgs e)
@@ -380,6 +405,11 @@ namespace tilecon
                 bmpCurrentIndex = bitmaps.Length -1;
 
             pictureBox2.Image = bitmaps[bmpCurrentIndex];
+        }
+
+        private void cbMaker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            OnIndexChange();
         }
     }
 }

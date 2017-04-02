@@ -5,7 +5,7 @@
         public enum lang{
             ptbr, eng
         }
-        public static string version = "1.3";
+        public static string version = "1.4";
 
         public static string file;
         public static string archiveExit;
@@ -27,7 +27,7 @@
         public static string r2kMessageCut;
         public static string doneMessage;
         public static string waitMessage;
-        public static string[] errorMessage = new string[3]; 
+        public static string errorMessage; 
 
         public static string mode;
 
@@ -68,10 +68,8 @@
                 r2kMessageConvert = "The sprites that represent the \"autotile\" are disregarded.";
                 waitMessage = "Wait...";
                 doneMessage = "Done.";
-                errorMessage[0] = "The height of this image is different from the height for RM97 tilesets!";
-                errorMessage[1] = "Height too big!";
-                errorMessage[2] = "The width of this image is only convertible to Sim RM97 tilesets!";
-
+                errorMessage = "Width or height does not match the size of the selected tileset.";
+                
                 groupConversion = "Conversion";
                 groupUtilities = "Utilities";
 
@@ -104,9 +102,7 @@
                 r2kMessageConvert = "Os sprites que representam um \"autotile\" serão desconsiderados.";
                 waitMessage = "Espere...";
                 doneMessage = "Feito.";
-                errorMessage[0] = "";
-                errorMessage[1] = "Altura grande demais!";
-                errorMessage[2] = "A largura desta imagem somente é convertivél para tilesets do Sim RM97!";
+                errorMessage = "Largura ou altura não corresponde ao tamanho do conjunto de telas selecionado.";
 
                 groupConversion = "Conversão";
                 groupUtilities = "Utilidades";

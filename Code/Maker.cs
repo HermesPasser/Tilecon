@@ -4,73 +4,102 @@ namespace tilecon.Conversor
 {
     static class Maker
     {
-        public enum version
+        public enum Tileset
         {
-            R95, S97, Alpha, R2000_2003_A, R2000_2003_B, R2000_2003_AB, XP
+            R95, S97, Alpha, R2000_2003_A, R2000_2003_B, R2000_2003_AB, XP,
+            VX_Ace_A12, VX_A3, VX_Ace_A4, VX_Ace_A5, VX_BE_Ace_BC,
+            MV_A12, MV_A4, MV_A5, MV_BC
         }
 
-        public static bool Is2k_2k3(version ver)
+        public static bool Is2K_2K3(Tileset ver)
         {
-            if (ver == version.R2000_2003_A || ver == version.R2000_2003_B || ver == version.R2000_2003_AB)
+            if (ver == Tileset.R2000_2003_A || ver == Tileset.R2000_2003_B || ver == Tileset.R2000_2003_AB)
                 return true;
             return false;
         }
 
-        public static int GetSpriteSize(version maker)
+        public static bool IsVX_Ace(Tileset ver)
         {
-            if (Is2k_2k3(maker))
+            if (ver == Tileset.VX_Ace_A12 || ver == Tileset.VX_A3 || ver == Tileset.VX_Ace_A4 || ver == Tileset.VX_BE_Ace_BC)
+                return true;
+            return false;
+        }
+
+        public static int GetSpriteSize(Tileset maker)
+        {
+            if (Is2K_2K3(maker))
                 return R2000_2003.SPRITE_SIZE;
+            else if (IsVX_Ace(maker))
+                return VX_Ace.SPRITE_SIZE;
 
             switch (maker)
             {
-                case version.R95:
+                case Tileset.R95:
                     return R95.SPRITE_SIZE;
-                case version.S97:
+                case Tileset.S97:
                     return S97.SPRITE_SIZE;
-                case version.Alpha:
+                case Tileset.Alpha:
                     return Alpha.SPRITE_SIZE;
-                case version.XP:
+                case Tileset.XP:
                     return XP.SPRITE_SIZE;
                 default:
                     return XP.SPRITE_SIZE;
             }
         }
 
-        public static int GetSizeWidth(version maker)
+        public static int GetSizeWidth(Tileset maker)
         {
-            if (Is2k_2k3(maker))
+            if (Is2K_2K3(maker))
                 return R2000_2003.SIZE_WIDTH;
 
             switch (maker)
             {
-                case version.R95:
+                case Tileset.R95:
                     return R95.SIZE_WIDTH;
-                case version.S97:
+                case Tileset.S97:
                     return S97.SIZE_WIDTH;
-                case version.Alpha:
+                case Tileset.Alpha:
                     return Alpha.SIZE_WIDTH;
-                case version.XP:
-                    return XP.SIZE_WIDTH;
+                case Tileset.VX_Ace_A12:
+                    return VX_Ace.A12.SIZE_WIDTH;
+                case Tileset.VX_A3:
+                    return VX_Ace.A3.SIZE_WIDTH;
+                case Tileset.VX_Ace_A4:
+                    return VX_Ace.A4.SIZE_WIDTH;
+                case Tileset.VX_Ace_A5:
+                    return VX_Ace.A5.SIZE_WIDTH;
+                case Tileset.VX_BE_Ace_BC:
+                    return VX_Ace.BE.SIZE_WIDTH;
+                case Tileset.XP:
                 default:
                     return XP.SIZE_WIDTH;
             }
         }
 
-        public static int GetSizeHeight(version maker)
+        public static int GetSizeHeight(Tileset maker)
         {
-            if (Is2k_2k3(maker))
+            if (Is2K_2K3(maker))
                 return R2000_2003.SIZE_HEIGHT;
 
             switch (maker)
             {
-                case version.R95:
+                case Tileset.R95:
                     return R95.SIZE_HEIGHT;
-                case version.S97:
+                case Tileset.S97:
                     return S97.SIZE_HEIGHT;
-                case version.Alpha:
+                case Tileset.Alpha:
                     return Alpha.SIZE_HEIGHT;
-                case version.XP:
-                    return -1;
+                case Tileset.VX_Ace_A12:
+                    return VX_Ace.A12.SIZE_HEIGHT;
+                case Tileset.VX_A3:
+                    return VX_Ace.A3.SIZE_HEIGHT;
+                case Tileset.VX_Ace_A4:
+                    return VX_Ace.A4.SIZE_HEIGHT;
+                case Tileset.VX_Ace_A5:
+                    return VX_Ace.A5.SIZE_HEIGHT;
+                case Tileset.VX_BE_Ace_BC:
+                    return VX_Ace.BE.SIZE_WIDTH;
+                case Tileset.XP:
                 default:
                     return -1;
             }
@@ -85,17 +114,16 @@ namespace tilecon.Conversor
 
         public static class S97
         {
-            public static readonly int SPRITE_SIZE = 16;
-            public static readonly int SIZE_WIDTH  = 64;
-            public static readonly int SIZE_HEIGHT = 128;
-        }
-
-        
-        public static class Alpha
-        {
             public static readonly int SPRITE_SIZE = 32;
             public static readonly int SIZE_WIDTH  = 384;
             public static readonly int SIZE_HEIGHT = 1024;
+        }
+     
+        public static class Alpha
+        {
+            public static readonly int SPRITE_SIZE = 16;
+            public static readonly int SIZE_WIDTH  = 64;
+            public static readonly int SIZE_HEIGHT = 128;
         }
 
         public static class R2000_2003
@@ -111,42 +139,46 @@ namespace tilecon.Conversor
             public static readonly int SIZE_WIDTH  = 256;
         }
 
-        //public static class VX { }
-        //public static class VXACE { }
-
-        public static class VXAce
+        public static class VX_Ace
         {
+            public static readonly int SPRITE_SIZE = 32;
+
             public static class A12
             {
-                public static readonly int SIZE_WIDTH  = 512;
+                public static readonly bool VXOnly = false;
+                public static readonly int SIZE_WIDTH = 512;
                 public static readonly int SIZE_HEIGHT = 384;
             }
 
             public static class A3
             {
-                public static readonly int SIZE_WIDTH  = 512;
+                public static readonly bool VXOnly = true;
+                public static readonly int SIZE_WIDTH = 512;
                 public static readonly int SIZE_HEIGHT = 256;
             }
 
             public static class A4
             {
-                public static readonly int SIZE_WIDTH  = 512;
+                public static readonly bool VXOnly = false;
+                public static readonly int SIZE_WIDTH = 512;
                 public static readonly int SIZE_HEIGHT = 480;
             }
 
             public static class A5
             {
-                public static readonly int SIZE_WIDTH  = 512;
+                public static readonly bool VXOnly = false;
+                public static readonly int SIZE_WIDTH = 256;
                 public static readonly int SIZE_HEIGHT = 512;
             }
 
-            public static class BE
+            public static class BE // VX B-E, Ace B-C
             {
+                public static readonly bool VXOnly = false;
                 public static readonly int SIZE_WIDTH  = 512;
                 public static readonly int SIZE_HEIGHT = 512;
             }
         }
-
+       
         public static class MV
         {
             public static readonly int SPRITE_SIZE = 48;
@@ -157,19 +189,19 @@ namespace tilecon.Conversor
                 public static readonly int SIZE_HEIGHT = 576;
             }
 
-            public static class A3
-            {
-                public static readonly int SIZE_WIDTH  = 768;
-                public static readonly int SIZE_HEIGHT = 384;
-            }
-
             public static class A4
             {
-                public static readonly int SIZE_WIDTH  = 384;
+                public static readonly int SIZE_WIDTH = 768;
+                public static readonly int SIZE_HEIGHT = 720;
+            }
+
+            public static class A5
+            {
+                public static readonly int SIZE_WIDTH = 384;
                 public static readonly int SIZE_HEIGHT = 768;
             }
 
-            public static class BE
+            public static class BC
             {
                 public static readonly int SIZE = 768;
             }
