@@ -7,8 +7,7 @@ namespace tilecon
         public FormAbout()
         {
             InitializeComponent();
-            label1.Text = Vocab.aboutHelpText;
-            label2.Text += " " + Vocab.version;
+            label2.Text += " " + Vocab.version + "\n\n" + Vocab.aboutHelpText;
         }
 
         private void OnClose(object sender, FormClosingEventArgs e)
@@ -20,6 +19,11 @@ namespace tilecon
         private void button1_Click(object sender, System.EventArgs e)
         {
             this.Close();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://gladiocitrico.blogspot.com");
         }
     }
 }

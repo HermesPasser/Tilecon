@@ -5,7 +5,7 @@
         public enum lang{
             ptbr, eng
         }
-        public static string version = "1.4";
+        public static string version = "1.5";
 
         public static string file;
         public static string archiveExit;
@@ -15,19 +15,19 @@
         public static string languagePtbr;
         public static string help;
         public static string helpAbout;
-        public static string aboutHelpText = "2017 - Hermes Passer (gladiocitrico.blogspot.com)\nGitHub: HermesPasser/Tilecon";
+        public static string aboutHelpText = "2017 - Hermes Passer\nGitHub: HermesPasser/Tilecon";
 
         public static string btnOpen;
         public static string btnCut;
         public static string btnConvert;
         public static string btnSave;
+        public static string btnTransparency;
         public static string cbIgnore;
 
-        public static string r2kMessageConvert;
-        public static string r2kMessageCut;
         public static string doneMessage;
         public static string waitMessage;
-        public static string errorMessage; 
+        public static string SaveErrorMessage;
+        public static string errorMessage;
 
         public static string mode;
 
@@ -58,18 +58,18 @@
                 btnCut = "Cut/save each sprite";
                 btnConvert = "Convert";
                 btnSave = "Salve";
+                btnTransparency = "Set Transparent Pixel";
                 cbIgnore = "Ignore Alpha";
 
                 comboNone = "None";
                 comboCentralize = "Centralize";
                 comboResize = "Resize";
 
-                r2kMessageCut = "The autotiles will also be saved.";
-                r2kMessageConvert = "The sprites that represent the \"autotile\" are disregarded.";
                 waitMessage = "Wait...";
                 doneMessage = "Done.";
                 errorMessage = "Width or height does not match the size of the selected tileset.";
-                
+                SaveErrorMessage = "You cannot save over the image loaded in the program.";
+
                 groupConversion = "Conversion";
                 groupUtilities = "Utilities";
 
@@ -77,7 +77,8 @@
                 pgnFilesText = "Png Files";
 
                 mode = "Mode";
-            } else
+            }
+            else
             {
                 file = "Arquivo";
                 archiveExit = "Sair";
@@ -92,17 +93,17 @@
                 btnCut = "Cortar/salvar cada sprite";
                 btnConvert = "Converter";
                 btnSave = "Salvar";
+                btnTransparency = "Definir Pixel Transparente";
                 cbIgnore = "Ignorar Alfa";
 
                 comboNone = "Nada";
                 comboCentralize = "Centralizar";
                 comboResize = "Redimencionar";
 
-                r2kMessageCut = "Os autotiles também serão salvos.";
-                r2kMessageConvert = "Os sprites que representam um \"autotile\" serão desconsiderados.";
                 waitMessage = "Espere...";
                 doneMessage = "Feito.";
                 errorMessage = "Largura ou altura não corresponde ao tamanho do conjunto de telas selecionado.";
+                SaveErrorMessage = "Você não pode salvar por cima da imagem carregada no programa.";
 
                 groupConversion = "Conversão";
                 groupUtilities = "Utilidades";

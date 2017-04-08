@@ -121,4 +121,10 @@
   <data name="ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="logo-trash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo-trash1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="About 2kTileset" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\About 2kTileset.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

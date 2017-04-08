@@ -48,10 +48,17 @@
             this.simRPGMaker97_SMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMakerAlphaTSMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGMaker20002003AutotilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMaker20002003TilesetAB_SMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMaker20002003TilesetA_SMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMaker20002003TilesetB_SMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMakerXP_SMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGMakerVXAceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGMakerVXAceTilesetA12ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGMakerVXTilesetA3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGMakerVXAceTilesetA4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGMakerVXAceTilesetA5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGMakerVXAceTilesetBEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.utilitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,12 +70,15 @@
             this.resizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ignoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertAndSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setTransparentPixelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.langaugeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portugueseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rM20002003TilesetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupConversion = new System.Windows.Forms.GroupBox();
+            this.btnTransparency = new System.Windows.Forms.Button();
             this.cbMode = new System.Windows.Forms.ComboBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.checkIgnore = new System.Windows.Forms.CheckBox();
@@ -77,12 +87,8 @@
             this.btnPreviusImg = new System.Windows.Forms.Button();
             this.cbMaker = new System.Windows.Forms.ComboBox();
             this.labelMVTilesetName = new System.Windows.Forms.Label();
-            this.rPGMakerVXAceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rPGMakerVXAceTilesetA12ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rPGMakerVXTilesetA3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rPGMakerVXAceTilesetA4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rPGMakerVXAceTilesetA5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rPGMakerVXAceTilesetBEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelMVPagesNumber = new System.Windows.Forms.Label();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxXP)).BeginInit();
             this.panel2.SuspendLayout();
@@ -128,19 +134,21 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.AutoScroll = true;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.pictureBoxXP);
             this.panel1.Location = new System.Drawing.Point(12, 62);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(207, 227);
+            this.panel1.Size = new System.Drawing.Size(260, 280);
             this.panel1.TabIndex = 5;
             // 
             // pictureBoxXP
             // 
             this.pictureBoxXP.Location = new System.Drawing.Point(3, 3);
             this.pictureBoxXP.Name = "pictureBoxXP";
-            this.pictureBoxXP.Size = new System.Drawing.Size(256, 2432);
+            this.pictureBoxXP.Size = new System.Drawing.Size(250, 50);
             this.pictureBoxXP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxXP.TabIndex = 1;
             this.pictureBoxXP.TabStop = false;
@@ -165,12 +173,15 @@
             // 
             // panel3
             // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.AutoScroll = true;
+            this.panel3.AutoSize = true;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.pictureBox2);
-            this.panel3.Location = new System.Drawing.Point(384, 62);
+            this.panel3.Location = new System.Drawing.Point(437, 62);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(207, 227);
+            this.panel3.Size = new System.Drawing.Size(260, 280);
             this.panel3.TabIndex = 6;
             // 
             // pictureBox2
@@ -192,7 +203,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(603, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(710, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -210,7 +221,7 @@
             // openTilesetToolStripMenuItem
             // 
             this.openTilesetToolStripMenuItem.Name = "openTilesetToolStripMenuItem";
-            this.openTilesetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openTilesetToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.openTilesetToolStripMenuItem.Text = "Open Tileset";
             this.openTilesetToolStripMenuItem.Click += new System.EventHandler(this.openTilesetToolStripMenuItem_Click);
             // 
@@ -224,7 +235,7 @@
             this.rPGMakerXP_SMItem,
             this.rPGMakerVXAceToolStripMenuItem});
             this.tilesetToolStripMenuItem.Name = "tilesetToolStripMenuItem";
-            this.tilesetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tilesetToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.tilesetToolStripMenuItem.Text = "Tileset";
             // 
             // rPGMaker95_SMItem
@@ -251,12 +262,20 @@
             // rToolStripMenuItem
             // 
             this.rToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rPGMaker20002003AutotilesToolStripMenuItem,
             this.rPGMaker20002003TilesetAB_SMItem,
             this.rPGMaker20002003TilesetA_SMItem,
             this.rPGMaker20002003TilesetB_SMItem});
             this.rToolStripMenuItem.Name = "rToolStripMenuItem";
             this.rToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.rToolStripMenuItem.Text = "RPG Maker 2000/2003";
+            // 
+            // rPGMaker20002003AutotilesToolStripMenuItem
+            // 
+            this.rPGMaker20002003AutotilesToolStripMenuItem.Name = "rPGMaker20002003AutotilesToolStripMenuItem";
+            this.rPGMaker20002003AutotilesToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.rPGMaker20002003AutotilesToolStripMenuItem.Text = "RPG Maker 2000/2003 (Autotiles)";
+            this.rPGMaker20002003AutotilesToolStripMenuItem.Click += new System.EventHandler(this.rPGMaker20002003AutotilesToolStripMenuItem_Click);
             // 
             // rPGMaker20002003TilesetAB_SMItem
             // 
@@ -286,18 +305,65 @@
             this.rPGMakerXP_SMItem.Text = "RPG Maker XP";
             this.rPGMakerXP_SMItem.Click += new System.EventHandler(this.rPGMakerXP_SMItem_Click);
             // 
+            // rPGMakerVXAceToolStripMenuItem
+            // 
+            this.rPGMakerVXAceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rPGMakerVXAceTilesetA12ToolStripMenuItem,
+            this.rPGMakerVXTilesetA3ToolStripMenuItem,
+            this.rPGMakerVXAceTilesetA4ToolStripMenuItem,
+            this.rPGMakerVXAceTilesetA5ToolStripMenuItem,
+            this.rPGMakerVXAceTilesetBEToolStripMenuItem});
+            this.rPGMakerVXAceToolStripMenuItem.Name = "rPGMakerVXAceToolStripMenuItem";
+            this.rPGMakerVXAceToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.rPGMakerVXAceToolStripMenuItem.Text = "RPG Maker VX/Ace";
+            // 
+            // rPGMakerVXAceTilesetA12ToolStripMenuItem
+            // 
+            this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Name = "rPGMakerVXAceTilesetA12ToolStripMenuItem";
+            this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A1-2)";
+            this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXAceTilesetA12ToolStripMenuItem_Click);
+            // 
+            // rPGMakerVXTilesetA3ToolStripMenuItem
+            // 
+            this.rPGMakerVXTilesetA3ToolStripMenuItem.Name = "rPGMakerVXTilesetA3ToolStripMenuItem";
+            this.rPGMakerVXTilesetA3ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.rPGMakerVXTilesetA3ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A3)";
+            this.rPGMakerVXTilesetA3ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXTilesetA3ToolStripMenuItem_Click);
+            // 
+            // rPGMakerVXAceTilesetA4ToolStripMenuItem
+            // 
+            this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Name = "rPGMakerVXAceTilesetA4ToolStripMenuItem";
+            this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A4)";
+            this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXAceTilesetA4ToolStripMenuItem_Click);
+            // 
+            // rPGMakerVXAceTilesetA5ToolStripMenuItem
+            // 
+            this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Name = "rPGMakerVXAceTilesetA5ToolStripMenuItem";
+            this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A5)";
+            this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXAceTilesetA5ToolStripMenuItem_Click);
+            // 
+            // rPGMakerVXAceTilesetBEToolStripMenuItem
+            // 
+            this.rPGMakerVXAceTilesetBEToolStripMenuItem.Name = "rPGMakerVXAceTilesetBEToolStripMenuItem";
+            this.rPGMakerVXAceTilesetBEToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.rPGMakerVXAceTilesetBEToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset B-E)";
+            this.rPGMakerVXAceTilesetBEToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXAceTilesetBEToolStripMenuItem_Click);
+            // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -322,7 +388,8 @@
             this.convertToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.modeToolStripMenuItem,
             this.ignoreToolStripMenuItem,
-            this.convertAndSaveToolStripMenuItem});
+            this.convertAndSaveToolStripMenuItem,
+            this.setTransparentPixelToolStripMenuItem});
             this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
             this.convertToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.convertToolStripMenuItem.Text = "Convert";
@@ -335,7 +402,7 @@
             this.resizeToolStripMenuItem});
             this.modeToolStripMenuItem.Enabled = false;
             this.modeToolStripMenuItem.Name = "modeToolStripMenuItem";
-            this.modeToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.modeToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.modeToolStripMenuItem.Text = "Mode";
             // 
             // noneToolStripMenuItem
@@ -355,7 +422,6 @@
             // 
             // resizeToolStripMenuItem
             // 
-            this.resizeToolStripMenuItem.CheckOnClick = true;
             this.resizeToolStripMenuItem.Name = "resizeToolStripMenuItem";
             this.resizeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.resizeToolStripMenuItem.Text = "Resize";
@@ -366,7 +432,7 @@
             this.ignoreToolStripMenuItem.CheckOnClick = true;
             this.ignoreToolStripMenuItem.Enabled = false;
             this.ignoreToolStripMenuItem.Name = "ignoreToolStripMenuItem";
-            this.ignoreToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.ignoreToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.ignoreToolStripMenuItem.Text = "Ignore Alpha";
             this.ignoreToolStripMenuItem.Click += new System.EventHandler(this.ignoreAlphaToolStripMenuItem_Click);
             // 
@@ -374,9 +440,17 @@
             // 
             this.convertAndSaveToolStripMenuItem.Enabled = false;
             this.convertAndSaveToolStripMenuItem.Name = "convertAndSaveToolStripMenuItem";
-            this.convertAndSaveToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.convertAndSaveToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.convertAndSaveToolStripMenuItem.Text = "Convert";
             this.convertAndSaveToolStripMenuItem.Click += new System.EventHandler(this.convertAndSaveToolStripMenuItem_Click);
+            // 
+            // setTransparentPixelToolStripMenuItem
+            // 
+            this.setTransparentPixelToolStripMenuItem.Enabled = false;
+            this.setTransparentPixelToolStripMenuItem.Name = "setTransparentPixelToolStripMenuItem";
+            this.setTransparentPixelToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.setTransparentPixelToolStripMenuItem.Text = "Set Transparent Pixel";
+            this.setTransparentPixelToolStripMenuItem.Click += new System.EventHandler(this.setTransparentPixelToolStripMenuItem_Click);
             // 
             // langaugeToolStripMenuItem
             // 
@@ -404,49 +478,71 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rM20002003TilesetToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
+            // rM20002003TilesetToolStripMenuItem
+            // 
+            this.rM20002003TilesetToolStripMenuItem.Name = "rM20002003TilesetToolStripMenuItem";
+            this.rM20002003TilesetToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.rM20002003TilesetToolStripMenuItem.Text = "RM2000/2003 Tileset";
+            this.rM20002003TilesetToolStripMenuItem.Click += new System.EventHandler(this.AboutTilesetToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // groupConversion
             // 
+            this.groupConversion.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupConversion.Controls.Add(this.btnTransparency);
             this.groupConversion.Controls.Add(this.cbMode);
             this.groupConversion.Controls.Add(this.btnSave);
             this.groupConversion.Controls.Add(this.btnConvert);
             this.groupConversion.Controls.Add(this.checkIgnore);
-            this.groupConversion.Location = new System.Drawing.Point(225, 117);
+            this.groupConversion.Location = new System.Drawing.Point(278, 125);
             this.groupConversion.Name = "groupConversion";
-            this.groupConversion.Size = new System.Drawing.Size(153, 137);
+            this.groupConversion.Size = new System.Drawing.Size(153, 163);
             this.groupConversion.TabIndex = 8;
             this.groupConversion.TabStop = false;
             this.groupConversion.Text = "Conversion";
+            // 
+            // btnTransparency
+            // 
+            this.btnTransparency.Enabled = false;
+            this.btnTransparency.Location = new System.Drawing.Point(6, 98);
+            this.btnTransparency.Name = "btnTransparency";
+            this.btnTransparency.Size = new System.Drawing.Size(141, 23);
+            this.btnTransparency.TabIndex = 4;
+            this.btnTransparency.Text = "Set Transparent Pixel";
+            this.btnTransparency.UseVisualStyleBackColor = true;
+            this.btnTransparency.Click += new System.EventHandler(this.btnSetPixelTransparent_Click);
             // 
             // cbMode
             // 
             this.cbMode.DisplayMember = "None";
             this.cbMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMode.Enabled = false;
+            this.cbMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbMode.Items.AddRange(new object[] {
             "None",
             "Centralize",
             "Resize"});
             this.cbMode.Location = new System.Drawing.Point(6, 19);
             this.cbMode.Name = "cbMode";
-            this.cbMode.Size = new System.Drawing.Size(141, 21);
+            this.cbMode.Size = new System.Drawing.Size(141, 20);
             this.cbMode.TabIndex = 3;
             // 
             // btnSave
             // 
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(6, 97);
+            this.btnSave.Location = new System.Drawing.Point(6, 127);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(141, 23);
             this.btnSave.TabIndex = 1;
@@ -468,8 +564,9 @@
             // 
             // groupUtilities
             // 
+            this.groupUtilities.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupUtilities.Controls.Add(this.btnCutSave);
-            this.groupUtilities.Location = new System.Drawing.Point(225, 54);
+            this.groupUtilities.Location = new System.Drawing.Point(278, 62);
             this.groupUtilities.Name = "groupUtilities";
             this.groupUtilities.Size = new System.Drawing.Size(153, 57);
             this.groupUtilities.TabIndex = 9;
@@ -478,8 +575,9 @@
             // 
             // btnNextImg
             // 
+            this.btnNextImg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNextImg.Enabled = false;
-            this.btnNextImg.Location = new System.Drawing.Point(556, 33);
+            this.btnNextImg.Location = new System.Drawing.Point(660, 33);
             this.btnNextImg.Name = "btnNextImg";
             this.btnNextImg.Size = new System.Drawing.Size(32, 23);
             this.btnNextImg.TabIndex = 10;
@@ -489,8 +587,9 @@
             // 
             // btnPreviusImg
             // 
+            this.btnPreviusImg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPreviusImg.Enabled = false;
-            this.btnPreviusImg.Location = new System.Drawing.Point(518, 33);
+            this.btnPreviusImg.Location = new System.Drawing.Point(622, 33);
             this.btnPreviusImg.Name = "btnPreviusImg";
             this.btnPreviusImg.Size = new System.Drawing.Size(32, 23);
             this.btnPreviusImg.TabIndex = 11;
@@ -509,12 +608,13 @@
             "RPG Maker 95",
             "Sim RPG Maker 97",
             "RPG Maker Alpha",
+            "RPG Maker 2000/2003 (Autotiles)",
             "RPG Maker 2000/2003 (Tileset A-B)",
             "RPG Maker 2000/2003 (Tileset A)",
             "RPG Maker 2000/2003 (Tileset B)",
             "RPG Maker XP",
             "RPG Maker VX/Ace (Tileset A1-2)",
-            "RPG Maker VX (Tileset A3)",
+            "RPG Maker VX/Ace (Tileset A3)",
             "RPG Maker VX/Ace (Tileset A4)",
             "RPG Maker VX/Ace (Tileset A5)",
             "RPG Maker VX/Ace (Tileset B-E)"});
@@ -525,65 +625,30 @@
             // 
             // labelMVTilesetName
             // 
+            this.labelMVTilesetName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMVTilesetName.AutoSize = true;
-            this.labelMVTilesetName.Location = new System.Drawing.Point(385, 42);
+            this.labelMVTilesetName.Location = new System.Drawing.Point(489, 42);
             this.labelMVTilesetName.Name = "labelMVTilesetName";
             this.labelMVTilesetName.Size = new System.Drawing.Size(35, 13);
             this.labelMVTilesetName.TabIndex = 13;
             this.labelMVTilesetName.Text = "label1";
             // 
-            // rPGMakerVXAceToolStripMenuItem
+            // labelMVPagesNumber
             // 
-            this.rPGMakerVXAceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rPGMakerVXAceTilesetA12ToolStripMenuItem,
-            this.rPGMakerVXTilesetA3ToolStripMenuItem,
-            this.rPGMakerVXAceTilesetA4ToolStripMenuItem,
-            this.rPGMakerVXAceTilesetA5ToolStripMenuItem,
-            this.rPGMakerVXAceTilesetBEToolStripMenuItem});
-            this.rPGMakerVXAceToolStripMenuItem.Name = "rPGMakerVXAceToolStripMenuItem";
-            this.rPGMakerVXAceToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.rPGMakerVXAceToolStripMenuItem.Text = "RPG Maker VX/Ace";
-            // 
-            // rPGMakerVXAceTilesetA12ToolStripMenuItem
-            // 
-            this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Name = "rPGMakerVXAceTilesetA12ToolStripMenuItem";
-            this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
-            this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A1-2)";
-            this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXAceTilesetA12ToolStripMenuItem_Click);
-            // 
-            // rPGMakerVXTilesetA3ToolStripMenuItem
-            // 
-            this.rPGMakerVXTilesetA3ToolStripMenuItem.Name = "rPGMakerVXTilesetA3ToolStripMenuItem";
-            this.rPGMakerVXTilesetA3ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
-            this.rPGMakerVXTilesetA3ToolStripMenuItem.Text = "RPG Maker VX (Tileset A3)";
-            this.rPGMakerVXTilesetA3ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXTilesetA3ToolStripMenuItem_Click);
-            // 
-            // rPGMakerVXAceTilesetA4ToolStripMenuItem
-            // 
-            this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Name = "rPGMakerVXAceTilesetA4ToolStripMenuItem";
-            this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
-            this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A4)";
-            this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXAceTilesetA4ToolStripMenuItem_Click);
-            // 
-            // rPGMakerVXAceTilesetA5ToolStripMenuItem
-            // 
-            this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Name = "rPGMakerVXAceTilesetA5ToolStripMenuItem";
-            this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
-            this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A5)";
-            this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXAceTilesetA5ToolStripMenuItem_Click);
-            // 
-            // rPGMakerVXAceTilesetBEToolStripMenuItem
-            // 
-            this.rPGMakerVXAceTilesetBEToolStripMenuItem.Name = "rPGMakerVXAceTilesetBEToolStripMenuItem";
-            this.rPGMakerVXAceTilesetBEToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
-            this.rPGMakerVXAceTilesetBEToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset B-E)";
-            this.rPGMakerVXAceTilesetBEToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXAceTilesetBEToolStripMenuItem_Click);
+            this.labelMVPagesNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelMVPagesNumber.AutoSize = true;
+            this.labelMVPagesNumber.Location = new System.Drawing.Point(593, 41);
+            this.labelMVPagesNumber.Name = "labelMVPagesNumber";
+            this.labelMVPagesNumber.Size = new System.Drawing.Size(24, 13);
+            this.labelMVPagesNumber.TabIndex = 14;
+            this.labelMVPagesNumber.Text = "0/0";
             // 
             // FormXpMv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(603, 292);
+            this.ClientSize = new System.Drawing.Size(710, 353);
+            this.Controls.Add(this.labelMVPagesNumber);
             this.Controls.Add(this.labelMVTilesetName);
             this.Controls.Add(this.cbMaker);
             this.Controls.Add(this.btnPreviusImg);
@@ -595,7 +660,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormXpMv";
@@ -654,7 +719,6 @@
         private System.Windows.Forms.ToolStripMenuItem ignoreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem centralizeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
         private System.Windows.Forms.Button btnNextImg;
         private System.Windows.Forms.Button btnPreviusImg;
@@ -675,6 +739,13 @@
         private System.Windows.Forms.ToolStripMenuItem rPGMakerVXAceTilesetA4ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rPGMakerVXAceTilesetA5ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rPGMakerVXAceTilesetBEToolStripMenuItem;
+        private System.Windows.Forms.Label labelMVPagesNumber;
+        private System.Windows.Forms.ToolStripMenuItem resizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rPGMaker20002003AutotilesToolStripMenuItem;
+        private System.Windows.Forms.Button btnTransparency;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.ToolStripMenuItem rM20002003TilesetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setTransparentPixelToolStripMenuItem;
     }
 }
 

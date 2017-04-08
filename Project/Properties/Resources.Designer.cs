@@ -63,9 +63,29 @@ namespace tilecon.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap About_2kTileset {
+            get {
+                object obj = ResourceManager.GetObject("About 2kTileset", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ico {
             get {
                 object obj = ResourceManager.GetObject("ico", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_trash {
+            get {
+                object obj = ResourceManager.GetObject("logo-trash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

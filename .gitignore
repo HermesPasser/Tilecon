@@ -5,6 +5,7 @@ ehthumbs.db
 **/vs/*
 **/bin/*
 **/obj/*
+**/Resource/*
 
 # Folder config file
 Desktop.ini

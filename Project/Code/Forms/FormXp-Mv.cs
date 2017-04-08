@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using tilecon.Conversor;
+using tilecon.Converter;
 
 namespace tilecon
 {
@@ -20,7 +20,7 @@ namespace tilecon
             InitializeComponent();
             cbMaker.SelectedIndexChanged += new EventHandler(cbMaker_SelectedIndexChanged);
             ChangeLang(Vocab.lang.eng);
-            cbMaker.SelectedIndex = 6;
+            cbMaker.SelectedIndex = 7;
             cbMode.SelectedIndex = 0;
         }
 
@@ -28,11 +28,12 @@ namespace tilecon
         {
             Vocab.changeLang(l);
             saveFileDialog1.Filter = Vocab.pgnFilesText + " (*.png) | *.png";
-            openFileDialog1.Filter = Vocab.imageFilesText + " (*.gif, *.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.webp) | *.gif; *bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.webp";
+            openFileDialog1.Filter = Vocab.imageFilesText + " (*.gif, *.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.gif; *bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             btnConvert.Text = Vocab.btnConvert;
             btnCutSave.Text = Vocab.btnCut;
             btnSearch.Text = Vocab.btnOpen;
             btnSave.Text = Vocab.btnSave;
+            btnTransparency.Text = Vocab.btnTransparency;
             checkIgnore.Text = Vocab.cbIgnore;
 
             groupConversion.Text = Vocab.groupConversion;
@@ -56,7 +57,9 @@ namespace tilecon
             noneToolStripMenuItem.Text = Vocab.comboNone;
             centralizeToolStripMenuItem.Text = Vocab.comboCentralize;
             resizeToolStripMenuItem.Text = Vocab.comboResize;
+              
             convertAndSaveToolStripMenuItem.Text = Vocab.btnConvert;
+            setTransparentPixelToolStripMenuItem.Text = Vocab.btnTransparency;
 
             menuStrip1.Items[3].Text = Vocab.language;
             englishToolStripMenuItem.Text = Vocab.languageEng;
@@ -70,11 +73,8 @@ namespace tilecon
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                btnCutSave.Enabled = true;
-                btnConvert.Enabled = true;
-                checkIgnore.Enabled = true;
-                cbMode.Enabled = true;
-
+                btnCutSave.Enabled = btnConvert.Enabled = true;
+                checkIgnore.Enabled = cbMode.Enabled = true;
                 cutsaveIndividualFramesToolStripMenuItem.Enabled = true;
                 convertAndSaveToolStripMenuItem.Enabled = true;
                 modeToolStripMenuItem.Enabled = true;
@@ -89,17 +89,13 @@ namespace tilecon
 
         private void CutSave()
         {
-            Maker.Tileset v = GetTileset();
-            Converter con = new Converter(v);
-
-            if (v == Maker.Tileset.R2000_2003_B)
-                MessageBox.Show(Vocab.r2kMessageCut);
-
+            Maker.Tileset tile = GetTileset();
             var thread = new Thread(() =>
             {
                 try
-                { 
-                    con.SaveEachSubimage(Image.FromFile(filepath), filepath);
+                {
+                    TilesetConverterVertical cc = new TilesetConverterVertical(tile, spriteMode.NONE, false);
+                    cc.SaveEachSubimage(Image.FromFile(filepath), filepath);
                     MessageBox.Show(Vocab.doneMessage, "Tilecon");
                 }
                 catch (Exception ex)
@@ -129,6 +125,8 @@ namespace tilecon
                     return Maker.Tileset.S97;
                 case "RPG Maker Alpha":
                     return Maker.Tileset.Alpha;
+                case "RPG Maker 2000/2003 (Autotiles)":
+                    return Maker.Tileset.R2000_2003_Auto;
                 case "RPG Maker 2000/2003 (Tileset A-B)":
                     return Maker.Tileset.R2000_2003_AB;
                 case "RPG Maker 2000/2003 (Tileset A)":
@@ -137,8 +135,8 @@ namespace tilecon
                     return Maker.Tileset.R2000_2003_B;
                 case "RPG Maker VX/Ace (Tileset A1-2)":
                     return Maker.Tileset.VX_Ace_A12;
-                case "RPG Maker VX (Tileset A3)":
-                    return Maker.Tileset.VX_A3;
+                case "RPG Maker VX/Ace (Tileset A3)":
+                    return Maker.Tileset.VX_Ace_A3;
                 case "RPG Maker VX/Ace (Tileset A4)":
                     return Maker.Tileset.VX_Ace_A4;
                 case "RPG Maker VX/Ace (Tileset A5)":
@@ -156,40 +154,61 @@ namespace tilecon
             Maker.Tileset maker = GetTileset();
             spriteMode mode = GetMode();
             btnConvert.Text = Vocab.waitMessage;
-
-            if (maker == Maker.Tileset.R2000_2003_B)
-                MessageBox.Show(Vocab.r2kMessageConvert);
-
-            Converter con = new Converter(maker, mode, checkIgnore.Checked);
-            var thread = new Thread(() =>
+            
+            try
             {
-                try
+                switch (maker)
                 {
-                    bitmaps = con.ConvertToMV(Image.FromFile(filepath));
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex+"");
-                    return;
-                }
-            });
+                    case Maker.Tileset.Alpha:
+                        TilesetConverterVerticalApha con = new TilesetConverterVerticalApha(maker, mode, checkIgnore.Checked);
+                        bitmaps = con.ConvertToMV(Image.FromFile(filepath));
+                        break;
 
-            thread.Start();
-            thread.Join();
+                    case Maker.Tileset.R95:
+                    case Maker.Tileset.S97:
+                    case Maker.Tileset.XP:
+                        TilesetConverterVertical con1 = new TilesetConverterVertical(maker, mode, checkIgnore.Checked);
+                        bitmaps = con1.ConvertToMV(Image.FromFile(filepath));
+                        break;
 
-            if (bitmaps == null || bitmaps[0] == null) return;
+                    case Maker.Tileset.R2000_2003_A:
+                    case Maker.Tileset.R2000_2003_B:
+                    case Maker.Tileset.R2000_2003_AB:
+                    case Maker.Tileset.R2000_2003_Auto:
+                        TilesetConverterVerticalRM2K3 con2 = new TilesetConverterVerticalRM2K3(maker, mode, checkIgnore.Checked);
+                        bitmaps = con2.ConvertToMV(Image.FromFile(filepath));
+                        break;
+
+                    default:
+                        TilesetConverterVX con3 = new TilesetConverterVX(maker, mode, checkIgnore.Checked);
+                        bitmaps = con3.ConvertToMV(Image.FromFile(filepath));
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return;
+            }
+            
+            if (bitmaps == null)
+            {
+                btnConvert.Text = Vocab.btnConvert;
+                return;
+            }
 
             pictureBox2.Image = bitmaps[0];
-            btnSave.Enabled = true;
-            saveToolStripMenuItem.Enabled = true;
-            btnNextImg.Enabled = false;
-            btnPreviusImg.Enabled = false;
+            btnSave.Enabled = saveToolStripMenuItem.Enabled = true;
+            btnNextImg.Enabled = btnPreviusImg.Enabled = false;
+            btnTransparency.Enabled = true;
+            setTransparentPixelToolStripMenuItem.Enabled = true;
 
             if (bitmaps.Length > 1)
-            {
-                btnNextImg.Enabled = true;
-                btnPreviusImg.Enabled = true;
-            }
+                btnNextImg.Enabled = btnPreviusImg.Enabled = true;
+            else btnNextImg.Enabled = btnPreviusImg.Enabled = false;
+
+            bmpCurrentIndex = 0;
+            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
             btnConvert.Text = Vocab.btnConvert;
         }
 
@@ -197,6 +216,13 @@ namespace tilecon
         {
             if (saveFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
+
+            if (saveFileDialog1.FileName == filepath)
+            {
+                MessageBox.Show(Vocab.SaveErrorMessage);
+                return;
+            }
+
             int index = saveFileDialog1.FileName.LastIndexOf(".");
             string fileDir = saveFileDialog1.FileName.Substring(0, index) + "_";
 
@@ -210,11 +236,14 @@ namespace tilecon
 
         private void OnIndexChange()
         {
-            Converter con = new Converter(GetTileset(), GetMode(), checkIgnore.Checked);
+            TilesetConverterVX con = new TilesetConverterVX(GetTileset(), GetMode(), checkIgnore.Checked);
             switch (con.GetOutputMaker())
             {
                 case Maker.Tileset.MV_A12:
                     labelMVTilesetName.Text = "A1-2";
+                    break;
+                case Maker.Tileset.MV_A3:
+                    labelMVTilesetName.Text = "A3";
                     break;
                 case Maker.Tileset.MV_A4:
                     labelMVTilesetName.Text = "A4";
@@ -222,13 +251,40 @@ namespace tilecon
                 case Maker.Tileset.MV_A5:
                     labelMVTilesetName.Text = "A5";
                     break;
-                case Maker.Tileset.MV_BC:
-                    labelMVTilesetName.Text = "B-C";
-                    break;
                 default:
-                    labelMVTilesetName.Text = "B-C";
+                    labelMVTilesetName.Text = "B-E";
                     break;
             }
+        }
+
+        private void SetTransparentPixel()
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                for (int i = 0; i < bitmaps.Length; i++)
+                    bitmaps[i] = ImageProcessing.ChangePixelsColor(bitmaps[i], colorDialog1.Color);
+                pictureBox2.Image = bitmaps[bmpCurrentIndex];
+            }
+        }
+
+        private void NextImage()
+        {
+            bmpCurrentIndex++;
+            if (bmpCurrentIndex >= bitmaps.Length)
+                bmpCurrentIndex = 0;
+
+            pictureBox2.Image = bitmaps[bmpCurrentIndex];
+            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
+        }
+
+        private void PreviusImage()
+        {
+            bmpCurrentIndex--;
+            if (bmpCurrentIndex < 0)
+                bmpCurrentIndex = bitmaps.Length - 1;
+
+            pictureBox2.Image = bitmaps[bmpCurrentIndex];
+            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
@@ -250,6 +306,12 @@ namespace tilecon
         {
             Application.Exit();
         }
+        
+        private void AboutTilesetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2000 f = new Form2000();
+            f.Show();
+        }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -266,6 +328,11 @@ namespace tilecon
         private void convertAndSaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Convert();
+        }
+
+        private void setTransparentPixelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetTransparentPixel();
         }
 
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
@@ -310,23 +377,27 @@ namespace tilecon
 
         private void noneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            centralizeToolStripMenuItem.Checked = false;
-            resizeToolStripMenuItem.Checked = false;
             cbMode.SelectedIndex = 0;
         }
 
         private void centralizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            resizeToolStripMenuItem.Checked = false;
-            noneToolStripMenuItem.Checked = false;
             cbMode.SelectedIndex = 1;
         }
 
         private void resizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            centralizeToolStripMenuItem.Checked = false;
-            noneToolStripMenuItem.Checked = false;
             cbMode.SelectedIndex = 2;
+        }
+
+        private void loopToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            cbMode.SelectedIndex = 2;
+        }
+
+        private void interpolationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cbMode.SelectedIndex = 3;
         }
 
         private void rPGMaker95ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -344,72 +415,75 @@ namespace tilecon
             cbMaker.SelectedIndex = 2;
         }
 
-        private void rPGMaker20002003TilesetAB_SMItem_Click(object sender, EventArgs e)
+        private void rPGMaker20002003AutotilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 3;
         }
 
-        private void rPGMaker20002003TilesetA_SMItem_Click(object sender, EventArgs e)
+        private void rPGMaker20002003TilesetAB_SMItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 4;
         }
 
-        private void rPGMaker20002003TilesetB_SMItem_Click(object sender, EventArgs e)
+        private void rPGMaker20002003TilesetA_SMItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 5;
         }
 
-        private void rPGMakerXP_SMItem_Click(object sender, EventArgs e)
+        private void rPGMaker20002003TilesetB_SMItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 6;
         }
 
-        private void rPGMakerVXAceTilesetA12ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rPGMakerXP_SMItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 7;
         }
 
-        private void rPGMakerVXTilesetA3ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rPGMakerVXAceTilesetA12ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 8;
         }
 
-        private void rPGMakerVXAceTilesetA4ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rPGMakerVXTilesetA3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 9;
         }
 
-        private void rPGMakerVXAceTilesetA5ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rPGMakerVXAceTilesetA4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 10;
         }
 
-        private void rPGMakerVXAceTilesetBEToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rPGMakerVXAceTilesetA5ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 11;
         }
 
+        private void rPGMakerVXAceTilesetBEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cbMaker.SelectedIndex = 12;
+        }
+
         private void btnNextImg_Click(object sender, EventArgs e)
         {
-            bmpCurrentIndex++;
-            if (bmpCurrentIndex >= bitmaps.Length)
-                bmpCurrentIndex = 0;
-
-            pictureBox2.Image = bitmaps[bmpCurrentIndex];
+            NextImage();
         }
 
         private void btnPreviusImg_Click(object sender, EventArgs e)
         {
-            bmpCurrentIndex--;
-            if (bmpCurrentIndex < 0)
-                bmpCurrentIndex = bitmaps.Length -1;
-
-            pictureBox2.Image = bitmaps[bmpCurrentIndex];
+            PreviusImage();
+           
         }
-
+        
         private void cbMaker_SelectedIndexChanged(object sender, EventArgs e)
         {
             OnIndexChange();
+        }
+
+        private void btnSetPixelTransparent_Click(object sender, EventArgs e)
+        {
+            SetTransparentPixel();
         }
     }
 }
