@@ -95,9 +95,9 @@ namespace tilecon.Converter
 
         private Bitmap GetTilesetB(Bitmap bmp)
         {
-            Bitmap temp = Crop(bmp, 288, 0, 192, Maker.R2000_2003.SIZE_HEIGHT);
-            Bitmap bmp1 = Crop(temp, 0, Maker.R2000_2003.SIZE_HEIGHT / 2, 96, Maker.R2000_2003.SIZE_HEIGHT / 2);
-            Bitmap bmp2 = Crop(temp, 96, 0, 96, Maker.R2000_2003.SIZE_HEIGHT / 2);
+            Bitmap temp = Crop(bmp, 288, 00, 192, Maker.R2000_2003.SIZE_HEIGHT);
+            Bitmap bmp1 = Crop(temp, 00, Maker.R2000_2003.SIZE_HEIGHT / 2, 96, Maker.R2000_2003.SIZE_HEIGHT / 2);
+            Bitmap bmp2 = Crop(temp, 96, 00, 96, Maker.R2000_2003.SIZE_HEIGHT / 2);
             Bitmap bmp3 = Crop(temp, 96, Maker.R2000_2003.SIZE_HEIGHT / 2, 96, Maker.R2000_2003.SIZE_HEIGHT / 2);
 
             temp = new Bitmap(96, 384);

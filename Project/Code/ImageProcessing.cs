@@ -98,5 +98,14 @@ namespace tilecon
             graphics.Dispose();
             return origin;
         }
+        
+        protected Bitmap PasteInAlpha(Bitmap origin, Bitmap cut)
+        {
+            for (int x = 0; x < origin.Width; x++) 
+                for (int y = 0; y < origin.Height; y++)
+                    if (origin.GetPixel(x, y).A == 0 && x <= cut.Width && y <= cut.Height)
+                        origin.SetPixel(x, y, cut.GetPixel(x, y));   
+            return origin;
+        }
     }
 }

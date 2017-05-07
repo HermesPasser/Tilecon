@@ -56,7 +56,7 @@ namespace tilecon.Converter
 
         protected void SetOutput()
         {
-            if (inputMaker == Maker.Tileset.VX_Ace_A12 || inputMaker == Maker.Tileset.R2000_2003_Auto)
+            if (inputMaker == Maker.Tileset.VX_Ace_A12 || inputMaker == Maker.Tileset.R2000_2003_Auto || inputMaker == Maker.Tileset.XP_Auto)
                 outputMaker = Maker.Tileset.MV_A12;
             else if (inputMaker == Maker.Tileset.VX_Ace_A3)
                 outputMaker = Maker.Tileset.MV_A3;
@@ -105,7 +105,7 @@ namespace tilecon.Converter
             return sprites;
         }
         
-        protected bool IsConvertible(Image img)
+        protected virtual bool IsConvertible(Image img)
         {
             if (inputMaker != Maker.Tileset.XP)
             {

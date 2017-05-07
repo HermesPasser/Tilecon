@@ -143,6 +143,8 @@ namespace tilecon
                     return Maker.Tileset.VX_Ace_A5;
                 case "RPG Maker VX/Ace (Tileset B-E)":
                     return Maker.Tileset.VX_BE_Ace_BC;
+                case "RPG Maker XP (Autotile)":
+                    return Maker.Tileset.XP_Auto;
                 case "RPG Maker XP":
                 default:
                     return Maker.Tileset.XP;
@@ -150,7 +152,7 @@ namespace tilecon
         }
 
         private void Convert()
-        {
+        {          
             Maker.Tileset maker = GetTileset();
             spriteMode mode = GetMode();
             btnConvert.Text = Vocab.waitMessage;
@@ -169,6 +171,11 @@ namespace tilecon
                     case Maker.Tileset.XP:
                         TilesetConverterVertical con1 = new TilesetConverterVertical(maker, mode, checkIgnore.Checked);
                         bitmaps = con1.ConvertToMV(Image.FromFile(filepath));
+                        break;
+
+                    case Maker.Tileset.XP_Auto:
+                        TilesetConverterAutotileXP conXPAuto = new TilesetConverterAutotileXP(maker, mode, checkIgnore.Checked);
+                        bitmaps = conXPAuto.ConvertToMV(Image.FromFile(filepath));
                         break;
 
                     case Maker.Tileset.R2000_2003_A:
@@ -312,6 +319,12 @@ namespace tilecon
             Form2000 f = new Form2000();
             f.Show();
         }
+        
+        private void rMXPAutotileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormXPAuto f = new FormXPAuto();
+            f.Show();
+        }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -435,34 +448,39 @@ namespace tilecon
             cbMaker.SelectedIndex = 6;
         }
 
-        private void rPGMakerXP_SMItem_Click(object sender, EventArgs e)
+        private void rPGMakerXPAutotileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 7;
         }
 
-        private void rPGMakerVXAceTilesetA12ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rPGMakerXPToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 8;
         }
 
-        private void rPGMakerVXTilesetA3ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rPGMakerVXAceTilesetA12ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 9;
         }
 
-        private void rPGMakerVXAceTilesetA4ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rPGMakerVXTilesetA3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 10;
         }
 
-        private void rPGMakerVXAceTilesetA5ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rPGMakerVXAceTilesetA4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 11;
         }
 
-        private void rPGMakerVXAceTilesetBEToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rPGMakerVXAceTilesetA5ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cbMaker.SelectedIndex = 12;
+        }
+
+        private void rPGMakerVXAceTilesetBEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cbMaker.SelectedIndex = 13;
         }
 
         private void btnNextImg_Click(object sender, EventArgs e)
@@ -472,8 +490,7 @@ namespace tilecon
 
         private void btnPreviusImg_Click(object sender, EventArgs e)
         {
-            PreviusImage();
-           
+            PreviusImage();   
         }
         
         private void cbMaker_SelectedIndexChanged(object sender, EventArgs e)

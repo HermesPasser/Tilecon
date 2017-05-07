@@ -5,7 +5,7 @@
         public enum lang{
             ptbr, eng
         }
-        public static string version = "1.5";
+        public static string version = "1.6";
 
         public static string file;
         public static string archiveExit;

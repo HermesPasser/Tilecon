@@ -6,7 +6,7 @@ namespace tilecon
     {
         public enum Tileset
         {
-            R95, S97, Alpha, R2000_2003_Auto, R2000_2003_A, R2000_2003_B, R2000_2003_AB, XP,
+            R95, S97, Alpha, R2000_2003_Auto, R2000_2003_A, R2000_2003_B, R2000_2003_AB, XP, XP_Auto,
             VX_Ace_A12, VX_Ace_A3, VX_Ace_A4, VX_Ace_A5, VX_BE_Ace_BC,
             MV_A12, MV_A3, MV_A4, MV_A5, MV_BC
         }
@@ -105,6 +105,7 @@ namespace tilecon
                     return VX_Ace.A5.SIZE_HEIGHT;
                 case Tileset.VX_BE_Ace_BC:
                     return VX_Ace.BE.SIZE_WIDTH;
+                case Tileset.R2000_2003_Auto:
                 case Tileset.XP:
                 default:
                     return -1;
@@ -143,6 +144,18 @@ namespace tilecon
         {
             public static readonly int SPRITE_SIZE = 32;
             public static readonly int SIZE_WIDTH  = 256;
+
+            public static class Auto
+            {
+                public static readonly int SIZE_WIDTH = 96;
+                public static readonly int SIZE_HEIGHT = 128;
+            }
+
+            public static class AnimateAuto
+            {
+                public static readonly int SIZE_WIDTH = 384;
+                public static readonly int SIZE_HEIGHT = 128;
+            }
         }
 
         public static class VX_Ace

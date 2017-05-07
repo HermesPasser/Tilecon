@@ -1,0 +1,70 @@
+﻿using System.Collections.Generic;
+using System.Drawing;
+
+namespace tilecon.Converter
+{
+    class TilesetConverterAutotileXP : TilesetConverterVertical
+    {
+        public TilesetConverterAutotileXP(Maker.Tileset inputMaker, spriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+
+        protected override bool IsConvertible(Image img)
+        {
+            if (img.Width == Maker.XP.Auto.SIZE_WIDTH || img.Height == Maker.XP.Auto.SIZE_HEIGHT)
+                return true;
+            else if (img.Width == Maker.XP.AnimateAuto.SIZE_WIDTH || img.Height == Maker.XP.AnimateAuto.SIZE_HEIGHT)
+                return true;
+            return false;
+        }
+
+        private Bitmap GetMVAutotile(Bitmap bmp)
+        {
+            Bitmap temp = new Bitmap(Maker.MV.SPRITE_SIZE, Maker.MV.SPRITE_SIZE);
+            Bitmap mv = new Bitmap(96, 144);
+            Bitmap xp1 = Crop(bmp, 00, 00, Maker.XP.SPRITE_SIZE, Maker.XP.SPRITE_SIZE);
+            Bitmap xp2 = Crop(bmp, 64, 00, Maker.XP.SPRITE_SIZE / 2, Maker.XP.SPRITE_SIZE / 2);
+            Bitmap xp3 = Crop(bmp, 80, 00, Maker.XP.SPRITE_SIZE / 2, Maker.XP.SPRITE_SIZE / 2);
+            Bitmap xp4 = Crop(bmp, 64, 16, Maker.XP.SPRITE_SIZE / 2, Maker.XP.SPRITE_SIZE / 2);
+            Bitmap xp5 = Crop(bmp, 80, 16, Maker.XP.SPRITE_SIZE / 2, Maker.XP.SPRITE_SIZE / 2);
+            Bitmap xp6 = Crop(bmp, 0, 32, 96, 96);
+            Bitmap xp7 = Crop(bmp, 26, 56, Maker.MV.SPRITE_SIZE, Maker.MV.SPRITE_SIZE);
+
+            mv = Paste(mv, xp1, 8, 8, Maker.XP.SPRITE_SIZE, Maker.XP.SPRITE_SIZE);
+            temp = Paste(temp, xp2, 00, 00, Maker.XP.SPRITE_SIZE / 2, Maker.XP.SPRITE_SIZE / 2);
+            temp = Paste(temp, xp3, 32, 00, Maker.XP.SPRITE_SIZE / 2, Maker.XP.SPRITE_SIZE / 2);
+            temp = Paste(temp, xp4, 00, 32, Maker.XP.SPRITE_SIZE / 2, Maker.XP.SPRITE_SIZE / 2);
+            temp = Paste(temp, xp5, 32, 32, Maker.XP.SPRITE_SIZE / 2, Maker.XP.SPRITE_SIZE / 2);
+            temp = PasteInAlpha(temp, xp7);
+            mv = Paste(mv, temp, 48, 00, 96, 96);
+            mv = Paste(mv, xp6, 00, 48, 96, 96);
+            return mv;
+        }
+        
+        private Bitmap GetMVTileset(Bitmap bmp)
+        {
+            Bitmap mv = new Bitmap(Maker.MV.A12.SIZE_WIDTH, Maker.MV.A12.SIZE_HEIGHT);
+
+            if (bmp.Width == Maker.XP.Auto.SIZE_WIDTH)
+            {
+                Bitmap b = GetMVAutotile(bmp);
+                mv = Paste(mv, b, 288, 0, 96, 144);
+            }
+            else
+            {
+                Bitmap b1 = Crop(bmp, 00, 00, 96, 128);
+                Bitmap b2 = Crop(bmp, 96, 00, 96, 128);
+                Bitmap b3 = Crop(bmp, 192, 00, 96, 128);
+
+                mv = Paste(mv, GetMVAutotile(b1), 0, 0, 96, 144);
+                mv = Paste(mv, GetMVAutotile(b2), 96, 0, 96, 144);
+                mv = Paste(mv, GetMVAutotile(b3), 192, 0, 96, 144);
+            }
+            return mv;
+        }
+
+        public override Bitmap[] ConvertToMV(Image img)
+        {
+            if (!IsConvertible(img)) return null; 
+            return new Bitmap[1] { GetMVTileset(img as Bitmap) };
+        }
+    }
+}

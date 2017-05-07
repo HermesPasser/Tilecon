@@ -53,6 +53,8 @@
             this.rPGMaker20002003TilesetA_SMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMaker20002003TilesetB_SMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMakerXP_SMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGMakerXPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGMakerXPAutotileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMakerVXAceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMakerVXAceTilesetA12ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMakerVXTilesetA3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,6 +91,7 @@
             this.labelMVTilesetName = new System.Windows.Forms.Label();
             this.labelMVPagesNumber = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.rMXPAutotileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxXP)).BeginInit();
             this.panel2.SuspendLayout();
@@ -134,8 +137,6 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.AutoScroll = true;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.pictureBoxXP);
@@ -146,9 +147,9 @@
             // 
             // pictureBoxXP
             // 
-            this.pictureBoxXP.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxXP.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxXP.Name = "pictureBoxXP";
-            this.pictureBoxXP.Size = new System.Drawing.Size(250, 50);
+            this.pictureBoxXP.Size = new System.Drawing.Size(258, 278);
             this.pictureBoxXP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxXP.TabIndex = 1;
             this.pictureBoxXP.TabStop = false;
@@ -173,10 +174,8 @@
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.AutoScroll = true;
-            this.panel3.AutoSize = true;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.pictureBox2);
             this.panel3.Location = new System.Drawing.Point(437, 62);
@@ -186,9 +185,9 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(200, 206);
+            this.pictureBox2.Size = new System.Drawing.Size(258, 278);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
@@ -300,10 +299,26 @@
             // 
             // rPGMakerXP_SMItem
             // 
+            this.rPGMakerXP_SMItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rPGMakerXPToolStripMenuItem,
+            this.rPGMakerXPAutotileToolStripMenuItem});
             this.rPGMakerXP_SMItem.Name = "rPGMakerXP_SMItem";
             this.rPGMakerXP_SMItem.Size = new System.Drawing.Size(188, 22);
             this.rPGMakerXP_SMItem.Text = "RPG Maker XP";
-            this.rPGMakerXP_SMItem.Click += new System.EventHandler(this.rPGMakerXP_SMItem_Click);
+            // 
+            // rPGMakerXPToolStripMenuItem
+            // 
+            this.rPGMakerXPToolStripMenuItem.Name = "rPGMakerXPToolStripMenuItem";
+            this.rPGMakerXPToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.rPGMakerXPToolStripMenuItem.Text = "RPG Maker XP";
+            this.rPGMakerXPToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerXPToolStripMenuItem_Click);
+            // 
+            // rPGMakerXPAutotileToolStripMenuItem
+            // 
+            this.rPGMakerXPAutotileToolStripMenuItem.Name = "rPGMakerXPAutotileToolStripMenuItem";
+            this.rPGMakerXPAutotileToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.rPGMakerXPAutotileToolStripMenuItem.Text = "RPG Maker XP (Autotile)";
+            this.rPGMakerXPAutotileToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerXPAutotileToolStripMenuItem_Click);
             // 
             // rPGMakerVXAceToolStripMenuItem
             // 
@@ -479,6 +494,7 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rM20002003TilesetToolStripMenuItem,
+            this.rMXPAutotileToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -613,6 +629,7 @@
             "RPG Maker 2000/2003 (Tileset A)",
             "RPG Maker 2000/2003 (Tileset B)",
             "RPG Maker XP",
+            "RPG Maker XP (Autotile)",
             "RPG Maker VX/Ace (Tileset A1-2)",
             "RPG Maker VX/Ace (Tileset A3)",
             "RPG Maker VX/Ace (Tileset A4)",
@@ -642,6 +659,13 @@
             this.labelMVPagesNumber.Size = new System.Drawing.Size(24, 13);
             this.labelMVPagesNumber.TabIndex = 14;
             this.labelMVPagesNumber.Text = "0/0";
+            // 
+            // rMXPAutotileToolStripMenuItem
+            // 
+            this.rMXPAutotileToolStripMenuItem.Name = "rMXPAutotileToolStripMenuItem";
+            this.rMXPAutotileToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.rMXPAutotileToolStripMenuItem.Text = "RMXP Autotile";
+            this.rMXPAutotileToolStripMenuItem.Click += new System.EventHandler(this.rMXPAutotileToolStripMenuItem_Click);
             // 
             // FormXpMv
             // 
@@ -746,6 +770,9 @@
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.ToolStripMenuItem rM20002003TilesetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setTransparentPixelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rPGMakerXPToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rPGMakerXPAutotileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rMXPAutotileToolStripMenuItem;
     }
 }
 
