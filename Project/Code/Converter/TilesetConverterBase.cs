@@ -3,16 +3,11 @@ using System.Drawing;
 
 namespace tilecon.Converter
 {
-    public enum spriteMode
-    {
-        NONE, CENTRALIZE, RESIZE
-    }
-
     public abstract class TilesetConverterBase : ImageProcessing
     {
         protected int outputSpriteSize;
         protected bool ignoreAlpha;
-        protected spriteMode mode;
+        protected SpriteMode mode;
         protected Maker.Tileset outputMaker;
         protected Maker.Tileset inputMaker;
 
@@ -20,7 +15,7 @@ namespace tilecon.Converter
 
         public TilesetConverterBase() { }
 
-        public TilesetConverterBase(Maker.Tileset inputMaker, spriteMode mode, bool ignoreAlpha)
+        public TilesetConverterBase(Maker.Tileset inputMaker, SpriteMode mode, bool ignoreAlpha)
         {
             this.mode = mode;
             this.inputMaker = inputMaker;
@@ -53,18 +48,29 @@ namespace tilecon.Converter
             SetOutput();
             return outputMaker;
         }
-
+        
         protected void SetOutput()
         {
-            if (inputMaker == Maker.Tileset.VX_Ace_A12 || inputMaker == Maker.Tileset.R2000_2003_Auto || inputMaker == Maker.Tileset.XP_Auto)
-                outputMaker = Maker.Tileset.MV_A12;
-            else if (inputMaker == Maker.Tileset.VX_Ace_A3)
-                outputMaker = Maker.Tileset.MV_A3;
-            else if (inputMaker == Maker.Tileset.VX_Ace_A4)
-                outputMaker = Maker.Tileset.MV_A4;
-            else if (inputMaker == Maker.Tileset.VX_Ace_A5)
-                outputMaker = Maker.Tileset.MV_A5;
-            else outputMaker = Maker.Tileset.MV_BC;
+            switch (inputMaker)
+            {
+                case Maker.Tileset.VX_Ace_A12:
+                case Maker.Tileset.R2000_2003_Auto:
+                case Maker.Tileset.XP_Auto:
+                    outputMaker = Maker.Tileset.MV_A12;
+                    break;
+                case Maker.Tileset.VX_Ace_A3:
+                    outputMaker = Maker.Tileset.MV_A3;
+                    break;
+                case Maker.Tileset.VX_Ace_A4:
+                    outputMaker = Maker.Tileset.MV_A4;
+                    break;
+                case Maker.Tileset.VX_Ace_A5:
+                    outputMaker = Maker.Tileset.MV_A5;
+                    break;
+                default:
+                    outputMaker = Maker.Tileset.MV_BC;
+                    break;
+            }
             outputSpriteSize = Maker.IsMV(outputMaker) ? Maker.MV.SPRITE_SIZE : -1;
         }
 
@@ -93,13 +99,59 @@ namespace tilecon.Converter
             return bmp;
         }
 
-        protected List<Bitmap> SetModes(List<Bitmap> sprites)
+        public Bitmap SetModeInSprite(Image img, int spriteSize)
         {
-            //To resize
-            for (int g = 0; mode == spriteMode.RESIZE && g < sprites.Count; g++)
-                sprites[g] = Stretch(sprites[g], Maker.MV.SPRITE_SIZE);
+            int x = 0, y = 0, z = GetCentralizeNumber();
+            Bitmap temp = new Bitmap(spriteSize, spriteSize);
+            Bitmap bmp = img as Bitmap;
+            
+            Rectangle rect = new Rectangle(0, 0, img.Width, img.Height);
+            Graphics graphics = Graphics.FromImage(temp);
 
-            //To ignore alpha
+            switch (mode)
+            {
+                case SpriteMode.RESIZE:                    
+                    return Stretch(bmp, spriteSize);
+                case SpriteMode.ALIGN_TOP_LEFT:
+                    break;
+                case SpriteMode.ALIGN_TOP_CENTER:
+                    x += z;
+                    break;
+                case SpriteMode.ALIGN_TOP_RIGHT:
+                    x += z + z;
+                    break;
+                case SpriteMode.ALIGN_MIDDLE_LEFT:
+                    y += z;
+                    break;
+                case SpriteMode.ALIGN_MIDDLE_CENTER:
+                    x += z;
+                    y += z;
+                    break;
+                case SpriteMode.ALIGN_MIDDLE_RIGHT:
+                    x += z + z;
+                    y += z;
+                    break;
+                case SpriteMode.ALIGN_BOTTOM_LEFT:
+                    y += z + z;
+                    break;
+                case SpriteMode.ALIGN_BOTTOM_CENTER:
+                    x += z;
+                    y += z + z;
+                    break;
+                case SpriteMode.ALIGN_BOTTOM_RIGHT:
+                    x += z + z;
+                    y += z + z;
+                    break;
+            }
+
+            graphics.DrawImage(bmp, x, y, rect, GraphicsUnit.Pixel);
+            graphics.Dispose();
+            bmp = temp;
+            return bmp;
+        }
+
+        protected List<Bitmap> RemoveAlphaImages(List<Bitmap> sprites)
+        {
             for (int g = 0; ignoreAlpha && g < sprites.Count; g++)
                 if (IsAllAlphaImage(sprites[g])) sprites.Remove(sprites[g]);
             return sprites;
@@ -118,75 +170,64 @@ namespace tilecon.Converter
             return true;
         }
 
-        protected int PasteEachSpriteVertical(Bitmap bmp, List<Bitmap> sprites, int initY, int initX, int height, int width, int spriteIterator)
+        protected int PasteEachSpriteVertical(Bitmap origin, List<Bitmap> spritesToBePasted, int initY, int initX, int height, int width, int currentSprite)
         {
-            Rectangle rect = new Rectangle(0, 0, sprites[0].Width, sprites[0].Height);
-            Graphics graphics = Graphics.FromImage(bmp);
+            Rectangle rect = new Rectangle(0, 0, outputSpriteSize, outputSpriteSize);
+            Graphics graphics = Graphics.FromImage(origin);
            
-            //To resize
-            if (mode == spriteMode.RESIZE)
-                rect = new Rectangle(0, 0, outputSpriteSize, outputSpriteSize);
-
             for (int x = initX; x < width; x += outputSpriteSize)
             {
                 for (int y = initY; y < height; y += outputSpriteSize)
                 {
-                    if (spriteIterator >= sprites.Count || sprites[spriteIterator] == null)
+                    if (currentSprite >= spritesToBePasted.Count || spritesToBePasted[currentSprite] == null)
                         break;
 
-                    //To centralize
-                    int xx = x, yy = y;
-                    if (mode == spriteMode.CENTRALIZE)
-                    {
-                        int z = 0;
-                        if (Maker.GetSpriteSize(inputMaker) == 32) z = 8;
-                        else if (Maker.GetSpriteSize(inputMaker) == 16) z = 16;
-
-                        xx += z;
-                        yy += z;
-                    }
-                    graphics.DrawImage(sprites[spriteIterator], xx, yy, rect, GraphicsUnit.Pixel);
-                    spriteIterator++;
+                    spritesToBePasted[currentSprite] = SetModeInSprite(spritesToBePasted[currentSprite], outputSpriteSize);
+                    graphics.DrawImage(spritesToBePasted[currentSprite], x, y, rect, GraphicsUnit.Pixel);
+                    currentSprite++;
                 }
             }
             graphics.Dispose();
-            return spriteIterator;
+            return currentSprite;
         }
 
-        protected int PasteEachSpriteHorizontal(Bitmap bmp, List<Bitmap> sprites, int initY, int initX, int height, int width, int spriteIterator)
-        {
-            Rectangle rect = new Rectangle(0, 0, sprites[0].Width, sprites[0].Height);
-            Graphics graphics = Graphics.FromImage(bmp);
-
-            //To resize
-            if (mode == spriteMode.RESIZE)
-                rect = new Rectangle(0, 0, outputSpriteSize, outputSpriteSize);
-
+        protected int PasteEachSpriteHorizontal(Bitmap origin, List<Bitmap> spritesToBePasted, int initY, int initX, int height, int width, int currentSprite)
+        {   
+            Rectangle rect = new Rectangle(0, 0, outputSpriteSize, outputSpriteSize);
+            Graphics graphics = Graphics.FromImage(origin);
+            
             for (int y = initY; y < height; y += outputSpriteSize)
             {
                 for (int x = initX; x < width; x += outputSpriteSize)
                 {
-                    if (spriteIterator >= sprites.Count || sprites[spriteIterator] == null)
+                    if (currentSprite >= spritesToBePasted.Count || spritesToBePasted[currentSprite] == null)
                         break;
 
-                    //To centralize
-                    int xx = x, yy = y;
-                    if (mode == spriteMode.CENTRALIZE)
-                    {
-                        int z = 0;
-                        if (Maker.GetSpriteSize(inputMaker) == 32) z = 8;
-                        else if (Maker.GetSpriteSize(inputMaker) == 16) z = 16;
-
-                        xx += z;
-                        yy += z;
-                    }
-                    graphics.DrawImage(sprites[spriteIterator], xx, yy, rect, GraphicsUnit.Pixel);
-                    spriteIterator++;
+                    spritesToBePasted[currentSprite] = SetModeInSprite(spritesToBePasted[currentSprite], outputSpriteSize);
+                    graphics.DrawImage(spritesToBePasted[currentSprite], x, y, rect, GraphicsUnit.Pixel);
+                    currentSprite++;
                 }
             }
             graphics.Dispose();
-            return spriteIterator;
+            return currentSprite;
         }
+        
+        public Bitmap TilesToTileset(List<Bitmap> bmps, int width, int height, int spriteSize)
+        {
+            Bitmap mv = new Bitmap(width, height);
+
+            for (int y = 0, i = 0; y < height; y += spriteSize)
+            {
+                for (int x = 0; x < width; i++, x += spriteSize)
+                {
+                    if (bmps[i] != null)
+                        mv = Paste(mv, bmps[i], x, y, spriteSize, spriteSize);
+                }
+            }
+            return mv;
+        }
+
+        protected abstract int GetCentralizeNumber();
 
         protected abstract List<Bitmap> GetSprites(Image img);
 

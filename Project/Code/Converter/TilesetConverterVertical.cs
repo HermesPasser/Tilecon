@@ -7,7 +7,7 @@ namespace tilecon.Converter
     {
         public TilesetConverterVertical() { }
 
-        public TilesetConverterVertical(Maker.Tileset inputMaker, spriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+        public TilesetConverterVertical(Maker.Tileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 
         //To be called by TilesetConverterVX
         public List<Bitmap> GetSprites(Bitmap img)
@@ -21,14 +21,15 @@ namespace tilecon.Converter
             List<Bitmap> sprites = new List<Bitmap>();
 
             for (int y = 0, i = 0; y < img.Height; y += spriteSize)
-            {
-                for (int x = 0; x < img.Width; x += spriteSize)
-                {
+                for (int x = 0; x < img.Width; x += spriteSize, i++)
                     sprites.Add(Crop(img as Bitmap, x, y, spriteSize, spriteSize));
-                    i++;
-                }
-            }
-            return SetModes(sprites);
+
+            return RemoveAlphaImages(sprites);
+        }
+
+        protected override int GetCentralizeNumber()
+        {
+            return 8;
         }
 
         public override Bitmap[] ConvertToMV(Image img)
@@ -37,6 +38,7 @@ namespace tilecon.Converter
 
             List<Bitmap> images = new List<Bitmap>();
             List<Bitmap> sprites = GetSprites(img);
+
             int i = 0;
 
             while (i < sprites.Count)

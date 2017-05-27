@@ -6,22 +6,24 @@ using tilecon.Converter;
 
 namespace tilecon
 {
-    public partial class FormXpMv : Form
+    public partial class FormTilecon : Form
     {
         private string filepath;
-        private Bitmap[] bitmaps;
-        private int bmpCurrentIndex;
 
-        public static FormXpMv xpmvController;
+        public static FormTilecon formTileconController;
 
-        public FormXpMv()
+        public FormTilecon()
         {
-            xpmvController = this;
+            formTileconController = this;
             InitializeComponent();
             cbMaker.SelectedIndexChanged += new EventHandler(cbMaker_SelectedIndexChanged);
             ChangeLang(Vocab.lang.eng);
             cbMaker.SelectedIndex = 7;
             cbMode.SelectedIndex = 0;
+            btnOpen.Select();
+            
+            cbOutput.SelectedIndex = 0;
+            currentImage = currentImageRaw = null;
         }
 
         private void ChangeLang(Vocab.lang l)
@@ -31,35 +33,40 @@ namespace tilecon
             openFileDialog1.Filter = Vocab.imageFilesText + " (*.gif, *.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.gif; *bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             btnConvert.Text = Vocab.btnConvert;
             btnCutSave.Text = Vocab.btnCut;
-            btnSearch.Text = Vocab.btnOpen;
+            btnOpen.Text = Vocab.btnOpen;
             btnSave.Text = Vocab.btnSave;
             btnTransparency.Text = Vocab.btnTransparency;
             checkIgnore.Text = Vocab.cbIgnore;
 
             groupConversion.Text = Vocab.groupConversion;
-            groupUtilities.Text = Vocab.groupUtilities;
 
-            cbMode.Items[0] = Vocab.comboNone;
-            cbMode.Items[1] = Vocab.comboCentralize;
-            cbMode.Items[2] = Vocab.comboResize;
+            cbMode.Items[0] = topLeftItem.Text      = Vocab.comboTopLeft;
+            cbMode.Items[1] = topCenterItem.Text    = Vocab.comboTopCenter;
+            cbMode.Items[2] = topRightItem.Text     = Vocab.comboTopRight;
+            cbMode.Items[3] = middleLeftItem.Text   = Vocab.comboMiddleLeft;
+            cbMode.Items[4] = middleCenterItem.Text = Vocab.comboMiddleCenter;
+            cbMode.Items[5] = middleRightItem.Text  = Vocab.comboMiddleRight;
+            cbMode.Items[6] = bottomLeftItem.Text   = Vocab.comboBottomLeft;
+            cbMode.Items[7] = bottomCenterItem.Text = Vocab.comboBottomCenter;
+            cbMode.Items[8] = bottomRightItem.Text  = Vocab.comboBottomRight;
+            cbMode.Items[9] = resizeItem.Text       = Vocab.comboResize;
 
             menuStrip1.Items[0].Text = Vocab.file;
             openTilesetToolStripMenuItem.Text = Vocab.btnOpen;
+            modeMenu.Text = Vocab.mode;
+            saveIndividualFramesItem.Text = Vocab.btnCut;
             saveToolStripMenuItem.Text = Vocab.btnSave;
-            exitToolStripMenuItem.Text = Vocab.archiveExit;
+            exitToolStripMenuItem.Text = Vocab.fileExit;
+           
+            menuStrip1.Items[1].Text = editor.Text = Vocab.convert;
+            ignoreItem.Text = Vocab.cbIgnore;
+            convertAndSaveItem.Text = Vocab.btnConvert;
+            setTransparenItem.Text = Vocab.btnTransparency;
 
-            menuStrip1.Items[1].Text = Vocab.groupUtilities;
-            cutsaveIndividualFramesToolStripMenuItem.Text = Vocab.btnCut;
-
-            menuStrip1.Items[2].Text = Vocab.convert;
-            ignoreToolStripMenuItem.Text = Vocab.cbIgnore;
-            modeToolStripMenuItem.Text = Vocab.mode;
-            noneToolStripMenuItem.Text = Vocab.comboNone;
-            centralizeToolStripMenuItem.Text = Vocab.comboCentralize;
-            resizeToolStripMenuItem.Text = Vocab.comboResize;
-              
-            convertAndSaveToolStripMenuItem.Text = Vocab.btnConvert;
-            setTransparentPixelToolStripMenuItem.Text = Vocab.btnTransparency;
+            menuStrip1.Items[2].Text = converter.Text = Vocab.editor;
+            setTileseItem.Text = Vocab.btnSetTileset;
+            outputTilesetItem.Text = Vocab.btnOutputTileset;
+            clearAndSetOutputTilesetItem.Text = Vocab.btnClearAndSetOutputTileset;
 
             menuStrip1.Items[3].Text = Vocab.language;
             englishToolStripMenuItem.Text = Vocab.languageEng;
@@ -74,14 +81,17 @@ namespace tilecon
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 btnCutSave.Enabled = btnConvert.Enabled = true;
-                checkIgnore.Enabled = cbMode.Enabled = true;
-                cutsaveIndividualFramesToolStripMenuItem.Enabled = true;
-                convertAndSaveToolStripMenuItem.Enabled = true;
-                modeToolStripMenuItem.Enabled = true;
-                ignoreToolStripMenuItem.Enabled = true;
-
+                saveIndividualFramesItem.Enabled = true;
+                convertAndSaveItem.Enabled = true;
+                btnTransparency.Enabled = setTransparenItem.Enabled = true;
+                ignoreItem.Enabled = checkIgnore.Enabled = true;
+                btnSetInput.Enabled = true;
+                
                 filepath = openFileDialog1.FileName;
-                pictureBoxXP.Image = Image.FromFile(filepath);
+                pictureBoxInput.Image = Image.FromFile(filepath);
+
+                btnSetInput.Enabled = setTileseItem.Enabled = true;
+                LoadGrid();
                 return true;
             }
             return false;
@@ -94,7 +104,7 @@ namespace tilecon
             {
                 try
                 {
-                    TilesetConverterVertical cc = new TilesetConverterVertical(tile, spriteMode.NONE, false);
+                    TilesetConverterVertical cc = new TilesetConverterVertical(tile, SpriteMode.ALIGN_TOP_LEFT, false);
                     cc.SaveEachSubimage(Image.FromFile(filepath), filepath);
                     MessageBox.Show(Vocab.doneMessage, "Tilecon");
                 }
@@ -106,13 +116,21 @@ namespace tilecon
             thread.Start();
         }
 
-        private spriteMode GetMode()
+        private SpriteMode GetMode()
         {
-            if (cbMode.SelectedIndex == 1)
-                return spriteMode.CENTRALIZE;
-            else if (cbMode.SelectedIndex == 2)
-                return spriteMode.RESIZE;
-            else return spriteMode.NONE;
+            switch (cbMode.SelectedIndex){
+                case 0: return SpriteMode.ALIGN_TOP_LEFT;
+                case 1: return SpriteMode.ALIGN_TOP_CENTER;
+                case 2: return SpriteMode.ALIGN_TOP_RIGHT;
+                case 3: return SpriteMode.ALIGN_MIDDLE_LEFT;
+                case 4: return SpriteMode.ALIGN_MIDDLE_CENTER;
+                case 5: return SpriteMode.ALIGN_MIDDLE_RIGHT;
+                case 6: return SpriteMode.ALIGN_BOTTOM_LEFT;
+                case 7: return SpriteMode.ALIGN_BOTTOM_CENTER;
+                case 8: return SpriteMode.ALIGN_BOTTOM_RIGHT;
+                case 9: return SpriteMode.RESIZE;
+                default: return SpriteMode.ALIGN_TOP_LEFT;
+            }
         }
 
         private Maker.Tileset GetTileset()
@@ -151,76 +169,10 @@ namespace tilecon
             }
         }
 
-        private void Convert()
-        {          
-            Maker.Tileset maker = GetTileset();
-            spriteMode mode = GetMode();
-            btnConvert.Text = Vocab.waitMessage;
-            
-            try
-            {
-                switch (maker)
-                {
-                    case Maker.Tileset.Alpha:
-                        TilesetConverterVerticalApha con = new TilesetConverterVerticalApha(maker, mode, checkIgnore.Checked);
-                        bitmaps = con.ConvertToMV(Image.FromFile(filepath));
-                        break;
-
-                    case Maker.Tileset.R95:
-                    case Maker.Tileset.S97:
-                    case Maker.Tileset.XP:
-                        TilesetConverterVertical con1 = new TilesetConverterVertical(maker, mode, checkIgnore.Checked);
-                        bitmaps = con1.ConvertToMV(Image.FromFile(filepath));
-                        break;
-
-                    case Maker.Tileset.XP_Auto:
-                        TilesetConverterAutotileXP conXPAuto = new TilesetConverterAutotileXP(maker, mode, checkIgnore.Checked);
-                        bitmaps = conXPAuto.ConvertToMV(Image.FromFile(filepath));
-                        break;
-
-                    case Maker.Tileset.R2000_2003_A:
-                    case Maker.Tileset.R2000_2003_B:
-                    case Maker.Tileset.R2000_2003_AB:
-                    case Maker.Tileset.R2000_2003_Auto:
-                        TilesetConverterVerticalRM2K3 con2 = new TilesetConverterVerticalRM2K3(maker, mode, checkIgnore.Checked);
-                        bitmaps = con2.ConvertToMV(Image.FromFile(filepath));
-                        break;
-
-                    default:
-                        TilesetConverterVX con3 = new TilesetConverterVX(maker, mode, checkIgnore.Checked);
-                        bitmaps = con3.ConvertToMV(Image.FromFile(filepath));
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                return;
-            }
-            
-            if (bitmaps == null)
-            {
-                btnConvert.Text = Vocab.btnConvert;
-                return;
-            }
-
-            pictureBox2.Image = bitmaps[0];
-            btnSave.Enabled = saveToolStripMenuItem.Enabled = true;
-            btnNextImg.Enabled = btnPreviusImg.Enabled = false;
-            btnTransparency.Enabled = true;
-            setTransparentPixelToolStripMenuItem.Enabled = true;
-
-            if (bitmaps.Length > 1)
-                btnNextImg.Enabled = btnPreviusImg.Enabled = true;
-            else btnNextImg.Enabled = btnPreviusImg.Enabled = false;
-
-            bmpCurrentIndex = 0;
-            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
-            btnConvert.Text = Vocab.btnConvert;
-        }
-
         private void Save()
         {
+            if (bitmaps == null && tabControl1.SelectedIndex == 0) return;
+
             if (saveFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
 
@@ -230,15 +182,8 @@ namespace tilecon
                 return;
             }
 
-            int index = saveFileDialog1.FileName.LastIndexOf(".");
-            string fileDir = saveFileDialog1.FileName.Substring(0, index) + "_";
-
-            if (bitmaps.Length != 1)
-            {
-                for (int i = 0; i < bitmaps.Length; i++)
-                    bitmaps[i].Save(fileDir + i + ".png");
-            }
-            else bitmaps[0].Save(saveFileDialog1.FileName);
+            if (tabControl1.SelectedIndex == 0)  SaveConverter();
+            else SaveEditor();
         }
 
         private void OnIndexChange()
@@ -263,42 +208,7 @@ namespace tilecon
                     break;
             }
         }
-
-        private void SetTransparentPixel()
-        {
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                for (int i = 0; i < bitmaps.Length; i++)
-                    bitmaps[i] = ImageProcessing.ChangePixelsColor(bitmaps[i], colorDialog1.Color);
-                pictureBox2.Image = bitmaps[bmpCurrentIndex];
-            }
-        }
-
-        private void NextImage()
-        {
-            bmpCurrentIndex++;
-            if (bmpCurrentIndex >= bitmaps.Length)
-                bmpCurrentIndex = 0;
-
-            pictureBox2.Image = bitmaps[bmpCurrentIndex];
-            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
-        }
-
-        private void PreviusImage()
-        {
-            bmpCurrentIndex--;
-            if (bmpCurrentIndex < 0)
-                bmpCurrentIndex = bitmaps.Length - 1;
-
-            pictureBox2.Image = bitmaps[bmpCurrentIndex];
-            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
-        }
-
-        private void btnConvert_Click(object sender, EventArgs e)
-        {
-            Convert();
-        }
-
+        
         private void btnSearch_Click(object sender, EventArgs e)
         {
             OpenTileset();
@@ -331,11 +241,6 @@ namespace tilecon
             FormAbout form = new FormAbout();
             form.Show();
             this.Enabled = false;
-        }
-
-        private void cutsaveIndividualFramesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CutSave();
         }
 
         private void convertAndSaveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -372,46 +277,21 @@ namespace tilecon
         {
             Save();
         }
-
-        private void cutsaveIndividualFramesToolStripMenuItem_Click_2(object sender, EventArgs e)
+        
+        private void saveIndividualFramesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CutSave();
         }
-
+        
         private void ignoreAlphaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            checkIgnore.Checked = ignoreToolStripMenuItem.Checked;
+            checkIgnore.Checked = ignoreItem.Checked;
         }
 
         private void checkIgnore_CheckedChanged(object sender, EventArgs e)
         {
-            ignoreToolStripMenuItem.Checked = checkIgnore.Checked;
+            ignoreItem.Checked = checkIgnore.Checked;
         } 
-
-        private void noneToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 0;
-        }
-
-        private void centralizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 1;
-        }
-
-        private void resizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 2;
-        }
-
-        private void loopToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 2;
-        }
-
-        private void interpolationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 3;
-        }
 
         private void rPGMaker95ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -482,25 +362,59 @@ namespace tilecon
         {
             cbMaker.SelectedIndex = 13;
         }
-
-        private void btnNextImg_Click(object sender, EventArgs e)
-        {
-            NextImage();
-        }
-
-        private void btnPreviusImg_Click(object sender, EventArgs e)
-        {
-            PreviusImage();   
-        }
         
         private void cbMaker_SelectedIndexChanged(object sender, EventArgs e)
         {
             OnIndexChange();
         }
 
-        private void btnSetPixelTransparent_Click(object sender, EventArgs e)
+        private void topLeftItem_Click(object sender, EventArgs e)
         {
-            SetTransparentPixel();
+            cbMode.SelectedIndex = 0;
+        }
+
+        private void topCenterItem_Click(object sender, EventArgs e)
+        {
+            cbMode.SelectedIndex = 1;
+        }
+
+        private void topRightItem_Click(object sender, EventArgs e)
+        {
+            cbMode.SelectedIndex = 2;
+        }
+        private void middleLeftItem_Click(object sender, EventArgs e)
+        {
+            cbMode.SelectedIndex = 3;
+        }
+
+        private void middleCenterItem_Click(object sender, EventArgs e)
+        {
+            cbMode.SelectedIndex = 4;
+        }
+
+        private void middleRightItem_Click(object sender, EventArgs e)
+        {
+            cbMode.SelectedIndex = 5;
+        }
+
+        private void bottomLeftItem_Click(object sender, EventArgs e)
+        {
+            cbMode.SelectedIndex = 6;
+        }
+
+        private void bottomCenterItem_Click(object sender, EventArgs e)
+        {
+            cbMode.SelectedIndex = 7;
+        }
+
+        private void bottomRightItem_Click(object sender, EventArgs e)
+        {
+            cbMode.SelectedIndex = 8;
+        }
+
+        private void resizeItem_Click(object sender, EventArgs e)
+        {
+            cbMode.SelectedIndex = 9;
         }
     }
 }

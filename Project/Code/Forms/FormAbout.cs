@@ -12,8 +12,8 @@ namespace tilecon
 
         private void OnClose(object sender, FormClosingEventArgs e)
         {
-            FormXpMv.xpmvController.Enabled = true;
-            FormXpMv.xpmvController.Focus();
+            FormTilecon.formTileconController.Enabled = true;
+            FormTilecon.formTileconController.Focus();
         }
 
         private void button1_Click(object sender, System.EventArgs e)

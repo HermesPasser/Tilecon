@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace tilecon.Converter
 {
     class TilesetConverterVX : TilesetConverterBase
     {
-        public TilesetConverterVX(Maker.Tileset inputMaker, spriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+        public TilesetConverterVX(Maker.Tileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 
         protected override List<Bitmap> GetSprites(Image img)
         {
@@ -22,8 +23,13 @@ namespace tilecon.Converter
                     i++;
                 }
             }
-            return SetModes(sprites);
-        }        
+            return RemoveAlphaImages(sprites);
+        }
+
+        protected override int GetCentralizeNumber()
+        {
+            return 8;
+        }
 
         public override Bitmap[] ConvertToMV(Image img)
         {

@@ -5,7 +5,7 @@ namespace tilecon.Converter
 {
     class TilesetConverterAutotileXP : TilesetConverterVertical
     {
-        public TilesetConverterAutotileXP(Maker.Tileset inputMaker, spriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+        public TilesetConverterAutotileXP(Maker.Tileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 
         protected override bool IsConvertible(Image img)
         {
@@ -59,6 +59,10 @@ namespace tilecon.Converter
                 mv = Paste(mv, GetMVAutotile(b3), 192, 0, 96, 144);
             }
             return mv;
+        }
+        protected override int GetCentralizeNumber()
+        {
+            return 0;
         }
 
         public override Bitmap[] ConvertToMV(Image img)

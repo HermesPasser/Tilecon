@@ -5,7 +5,12 @@ namespace tilecon.Converter
 {
     class TilesetConverterVerticalApha : TilesetConverterVertical
     {
-        public TilesetConverterVerticalApha(Maker.Tileset inputMaker, spriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+        public TilesetConverterVerticalApha(Maker.Tileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+
+        protected override int GetCentralizeNumber()
+        {
+            return 16;
+        }
 
         public override Bitmap[] ConvertToMV(Image img)
         {
@@ -13,10 +18,9 @@ namespace tilecon.Converter
 
             Bitmap[] images = new Bitmap[1];
             List<Bitmap> sprites = GetSprites(img);
-            int i = 0;
 
             images[0] = GetOutputBitmap(); 
-            i = PasteEachSpriteHorizontal(images[0], sprites, 0, 0, images[0].Height, images[0].Width / 4, i);
+            PasteEachSpriteHorizontal(images[0], sprites, 0, 0, images[0].Height, images[0].Width / 4, 0);
           
             return images;
         }

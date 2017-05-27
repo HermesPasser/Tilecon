@@ -8,11 +8,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>tilecon</RootNamespace>
     <AssemblyName>Tileset Converter to MV</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\DSL\Desktop\tilecon\</PublishUrl>
+    <TargetFrameworkProfile />
+    <PublishUrl>C:\Users\Diogo\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -24,8 +25,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://none.com/</UpdateUrl>
     <PublisherName>Gladio Citrico</PublisherName>
-    <ApplicationRevision>13</ApplicationRevision>
-    <ApplicationVersion>1.6.0.%2a</ApplicationVersion>
+    <ApplicationRevision>14</ApplicationRevision>
+    <ApplicationVersion>1.7.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -60,7 +61,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>ico.ico</ApplicationIcon>
@@ -96,6 +97,9 @@
     <Compile Include="Code\Forms\Form2000.Designer.cs">
       <DependentUpon>Form2000.cs</DependentUpon>
     </Compile>
+    <Compile Include="Code\Forms\FormTilecon\FormTilecon.Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Code\Maker.cs" />
     <Compile Include="Code\Forms\FormAbout.cs">
       <SubType>Form</SubType>
@@ -103,15 +107,16 @@
     <Compile Include="Code\Forms\FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Code\Forms\FormXp-Mv.cs">
+    <Compile Include="Code\Forms\FormTilecon\FormTilecon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Code\Forms\FormXp-Mv.Designer.cs">
-      <DependentUpon>FormXp-Mv.cs</DependentUpon>
+    <Compile Include="Code\Forms\FormTilecon\FormTilecon.Designer.cs">
+      <DependentUpon>FormTilecon.cs</DependentUpon>
     </Compile>
     <Compile Include="Code\Converter\TilesetConverterBase.cs" />
     <Compile Include="Code\Program.cs" />
     <Compile Include="Code\ImageProcessing.cs" />
+    <Compile Include="Code\SpriteMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Code\Vocab.cs" />
     <EmbeddedResource Include="Code\Forms\FormXPAuto.resx">
@@ -122,9 +127,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Code\Forms\FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Code\Forms\FormXp-Mv.resx">
-      <DependentUpon>FormXp-Mv.cs</DependentUpon>
+    <EmbeddedResource Include="Code\Forms\FormTilecon\FormTilecon.resx">
+      <DependentUpon>FormTilecon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -135,6 +141,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Code\Forms\FormTilecon\FormTilecon.Converter.cs">
+      <SubType>Form</SubType>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

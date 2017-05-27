@@ -5,7 +5,7 @@ namespace tilecon.Converter
 {
     class TilesetConverterVerticalRM2K3 : TilesetConverterVertical
     {
-        public TilesetConverterVerticalRM2K3(Maker.Tileset inputMaker, spriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+        public TilesetConverterVerticalRM2K3(Maker.Tileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 
         private Bitmap PasteAutotileInMV(Bitmap bmp)
         {
@@ -105,6 +105,11 @@ namespace tilecon.Converter
             temp = Paste(temp, bmp2, 0, Maker.R2000_2003.SIZE_HEIGHT / 2, 191, 197);
             temp = Paste(temp, bmp3, 0, Maker.R2000_2003.SIZE_HEIGHT, 191, 197);
             return temp;
+        }
+
+        protected override int GetCentralizeNumber()
+        {
+            return 16;
         }
 
         public override Bitmap[] ConvertToMV(Image img)
