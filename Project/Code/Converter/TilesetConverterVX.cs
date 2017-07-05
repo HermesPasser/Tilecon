@@ -6,13 +6,13 @@ namespace tilecon.Converter
 {
     class TilesetConverterVX : TilesetConverterBase
     {
-        public TilesetConverterVX(Maker.Tileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+        public TilesetConverterVX(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 
         protected override List<Bitmap> GetSprites(Image img)
         {
-            int spriteSize = Maker.GetSpriteSize(inputMaker);
-            int height = Maker.GetSizeHeight(inputMaker);
-            int width = Maker.GetSizeWidth(inputMaker);
+            int spriteSize = inputTileset.SpriteSize();
+            int height = inputTileset.SizeHeight();
+            int width = inputTileset.SizeWidth();
             List<Bitmap> sprites = new List<Bitmap>();
 
             for (int x = 0, i = 0; x < width; x += spriteSize)
@@ -38,31 +38,31 @@ namespace tilecon.Converter
             List<Bitmap> sprites = GetSprites(img);
             int i = 0;
 
-            if (outputMaker == Maker.Tileset.MV_A5 || outputMaker == Maker.Tileset.MV_BC)
+            if (outputTileset.GetType() == typeof(Maker.MV_A5) || outputTileset.GetType() == typeof(Maker.MV_BE))
             {
-                TilesetConverterVertical con = new TilesetConverterVertical(inputMaker, mode, ignoreAlpha);
+                System.Windows.Forms.MessageBox.Show("penis");
+                TilesetConverterVertical con = new TilesetConverterVertical(inputTileset, mode, ignoreAlpha);
                 sprites.Clear();
                 sprites = con.GetSprites(img as Bitmap);
             }
-            
             //For each image
             while (i < sprites.Count)
             {
                 Bitmap tempBmp = GetOutputBitmap();
 
                 //Set image format
-                switch (outputMaker)
+                switch (outputTileset.TilesetName())
                 {
-                    case Maker.Tileset.MV_A12:
-                    case Maker.Tileset.MV_A4:
-                    case Maker.Tileset.MV_A3:
+                    case Maker.MV_A12.NAME:
+                    case Maker.MV_A4.NAME:
+                    case Maker.MV_A3.NAME:
                         i = PasteEachSpriteVertical(tempBmp, sprites, 0, 0, tempBmp.Height, tempBmp.Width / 2, i);
                         i = PasteEachSpriteVertical(tempBmp, sprites, 0, tempBmp.Width / 2, tempBmp.Height, tempBmp.Width, i);
                         break;
-                    case Maker.Tileset.MV_A5: 
+                    case Maker.MV_A5.NAME: 
                         i = PasteEachSpriteHorizontal(tempBmp, sprites, 0, 0, tempBmp.Height, tempBmp.Width, i);
                         break;
-                    case Maker.Tileset.MV_BC:
+                    case Maker.MV_BE.NAME:
                         i = PasteEachSpriteHorizontal(tempBmp, sprites, 0, 0, tempBmp.Height, tempBmp.Width, i);
                         break;
                 }

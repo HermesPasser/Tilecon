@@ -7,7 +7,7 @@ namespace tilecon.Converter
     {
         public TilesetConverterVertical() { }
 
-        public TilesetConverterVertical(Maker.Tileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+        public TilesetConverterVertical(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 
         //To be called by TilesetConverterVX
         public List<Bitmap> GetSprites(Bitmap img)
@@ -17,7 +17,7 @@ namespace tilecon.Converter
 
         protected override List<Bitmap> GetSprites(Image img)
         {
-            int spriteSize = Maker.GetSpriteSize(inputMaker);
+            int spriteSize = inputTileset.SpriteSize();
             List<Bitmap> sprites = new List<Bitmap>();
 
             for (int y = 0, i = 0; y < img.Height; y += spriteSize)

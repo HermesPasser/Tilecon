@@ -2,208 +2,280 @@
 
 namespace tilecon
 {
+    public interface ITileset
+    {
+        string TilesetName();
+        int SpriteSize();
+        int SizeWidth();
+        int SizeHeight();
+    }
+
     public static class Maker
     {
-        public enum Tileset
-        {
-            R95, S97, Alpha,
-            R2000_2003_Auto, R2000_2003_A, R2000_2003_B, R2000_2003_AB,
-            XP, XP_Auto,
-            VX_Ace_A12, VX_Ace_A3, VX_Ace_A4, VX_Ace_A5, VX_BE_Ace_BC,
-            MV_A12, MV_A3, MV_A4, MV_A5, MV_BC
-        }
-
-        public static bool Is2K_2K3(Tileset ver)
-        {
-            return (ver == Tileset.R2000_2003_A || ver == Tileset.R2000_2003_B || ver == Tileset.R2000_2003_AB || ver == Tileset.R2000_2003_Auto);
-        }
-
-        public static bool IsVX_Ace(Tileset ver)
-        {
-            return (ver == Tileset.VX_Ace_A12 || ver == Tileset.VX_Ace_A3 || ver == Tileset.VX_Ace_A4 || ver == Tileset.VX_BE_Ace_BC);
-        }
-
-        public static bool IsMV(Tileset ver)
-        {
-            return (ver == Tileset.MV_A12 || ver == Tileset.MV_A3 || ver == Tileset.MV_A4 || ver == Tileset.MV_A5 || ver == Tileset.MV_BC);
-        }
-
-        public static int GetSpriteSize(Tileset maker)
-        {
-            if (Is2K_2K3(maker)) return R2000_2003.SPRITE_SIZE;
-            if (IsVX_Ace(maker)) return VX_Ace.SPRITE_SIZE;
-            if (IsMV(maker))     return MV.SPRITE_SIZE;
-
-            switch (maker)
-            {
-                case Tileset.R95:   return R95.SPRITE_SIZE;
-                case Tileset.S97:   return S97.SPRITE_SIZE;
-                case Tileset.Alpha: return Alpha.SPRITE_SIZE;
-                default:            return XP.SPRITE_SIZE;
-            }
-        }
-
-        public static int GetSizeWidth(Tileset maker)
-        {
-            if (Is2K_2K3(maker)) return R2000_2003.SIZE_WIDTH;
-
-            switch (maker)
-            {
-                case Tileset.R95:          return R95.SIZE_WIDTH;
-                case Tileset.S97:          return S97.SIZE_WIDTH;
-                case Tileset.Alpha:        return Alpha.SIZE_WIDTH;
-                case Tileset.VX_Ace_A12:   return VX_Ace.A12.SIZE_WIDTH;
-                case Tileset.VX_Ace_A3:    return VX_Ace.A3.SIZE_WIDTH;
-                case Tileset.VX_Ace_A4:    return VX_Ace.A4.SIZE_WIDTH;
-                case Tileset.VX_Ace_A5:    return VX_Ace.A5.SIZE_WIDTH;
-                case Tileset.VX_BE_Ace_BC: return VX_Ace.BE.SIZE_WIDTH;
-                case Tileset.MV_A12:       return MV.A12.SIZE_WIDTH;
-                case Tileset.MV_A3:        return MV.A3.SIZE_WIDTH;
-                case Tileset.MV_A4:        return MV.A4.SIZE_WIDTH;
-                case Tileset.MV_A5:        return MV.A5.SIZE_WIDTH;
-                case Tileset.MV_BC:        return MV.BE.SIZE;
-                default:                   return XP.SIZE_WIDTH;
-            }
-        }
-
-        public static int GetSizeHeight(Tileset maker)
-        {
-            if (Is2K_2K3(maker)) return R2000_2003.SIZE_HEIGHT;
-
-            switch (maker)
-            {
-                case Tileset.R95:           return R95.SIZE_HEIGHT;
-                case Tileset.S97:           return S97.SIZE_HEIGHT;
-                case Tileset.Alpha:         return Alpha.SIZE_HEIGHT;
-                case Tileset.VX_Ace_A12:    return VX_Ace.A12.SIZE_HEIGHT;
-                case Tileset.VX_Ace_A3:     return VX_Ace.A3.SIZE_HEIGHT;
-                case Tileset.VX_Ace_A4:     return VX_Ace.A4.SIZE_HEIGHT;
-                case Tileset.VX_Ace_A5:     return VX_Ace.A5.SIZE_HEIGHT;
-                case Tileset.VX_BE_Ace_BC:  return VX_Ace.BE.SIZE_HEIGHT;
-                case Tileset.MV_A12:        return MV.A12.SIZE_HEIGHT;
-                case Tileset.MV_A3:         return MV.A3.SIZE_HEIGHT;
-                case Tileset.MV_A4:         return MV.A4.SIZE_HEIGHT;
-                case Tileset.MV_A5:         return MV.A5.SIZE_HEIGHT;
-                case Tileset.MV_BC:         return MV.BE.SIZE;
-                default:                    return XP.SIZE_WIDTH;
-            }
-        }
-
-        public static class R95
+        public class R95 : ITileset
         {
             public static readonly int SPRITE_SIZE = 32;
-            public static readonly int SIZE_WIDTH  = 256;
+            public static readonly int SIZE_WIDTH = 256;
             public static readonly int SIZE_HEIGHT = 1024;
+            public const string NAME = "RPG Maker 95";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
         }
 
-        public static class S97
+        public class S97 : ITileset
         {
             public static readonly int SPRITE_SIZE = 32;
-            public static readonly int SIZE_WIDTH  = 384;
+            public static readonly int SIZE_WIDTH = 384;
             public static readonly int SIZE_HEIGHT = 1024;
+            public const string NAME = "Sim RPG Maker 97";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
         }
-     
-        public static class Alpha
+
+        public class Alpha : ITileset
         {
             public static readonly int SPRITE_SIZE = 16;
-            public static readonly int SIZE_WIDTH  = 64;
+            public static readonly int SIZE_WIDTH = 64;
             public static readonly int SIZE_HEIGHT = 128;
+            public const string NAME = "RPG Maker Alpha";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
         }
 
-        public static class R2000_2003
-        { 
+        #region R2k classes
+        // To that all tilesets below share the same type.
+
+        public abstract class R2k_2k3
+        {
             public static readonly int SPRITE_SIZE = 16;
-            public static readonly int SIZE_WIDTH  = 480;
+            public static readonly int SIZE_WIDTH = 480;
             public static readonly int SIZE_HEIGHT = 256;
         }
 
-        public static class XP
+        public class R2k_2k3_AB : R2k_2k3, ITileset
+        {
+            public const string NAME = "RPG Maker 2000/2003 (Tileset A-B)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+
+        public class R2k_2k3_A : R2k_2k3, ITileset
+        {
+            public const string NAME = "RPG Maker 2000/2003 (Tileset A)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+
+        public class R2k_2k3_B : R2k_2k3, ITileset
+        {
+            public const string NAME = "RPG Maker 2000/2003 (Tileset B)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+
+        public class R2k_2k3_Auto : R2k_2k3, ITileset
+        {
+            public const string NAME = "RPG Maker 2000/2003 (Autotiles)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+        #endregion
+
+        #region XP classes
+        // To that all tilesets below share the same type.
+
+        public abstract class XP
         {
             public static readonly int SPRITE_SIZE = 32;
-            public static readonly int SIZE_WIDTH  = 256;
+        }
 
-            public static class Auto
-            {
-                public static readonly int SIZE_WIDTH = 96;
-                public static readonly int SIZE_HEIGHT = 128;
-            }
+        public class XP_Tile : XP, ITileset
+        {
+            public static readonly int SIZE_WIDTH = 256;
+            public const string NAME = "RPG Maker XP";
 
-            public static class AnimateAuto
+            public int SizeHeight() { return -1; }
+            public int SizeWidth()  { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+        
+        public class XP_Auto : XP, ITileset
+        {
+            public static readonly int SIZE_WIDTH = 96;
+            public static readonly int SIZE_HEIGHT = 128;
+            public const string NAME = "RPG Maker XP (Autotile)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+            
+            public class AnimateAuto
             {
                 public static readonly int SIZE_WIDTH = 384;
                 public static readonly int SIZE_HEIGHT = 128;
             }
         }
+        #endregion
 
-        public static class VX_Ace
+        #region VX classes
+        // To that all tilesets below share the same type.
+
+        public abstract class VX_Ace
         {
             public static readonly int SPRITE_SIZE = 32;
-
-            public static class A12
-            {
-                public static readonly int SIZE_WIDTH = 512;
-                public static readonly int SIZE_HEIGHT = 384;
-            }
-
-            public static class A3
-            {
-                public static readonly int SIZE_WIDTH = 512;
-                public static readonly int SIZE_HEIGHT = 256;
-            }
-
-            public static class A4
-            {
-                public static readonly int SIZE_WIDTH = 512;
-                public static readonly int SIZE_HEIGHT = 480;
-            }
-
-            public static class A5
-            {
-                public static readonly bool VXOnly = false;
-                public static readonly int SIZE_WIDTH = 256;
-                public static readonly int SIZE_HEIGHT = 512;
-            }
-
-            public static class BE
-            {
-                public static readonly bool VXOnly = false;
-                public static readonly int SIZE_WIDTH  = 512;
-                public static readonly int SIZE_HEIGHT = 512;
-            }
         }
-       
-        public static class MV
+
+        public class VX_Ace_A12 : VX_Ace, ITileset
+        {
+            
+            public static readonly int SIZE_WIDTH = 512;
+            public static readonly int SIZE_HEIGHT = 384;
+            public const string NAME = "RPG Maker VX/Ace (Tileset A1-2)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+
+        public class VX_Ace_A3 : VX_Ace, ITileset
+        {
+            public static readonly int SIZE_WIDTH = 512;
+            public static readonly int SIZE_HEIGHT = 256;
+            public const string NAME = "RPG Maker VX/Ace (Tileset A3)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+
+        public class VX_Ace_A4 : VX_Ace, ITileset
+        {
+            public static readonly int SIZE_WIDTH = 512;
+            public static readonly int SIZE_HEIGHT = 480;
+            public const string NAME = "RPG Maker VX/Ace (Tileset A4)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+
+        public class VX_Ace_A5 : VX_Ace, ITileset
+        {
+            public static readonly int SIZE_WIDTH = 256;
+            public static readonly int SIZE_HEIGHT = 512;
+            public const string NAME = "RPG Maker VX/Ace (Tileset A5)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+
+        public class VX_Ace_BE : VX_Ace, ITileset
+        {
+            public static readonly int SIZE_WIDTH = 512;
+            public static readonly int SIZE_HEIGHT = 512;
+            public const string NAME = "RPG Maker VX/Ace (Tileset B-E)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+        #endregion
+
+        #region MV classes
+        // To that all tilesets below share the same type.
+
+        public abstract class MV
         {
             public static readonly int SPRITE_SIZE = 48;
-
-            public static class A12
-            {
-                public static readonly int SIZE_WIDTH  = 768;
-                public static readonly int SIZE_HEIGHT = 576;
-            }
-
-            public static class A3
-            {
-                public static readonly int SIZE_WIDTH = 768;
-                public static readonly int SIZE_HEIGHT = 384;
-            }
-
-            public static class A4
-            {
-                public static readonly int SIZE_WIDTH = 768;
-                public static readonly int SIZE_HEIGHT = 720;
-            }
-
-            public static class A5
-            {
-                public static readonly int SIZE_WIDTH = 384;
-                public static readonly int SIZE_HEIGHT = 768;
-            }
-
-            public static class BE
-            {
-                public static readonly int SIZE = 768;
-            }
         }
+
+        public class MV_A12 : MV, ITileset
+        {
+            public static readonly int SIZE_WIDTH = 768;
+            public static readonly int SIZE_HEIGHT = 576;
+            public const string NAME = "RPG Maker MV (Tileset A1-2)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+
+        public class MV_A3 : MV, ITileset
+        {
+            public static readonly int SIZE_WIDTH = 768;
+            public static readonly int SIZE_HEIGHT = 384;
+            public const string NAME = "RPG Maker MV (Tileset A3)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+
+        public class MV_A4 : MV, ITileset
+        {
+            public static readonly int SIZE_WIDTH = 768;
+            public static readonly int SIZE_HEIGHT = 720;
+            public const string NAME = "RPG Maker MV (Tileset A4)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+
+        public class MV_A5 : MV, ITileset
+        {
+            public static readonly int SIZE_WIDTH = 384;
+            public static readonly int SIZE_HEIGHT = 768;
+            public const string NAME = "RPG Maker MV (Tileset A5)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+
+        public class MV_BE : MV, ITileset
+        {
+            public static readonly int SIZE = 768;
+            public const string NAME = "RPG Maker MV (Tileset B-E)";
+
+            public int SizeHeight() { return SIZE; }
+            public int SizeWidth() { return SIZE; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
+        }
+        #endregion
     }
 }

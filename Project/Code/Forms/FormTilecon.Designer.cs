@@ -104,9 +104,9 @@
             this.labelMVPagesNumber = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.converter = new System.Windows.Forms.TabPage();
+            this.tabConverter = new System.Windows.Forms.TabPage();
             this.groupConversion = new System.Windows.Forms.GroupBox();
-            this.editor = new System.Windows.Forms.TabPage();
+            this.tabEditor = new System.Windows.Forms.TabPage();
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
             this.btnSetInput = new System.Windows.Forms.Button();
             this.btnClearAndSet = new System.Windows.Forms.Button();
@@ -122,9 +122,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOutput)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.converter.SuspendLayout();
+            this.tabConverter.SuspendLayout();
             this.groupConversion.SuspendLayout();
-            this.editor.SuspendLayout();
+            this.tabEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
             this.convertedPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -175,7 +175,7 @@
             // 
             // pictureBoxInput
             // 
-            this.pictureBoxInput.Location = new System.Drawing.Point(1, 20);
+            this.pictureBoxInput.Location = new System.Drawing.Point(1, 1);
             this.pictureBoxInput.Name = "pictureBoxInput";
             this.pictureBoxInput.Size = new System.Drawing.Size(258, 278);
             this.pictureBoxInput.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -195,7 +195,7 @@
             // 
             // pictureBoxOutput
             // 
-            this.pictureBoxOutput.Location = new System.Drawing.Point(-1, 18);
+            this.pictureBoxOutput.Location = new System.Drawing.Point(1, 1);
             this.pictureBoxOutput.Name = "pictureBoxOutput";
             this.pictureBoxOutput.Size = new System.Drawing.Size(258, 278);
             this.pictureBoxOutput.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -779,30 +779,30 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.converter);
-            this.tabControl1.Controls.Add(this.editor);
+            this.tabControl1.Controls.Add(this.tabConverter);
+            this.tabControl1.Controls.Add(this.tabEditor);
             this.tabControl1.Location = new System.Drawing.Point(13, 65);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(718, 353);
             this.tabControl1.TabIndex = 15;
             // 
-            // converter
+            // tabConverter
             // 
-            this.converter.BackColor = System.Drawing.SystemColors.Control;
-            this.converter.Controls.Add(this.groupConversion);
-            this.converter.Controls.Add(this.panelInput);
-            this.converter.Controls.Add(this.labelMVPagesNumber);
-            this.converter.Controls.Add(this.labelMVTilesetName);
-            this.converter.Controls.Add(this.panelOutput);
-            this.converter.Controls.Add(this.btnNextImg);
-            this.converter.Controls.Add(this.btnPreviusImg);
-            this.converter.Location = new System.Drawing.Point(4, 22);
-            this.converter.Name = "converter";
-            this.converter.Padding = new System.Windows.Forms.Padding(3);
-            this.converter.Size = new System.Drawing.Size(710, 327);
-            this.converter.TabIndex = 0;
-            this.converter.Text = "Converter";
+            this.tabConverter.BackColor = System.Drawing.SystemColors.Control;
+            this.tabConverter.Controls.Add(this.groupConversion);
+            this.tabConverter.Controls.Add(this.panelInput);
+            this.tabConverter.Controls.Add(this.labelMVPagesNumber);
+            this.tabConverter.Controls.Add(this.labelMVTilesetName);
+            this.tabConverter.Controls.Add(this.panelOutput);
+            this.tabConverter.Controls.Add(this.btnNextImg);
+            this.tabConverter.Controls.Add(this.btnPreviusImg);
+            this.tabConverter.Location = new System.Drawing.Point(4, 22);
+            this.tabConverter.Name = "tabConverter";
+            this.tabConverter.Padding = new System.Windows.Forms.Padding(3);
+            this.tabConverter.Size = new System.Drawing.Size(710, 327);
+            this.tabConverter.TabIndex = 0;
+            this.tabConverter.Text = "Converter";
             // 
             // groupConversion
             // 
@@ -817,21 +817,21 @@
             this.groupConversion.TabStop = false;
             this.groupConversion.Text = "Conversion";
             // 
-            // editor
+            // tabEditor
             // 
-            this.editor.BackColor = System.Drawing.SystemColors.Control;
-            this.editor.Controls.Add(this.pictureBoxPreview);
-            this.editor.Controls.Add(this.btnSetInput);
-            this.editor.Controls.Add(this.btnClearAndSet);
-            this.editor.Controls.Add(this.cbOutput);
-            this.editor.Controls.Add(this.convertedPanel);
-            this.editor.Controls.Add(this.groupBox1);
-            this.editor.Location = new System.Drawing.Point(4, 22);
-            this.editor.Name = "editor";
-            this.editor.Padding = new System.Windows.Forms.Padding(3);
-            this.editor.Size = new System.Drawing.Size(710, 327);
-            this.editor.TabIndex = 1;
-            this.editor.Text = "Editor";
+            this.tabEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.tabEditor.Controls.Add(this.pictureBoxPreview);
+            this.tabEditor.Controls.Add(this.btnSetInput);
+            this.tabEditor.Controls.Add(this.btnClearAndSet);
+            this.tabEditor.Controls.Add(this.cbOutput);
+            this.tabEditor.Controls.Add(this.convertedPanel);
+            this.tabEditor.Controls.Add(this.groupBox1);
+            this.tabEditor.Location = new System.Drawing.Point(4, 22);
+            this.tabEditor.Name = "tabEditor";
+            this.tabEditor.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEditor.Size = new System.Drawing.Size(710, 327);
+            this.tabEditor.TabIndex = 1;
+            this.tabEditor.Text = "Editor";
             // 
             // pictureBoxPreview
             // 
@@ -953,12 +953,12 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.converter.ResumeLayout(false);
-            this.converter.PerformLayout();
+            this.tabConverter.ResumeLayout(false);
+            this.tabConverter.PerformLayout();
             this.groupConversion.ResumeLayout(false);
             this.groupConversion.PerformLayout();
-            this.editor.ResumeLayout(false);
-            this.editor.PerformLayout();
+            this.tabEditor.ResumeLayout(false);
+            this.tabEditor.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).EndInit();
             this.convertedPanel.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -1024,9 +1024,9 @@
         private System.Windows.Forms.ToolStripMenuItem rPGMakerXPAutotileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rMXPAutotileToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage converter;
+        private System.Windows.Forms.TabPage tabConverter;
         private System.Windows.Forms.GroupBox groupConversion;
-        private System.Windows.Forms.TabPage editor;
+        private System.Windows.Forms.TabPage tabEditor;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel inputPanel;

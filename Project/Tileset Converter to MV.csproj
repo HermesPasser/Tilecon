@@ -97,9 +97,6 @@
     <Compile Include="Code\Forms\Form2000.Designer.cs">
       <DependentUpon>Form2000.cs</DependentUpon>
     </Compile>
-    <Compile Include="Code\Forms\FormTilecon\FormTilecon.Editor.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Code\Maker.cs" />
     <Compile Include="Code\Forms\FormAbout.cs">
       <SubType>Form</SubType>
@@ -107,10 +104,10 @@
     <Compile Include="Code\Forms\FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Code\Forms\FormTilecon\FormTilecon.cs">
+    <Compile Include="Code\Forms\FormTilecon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Code\Forms\FormTilecon\FormTilecon.Designer.cs">
+    <Compile Include="Code\Forms\FormTilecon.Designer.cs">
       <DependentUpon>FormTilecon.cs</DependentUpon>
     </Compile>
     <Compile Include="Code\Converter\TilesetConverterBase.cs" />
@@ -129,7 +126,7 @@
       <DependentUpon>FormAbout.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Code\Forms\FormTilecon\FormTilecon.resx">
+    <EmbeddedResource Include="Code\Forms\FormTilecon.resx">
       <DependentUpon>FormTilecon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -141,9 +138,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Code\Forms\FormTilecon\FormTilecon.Converter.cs">
-      <SubType>Form</SubType>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -8,24 +8,24 @@ namespace tilecon.Converter
         protected int outputSpriteSize;
         protected bool ignoreAlpha;
         protected SpriteMode mode;
-        protected Maker.Tileset outputMaker;
-        protected Maker.Tileset inputMaker;
+        protected ITileset outputTileset;
+        protected ITileset inputTileset;
 
         ~TilesetConverterBase() { }
 
         public TilesetConverterBase() { }
 
-        public TilesetConverterBase(Maker.Tileset inputMaker, SpriteMode mode, bool ignoreAlpha)
+        public TilesetConverterBase(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha)
         {
             this.mode = mode;
-            this.inputMaker = inputMaker;
+            this.inputTileset = inputMaker;
             this.ignoreAlpha = ignoreAlpha;
-            SetOutput();
+            SetOutputTileset();
         }
 
         public void SaveEachSubimage(Image img, string fileDir)
         {
-            int spriteSize = Maker.GetSpriteSize(inputMaker);
+            int spriteSize = inputTileset.SpriteSize();
             int index = fileDir.LastIndexOf(".");
             string ex = fileDir.Substring(index);
             fileDir = fileDir.Substring(0, index) + "_";
@@ -43,58 +43,42 @@ namespace tilecon.Converter
             }
         }
 
-        public Maker.Tileset GetOutputMaker()
+        public ITileset GetOutputTileset()
         {
-            SetOutput();
-            return outputMaker;
+            SetOutputTileset();
+            return outputTileset;
         }
         
-        protected void SetOutput()
+        protected void SetOutputTileset()
         {
-            switch (inputMaker)
+            switch (inputTileset.TilesetName())
             {
-                case Maker.Tileset.VX_Ace_A12:
-                case Maker.Tileset.R2000_2003_Auto:
-                case Maker.Tileset.XP_Auto:
-                    outputMaker = Maker.Tileset.MV_A12;
+                case Maker.VX_Ace_A12.NAME:
+                case Maker.R2k_2k3_Auto.NAME:
+                case Maker.XP_Auto.NAME:
+                    outputTileset = new Maker.MV_A12();
                     break;
-                case Maker.Tileset.VX_Ace_A3:
-                    outputMaker = Maker.Tileset.MV_A3;
+                case Maker.VX_Ace_A3.NAME:
+                    outputTileset = new Maker.MV_A3();
                     break;
-                case Maker.Tileset.VX_Ace_A4:
-                    outputMaker = Maker.Tileset.MV_A4;
+                case Maker.VX_Ace_A4.NAME:
+                    outputTileset = new Maker.MV_A4();
                     break;
-                case Maker.Tileset.VX_Ace_A5:
-                    outputMaker = Maker.Tileset.MV_A5;
+                case Maker.VX_Ace_A5.NAME:
+                    outputTileset = new Maker.MV_A5();
                     break;
                 default:
-                    outputMaker = Maker.Tileset.MV_BC;
+                    outputTileset = new Maker.MV_BE();
                     break;
             }
-            outputSpriteSize = Maker.IsMV(outputMaker) ? Maker.MV.SPRITE_SIZE : -1;
+            
+            // If output is a MV or MV childen then return mv sprite size else return -1
+            outputSpriteSize = outputTileset is Maker.MV ? Maker.MV.SPRITE_SIZE : -1;
         }
 
         protected Bitmap GetOutputBitmap()
         {
-            Bitmap bmp;
-            switch (outputMaker)
-            {
-                case Maker.Tileset.MV_A12:
-                    bmp = new Bitmap(Maker.MV.A12.SIZE_WIDTH, Maker.MV.A12.SIZE_HEIGHT);
-                    break;
-                case Maker.Tileset.MV_A3:
-                    bmp = new Bitmap(Maker.MV.A3.SIZE_WIDTH, Maker.MV.A3.SIZE_HEIGHT);
-                    break;
-                case Maker.Tileset.MV_A4:
-                    bmp = new Bitmap(Maker.MV.A4.SIZE_WIDTH, Maker.MV.A4.SIZE_HEIGHT);
-                    break;
-                case Maker.Tileset.MV_A5:
-                    bmp = new Bitmap(Maker.MV.A5.SIZE_WIDTH, Maker.MV.A5.SIZE_HEIGHT);
-                    break;
-                default:
-                    bmp = new Bitmap(Maker.MV.BE.SIZE, Maker.MV.BE.SIZE);
-                    break;
-            }
+            Bitmap bmp = new Bitmap(outputTileset.SizeWidth(), outputTileset.SizeHeight());
             bmp.SetPixel(0, 0, Color.White);
             return bmp;
         }
@@ -159,9 +143,9 @@ namespace tilecon.Converter
         
         protected virtual bool IsConvertible(Image img)
         {
-            if (inputMaker != Maker.Tileset.XP)
+            if (inputTileset.GetType() != typeof(Maker.XP_Tile))
             {
-                if (img.Width != Maker.GetSizeWidth(inputMaker) || img.Height != Maker.GetSizeHeight(inputMaker))
+                if (img.Width != inputTileset.SizeWidth() || img.Height != inputTileset.SizeHeight())
                 {
                     System.Windows.Forms.MessageBox.Show(Vocab.errorMessage);
                     return false;

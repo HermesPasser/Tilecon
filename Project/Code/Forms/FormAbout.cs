@@ -7,7 +7,8 @@ namespace tilecon
         public FormAbout()
         {
             InitializeComponent();
-            label2.Text += " " + Vocab.version + "\n\n" + Vocab.aboutHelpText;
+            labelTitle.Text = "Tileset Converter to MV" + Vocab.version;
+            labelAbout.Text = Vocab.aboutHelpText;
         }
 
         private void OnClose(object sender, FormClosingEventArgs e)

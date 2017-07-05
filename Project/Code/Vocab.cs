@@ -5,7 +5,7 @@
         public enum lang{
             ptbr, eng
         }
-        public static string version = "1.7";
+        public static string version = "1.8";
 
         public static string file;
         public static string fileExit;
@@ -16,7 +16,7 @@
         public static string languagePtbr;
         public static string help;
         public static string helpAbout;
-        public static string aboutHelpText = "2017 - Hermes Passer\nGitHub: HermesPasser/Tilecon";
+        public static string aboutHelpText = "2017 - Hermes Passer (hermespasser@gmail.com)\nGitHub: HermesPasser/Tilecon";
 
         public static string btnOpen;
         public static string btnCut;

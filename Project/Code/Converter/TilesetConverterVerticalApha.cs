@@ -5,7 +5,7 @@ namespace tilecon.Converter
 {
     class TilesetConverterVerticalApha : TilesetConverterVertical
     {
-        public TilesetConverterVerticalApha(Maker.Tileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+        public TilesetConverterVerticalApha(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 
         protected override int GetCentralizeNumber()
         {

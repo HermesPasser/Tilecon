@@ -17,13 +17,15 @@ namespace tilecon
 
         protected Bitmap Crop(Bitmap src, int x, int y, int width, int height)
         {
-            Rectangle rect = new Rectangle(x, y, width, height);
+            return Crop(src, new Rectangle(x, y, width, height));
+        }
+
+        protected Bitmap Crop(Bitmap src, Rectangle rect)
+        {
             Bitmap bmp = new Bitmap(rect.Width, rect.Height);
-            using (Graphics gph = Graphics.FromImage(bmp))
-            {
-                gph.DrawImage(src, new Rectangle(0, 0, bmp.Width, bmp.Height), rect, GraphicsUnit.Pixel);
-                gph.Dispose();
-            }
+            Graphics g = Graphics.FromImage(bmp);
+            g.DrawImage(src, new Rectangle(0, 0, bmp.Width, bmp.Height), rect, GraphicsUnit.Pixel);
+            g.Dispose(); 
             return bmp;
         }
 
@@ -45,49 +47,6 @@ namespace tilecon
             g.DrawImage(bmp, 0, 0, newSize + 1, newSize + 1);
             g.Dispose();
             return result;
-        }
-
-        protected Bitmap StretchByLoop(Bitmap bmp, int newSize)
-        {
-            Bitmap tempBmp = new Bitmap(newSize, newSize);
-            bool b = false;
-
-            for (int y = 0, i = 0; y < bmp.Height; y++)
-            {
-                i = 0;
-                for (int x = 0; x < bmp.Width; x++, i++)
-                {
-                    if (i < tempBmp.Width)
-                        tempBmp.SetPixel(i, y, bmp.GetPixel(x, y));
-                    if (b && i + 1 < tempBmp.Width)
-                    {
-                        tempBmp.SetPixel(i + 1, y, bmp.GetPixel(x, y));
-                        i++;
-                    }
-                    b = !b;
-                }
-            }
-
-            bmp = tempBmp;
-            tempBmp = new Bitmap(newSize, newSize);
-
-            for (int x = 0, i = 0; x < bmp.Width; x++)
-            {
-                i = 0;
-                for (int y = 0; y < bmp.Height; y++, i++)
-                {
-                    if (i < tempBmp.Height)
-                        tempBmp.SetPixel(x, i, bmp.GetPixel(x, y));
-
-                    if (b && i + 1 < tempBmp.Height)
-                    {
-                        tempBmp.SetPixel(x, i + 1, bmp.GetPixel(x, y));
-                        i++;
-                    }
-                    b = !b;
-                }
-            }
-            return tempBmp;
         }
 
         protected Bitmap Paste(Bitmap origin, Bitmap cut, int x, int y, int width, int height)
