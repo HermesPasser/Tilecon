@@ -5,7 +5,11 @@ ehthumbs.db
 **/vs/*
 **/bin/*
 **/obj/*
+**/packages/*
 **/Resource/*
+**/TestResults/*
+
+clearbinaries.bat
 
 # Folder config file
 Desktop.ini

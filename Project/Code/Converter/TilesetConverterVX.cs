@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace tilecon.Converter
 {
-    class TilesetConverterVX : TilesetConverterBase
+    public class TilesetConverterVX : TilesetConverterBase
     {
         public TilesetConverterVX(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 
@@ -40,7 +40,6 @@ namespace tilecon.Converter
 
             if (outputTileset.GetType() == typeof(Maker.MV_A5) || outputTileset.GetType() == typeof(Maker.MV_BE))
             {
-                System.Windows.Forms.MessageBox.Show("penis");
                 TilesetConverterVertical con = new TilesetConverterVertical(inputTileset, mode, ignoreAlpha);
                 sprites.Clear();
                 sprites = con.GetSprites(img as Bitmap);

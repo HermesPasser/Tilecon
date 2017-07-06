@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace tilecon.Converter
 {
-    class TilesetConverterVerticalRM2K3 : TilesetConverterVertical
+    public class TilesetConverterVerticalRM2K3 : TilesetConverterVertical
     {
         public TilesetConverterVerticalRM2K3(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 

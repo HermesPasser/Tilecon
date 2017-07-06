@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace tilecon.Converter
 {
-    class TilesetConverterAutotileXP : TilesetConverterVertical
+    public class TilesetConverterAutotileXP : TilesetConverterVertical
     {
         public TilesetConverterAutotileXP(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 

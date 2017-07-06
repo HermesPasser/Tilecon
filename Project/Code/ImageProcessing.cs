@@ -15,6 +15,23 @@ namespace tilecon
             return bmp;
         }
 
+        public static bool IsEqual(Bitmap bmp1, Bitmap bmp2)
+        {
+            if (bmp1.Size != bmp2.Size)
+                return false;
+
+            for (int y = 0; y < bmp1.Height; y++)
+            {
+                for (int x = 0; x < bmp1.Width; x++)
+                {
+                    if (bmp1.GetPixel(x, y) != bmp2.GetPixel(x, y))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
         protected Bitmap Crop(Bitmap src, int x, int y, int width, int height)
         {
             return Crop(src, new Rectangle(x, y, width, height));
@@ -32,9 +49,13 @@ namespace tilecon
         protected virtual bool IsAllAlphaImage(Bitmap bmp)
         {
             for (int y = 0; y < bmp.Height; y++)
+            {
                 for (int x = 0; x < bmp.Width; x++)
+                {
                     if (bmp.GetPixel(x, y).A == 0)
                         return true;
+                }
+            }
             return false;
         }
 
@@ -60,10 +81,14 @@ namespace tilecon
         
         protected Bitmap PasteInAlpha(Bitmap origin, Bitmap cut)
         {
-            for (int x = 0; x < origin.Width; x++) 
+            for (int x = 0; x < origin.Width; x++)
+            {
                 for (int y = 0; y < origin.Height; y++)
+                {
                     if (origin.GetPixel(x, y).A == 0 && x <= cut.Width && y <= cut.Height)
-                        origin.SetPixel(x, y, cut.GetPixel(x, y));   
+                        origin.SetPixel(x, y, cut.GetPixel(x, y));
+                }
+            }
             return origin;
         }
     }
