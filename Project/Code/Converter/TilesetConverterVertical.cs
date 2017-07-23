@@ -24,7 +24,7 @@ namespace tilecon.Converter
                 for (int x = 0; x < img.Width; x += spriteSize, i++)
                     sprites.Add(Crop(img as Bitmap, x, y, spriteSize, spriteSize));
 
-            return RemoveAlphaImages(sprites);
+            return RemoveAlphaSprites(sprites);
         }
 
         protected override int GetCentralizeNumber()

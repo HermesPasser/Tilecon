@@ -30,6 +30,6 @@ Open tilecon.sln with Visual Studio, need install .NET Framework version 4.6.1 o
 | 31/03 - 1.3	| Added support for rm2000/2003. | [4Shared](https://www.4shared.com/rar/08m6D6wLca/Tilecon_Setup_13.html?)
 | 02/04 - 1.4	| Added support for rmvx/ace;<br />Removed bug when saving each sprite coming from previous update. | [4Shared](https://www.4shared.com/rar/wJuUvkhJca/Tilecon_Install_14.html?)
 | 08/04 - 1.5	| Improved resize;<br />Option to set the color transparent. | None
-| 10/04 - 1.5.2 | Interface bug solved. | [MediaFire](https://www.mediafire.com/?byoh0w7y1n1ktin)
+| 10/04 - 1.5.2 | Interface bug fixed. | [MediaFire](https://www.mediafire.com/?byoh0w7y1n1ktin)
 | 08/05 - 1.6	| RMXP Autotile conversion option. | [MediaFire](https://www.mediafire.com/?yt8yurt9m0f0yub)
 | 28/05 - 1.7	| Editor added. | [MediaFire](http://www.mediafire.com/file/vuqkyxouh8v2627/Tilecon+1.7.zip)

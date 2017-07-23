@@ -3,18 +3,33 @@ using System.Drawing;
 
 namespace tilecon.Converter
 {
+    /// <summary>Super class for all tileset converters.</summary>
     public abstract class TilesetConverterBase : ImageProcessing
     {
+        /// <summary>Size sprite in output tileset.</summary>
         protected int outputSpriteSize;
+        
+        /// <summary>Flag for ignore empty sprites.</summary>
         protected bool ignoreAlpha;
+
+        /// <summary>Mode how sprites should be pasted into the output tileset.</summary>
         protected SpriteMode mode;
-        protected ITileset outputTileset;
+
+        /// <summary>Tileset type to be converted.</summary>
         protected ITileset inputTileset;
 
-        ~TilesetConverterBase() { }
+        /// <summary>Tileset type after be converted.</summary>
+        protected ITileset outputTileset;
 
+        //~TilesetConverterBase() { }
+
+        /// <summary>The empty constructor of the class to allow it to be inherited.</summary>
         public TilesetConverterBase() { }
 
+        /// <summary>Default constructor for the class.</summary>
+        /// <param name="inputMaker"></param>
+        /// <param name="mode">Mode how sprites should be pasted into the converted image.</param>
+        /// <param name="ignoreAlpha">Flag for ignore empty sprites.</param>
         public TilesetConverterBase(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha)
         {
             this.mode = mode;
@@ -23,6 +38,9 @@ namespace tilecon.Converter
             SetOutputTileset();
         }
 
+        /// <summary>Split and save each sprite</summary>
+        /// <param name="img">Image to be cropped in sprites.</param>
+        /// <param name="fileDir">The directory for the sprites to be saved.</param>
         public void SaveEachSubimage(Image img, string fileDir)
         {
             int spriteSize = inputTileset.SpriteSize();
@@ -43,13 +61,9 @@ namespace tilecon.Converter
             }
         }
 
-        public ITileset GetOutputTileset()
-        {
-            SetOutputTileset();
-            return outputTileset;
-        }
-        
-        protected void SetOutputTileset()
+        /// <summary>Set  the output tileset and output tileset size based in the input tileset.</summary>
+        /// <returns>The output tileset.</returns>
+        public ITileset SetOutputTileset()
         {
             switch (inputTileset.TilesetName())
             {
@@ -71,11 +85,14 @@ namespace tilecon.Converter
                     outputTileset = new Maker.MV_BE();
                     break;
             }
-            
+
             // If output is a MV or MV childen then return mv sprite size else return -1
             outputSpriteSize = outputTileset is Maker.MV ? Maker.MV.SPRITE_SIZE : -1;
+            return outputTileset;
         }
-
+        
+        /// <summary>Create a empty bitmap with the size of the output tileset.</summary>
+        /// <returns>Bitmap with the size of output tileset.</returns>
         protected Bitmap GetOutputBitmap()
         {
             Bitmap bmp = new Bitmap(outputTileset.SizeWidth(), outputTileset.SizeHeight());
@@ -83,6 +100,10 @@ namespace tilecon.Converter
             return bmp;
         }
 
+        /// <summary>Set mode in the sprite.</summary>
+        /// <param name="img">Sprite to mode be setted.</param>
+        /// <param name="spriteSize">Size of new sprite.</param>
+        /// <returns>A bitmap who contains the sprite with the setted mode.</returns>
         public Bitmap SetModeInSprite(Image img, int spriteSize)
         {
             int x = 0, y = 0, z = GetCentralizeNumber();
@@ -134,13 +155,20 @@ namespace tilecon.Converter
             return bmp;
         }
 
-        protected List<Bitmap> RemoveAlphaImages(List<Bitmap> sprites)
+        /// <summary>Remove empty sprites of a list.</summary>
+        /// <param name="sprites">List of sprites.</param>
+        /// <returns>List of sprites not empty.</returns>
+        protected List<Bitmap> RemoveAlphaSprites(List<Bitmap> sprites)
         {
             for (int g = 0; ignoreAlpha && g < sprites.Count; g++)
                 if (IsAllAlphaImage(sprites[g])) sprites.Remove(sprites[g]);
             return sprites;
         }
         
+        /// <summary>
+        /// if the image is convertible to MV tileset.</summary>
+        /// <param name="img">Image to be checked.</param>
+        /// <returns>Return true if the image is convertible and false if not.</returns>
         protected virtual bool IsConvertible(Image img)
         {
             if (inputTileset.GetType() != typeof(Maker.XP_Tile))
@@ -154,6 +182,15 @@ namespace tilecon.Converter
             return true;
         }
 
+        /// <summary>Paste the sprites in the bitmap and return the index of last sprite pasted started vertically.</summary>
+        /// <param name="origin">The bitmap where the sprites will be pasted.</param>
+        /// <param name="spritesToBePasted">List of sprites to be pasted in the bitmap.</param>
+        /// <param name="initY">Initial position in y where sprites started to be pasted.</param>
+        /// <param name="initX">Initial position in x where sprites started to be pasted.</param>
+        /// <param name="height">Max height to be pasted in the bitmap.</param>
+        /// <param name="width">Max width to be pasted in the bitmap.</param>
+        /// <param name="currentSprite">The current sprite to be pasted.</param>
+        /// <returns>currentSprite will be returned in case it is necessary to continue the process in another image.</returns>
         protected int PasteEachSpriteVertical(Bitmap origin, List<Bitmap> spritesToBePasted, int initY, int initX, int height, int width, int currentSprite)
         {
             Rectangle rect = new Rectangle(0, 0, outputSpriteSize, outputSpriteSize);
@@ -175,6 +212,15 @@ namespace tilecon.Converter
             return currentSprite;
         }
 
+        /// <summary>Paste the sprites in the bitmap and return the index of last sprite pasted started horizontally.</summary>
+        /// <param name="origin">The bitmap where the sprites will be pasted.</param>
+        /// <param name="spritesToBePasted">List of sprites to be pasted in the bitmap.</param>
+        /// <param name="initY">Initial position in y where sprites started to be pasted.</param>
+        /// <param name="initX">Initial position in x where sprites started to be pasted.</param>
+        /// <param name="height">Max height to be pasted in the bitmap.</param>
+        /// <param name="width">Max width to be pasted in the bitmap.</param>
+        /// <param name="currentSprite">The current sprite to be pasted.</param>
+        /// <returns>currentSprite will be returned in case it is necessary to continue the process in another image.</returns>
         protected int PasteEachSpriteHorizontal(Bitmap origin, List<Bitmap> spritesToBePasted, int initY, int initX, int height, int width, int currentSprite)
         {   
             Rectangle rect = new Rectangle(0, 0, outputSpriteSize, outputSpriteSize);
@@ -196,6 +242,12 @@ namespace tilecon.Converter
             return currentSprite;
         }
         
+        /// <summary>Make a tileset of a bitmaps list.</summary>
+        /// <param name="bmps">List of bitmaps to be included in tileset.</param>
+        /// <param name="width">With of tileset.</param>
+        /// <param name="height">Height of tileset.</param>
+        /// <param name="spriteSize">Size of each sprite in tileset.</param>
+        /// <returns>Return the tileset as bitmap.</returns>
         public Bitmap TilesToTileset(List<Bitmap> bmps, int width, int height, int spriteSize)
         {
             Bitmap mv = new Bitmap(width, height);
@@ -211,10 +263,18 @@ namespace tilecon.Converter
             return mv;
         }
 
+        /// <summary>Get the number of pixels to be moved to center the sprite on the tileset.</summary>
+        /// <returns>The number of pixels to be moved to center the sprite on the tileset.</returns>
         protected abstract int GetCentralizeNumber();
 
+        /// <summary>Split the image in various sprites.</summary>
+        /// <param name="img">Image to be slip.</param>
+        /// <returns>A list of sprites.</returns>
         protected abstract List<Bitmap> GetSprites(Image img);
 
+        /// <summary>Converter the image to MV tileset.</summary>
+        /// <param name="img">Image to be converted</param>
+        /// <returns>An array of bitmaps converteds to MV tileset.</returns>
         public abstract Bitmap[] ConvertToMV(Image img);   
     }
 }

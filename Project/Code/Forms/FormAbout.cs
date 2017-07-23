@@ -2,8 +2,10 @@
 
 namespace tilecon
 {
+    /// <summary>Form of about with contact information</summary>
     public partial class FormAbout : Form
     {
+        /// <summary>Default constructor.</summary>
         public FormAbout()
         {
             InitializeComponent();

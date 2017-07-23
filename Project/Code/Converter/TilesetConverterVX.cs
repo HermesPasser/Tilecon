@@ -23,7 +23,7 @@ namespace tilecon.Converter
                     i++;
                 }
             }
-            return RemoveAlphaImages(sprites);
+            return RemoveAlphaSprites(sprites);
         }
 
         protected override int GetCentralizeNumber()

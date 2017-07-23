@@ -1,5 +1,6 @@
 ﻿namespace tilecon
 {
+    /// <summary>Enumeration with all the ways to convert the </summary>
     public enum SpriteMode
     {
         ALIGN_TOP_LEFT,    ALIGN_TOP_CENTER,    ALIGN_TOP_RIGHT,

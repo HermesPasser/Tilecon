@@ -14,8 +14,8 @@
         public static string language;
         public static string languageEng;
         public static string languagePtbr;
-        public static string help;
         public static string helpAbout;
+        public static string help;
         public static string aboutHelpText = "2017 - Hermes Passer (hermespasser@gmail.com)\nGitHub: HermesPasser/Tilecon";
 
         public static string btnOpen;
@@ -64,8 +64,8 @@
                 language = "Language";
                 languageEng = "English";
                 languagePtbr = "Portuguese";
-                help = "About";
-                helpAbout = "Help";
+                helpAbout = "About";
+                help = "Help";
 
                 btnOpen = "Open Tileset";
                 btnCut = "Save each sprite";
@@ -109,8 +109,8 @@
                 language = "Linguagem";
                 languageEng = "Inglês";
                 languagePtbr = "Português";
-                help = "Ajuda";
-                helpAbout = "Sobre";
+                helpAbout = "Ajuda";
+                help = "Sobre";
 
                 btnOpen = "Abrir Tileset";
                 btnCut = "Salvar cada sprite";

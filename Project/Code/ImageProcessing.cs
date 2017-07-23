@@ -4,6 +4,7 @@ namespace tilecon
 {
     public class ImageProcessing
     {
+        /// <summary>Protected constructor, this class cannot be instantiated.</summary>
         protected ImageProcessing() { }
 
         public static Bitmap ChangePixelsColor(Bitmap bmp, Color color)
@@ -15,6 +16,10 @@ namespace tilecon
             return bmp;
         }
 
+        /// <summary>Checks if two bitmaps are equals pixel by pixel.</summary>
+        /// <param name="bmp1">Firs bitmap.</param>
+        /// <param name="bmp2">Second bitmap.</param>
+        /// <returns>Return true if the bitmaps are equals and false if not.</returns>
         public static bool IsEqual(Bitmap bmp1, Bitmap bmp2)
         {
             if (bmp1.Size != bmp2.Size)
@@ -46,6 +51,9 @@ namespace tilecon
             return bmp;
         }
 
+        /// <summary>Checks if all area of image is transparent.</summary>
+        /// <param name="bmp">Image to be checked.</param>
+        /// <returns>Return true if it true and true if not.</returns>
         protected virtual bool IsAllAlphaImage(Bitmap bmp)
         {
             for (int y = 0; y < bmp.Height; y++)

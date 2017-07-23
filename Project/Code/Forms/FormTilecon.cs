@@ -7,10 +7,12 @@ using tilecon.Converter;
 
 namespace tilecon
 {
+    /// <summary>Form of interface for mv convertions and editor.</summary>
     public partial class FormTilecon : Form
     {
         // General
         private string filepath;
+        /// <summary>Reference of the object to be called by other forms. </summary>
         public static FormTilecon formTileconController;
         SpriteMode mode;
 
@@ -24,6 +26,7 @@ namespace tilecon
         private Bitmap[] bitmaps;
         private int bmpCurrentIndex;
 
+        /// <summary>Default constructor.</summary>
         public FormTilecon()
         {
             formTileconController = this;
@@ -189,7 +192,7 @@ namespace tilecon
         {
             TilesetConverterVX con = new TilesetConverterVX(GetTileset(), GetMode(), checkIgnore.Checked);
 
-            switch (con.GetOutputTileset().TilesetName())
+            switch (con.SetOutputTileset().TilesetName())
             {
                 case Maker.MV_A12.NAME:
                     labelMVTilesetName.Text = "A1-2";
@@ -461,11 +464,9 @@ namespace tilecon
         private void SaveEditor()
         {
             List<Bitmap> list = new List<Bitmap>();
-            foreach (Button b in outputGrid)
-                list.Add(b.BackgroundImage as Bitmap);
+            foreach (Button b in outputGrid) list.Add(b.BackgroundImage as Bitmap);
 
-            TilesetConverterVertical con = new TilesetConverterVertical();
-            Bitmap bmp = con.TilesToTileset(list, Maker.MV_A12.SIZE_WIDTH, Maker.MV_A12.SIZE_HEIGHT, Maker.MV_A12.SPRITE_SIZE);
+            Bitmap bmp = (new TilesetConverterVertical()).TilesToTileset(list, Maker.MV_A12.SIZE_WIDTH, Maker.MV_A12.SIZE_HEIGHT, Maker.MV_A12.SPRITE_SIZE);
             bmp.Save(saveFileDialog1.FileName);
         }
 
@@ -524,7 +525,7 @@ namespace tilecon
         private void SetOutputGrid()
         {
             TilesetConverterVX con = new TilesetConverterVX(GetTileset(), GetMode(), false);
-            var tileset = con.GetOutputTileset();
+            var tileset = con.SetOutputTileset();
 
             int spriteSize = tileset.SpriteSize();
             int height = tileset.SizeHeight();
@@ -698,8 +699,7 @@ namespace tilecon
 
         private void NextImage()
         {
-            bmpCurrentIndex++;
-            if (bmpCurrentIndex >= bitmaps.Length)
+            if (++bmpCurrentIndex >= bitmaps.Length)
                 bmpCurrentIndex = 0;
 
             pictureBoxOutput.Image = bitmaps[bmpCurrentIndex];
@@ -708,8 +708,7 @@ namespace tilecon
 
         private void PreviusImage()
         {
-            bmpCurrentIndex--;
-            if (bmpCurrentIndex < 0)
+            if (--bmpCurrentIndex < 0)
                 bmpCurrentIndex = bitmaps.Length - 1;
 
             pictureBoxOutput.Image = bitmaps[bmpCurrentIndex];
