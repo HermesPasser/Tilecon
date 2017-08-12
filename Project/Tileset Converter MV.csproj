@@ -7,7 +7,7 @@
     <ProjectGuid>{AE85D899-815B-44EB-9B5F-E0277BD80D8C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>tilecon</RootNamespace>
-    <AssemblyName>Tileset Converter to MV</AssemblyName>
+    <AssemblyName>Tileset Converter MV</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -25,8 +25,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://none.com/</UpdateUrl>
     <PublisherName>Gladio Citrico</PublisherName>
-    <ApplicationRevision>14</ApplicationRevision>
-    <ApplicationVersion>1.7.0.%2a</ApplicationVersion>
+    <ApplicationRevision>19</ApplicationRevision>
+    <ApplicationVersion>1.8.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -41,7 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Debug\Tileset Converter to MV.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Tileset Converter MV.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -179,8 +179,8 @@
   <ItemGroup>
     <Content Include="ico.ico" />
     <None Include="Resources\AboutXpTileset.png" />
-    <None Include="Resources\About 2kTileset.png" />
-    <None Include="Resources\logo-trash1.png" />
+    <None Include="Resources\About2kTileset.png" />
+    <None Include="Resources\logo.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

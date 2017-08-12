@@ -16,7 +16,7 @@
         public static string languagePtbr;
         public static string helpAbout;
         public static string help;
-        public static string aboutHelpText = "2017 - Hermes Passer (hermespasser@gmail.com)\nGitHub: HermesPasser/Tilecon";
+        public static string aboutHelpText = "2017 - Hermes Passer (hermespasser@gmail.com)";
 
         public static string btnOpen;
         public static string btnCut;

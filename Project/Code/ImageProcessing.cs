@@ -37,11 +37,22 @@ namespace tilecon
             return true;
         }
 
+        /// <summary>Crop the bitmap.</</summary>
+        /// <param name="src">Bitmap to be cropped.</param>
+        /// <param name="x">Beginning of the crop in x.</param>
+        /// <param name="y">Beginning of the crop in y.</param>
+        /// <param name="width">Width of the crop.</param>
+        /// <param name="height">Height of the crop.</param>
+        /// <returns>Cropped bitmap.</returns>
         protected Bitmap Crop(Bitmap src, int x, int y, int width, int height)
         {
             return Crop(src, new Rectangle(x, y, width, height));
         }
 
+        /// <summary>Crop the bitmap.</summary>
+        /// <param name="src">Bitmap to be cropped.</param>
+        /// <param name="rect">Rectangle of crop.</param>
+        /// <returns>Cropped bitmap.</returns>
         protected Bitmap Crop(Bitmap src, Rectangle rect)
         {
             Bitmap bmp = new Bitmap(rect.Width, rect.Height);
@@ -67,34 +78,60 @@ namespace tilecon
             return false;
         }
 
+        /// <summary>Stretch the bitmap.</summary>
+        /// <param name="bmp">Bitmap to be stretched.</param>
+        /// <param name="newSize">New size of bitmap.</param>
+        /// <returns>Bitmap stretched.</returns>
         protected Bitmap Stretch(Bitmap bmp, int newSize)
         {
-            Bitmap result = new Bitmap(newSize, newSize);
+            return Stretch(bmp, newSize, newSize);
+        }
+
+        /// <summary>Stretch the bitmap.</summary>
+        /// <param name="bmp">Bitmap to be stretched.</param>
+        /// <param name="newSizeX">New size in x of bitmap.</param>
+        /// <param name="newSizeY">New size in y of bitmap.</param>
+        /// <returns>Bitmap stretched.</returns>
+        protected Bitmap Stretch(Bitmap bmp, int newSizeX, int newSizeY)
+        {
+            Bitmap result = new Bitmap(newSizeX, newSizeY);
             Graphics g = Graphics.FromImage(result);
 
             g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            g.DrawImage(bmp, 0, 0, newSize + 1, newSize + 1);
+            g.DrawImage(bmp, 0, 0, newSizeX + 1, newSizeY + 1);
             g.Dispose();
             return result;
         }
 
-        protected Bitmap Paste(Bitmap origin, Bitmap cut, int x, int y, int width, int height)
+        /// <summary>Paste the bitmap into the other.</summary>
+        /// <param name="origin">Bitmap where another one will be pasted.</param>
+        /// <param name="bmpToBePasted">Bitmap to be pasted.</param>
+        /// <param name="x">Beginning of the paste in x.</param>
+        /// <param name="y">Beginning of the paste in y.</param>
+        /// <param name="width">Width of the paste.</param>
+        /// <param name="height">Height of the paste.</param>
+        /// <returns></returns>
+        protected Bitmap Paste(Bitmap origin, Bitmap bmpToBePasted, int x, int y, int width, int height)
         {
             Rectangle rect = new Rectangle(0, 0, width, height);
             Graphics graphics = Graphics.FromImage(origin);
-            graphics.DrawImage(cut, x, y, rect, GraphicsUnit.Pixel);
+            graphics.DrawImage(bmpToBePasted, x, y, rect, GraphicsUnit.Pixel);
             graphics.Dispose();
             return origin;
         }
-        
-        protected Bitmap PasteInAlpha(Bitmap origin, Bitmap cut)
+
+        /// <summary>Paste the bitmap in the other where the bitmap is alpha.</summary>
+        /// <param name="origin">Bitmap where another one will be pasted.</param>
+        /// <param name="bmpToBePasted">Bitmap to be pasted.</param>
+        /// <returns></returns>
+        protected Bitmap PasteInAlpha(Bitmap origin, Bitmap bmpToBePasted)
         {
             for (int x = 0; x < origin.Width; x++)
             {
                 for (int y = 0; y < origin.Height; y++)
                 {
-                    if (origin.GetPixel(x, y).A == 0 && x <= cut.Width && y <= cut.Height)
-                        origin.SetPixel(x, y, cut.GetPixel(x, y));
+                    if (origin.GetPixel(x, y).A == 0 && x <= bmpToBePasted.Width && y <= bmpToBePasted.Height)
+                        origin.SetPixel(x, y, bmpToBePasted.GetPixel(x, y));
                 }
             }
             return origin;

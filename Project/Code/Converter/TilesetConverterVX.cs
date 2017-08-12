@@ -1,13 +1,27 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
 namespace tilecon.Converter
 {
+    /// <summary>Converter class for vx tilesets.</summary>
     public class TilesetConverterVX : TilesetConverterBase
     {
+        /// <summary>Default constructor.</summary>
+        /// <param name="inputMaker">Tileset type to be converted</param>
+        /// <param name="mode">Mode how sprites should be pasted into the converted image.</param>
+        /// <param name="ignoreAlpha">Flag for ignore empty sprites.</param>
         public TilesetConverterVX(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+        
+        /// <summary>Get the number of pixels to be moved to center the sprite on the tileset.</summary>
+        /// <returns>The number of pixels to be moved to center the sprite on the tileset.</returns>
+        protected override int GetCentralizeNumber()
+        {
+            return 8;
+        }
 
+        /// <summary>Split the image in various sprites.</summary>
+        /// <param name="img">Image to be slip.</param>
+        /// <returns>A list of sprites.</returns>
         protected override List<Bitmap> GetSprites(Image img)
         {
             int spriteSize = inputTileset.SpriteSize();
@@ -26,11 +40,9 @@ namespace tilecon.Converter
             return RemoveAlphaSprites(sprites);
         }
 
-        protected override int GetCentralizeNumber()
-        {
-            return 8;
-        }
-
+        /// <summary>Converter the image to MV tileset.</summary>
+        /// <param name="img">Image to be converted</param>
+        /// <returns>An array of bitmaps converteds to MV tileset.</returns>
         public override Bitmap[] ConvertToMV(Image img)
         {
             if (!IsConvertible(img)) return new Bitmap[1];

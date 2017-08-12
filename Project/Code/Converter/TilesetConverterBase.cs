@@ -26,8 +26,8 @@ namespace tilecon.Converter
         /// <summary>The empty constructor of the class to allow it to be inherited.</summary>
         public TilesetConverterBase() { }
 
-        /// <summary>Default constructor for the class.</summary>
-        /// <param name="inputMaker"></param>
+        /// <summary>Default constructor.</summary>
+        /// <param name="inputMaker">Tileset type to be converted</param>
         /// <param name="mode">Mode how sprites should be pasted into the converted image.</param>
         /// <param name="ignoreAlpha">Flag for ignore empty sprites.</param>
         public TilesetConverterBase(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha)
@@ -67,6 +67,9 @@ namespace tilecon.Converter
         {
             switch (inputTileset.TilesetName())
             {
+                case Maker.R2k_2k3_AnimObj.NAME:
+                    outputTileset = new Maker.MV_Other();
+                    break;
                 case Maker.VX_Ace_A12.NAME:
                 case Maker.R2k_2k3_Auto.NAME:
                 case Maker.XP_Auto.NAME:
@@ -165,8 +168,7 @@ namespace tilecon.Converter
             return sprites;
         }
         
-        /// <summary>
-        /// if the image is convertible to MV tileset.</summary>
+        /// <summary>if the image is convertible to MV tileset.</summary>
         /// <param name="img">Image to be checked.</param>
         /// <returns>Return true if the image is convertible and false if not.</returns>
         protected virtual bool IsConvertible(Image img)

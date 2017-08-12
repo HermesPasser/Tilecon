@@ -3,15 +3,25 @@ using System.Drawing;
 
 namespace tilecon.Converter
 {
+    /// <summary>Converter class for alpha tileset.</summary>
     public class TilesetConverterVerticalApha : TilesetConverterVertical
     {
+        /// <summary>Default constructor.</summary>
+        /// <param name="inputMaker">Tileset type to be converted</param>
+        /// <param name="mode">Mode how sprites should be pasted into the converted image.</param>
+        /// <param name="ignoreAlpha">Flag for ignore empty sprites.</param>
         public TilesetConverterVerticalApha(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 
+        /// <summary>Get the number of pixels to be moved to center the sprite on the tileset.</summary>
+        /// <returns>The number of pixels to be moved to center the sprite on the tileset.</returns>
         protected override int GetCentralizeNumber()
         {
             return 16;
         }
 
+        /// <summary>Converter the image to MV tileset.</summary>
+        /// <param name="img">Image to be converted</param>
+        /// <returns>An array of bitmaps converteds to MV tileset.</returns>
         public override Bitmap[] ConvertToMV(Image img)
         {
             if (!IsConvertible(img)) return null;

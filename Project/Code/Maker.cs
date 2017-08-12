@@ -1,6 +1,4 @@
-﻿//RPG Maker's dimensions
-
-namespace tilecon
+﻿namespace tilecon
 {
     public interface ITileset
     {
@@ -59,6 +57,17 @@ namespace tilecon
             public static readonly int SPRITE_SIZE = 16;
             public static readonly int SIZE_WIDTH = 480;
             public static readonly int SIZE_HEIGHT = 256;
+        }
+
+        public class R2k_2k3_AnimObj : R2k_2k3, ITileset
+        {
+            public const string NAME = "RPG Maker 2000/2003 (Animated Objects)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+
+            public string TilesetName() { return NAME; }
         }
 
         public class R2k_2k3_AB : R2k_2k3, ITileset
@@ -216,6 +225,18 @@ namespace tilecon
         public abstract class MV
         {
             public static readonly int SPRITE_SIZE = 48;
+        }
+
+        public class MV_Other : MV, ITileset
+        {
+            public static readonly int SIZE_WIDTH = -1;
+            public static readonly int SIZE_HEIGHT = -1;
+            public const string NAME = "RPG Maker MV (Others)";
+
+            public int SizeHeight() { return SIZE_HEIGHT; }
+            public int SizeWidth() { return SIZE_WIDTH; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName() { return NAME; }
         }
 
         public class MV_A12 : MV, ITileset

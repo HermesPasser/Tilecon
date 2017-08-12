@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace tilecon
 {
+    /// <summary>Form to explains how 2000 conversion works.</summary>
     public partial class Form2000 : Form
     {
+        /// <summary>Default constructor.</summary>
         public Form2000()
         {
             InitializeComponent();
+        }
+
+        private void Form2000_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            FormTilecon.formTileconController.Enabled = true;
+            FormTilecon.formTileconController.Focus();
         }
     }
 }

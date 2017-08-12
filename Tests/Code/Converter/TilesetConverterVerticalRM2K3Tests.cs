@@ -16,6 +16,15 @@ namespace tilecon.Converter.Tests
         }
 
         [TestMethod()]
+        public void AnimToMVTest()
+        {
+            converter = new TilesetConverterVerticalRM2K3(new Maker.R2k_2k3_AnimObj(), SpriteMode.ALIGN_TOP_LEFT, false);
+            Bitmap converted = converter.ConvertToMV(BitmapFromResourceStream("Tests.Images.R2k.R2k3_in.png"))[0];
+            Bitmap R2kOut = BitmapFromResourceStream("Tests.Images.R2k.R2k3_out_anim_success.png");
+            Assert.IsTrue(ImageProcessing.IsEqual(converted, R2kOut));
+        }
+
+        [TestMethod()]
         public void ABToMVTest()
         {
             converter = new TilesetConverterVerticalRM2K3(new Maker.R2k_2k3_AB(), SpriteMode.ALIGN_TOP_LEFT, false);
@@ -27,6 +36,7 @@ namespace tilecon.Converter.Tests
             Assert.IsTrue(isTrue);
         }
 
+        [TestMethod()]
         public void AToMVTest()
         {
             converter = new TilesetConverterVerticalRM2K3(new Maker.R2k_2k3_A(), SpriteMode.ALIGN_TOP_LEFT, false);
@@ -35,6 +45,7 @@ namespace tilecon.Converter.Tests
             Assert.IsTrue(ImageProcessing.IsEqual(converted, R2kOut));
         }
 
+        [TestMethod()]
         public void BToMVTest()
         {
             converter = new TilesetConverterVerticalRM2K3(new Maker.R2k_2k3_B(), SpriteMode.ALIGN_TOP_LEFT, false);

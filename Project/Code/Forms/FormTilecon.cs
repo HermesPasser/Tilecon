@@ -14,7 +14,7 @@ namespace tilecon
         private string filepath;
         /// <summary>Reference of the object to be called by other forms. </summary>
         public static FormTilecon formTileconController;
-        SpriteMode mode;
+       // SpriteMode mode;
 
         // Editor
         List<Button> inputGrid;
@@ -25,6 +25,7 @@ namespace tilecon
         // Converter
         private Bitmap[] bitmaps;
         private int bmpCurrentIndex;
+        //private Thread t;
 
         /// <summary>Default constructor.</summary>
         public FormTilecon()
@@ -33,7 +34,7 @@ namespace tilecon
             InitializeComponent();
             cbMaker.SelectedIndexChanged += new EventHandler(cbMaker_SelectedIndexChanged);
             ChangeLang(Vocab.lang.eng);
-            cbMaker.SelectedIndex = 7;
+            cbMaker.SelectedIndex = 8;
             cbMode.SelectedIndex = 0;
             btnOpen.Select();
             
@@ -42,6 +43,7 @@ namespace tilecon
         }
 
         #region General
+
         private void ChangeLang(Vocab.lang l)
         {
             Vocab.changeLang(l);
@@ -116,12 +118,15 @@ namespace tilecon
         private void CutSave()
         {
             ITileset tile = GetTileset();
+            if (saveFileDialog1.ShowDialog() != DialogResult.OK)
+                return;
+
             var thread = new Thread(() =>
             {
                 try
                 {
                     TilesetConverterVertical cc = new TilesetConverterVertical(tile, SpriteMode.ALIGN_TOP_LEFT, false);
-                    cc.SaveEachSubimage(Image.FromFile(filepath), filepath);
+                    cc.SaveEachSubimage(Image.FromFile(filepath), saveFileDialog1.FileName);
                     MessageBox.Show(Vocab.doneMessage, "Tilecon");
                 }
                 catch (Exception ex)
@@ -131,24 +136,7 @@ namespace tilecon
             });
             thread.Start();
         }
-
-        private SpriteMode GetMode()
-        {
-            switch (cbMode.SelectedIndex){
-                case 0: return SpriteMode.ALIGN_TOP_LEFT;
-                case 1: return SpriteMode.ALIGN_TOP_CENTER;
-                case 2: return SpriteMode.ALIGN_TOP_RIGHT;
-                case 3: return SpriteMode.ALIGN_MIDDLE_LEFT;
-                case 4: return SpriteMode.ALIGN_MIDDLE_CENTER;
-                case 5: return SpriteMode.ALIGN_MIDDLE_RIGHT;
-                case 6: return SpriteMode.ALIGN_BOTTOM_LEFT;
-                case 7: return SpriteMode.ALIGN_BOTTOM_CENTER;
-                case 8: return SpriteMode.ALIGN_BOTTOM_RIGHT;
-                case 9: return SpriteMode.RESIZE;
-                default: return SpriteMode.ALIGN_TOP_LEFT;
-            }
-        }
-
+        
         private ITileset GetTileset()
         {
             switch (cbMaker.SelectedItem.ToString())
@@ -156,7 +144,8 @@ namespace tilecon
                 case Maker.R95.NAME:             return new Maker.R95();
                 case Maker.S97.NAME:             return new Maker.S97();
                 case Maker.Alpha.NAME:           return new Maker.Alpha();
-                case Maker.R2k_2k3_Auto.NAME:    return new Maker.R2k_2k3_Auto();
+                case Maker.R2k_2k3_AnimObj.NAME: return new Maker.R2k_2k3_AnimObj();
+                case Maker.R2k_2k3_Auto.NAME:    return new Maker.R2k_2k3_Auto(); 
                 case Maker.R2k_2k3_AB.NAME:      return new Maker.R2k_2k3_AB();
                 case Maker.R2k_2k3_A.NAME:       return new Maker.R2k_2k3_A();
                 case Maker.R2k_2k3_B.NAME:       return new Maker.R2k_2k3_B();
@@ -184,13 +173,13 @@ namespace tilecon
                 return;
             }
 
-            if (tabControl1.SelectedIndex == 0)  SaveConverter();
+            if (tabControl1.SelectedIndex == 0) SaveConverter();
             else SaveEditor();
         }
 
         private void OnIndexChange()
         {
-            TilesetConverterVX con = new TilesetConverterVX(GetTileset(), GetMode(), checkIgnore.Checked);
+            TilesetConverterVX con = new TilesetConverterVX(GetTileset(), (SpriteMode) cbMode.SelectedIndex, checkIgnore.Checked);
 
             switch (con.SetOutputTileset().TilesetName())
             {
@@ -206,12 +195,20 @@ namespace tilecon
                 case Maker.MV_A5.NAME:
                     labelMVTilesetName.Text = "A5";
                     break;
-                default:
+                case Maker.MV_BE.NAME:
                     labelMVTilesetName.Text = "B-E";
+                    break;
+                default:
+                    labelMVTilesetName.Text = "Character";
                     break;
             }
         }
         
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             OpenTileset();
@@ -231,12 +228,14 @@ namespace tilecon
         {
             Form2000 f = new Form2000();
             f.Show();
+            this.Enabled = false;
         }
         
         private void rMXPAutotileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormXPAuto f = new FormXPAuto();
             f.Show();
+            this.Enabled = false;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -430,29 +429,28 @@ namespace tilecon
             {
                 TilesetConverterBase con;
                 ITileset tileset = GetTileset();
-                mode = GetMode();
 
                 switch (tileset.TilesetName())
                 {
                     case Maker.Alpha.NAME:
-                        con = new TilesetConverterVerticalApha(tileset, mode, false);
+                        con = new TilesetConverterVerticalApha(tileset, (SpriteMode)cbMode.SelectedIndex, false);
                         break;
                     case Maker.R95.NAME:
                     case Maker.S97.NAME:
                     case Maker.XP_Tile.NAME:
-                        con = new TilesetConverterVertical(tileset, mode, false);
+                        con = new TilesetConverterVertical(tileset, (SpriteMode)cbMode.SelectedIndex, false);
                         break;
                     case Maker.XP_Auto.NAME:
-                        con = new TilesetConverterAutotileXP(tileset, mode, false);
+                        con = new TilesetConverterAutotileXP(tileset, (SpriteMode)cbMode.SelectedIndex, false);
                         break;
                     case Maker.R2k_2k3_A.NAME:
                     case Maker.R2k_2k3_B.NAME:
                     case Maker.R2k_2k3_AB.NAME:
                     case Maker.R2k_2k3_Auto.NAME:
-                        con = new TilesetConverterVerticalRM2K3(tileset, mode, false);
+                        con = new TilesetConverterVerticalRM2K3(tileset, (SpriteMode)cbMode.SelectedIndex, false);
                         break;
                     default:
-                        con = new TilesetConverterVX(tileset, mode, false);
+                        con = new TilesetConverterVX(tileset, (SpriteMode)cbMode.SelectedIndex, false);
                         break;
                 }
 
@@ -524,7 +522,7 @@ namespace tilecon
 
         private void SetOutputGrid()
         {
-            TilesetConverterVX con = new TilesetConverterVX(GetTileset(), GetMode(), false);
+            TilesetConverterVX con = new TilesetConverterVX(GetTileset(), (SpriteMode)cbMode.SelectedIndex, false);
             var tileset = con.SetOutputTileset();
 
             int spriteSize = tileset.SpriteSize();
@@ -614,7 +612,6 @@ namespace tilecon
         {
             TilesetConverterBase con;
             ITileset tileset = GetTileset();
-            mode = GetMode();
             btnConvert.Text = Vocab.waitMessage;
 
             try
@@ -622,28 +619,29 @@ namespace tilecon
                 switch (tileset.TilesetName())
                 {
                     case Maker.Alpha.NAME:
-                        con = new TilesetConverterVerticalApha(tileset, mode, checkIgnore.Checked);
+                        con = new TilesetConverterVerticalApha(tileset, (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
                         break;
 
                     case Maker.R95.NAME:
                     case Maker.S97.NAME:
                     case Maker.XP_Tile.NAME:
-                        con = new TilesetConverterVertical(tileset, mode, checkIgnore.Checked);
+                        con = new TilesetConverterVertical(tileset, (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
                         break;
 
                     case Maker.XP_Auto.NAME:
-                        con = new TilesetConverterAutotileXP(tileset, mode, checkIgnore.Checked);
+                        con = new TilesetConverterAutotileXP(tileset, (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
                         break;
 
                     case Maker.R2k_2k3_A.NAME:
                     case Maker.R2k_2k3_B.NAME:
                     case Maker.R2k_2k3_AB.NAME:
                     case Maker.R2k_2k3_Auto.NAME:
-                        con = new TilesetConverterVerticalRM2K3(tileset, mode, checkIgnore.Checked);
+                    case Maker.R2k_2k3_AnimObj.NAME:
+                        con = new TilesetConverterVerticalRM2K3(tileset, (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
                         break;
 
                     default:
-                        con = new TilesetConverterVX(tileset, mode, checkIgnore.Checked);
+                        con = new TilesetConverterVX(tileset, (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
                         break;
                 }
                 bitmaps = con.ConvertToMV(Image.FromFile(filepath));
@@ -684,7 +682,19 @@ namespace tilecon
                 for (int i = 0; i < bitmaps.Length; i++)
                     bitmaps[i].Save(fileDir + i + ".png");
             }
-            else bitmaps[0].Save(saveFileDialog1.FileName);
+            else
+            {
+                string path = saveFileDialog1.FileName;
+
+                // If the bitmap is a character
+                if ((bitmaps[0].Width == 48 && bitmaps[0].Height == 64)  || (bitmaps[0].Width == 144 && bitmaps[0].Height == 192))
+                {
+                    string nameWithoutPath = path.Substring(path.LastIndexOf("\\") + 1, path.Length - (path.LastIndexOf("\\") + 1));
+                    path = path.Replace(nameWithoutPath, @"\!$" + nameWithoutPath);
+                }
+                
+                bitmaps[0].Save(path);
+            }
         }
 
         private void SetTransparentPixel()
@@ -735,5 +745,6 @@ namespace tilecon
             SetTransparentPixel();
         }
         #endregion
+
     }
 }

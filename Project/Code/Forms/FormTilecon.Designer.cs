@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTilecon));
             this.btnConvert = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -116,6 +117,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.inputPanel = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panelInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxInput)).BeginInit();
             this.panelOutput.SuspendLayout();
@@ -732,9 +734,9 @@
             // 
             // cbMaker
             // 
-            this.cbMaker.DropDownHeight = 161;
+            this.cbMaker.DropDownHeight = 160;
             this.cbMaker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbMaker.DropDownWidth = 200;
+            this.cbMaker.DropDownWidth = 230;
             this.cbMaker.FormattingEnabled = true;
             this.cbMaker.IntegralHeight = false;
             this.cbMaker.Items.AddRange(new object[] {
@@ -742,6 +744,7 @@
             "Sim RPG Maker 97",
             "RPG Maker Alpha",
             "RPG Maker 2000/2003 (Autotiles)",
+            "RPG Maker 2000/2003 (Animated Objects)",
             "RPG Maker 2000/2003 (Tileset A-B)",
             "RPG Maker 2000/2003 (Tileset A)",
             "RPG Maker 2000/2003 (Tileset B)",
@@ -931,6 +934,12 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(718, 25);
             this.flowLayoutPanel1.TabIndex = 15;
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 400;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // FormTilecon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -943,7 +952,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormTilecon";
-            this.Text = "Tileset Converter to MV";
+            this.Text = "Tileset Converter MV";
             this.panelInput.ResumeLayout(false);
             this.panelInput.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxInput)).EndInit();
@@ -1057,6 +1066,7 @@
         private System.Windows.Forms.ToolStripMenuItem bottomRightItem;
         private System.Windows.Forms.ToolStripMenuItem resizeItem;
         private System.Windows.Forms.PictureBox pictureBoxPreview;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

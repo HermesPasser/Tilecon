@@ -2,14 +2,14 @@
 
 namespace tilecon
 {
-    /// <summary>Form of about with contact information</summary>
+    /// <summary>Form of about with contact information.</summary>
     public partial class FormAbout : Form
     {
         /// <summary>Default constructor.</summary>
         public FormAbout()
         {
             InitializeComponent();
-            labelTitle.Text = "Tileset Converter to MV" + Vocab.version;
+            labelTitle.Text = "Tileset Converter MV" + Vocab.version;
             labelAbout.Text = Vocab.aboutHelpText;
         }
 
@@ -27,6 +27,11 @@ namespace tilecon
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://gladiocitrico.blogspot.com");
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/HermesPasser/Tilecon");
         }
     }
 }

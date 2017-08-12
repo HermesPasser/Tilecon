@@ -73,9 +73,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Project\Tileset Converter to MV.csproj">
+    <ProjectReference Include="..\Project\Tileset Converter MV.csproj">
       <Project>{AE85D899-815B-44EB-9B5F-E0277BD80D8C}</Project>
-      <Name>Tileset Converter to MV</Name>
+      <Name>Tileset Converter MV</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +116,9 @@
     <EmbeddedResource Include="Images\XP\XPAuto_out_success.png" />
     <EmbeddedResource Include="Images\XP\XP_in.png" />
     <EmbeddedResource Include="Images\XP\XP_out_success.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\R2k\R2k3_out_anim_success.png" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -3,9 +3,62 @@ using System.Drawing;
 
 namespace tilecon.Converter
 {
+    /// <summary>Converter class for 2000 and 20003 tilesets.</summary>
     public class TilesetConverterVerticalRM2K3 : TilesetConverterVertical
     {
+        /// <summary>Default constructor.</summary>
+        /// <param name="inputMaker">Tileset type to be converted</param>
+        /// <param name="mode">Mode how sprites should be pasted into the converted image.</param>
+        /// <param name="ignoreAlpha">Flag for ignore empty sprites.</param>
         public TilesetConverterVerticalRM2K3(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+
+        private Bitmap PasteAnimatedObjectInMV(Bitmap bmp)
+        {
+            Bitmap[] bmps = GetAnimatedObj(bmp);
+            Bitmap fbmp = new Bitmap(48, 64);
+
+            fbmp = Paste(fbmp, bmps[0], 0, 0, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            fbmp = Paste(fbmp, bmps[1], 16, 0, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            fbmp = Paste(fbmp, bmps[2], 32, 0, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+
+            fbmp = Paste(fbmp, bmps[4], 0, 16, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            fbmp = Paste(fbmp, bmps[5], 16, 16, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            fbmp = Paste(fbmp, bmps[6], 32, 16, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+
+            fbmp = Paste(fbmp, bmps[8], 0, 32, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            fbmp = Paste(fbmp, bmps[9], 16, 32, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            fbmp = Paste(fbmp, bmps[10], 32, 32, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+
+            fbmp = Paste(fbmp, bmps[3], 0, 48, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            fbmp = Paste(fbmp, bmps[7], 16, 48, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            fbmp = Paste(fbmp, bmps[11], 32, 48, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+
+            if (mode == SpriteMode.RESIZE) fbmp = Stretch(fbmp, 144, 192);
+
+            return fbmp;
+        }
+        
+        private Bitmap[] GetAnimatedObj(Bitmap bmp)
+        {
+            Bitmap[] bmps = new Bitmap[12];
+
+            bmps[0] = Crop(bmp, 48, 64, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            bmps[1] = Crop(bmp, 48, 80, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            bmps[2] = Crop(bmp, 48, 96, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            bmps[3] = Crop(bmp, 48, 112, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+
+            bmps[4] = Crop(bmp, 64, 64, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            bmps[5] = Crop(bmp, 64, 80, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            bmps[6] = Crop(bmp, 64, 96, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            bmps[7] = Crop(bmp, 64, 112, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+
+            bmps[8] = Crop(bmp, 80, 64, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            bmps[9] = Crop(bmp, 80, 80, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            bmps[10] = Crop(bmp, 80, 96, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            bmps[11] = Crop(bmp, 80, 112, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+
+            return bmps;
+        }
 
         private Bitmap PasteAutotileInMV(Bitmap bmp)
         {
@@ -107,11 +160,16 @@ namespace tilecon.Converter
             return temp;
         }
 
+        /// <summary>Get the number of pixels to be moved to center the sprite on the tileset.</summary>
+        /// <returns>The number of pixels to be moved to center the sprite on the tileset.</returns>
         protected override int GetCentralizeNumber()
         {
             return 16;
         }
 
+        /// <summary>Converter the image to MV tileset.</summary>
+        /// <param name="img">Image to be converted</param>
+        /// <returns>An array of bitmaps converteds to MV tileset.</returns>
         public override Bitmap[] ConvertToMV(Image img)
         {
             if (!IsConvertible(img)) return null;
@@ -121,6 +179,9 @@ namespace tilecon.Converter
             {
                 case Maker.R2k_2k3_Auto.NAME:
                     images.Add(PasteAutotileInMV(img as Bitmap));
+                    return images.ToArray();
+                case Maker.R2k_2k3_AnimObj.NAME:
+                    images.Add(PasteAnimatedObjectInMV(img as Bitmap));
                     return images.ToArray();
                 case Maker.R2k_2k3_AB.NAME:
                     img = GetTilesetAB(img as Bitmap);
