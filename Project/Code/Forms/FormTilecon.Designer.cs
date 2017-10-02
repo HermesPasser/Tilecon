@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTilecon));
             this.btnConvert = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -117,7 +116,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.inputPanel = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panelInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxInput)).BeginInit();
             this.panelOutput.SuspendLayout();
@@ -934,14 +932,9 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(718, 25);
             this.flowLayoutPanel1.TabIndex = 15;
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 400;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // FormTilecon
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(743, 429);
@@ -953,6 +946,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormTilecon";
             this.Text = "Tileset Converter MV";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormTilecon_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormTilecon_DragEnter);
             this.panelInput.ResumeLayout(false);
             this.panelInput.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxInput)).EndInit();
@@ -1066,7 +1061,6 @@
         private System.Windows.Forms.ToolStripMenuItem bottomRightItem;
         private System.Windows.Forms.ToolStripMenuItem resizeItem;
         private System.Windows.Forms.PictureBox pictureBoxPreview;
-        private System.Windows.Forms.Timer timer1;
     }
 }
 

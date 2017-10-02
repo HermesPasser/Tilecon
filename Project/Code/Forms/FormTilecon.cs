@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using tilecon.Converter;
+using System.IO;
 
 namespace tilecon
 {
@@ -94,22 +95,37 @@ namespace tilecon
             aboutToolStripMenuItem.Text = Vocab.helpAbout;
         }
 
-        private bool OpenTileset()
+        private void OnTilesetLoad(String filepath)
+        {
+            // Set the new filepath and load
+            this.filepath = filepath;
+            pictureBoxInput.Image = Image.FromFile(filepath);
+
+            // Enable all controls
+            btnCutSave.Enabled = true;
+            btnConvert.Enabled = true;
+
+            saveIndividualFramesItem.Enabled = true;
+            convertAndSaveItem.Enabled = true;
+
+            btnTransparency.Enabled = true;
+            setTransparenItem.Enabled = true;
+
+            ignoreItem.Enabled = true;
+            checkIgnore.Enabled = true;
+
+            btnSetInput.Enabled = true;
+            setTileseItem.Enabled = true;
+
+            // Load the grid
+            LoadGrid();
+        }
+
+        private bool LoadTilesetByDialog()
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                btnCutSave.Enabled = btnConvert.Enabled = true;
-                saveIndividualFramesItem.Enabled = true;
-                convertAndSaveItem.Enabled = true;
-                btnTransparency.Enabled = setTransparenItem.Enabled = true;
-                ignoreItem.Enabled = checkIgnore.Enabled = true;
-                btnSetInput.Enabled = true;
-                
-                filepath = openFileDialog1.FileName;
-                pictureBoxInput.Image = Image.FromFile(filepath);
-
-                btnSetInput.Enabled = setTileseItem.Enabled = true;
-                LoadGrid();
+                OnTilesetLoad(openFileDialog1.FileName);
                 return true;
             }
             return false;
@@ -203,15 +219,32 @@ namespace tilecon
                     break;
             }
         }
-        
-        private void timer1_Tick(object sender, EventArgs e)
-        {
 
+        private void FormTilecon_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                string extension = System.IO.Path.GetExtension(files[0]).ToLower();
+
+                if (extension == ".jpg" || extension == ".gif" || extension == ".bmp" || extension == ".png" || extension == ".jpeg" ||extension == ".jfif")
+                {
+                    e.Effect = DragDropEffects.All;
+                    return;
+                }
+            }
+            e.Effect = DragDropEffects.None;
+        }
+
+        private void FormTilecon_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            OnTilesetLoad(files[0]);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            OpenTileset();
+            LoadTilesetByDialog();
         }
 
         private void btnCutSave_Click(object sender, EventArgs e)
@@ -267,7 +300,7 @@ namespace tilecon
 
         private void openTilesetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenTileset();
+            LoadTilesetByDialog();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -674,26 +707,20 @@ namespace tilecon
 
         private void SaveConverter()
         {
-            int index = saveFileDialog1.FileName.LastIndexOf(".");
-            string fileDir = saveFileDialog1.FileName.Substring(0, index) + "_";
+            string dir = saveFileDialog1.FileName;
 
-            if (bitmaps.Length != 1)
+            if (bitmaps.Length == 1) // one bitmap
             {
-                for (int i = 0; i < bitmaps.Length; i++)
-                    bitmaps[i].Save(fileDir + i + ".png");
+                // If the bitmap is a character (player sprite)
+                if ((bitmaps[0].Width == 48 && bitmaps[0].Height == 64) || (bitmaps[0].Width == 144 && bitmaps[0].Height == 192))
+                    dir = Path.GetDirectoryName(dir) + @"\!$" + Path.GetFileName(dir);
+                bitmaps[0].Save(dir);
             }
-            else
+            else // various bitmaps
             {
-                string path = saveFileDialog1.FileName;
-
-                // If the bitmap is a character
-                if ((bitmaps[0].Width == 48 && bitmaps[0].Height == 64)  || (bitmaps[0].Width == 144 && bitmaps[0].Height == 192))
-                {
-                    string nameWithoutPath = path.Substring(path.LastIndexOf("\\") + 1, path.Length - (path.LastIndexOf("\\") + 1));
-                    path = path.Replace(nameWithoutPath, @"\!$" + nameWithoutPath);
-                }
-                
-                bitmaps[0].Save(path);
+                dir = Path.GetDirectoryName(dir) + @"\" + Path.GetFileNameWithoutExtension(dir);
+                for (int i = 0; i < bitmaps.Length; i++)
+                    bitmaps[i].Save(dir + "_" + (i + 1) + ".png");
             }
         }
 

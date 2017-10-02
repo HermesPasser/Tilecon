@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 
 namespace tilecon.Converter
 {
@@ -43,20 +44,19 @@ namespace tilecon.Converter
         /// <param name="fileDir">The directory for the sprites to be saved.</param>
         public void SaveEachSubimage(Image img, string fileDir)
         {
+            Bitmap bmp = img as Bitmap;
             int spriteSize = inputTileset.SpriteSize();
-            int index = fileDir.LastIndexOf(".");
-            string ex = fileDir.Substring(index);
-            fileDir = fileDir.Substring(0, index) + "_";
+            string ex = Path.GetExtension(fileDir);
+            fileDir = Path.GetDirectoryName(fileDir) + @"\!$" + Path.GetFileNameWithoutExtension(fileDir) + "_";
 
             for (int i = 0, x = 0; x < img.Width; x += spriteSize)
             {
-                for (int y = 0; y < img.Height; y += spriteSize)
+                for (int y = 0; y < img.Height; y += spriteSize, i++)
                 {
                     int ipp = i + 1;
                     string s = ipp > 99 ? s = ipp.ToString() : ipp > 9 ? s = ipp.ToString() : s = "0" + ipp;
-                    Bitmap b = Crop(img as Bitmap, x, y, spriteSize, spriteSize);
-                    b.Save(fileDir + s + ex);
-                    i++;
+                    (Crop(bmp, x, y, spriteSize, spriteSize)).Save(fileDir + s + ex);
+                    
                 }
             }
         }
@@ -167,7 +167,16 @@ namespace tilecon.Converter
                 if (IsAllAlphaImage(sprites[g])) sprites.Remove(sprites[g]);
             return sprites;
         }
-        
+
+        /// <summary>Remove empty sprites of a list.</summary>
+        /// <param name="sprites">Array of sprites.</param>
+        /// <returns>List of sprites not empty.</returns>
+        protected List<Bitmap> RemoveAlphaSprites(Bitmap[] sprites)
+        {
+            List<Bitmap> spritesList = new List<Bitmap>(sprites);
+            return RemoveAlphaSprites(spritesList);
+        }
+
         /// <summary>if the image is convertible to MV tileset.</summary>
         /// <param name="img">Image to be checked.</param>
         /// <returns>Return true if the image is convertible and false if not.</returns>
@@ -273,7 +282,7 @@ namespace tilecon.Converter
         /// <param name="img">Image to be slip.</param>
         /// <returns>A list of sprites.</returns>
         protected abstract List<Bitmap> GetSprites(Image img);
-
+        
         /// <summary>Converter the image to MV tileset.</summary>
         /// <param name="img">Image to be converted</param>
         /// <returns>An array of bitmaps converteds to MV tileset.</returns>

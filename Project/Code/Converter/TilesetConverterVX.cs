@@ -27,14 +27,13 @@ namespace tilecon.Converter
             int spriteSize = inputTileset.SpriteSize();
             int height = inputTileset.SizeHeight();
             int width = inputTileset.SizeWidth();
-            List<Bitmap> sprites = new List<Bitmap>();
+            Bitmap[] sprites = new Bitmap[(img.Width / spriteSize) * (img.Height / spriteSize)];
 
             for (int x = 0, i = 0; x < width; x += spriteSize)
             {
-                for (int y = 0; y < height; y += spriteSize)
+                for (int y = 0; y < height; y += spriteSize, i++)
                 {
-                    sprites.Add(Crop(img as Bitmap, x, y, spriteSize, spriteSize));
-                    i++;
+                    sprites[i] = Crop(img as Bitmap, x, y, spriteSize, spriteSize); 
                 }
             }
             return RemoveAlphaSprites(sprites);

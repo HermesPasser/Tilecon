@@ -5,7 +5,7 @@
         public enum lang{
             ptbr, eng
         }
-        public static string version = "1.8";
+        public static string version = "1.8.2";
 
         public static string file;
         public static string fileExit;
@@ -70,7 +70,7 @@
                 btnOpen = "Open Tileset";
                 btnCut = "Save each sprite";
                 btnConvert = "Convert";
-                btnSave = "Salve";
+                btnSave = "Save";
                 btnTransparency = "Set Transparency";
                 cbIgnore = "Ignore Alpha";
                 btnSetTileset = "Set Tileset";
