@@ -180,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ico.ico" />
+    <EmbeddedResource Include="Resources\stringtable.xml" />
     <None Include="Resources\AboutXpTileset.png" />
     <None Include="Resources\About2kTileset.png" />
     <None Include="Resources\logo.png" />

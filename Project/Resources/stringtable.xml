@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<stringtable>
+ 
+    <file
+        en="File"
+        pt="Arquivo"
+    />  
+  
+    <exit 
+        en="Exit"
+        pt="Sair"
+    />  
+  
+    <converter
+        en="Converter"
+        pt="Conversor"
+    />  
+   
+    <convert 
+        en="Convert"
+        pt="Converter"
+    /> 
+  
+    <conversion 
+        en="Conversion"
+        pt="Conversão"
+    /> 
+  
+    <editor
+        en="Editor"
+        pt="Editor"
+    />  
+  
+    <language 
+        en="Language"
+        pt="Linguagem"
+    />  
+  
+    <english 
+        en="English"
+        pt="Inglês"
+    />  
+  
+    <portuguese 
+        en="Portuguese"
+        pt="Português"
+    />  
+  
+    <about 
+        en="About"
+        pt="Ajuda"
+    />  
+  
+    <help
+        en="Help"
+        pt="Sobre"
+    /> 
+    
+    <mode
+        en="Mode"
+        pt="Modo"
+    /> 
+  
+    <openTileset 
+        en="Open Tileset"
+        pt="Abrir Tileset"
+    /> 
+  
+    <saveEachSprite
+        en="Save each sprite"
+        pt="Salvar cada sprite"
+    /> 
+
+    <save
+        en="Save"
+        pt="Salvar"
+    /> 
+  
+    <setTransparency
+        en="Set Transparency"
+        pt="Definir Transparência"
+    /> 
+  
+    <ignoreAlpha 
+        en="Ignore Alpha"
+        pt="Ignorar Alfa"
+    /> 
+  
+    <setTileset 
+        en="Set Tileset"
+        pt="Definir Tileset"
+    /> 
+  
+    <outputTileset 
+        en="Output Tileset"
+        pt="Tileset de Saída"
+    /> 
+  
+    <clearAndSetTileset 
+        en="Clear and Set Tileset"
+        pt="Limpar e Definir Tileset"
+    /> 
+  
+    <topLeftAlign 
+        en="Top Left Align"
+        pt="Alinhamento Superior Esquerdo"
+    /> 
+    
+    <topCenterAlign 
+        en="Top Center Align"
+        pt="Alinhamento Superior Centro"
+    /> 
+
+    <topRightAlign 
+        en="Top Right Align"
+        pt="Alinhamento Superior Direito"
+    /> 
+
+    <middleLeftAlign 
+        en="Middle Left Align"
+        pt="Alinhamento Médio Esquerdo"
+    /> 
+
+    <middleCenterAlign 
+        en="Middle Center Align"
+        pt="Alinhamento Médio Centro"
+    /> 
+
+    <middleRightAlign 
+        en="Middle Right Align"
+        pt="Alinhamento Médio Direito"
+    /> 
+
+    <bottomLeftAlign 
+        en="Bottom Left Align"
+        pt="Alinhamento Inferior Esquerdo"
+    /> 
+
+    <bottomCenterAlign 
+        en="Bottom Center Align"
+        pt="Alinhamento Inferior Centro"
+    /> 
+
+    <bottomRightAlign 
+        en="Bottom Right Align"
+        pt="Alinhamento Inferior Direito"
+    /> 
+
+    <resize 
+        en="Resize"
+        pt="Redimencionar"
+    /> 
+
+    <wait 
+        en="Wait..."
+        pt="Espere..."
+    /> 
+
+    <done
+        en="Done."
+        pt="Feito."
+    /> 
+
+    <imageFiles
+        en="Image files"
+        pt="Arquivo de Imagem"
+    /> 
+
+    <pngFiles 
+        en="Png Files"
+        pt="Arquivos Png"
+    /> 
+  
+    <sourceCode
+        en="Source Code"
+        pt="Código Fonte"
+    />
+  
+    <!-- Messages -->
+    
+    <sizeErrorMsg 
+        en="Width or height does not match the size of the selected tileset."
+        pt="Largura ou altura não corresponde ao tamanho do conjunto de telas selecionado."
+    /> 
+
+    <saveErrorMsg 
+        en="You cannot save over the image loaded in the program."
+        pt="Você não pode salvar por cima da imagem carregada no programa."
+    /> 
+</stringtable>

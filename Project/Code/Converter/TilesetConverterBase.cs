@@ -47,7 +47,7 @@ namespace tilecon.Converter
             Bitmap bmp = img as Bitmap;
             int spriteSize = inputTileset.SpriteSize();
             string ex = Path.GetExtension(fileDir);
-            fileDir = Path.GetDirectoryName(fileDir) + @"\!$" + Path.GetFileNameWithoutExtension(fileDir) + "_";
+            fileDir = Path.GetDirectoryName(fileDir) + @"\" + Path.GetFileNameWithoutExtension(fileDir) + "_";
 
             for (int i = 0, x = 0; x < img.Width; x += spriteSize)
             {
@@ -186,7 +186,7 @@ namespace tilecon.Converter
             {
                 if (img.Width != inputTileset.SizeWidth() || img.Height != inputTileset.SizeHeight())
                 {
-                    System.Windows.Forms.MessageBox.Show(Vocab.errorMessage);
+                    System.Windows.Forms.MessageBox.Show(Vocab.GetText("sizeErrorMsg"));
                     return false;
                 }
             }

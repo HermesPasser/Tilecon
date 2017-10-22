@@ -32,7 +32,7 @@
             this.btnConvert = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btnOpen = new System.Windows.Forms.Button();
-            this.btnCutSave = new System.Windows.Forms.Button();
+            this.btnSaveEachSprite = new System.Windows.Forms.Button();
             this.panelInput = new System.Windows.Forms.Panel();
             this.pictureBoxInput = new System.Windows.Forms.PictureBox();
             this.panelOutput = new System.Windows.Forms.Panel();
@@ -40,7 +40,7 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openTilesetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openTilesetItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tilesetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMaker95_SMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simRPGMaker97_SMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,12 +70,12 @@
             this.bottomCenterItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bottomRightItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resizeItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveIndividualFramesItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveEachSpritesItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ignoreItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setTransparenItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setTransparentItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertAndSaveItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setTileseItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -148,20 +148,20 @@
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(76, 21);
             this.btnOpen.TabIndex = 2;
-            this.btnOpen.Text = "Open Tileset";
+            this.btnOpen.Text = "[Open]";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // btnCutSave
+            // btnSaveEachSprite
             // 
-            this.btnCutSave.Enabled = false;
-            this.btnCutSave.Location = new System.Drawing.Point(363, 3);
-            this.btnCutSave.Name = "btnCutSave";
-            this.btnCutSave.Size = new System.Drawing.Size(141, 21);
-            this.btnCutSave.TabIndex = 3;
-            this.btnCutSave.Text = "Save individual frames";
-            this.btnCutSave.UseVisualStyleBackColor = true;
-            this.btnCutSave.Click += new System.EventHandler(this.btnCutSave_Click);
+            this.btnSaveEachSprite.Enabled = false;
+            this.btnSaveEachSprite.Location = new System.Drawing.Point(363, 3);
+            this.btnSaveEachSprite.Name = "btnSaveEachSprite";
+            this.btnSaveEachSprite.Size = new System.Drawing.Size(141, 21);
+            this.btnSaveEachSprite.TabIndex = 3;
+            this.btnSaveEachSprite.Text = "Save individual frames";
+            this.btnSaveEachSprite.UseVisualStyleBackColor = true;
+            this.btnSaveEachSprite.Click += new System.EventHandler(this.btnCutSave_Click);
             // 
             // panelInput
             // 
@@ -219,22 +219,22 @@
             // archiveToolStripMenuItem
             // 
             this.archiveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openTilesetToolStripMenuItem,
+            this.openTilesetItem,
             this.tilesetToolStripMenuItem,
             this.modeMenu,
-            this.saveIndividualFramesItem,
-            this.saveToolStripMenuItem,
-            this.exitToolStripMenuItem});
+            this.saveEachSpritesItem,
+            this.saveToolStripItem,
+            this.exitItem});
             this.archiveToolStripMenuItem.Name = "archiveToolStripMenuItem";
             this.archiveToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.archiveToolStripMenuItem.Text = "File";
             // 
-            // openTilesetToolStripMenuItem
+            // openTilesetItem
             // 
-            this.openTilesetToolStripMenuItem.Name = "openTilesetToolStripMenuItem";
-            this.openTilesetToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.openTilesetToolStripMenuItem.Text = "Open Tileset";
-            this.openTilesetToolStripMenuItem.Click += new System.EventHandler(this.openTilesetToolStripMenuItem_Click);
+            this.openTilesetItem.Name = "openTilesetItem";
+            this.openTilesetItem.Size = new System.Drawing.Size(192, 22);
+            this.openTilesetItem.Text = "Open Tileset";
+            this.openTilesetItem.Click += new System.EventHandler(this.openTilesetToolStripMenuItem_Click);
             // 
             // tilesetToolStripMenuItem
             // 
@@ -466,33 +466,33 @@
             this.resizeItem.Text = "Resize";
             this.resizeItem.Click += new System.EventHandler(this.resizeItem_Click);
             // 
-            // saveIndividualFramesItem
+            // saveEachSpritesItem
             // 
-            this.saveIndividualFramesItem.Enabled = false;
-            this.saveIndividualFramesItem.Name = "saveIndividualFramesItem";
-            this.saveIndividualFramesItem.Size = new System.Drawing.Size(192, 22);
-            this.saveIndividualFramesItem.Text = "Save individual frames";
-            this.saveIndividualFramesItem.Click += new System.EventHandler(this.saveIndividualFramesToolStripMenuItem_Click);
+            this.saveEachSpritesItem.Enabled = false;
+            this.saveEachSpritesItem.Name = "saveEachSpritesItem";
+            this.saveEachSpritesItem.Size = new System.Drawing.Size(192, 22);
+            this.saveEachSpritesItem.Text = "Save individual frames";
+            this.saveEachSpritesItem.Click += new System.EventHandler(this.saveIndividualFramesToolStripMenuItem_Click);
             // 
-            // saveToolStripMenuItem
+            // saveToolStripItem
             // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripItem.Name = "saveToolStripItem";
+            this.saveToolStripItem.Size = new System.Drawing.Size(192, 22);
+            this.saveToolStripItem.Text = "Save";
+            this.saveToolStripItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
-            // exitToolStripMenuItem
+            // exitItem
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitItem.Name = "exitItem";
+            this.exitItem.Size = new System.Drawing.Size(192, 22);
+            this.exitItem.Text = "Exit";
+            this.exitItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // convertToolStripMenuItem
             // 
             this.convertToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ignoreItem,
-            this.setTransparenItem,
+            this.setTransparentItem,
             this.convertAndSaveItem});
             this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
             this.convertToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -507,13 +507,13 @@
             this.ignoreItem.Text = "Ignore Alpha";
             this.ignoreItem.Click += new System.EventHandler(this.ignoreAlphaToolStripMenuItem_Click);
             // 
-            // setTransparenItem
+            // setTransparentItem
             // 
-            this.setTransparenItem.Enabled = false;
-            this.setTransparenItem.Name = "setTransparenItem";
-            this.setTransparenItem.Size = new System.Drawing.Size(163, 22);
-            this.setTransparenItem.Text = "Set Transparency";
-            this.setTransparenItem.Click += new System.EventHandler(this.setTransparentPixelToolStripMenuItem_Click);
+            this.setTransparentItem.Enabled = false;
+            this.setTransparentItem.Name = "setTransparentItem";
+            this.setTransparentItem.Size = new System.Drawing.Size(163, 22);
+            this.setTransparentItem.Text = "Set Transparency";
+            this.setTransparentItem.Click += new System.EventHandler(this.setTransparentPixelToolStripMenuItem_Click);
             // 
             // convertAndSaveItem
             // 
@@ -690,7 +690,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(141, 21);
             this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "Salve";
+            this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
@@ -848,7 +848,7 @@
             this.btnSetInput.Enabled = false;
             this.btnSetInput.Location = new System.Drawing.Point(12, 2);
             this.btnSetInput.Name = "btnSetInput";
-            this.btnSetInput.Size = new System.Drawing.Size(76, 23);
+            this.btnSetInput.Size = new System.Drawing.Size(106, 23);
             this.btnSetInput.TabIndex = 19;
             this.btnSetInput.Text = "Set Tileset";
             this.btnSetInput.UseVisualStyleBackColor = true;
@@ -925,7 +925,7 @@
             this.flowLayoutPanel1.Controls.Add(this.btnOpen);
             this.flowLayoutPanel1.Controls.Add(this.cbMaker);
             this.flowLayoutPanel1.Controls.Add(this.cbMode);
-            this.flowLayoutPanel1.Controls.Add(this.btnCutSave);
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveEachSprite);
             this.flowLayoutPanel1.Controls.Add(this.btnSave);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(13, 27);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -978,14 +978,14 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.PictureBox pictureBoxInput;
         private System.Windows.Forms.Button btnOpen;
-        private System.Windows.Forms.Button btnCutSave;
+        private System.Windows.Forms.Button btnSaveEachSprite;
         private System.Windows.Forms.Panel panelInput;
         private System.Windows.Forms.Panel panelOutput;
         private System.Windows.Forms.PictureBox pictureBoxOutput;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem archiveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitItem;
         private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
@@ -994,10 +994,10 @@
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem portugueseToolStripMenuItem;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.ToolStripMenuItem openTilesetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openTilesetItem;
         private System.Windows.Forms.CheckBox checkIgnore;
         private System.Windows.Forms.ComboBox cbMode;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripItem;
         private System.Windows.Forms.ToolStripMenuItem ignoreItem;
         private System.Windows.Forms.Button btnNextImg;
         private System.Windows.Forms.Button btnPreviusImg;
@@ -1023,7 +1023,7 @@
         private System.Windows.Forms.Button btnTransparency;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.ToolStripMenuItem rM20002003TilesetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem setTransparenItem;
+        private System.Windows.Forms.ToolStripMenuItem setTransparentItem;
         private System.Windows.Forms.ToolStripMenuItem rPGMakerXPToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rPGMakerXPAutotileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rMXPAutotileToolStripMenuItem;
@@ -1039,7 +1039,7 @@
         private System.Windows.Forms.ComboBox cbOutput;
         private System.Windows.Forms.Button btnClearAndSet;
         private System.Windows.Forms.Button btnSetInput;
-        private System.Windows.Forms.ToolStripMenuItem saveIndividualFramesItem;
+        private System.Windows.Forms.ToolStripMenuItem saveEachSpritesItem;
         private System.Windows.Forms.ToolStripMenuItem editorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setTileseItem;
         private System.Windows.Forms.ToolStripMenuItem outputTilesetItem;

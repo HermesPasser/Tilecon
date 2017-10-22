@@ -7,12 +7,19 @@ namespace tilecon.Converter.Tests
     public class TilesetConverterTestBase
     {
         public TilesetConverterBase converter;
+        private Stream stream;
+
+        ~TilesetConverterTestBase()
+        {
+            if (stream != null)
+                stream.Close();
+        }
 
         protected Bitmap BitmapFromResourceStream(string imageName)
         {
             Assembly myAssembly = Assembly.GetExecutingAssembly();
-            Stream myStream = myAssembly.GetManifestResourceStream(imageName);
-            return new Bitmap(myStream);
+            stream = myAssembly.GetManifestResourceStream(imageName);
+            return new Bitmap(stream);
         }
     }
 }

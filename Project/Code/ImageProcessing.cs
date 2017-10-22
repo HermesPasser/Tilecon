@@ -37,7 +37,7 @@ namespace tilecon
             return true;
         }
 
-        /// <summary>Crop the bitmap.</</summary>
+        /// <summary>Crop the bitmap.</summary>
         /// <param name="src">Bitmap to be cropped.</param>
         /// <param name="x">Beginning of the crop in x.</param>
         /// <param name="y">Beginning of the crop in y.</param>

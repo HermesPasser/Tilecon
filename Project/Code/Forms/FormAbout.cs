@@ -11,6 +11,7 @@ namespace tilecon
             InitializeComponent();
             labelTitle.Text = "Tileset Converter MV" + Vocab.version;
             labelAbout.Text = Vocab.aboutHelpText;
+            linkLabel2.Text = Vocab.GetText("sourceCode");
         }
 
         private void OnClose(object sender, FormClosingEventArgs e)
@@ -26,7 +27,7 @@ namespace tilecon
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://gladiocitrico.blogspot.com");
+            System.Diagnostics.Process.Start("https://hermespasser.github.io/pages/tilecon.html");
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

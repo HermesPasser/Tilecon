@@ -1,10 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using tilecon.Converter;
-using System.IO;
 
 namespace tilecon
 {
@@ -13,9 +13,9 @@ namespace tilecon
     {
         // General
         private string filepath;
-        /// <summary>Reference of the object to be called by other forms. </summary>
+        /// <summary>Object reference to be called by other forms. </summary>
         public static FormTilecon formTileconController;
-       // SpriteMode mode;
+        //SpriteMode mode;
 
         // Editor
         List<Button> inputGrid;
@@ -34,11 +34,11 @@ namespace tilecon
             formTileconController = this;
             InitializeComponent();
             cbMaker.SelectedIndexChanged += new EventHandler(cbMaker_SelectedIndexChanged);
-            ChangeLang(Vocab.lang.eng);
+            ChangeLang(Vocab.lang.en);
             cbMaker.SelectedIndex = 8;
             cbMode.SelectedIndex = 0;
             btnOpen.Select();
-            
+
             cbOutput.SelectedIndex = 0;
             currentImage = currentImageRaw = null;
         }
@@ -47,52 +47,52 @@ namespace tilecon
 
         private void ChangeLang(Vocab.lang l)
         {
-            Vocab.changeLang(l);
-            saveFileDialog1.Filter = Vocab.pgnFilesText + " (*.png) | *.png";
-            openFileDialog1.Filter = Vocab.imageFilesText + " (*.gif, *.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.gif; *bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
-            btnConvert.Text = Vocab.btnConvert;
-            btnCutSave.Text = Vocab.btnCut;
-            btnOpen.Text = Vocab.btnOpen;
-            btnSave.Text = Vocab.btnSave;
-            btnTransparency.Text = Vocab.btnTransparency;
-            checkIgnore.Text = Vocab.cbIgnore;
+            Vocab.currentLanguage = l;
 
-            groupConversion.Text = Vocab.groupConversion;
+            saveFileDialog1.Filter = Vocab.GetText("pngFiles")   + " (*.png) | *.png";
+            openFileDialog1.Filter = Vocab.GetText("imageFiles") + " (*.gif, *.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.gif; *bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
 
-            cbMode.Items[0] = topLeftItem.Text      = Vocab.comboTopLeft;
-            cbMode.Items[1] = topCenterItem.Text    = Vocab.comboTopCenter;
-            cbMode.Items[2] = topRightItem.Text     = Vocab.comboTopRight;
-            cbMode.Items[3] = middleLeftItem.Text   = Vocab.comboMiddleLeft;
-            cbMode.Items[4] = middleCenterItem.Text = Vocab.comboMiddleCenter;
-            cbMode.Items[5] = middleRightItem.Text  = Vocab.comboMiddleRight;
-            cbMode.Items[6] = bottomLeftItem.Text   = Vocab.comboBottomLeft;
-            cbMode.Items[7] = bottomCenterItem.Text = Vocab.comboBottomCenter;
-            cbMode.Items[8] = bottomRightItem.Text  = Vocab.comboBottomRight;
-            cbMode.Items[9] = resizeItem.Text       = Vocab.comboResize;
+            btnConvert.Text        = convertAndSaveItem.Text  = Vocab.GetText("convert");
+            btnSaveEachSprite.Text = saveEachSpritesItem.Text = Vocab.GetText("saveEachSprite");
+            btnOpen.Text           = openTilesetItem.Text     = Vocab.GetText("openTileset");
+            btnSave.Text           = saveToolStripItem.Text   = Vocab.GetText("save");
+            btnTransparency.Text   = setTransparentItem.Text  = Vocab.GetText("setTransparency");
+            ignoreItem.Text        = checkIgnore.Text         = Vocab.GetText("ignoreAlpha");
 
-            menuStrip1.Items[0].Text = Vocab.file;
-            openTilesetToolStripMenuItem.Text = Vocab.btnOpen;
-            modeMenu.Text = Vocab.mode;
-            saveIndividualFramesItem.Text = Vocab.btnCut;
-            saveToolStripMenuItem.Text = Vocab.btnSave;
-            exitToolStripMenuItem.Text = Vocab.fileExit;
+            groupConversion.Text = Vocab.GetText("conversion");
+
+            cbMode.Items[0] = topLeftItem.Text      = Vocab.GetText("topLeftAlign");
+            cbMode.Items[1] = topCenterItem.Text    = Vocab.GetText("topCenterAlign");
+            cbMode.Items[2] = topRightItem.Text     = Vocab.GetText("topRightAlign");
+            cbMode.Items[3] = middleLeftItem.Text   = Vocab.GetText("middleLeftAlign");
+            cbMode.Items[4] = middleCenterItem.Text = Vocab.GetText("middleCenterAlign");
+            cbMode.Items[5] = middleRightItem.Text  = Vocab.GetText("middleRightAlign");
+            cbMode.Items[6] = bottomLeftItem.Text   = Vocab.GetText("bottomLeftAlign");
+            cbMode.Items[7] = bottomCenterItem.Text = Vocab.GetText("bottomCenterAlign");
+            cbMode.Items[8] = bottomRightItem.Text  = Vocab.GetText("bottomRightAlign");
+            cbMode.Items[9] = resizeItem.Text       = Vocab.GetText("resize");
+
+            menuStrip1.Items[0].Text = Vocab.GetText("file");
+            modeMenu.Text = Vocab.GetText("mode");
            
-            menuStrip1.Items[1].Text = tabConverter.Text = Vocab.convert;
-            ignoreItem.Text = Vocab.cbIgnore;
-            convertAndSaveItem.Text = Vocab.btnConvert;
-            setTransparenItem.Text = Vocab.btnTransparency;
-
-            menuStrip1.Items[2].Text = tabEditor.Text = Vocab.editor;
-            setTileseItem.Text = Vocab.btnSetTileset;
-            outputTilesetItem.Text = Vocab.btnOutputTileset;
-            clearAndSetOutputTilesetItem.Text = Vocab.btnClearAndSetOutputTileset;
+            exitItem.Text = Vocab.GetText("exit");
             
-            menuStrip1.Items[3].Text = Vocab.language;
-            englishToolStripMenuItem.Text = Vocab.languageEng;
-            portugueseToolStripMenuItem.Text = Vocab.languagePtbr;
+            menuStrip1.Items[1].Text = tabConverter.Text = Vocab.GetText("converter");
 
-            menuStrip1.Items[4].Text = Vocab.help;
-            aboutToolStripMenuItem.Text = Vocab.helpAbout;
+            menuStrip1.Items[2].Text = tabEditor.Text = Vocab.GetText("editor");
+            setTileseItem.Text = Vocab.GetText("setTileset");
+            outputTilesetItem.Text = Vocab.GetText("outputTileset");
+            clearAndSetOutputTilesetItem.Text = Vocab.GetText("clearAndSetTileset");
+
+            menuStrip1.Items[3].Text = Vocab.GetText("language");
+            englishToolStripMenuItem.Text = Vocab.GetText("english");
+            portugueseToolStripMenuItem.Text = Vocab.GetText("portuguese");
+
+            menuStrip1.Items[4].Text = Vocab.GetText("help");
+            aboutToolStripMenuItem.Text = Vocab.GetText("about");
+
+            btnClearAndSet.Text = Vocab.GetText("clearAndSetTileset");
+            btnSetInput.Text = Vocab.GetText("setTileset");
         }
 
         private void OnTilesetLoad(String filepath)
@@ -102,14 +102,14 @@ namespace tilecon
             pictureBoxInput.Image = Image.FromFile(filepath);
 
             // Enable all controls
-            btnCutSave.Enabled = true;
+            btnSaveEachSprite.Enabled = true;
             btnConvert.Enabled = true;
 
-            saveIndividualFramesItem.Enabled = true;
+            saveEachSpritesItem.Enabled = true;
             convertAndSaveItem.Enabled = true;
 
             btnTransparency.Enabled = true;
-            setTransparenItem.Enabled = true;
+            setTransparentItem.Enabled = true;
 
             ignoreItem.Enabled = true;
             checkIgnore.Enabled = true;
@@ -131,26 +131,37 @@ namespace tilecon
             return false;
         }
 
+        private void UIThread(MethodInvoker code) // Modified of: www.codeproject.com/Articles/37642/Avoiding-InvokeRequired
+        {
+            if (this.InvokeRequired) this.Invoke(code);
+            else code.Invoke();
+        }
+
         private void CutSave()
         {
             ITileset tile = GetTileset();
             if (saveFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
 
-            var thread = new Thread(() =>
+            btnSaveEachSprite.Enabled = false;
+
+            (new Thread(() =>
             {
                 try
                 {
                     TilesetConverterVertical cc = new TilesetConverterVertical(tile, SpriteMode.ALIGN_TOP_LEFT, false);
                     cc.SaveEachSubimage(Image.FromFile(filepath), saveFileDialog1.FileName);
-                    MessageBox.Show(Vocab.doneMessage, "Tilecon");
+                    MessageBox.Show(Vocab.GetText("done"), "Tilecon");
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
                 }
-            });
-            thread.Start();
+                finally
+                {
+                    UIThread(delegate { btnSaveEachSprite.Enabled = true; });
+                }
+            })).Start();
         }
         
         private ITileset GetTileset()
@@ -185,7 +196,7 @@ namespace tilecon
 
             if (saveFileDialog1.FileName == filepath)
             {
-                MessageBox.Show(Vocab.SaveErrorMessage);
+                MessageBox.Show(Vocab.GetText("saveErrorMsg"));
                 return;
             }
 
@@ -290,12 +301,12 @@ namespace tilecon
 
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeLang(Vocab.lang.eng);
+            ChangeLang(Vocab.lang.en);
         }
 
         private void portugueseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeLang(Vocab.lang.ptbr);
+            ChangeLang(Vocab.lang.pt);
         }
 
         private void openTilesetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -645,7 +656,7 @@ namespace tilecon
         {
             TilesetConverterBase con;
             ITileset tileset = GetTileset();
-            btnConvert.Text = Vocab.waitMessage;
+            btnConvert.Text = Vocab.GetText("wait");
 
             try
             {
@@ -687,14 +698,14 @@ namespace tilecon
 
             if (bitmaps == null)
             {
-                btnConvert.Text = Vocab.btnConvert;
+                btnConvert.Text = Vocab.GetText("converter");
                 return;
             }
 
             pictureBoxOutput.Image = bitmaps[0];
             btnNextImg.Enabled = btnPreviusImg.Enabled = false;
             btnTransparency.Enabled = true;
-            setTransparenItem.Enabled = true;
+            setTransparentItem.Enabled = true;
 
             if (bitmaps.Length > 1)
                 btnNextImg.Enabled = btnPreviusImg.Enabled = true;
@@ -702,7 +713,7 @@ namespace tilecon
 
             bmpCurrentIndex = 0;
             labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
-            btnConvert.Text = Vocab.btnConvert;
+            btnConvert.Text = Vocab.GetText("converter");
         }
 
         private void SaveConverter()
