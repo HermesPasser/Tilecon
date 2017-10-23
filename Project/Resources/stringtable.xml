@@ -48,12 +48,12 @@
   
     <about 
         en="About"
-        pt="Ajuda"
+        pt="Sobre"
     />  
   
     <help
         en="Help"
-        pt="Sobre"
+        pt="Ajuda"
     /> 
     
     <mode
