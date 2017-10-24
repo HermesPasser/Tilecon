@@ -42,5 +42,6 @@ Open tilecon.sln with Visual Studio, need install .NET Framework version 4.6.1 o
 | 08/04 - ver 1.5 | Improved resize;<br />Option to set the color transparent. | None
 | 10/04 - ver 1.5.2 | Interface bug solved. | [MediaFire](https://www.mediafire.com/?byoh0w7y1n1ktin)
 | 08/05 - ver 1.6 | RMXP Autotile conversion option. | [MediaFire](https://www.mediafire.com/?yt8yurt9m0f0yub)
-| 28/05 - ver 1.7 | Editor added. | [MediaFire](http://www.mediafire.com/file/vuqkyxouh8v2627/Tilecon+1.7.zip)
-| 18/08 - ver 1.8 | RM2k Animated Objects conversion option added. | [MediaFire](https://www.mediafire.com/file/w6futu5y13d6c7p/Tileset%20Converter%20MV%201.8.zip)
+| 28/05 - ver 1.7 | Added editor. | [MediaFire](http://www.mediafire.com/file/vuqkyxouh8v2627/Tilecon+1.7.zip)
+| 18/08 - ver 1.8 | Added RM2k Animated Objects conversion option. | [MediaFire](https://www.mediafire.com/file/w6futu5y13d6c7p/Tileset%20Converter%20MV%201.8.zip)
+| 24/10 - ver 1.8.2 | Added drag and drop tileset system;<br />Fixed spelling errors;<br />Improved performance. | [MediaFire](https://www.mediafire.com/file/ruzc8cuw1pvw2u9/Tileset%20Converter%20MV%201.8.2.zip)

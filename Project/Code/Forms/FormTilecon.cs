@@ -31,20 +31,21 @@ namespace tilecon
         /// <summary>Default constructor.</summary>
         public FormTilecon()
         {
-            formTileconController = this;
             InitializeComponent();
-            cbMaker.SelectedIndexChanged += new EventHandler(cbMaker_SelectedIndexChanged);
+
             ChangeLang(Vocab.lang.en);
+            btnOpen.Select();
+            formTileconController = this;
+            currentImage = currentImageRaw = null;
+
+            // Options not available in Visual Studio properties
+            cbMaker.SelectedIndexChanged += new EventHandler(OnIndexChange); 
             cbMaker.SelectedIndex = 8;
             cbMode.SelectedIndex = 0;
-            btnOpen.Select();
-
             cbOutput.SelectedIndex = 0;
-            currentImage = currentImageRaw = null;
         }
 
         #region General
-
         private void ChangeLang(Vocab.lang l)
         {
             Vocab.currentLanguage = l;
@@ -118,7 +119,7 @@ namespace tilecon
             setTileseItem.Enabled = true;
 
             // Load the grid
-            LoadGrid();
+            LoadGrid(null, null);
         }
 
         private bool LoadTilesetByDialog()
@@ -137,7 +138,7 @@ namespace tilecon
             else code.Invoke();
         }
 
-        private void CutSave()
+        private void CutSave(object sender, EventArgs e)
         {
             ITileset tile = GetTileset();
             if (saveFileDialog1.ShowDialog() != DialogResult.OK)
@@ -187,7 +188,7 @@ namespace tilecon
             }
         }
         
-        private void Save()
+        private void Save(object sender, EventArgs e)
         {
             if (bitmaps == null && tabControl1.SelectedIndex == 0) return;
 
@@ -204,7 +205,7 @@ namespace tilecon
             else SaveEditor();
         }
 
-        private void OnIndexChange()
+        private void OnIndexChange(object sender, EventArgs e)
         {
             TilesetConverterVX con = new TilesetConverterVX(GetTileset(), (SpriteMode) cbMode.SelectedIndex, checkIgnore.Checked);
 
@@ -253,14 +254,52 @@ namespace tilecon
             OnTilesetLoad(files[0]);
         }
 
+        private void SetModeByMenuItem(object sender, EventArgs e)
+        {
+            switch (sender.ToString())
+            {
+                case "Top Left Align":   cbMode.SelectedIndex = 0; break;
+                case "Top Center Align": cbMode.SelectedIndex = 1; break;
+                case "Top Right Align":  cbMode.SelectedIndex = 2; break;
+
+                case "Middle Left Align":   cbMode.SelectedIndex = 3; break;
+                case "Middle Center Align": cbMode.SelectedIndex = 4; break;
+                case "Middle Right Align":  cbMode.SelectedIndex = 5; break;
+
+                case "Bottom Left Align":   cbMode.SelectedIndex = 6; break;
+                case "Bottom Center Align": cbMode.SelectedIndex = 7; break;
+                case "Bottom Right Align":  cbMode.SelectedIndex = 8; break;
+
+                default: cbMode.SelectedIndex = 9; break;
+            }
+        }
+
+        private void SetTilesetByMenuItem(object sender, EventArgs e)
+        {
+            switch (sender.ToString())
+            {
+                case Maker.R95.NAME:              cbMaker.SelectedIndex = 0; break;
+                case Maker.S97.NAME:              cbMaker.SelectedIndex = 1; break;
+                case Maker.Alpha.NAME:            cbMaker.SelectedIndex = 2; break;
+                case Maker.R2k_2k3_Auto.NAME:     cbMaker.SelectedIndex = 3; break;
+                case Maker.R2k_2k3_AnimObj.NAME:  cbMaker.SelectedIndex = 4; break;
+                case Maker.R2k_2k3_AB.NAME:       cbMaker.SelectedIndex = 5; break;
+                case Maker.R2k_2k3_A.NAME:        cbMaker.SelectedIndex = 6; break;
+                case Maker.R2k_2k3_B.NAME:        cbMaker.SelectedIndex = 7; break;
+                case Maker.VX_Ace_A12.NAME:       cbMaker.SelectedIndex = 10; break;
+                case Maker.VX_Ace_A3.NAME:        cbMaker.SelectedIndex = 11; break;
+                case Maker.VX_Ace_A4.NAME:        cbMaker.SelectedIndex = 12; break;
+                case Maker.VX_Ace_A5.NAME:        cbMaker.SelectedIndex = 13; break;
+                case Maker.VX_Ace_BE.NAME:        cbMaker.SelectedIndex = 14; break;
+                case Maker.XP_Auto.NAME:          cbMaker.SelectedIndex = 9; break;
+                case Maker.XP_Tile.NAME:
+                default:                          cbMaker.SelectedIndex = 8; break;
+            }
+        }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             LoadTilesetByDialog();
-        }
-
-        private void btnCutSave_Click(object sender, EventArgs e)
-        {
-            CutSave();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -289,16 +328,6 @@ namespace tilecon
             this.Enabled = false;
         }
 
-        private void convertAndSaveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Convert();
-        }
-
-        private void setTransparentPixelToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetTransparentPixel();
-        }
-
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeLang(Vocab.lang.en);
@@ -313,21 +342,6 @@ namespace tilecon
         {
             LoadTilesetByDialog();
         }
-
-        private void buttonSave_Click(object sender, EventArgs e)
-        {
-            Save();
-        }
-
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Save();
-        }
-        
-        private void saveIndividualFramesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CutSave();
-        }
         
         private void ignoreAlphaToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -338,134 +352,10 @@ namespace tilecon
         {
             ignoreItem.Checked = checkIgnore.Checked;
         } 
-
-        private void rPGMaker95ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 0;
-        }
-
-        private void simRPGMaker97_SMItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 1;
-        }
-
-        private void rPGMakerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 2;
-        }
-
-        private void rPGMaker20002003AutotilesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 3;
-        }
-
-        private void rPGMaker20002003TilesetAB_SMItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 4;
-        }
-
-        private void rPGMaker20002003TilesetA_SMItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 5;
-        }
-
-        private void rPGMaker20002003TilesetB_SMItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 6;
-        }
-
-        private void rPGMakerXPAutotileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 7;
-        }
-
-        private void rPGMakerXPToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 8;
-        }
-
-        private void rPGMakerVXAceTilesetA12ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 9;
-        }
-
-        private void rPGMakerVXTilesetA3ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 10;
-        }
-
-        private void rPGMakerVXAceTilesetA4ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 11;
-        }
-
-        private void rPGMakerVXAceTilesetA5ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 12;
-        }
-
-        private void rPGMakerVXAceTilesetBEToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbMaker.SelectedIndex = 13;
-        }
-        
-        private void cbMaker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            OnIndexChange();
-        }
-
-        private void topLeftItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 0;
-        }
-
-        private void topCenterItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 1;
-        }
-
-        private void topRightItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 2;
-        }
-        private void middleLeftItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 3;
-        }
-
-        private void middleCenterItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 4;
-        }
-
-        private void middleRightItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 5;
-        }
-
-        private void bottomLeftItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 6;
-        }
-
-        private void bottomCenterItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 7;
-        }
-
-        private void bottomRightItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 8;
-        }
-
-        private void resizeItem_Click(object sender, EventArgs e)
-        {
-            cbMode.SelectedIndex = 9;
-        }
         #endregion
         
         #region Editor
-        private void UpdateImage()
+        private void UpdateImage(object sender = null, EventArgs e = null)
         {
             currentImage = currentImageRaw;
 
@@ -512,12 +402,12 @@ namespace tilecon
             bmp.Save(saveFileDialog1.FileName);
         }
 
-        private void LoadGrid()
+        private void LoadGrid(object sender, EventArgs e)
         {
             Image img = Image.FromFile(filepath);
             SetInputGrid(img, GetTileset());
 
-            if (outputGrid == null) SetOutputGrid();
+            if (outputGrid == null) SetOutputGrid(null, null);
         }
 
         private void SetInputGrid(Image img, ITileset tileset)
@@ -564,7 +454,7 @@ namespace tilecon
             return btn;
         }
 
-        private void SetOutputGrid()
+        private void SetOutputGrid(object sender, EventArgs e)
         {
             TilesetConverterVX con = new TilesetConverterVX(GetTileset(), (SpriteMode)cbMode.SelectedIndex, false);
             var tileset = con.SetOutputTileset();
@@ -599,60 +489,22 @@ namespace tilecon
         {
             ((Button)sender).BackgroundImage = currentImage;
         }
-
-        private void cbMode_SelectedIndexChanged(object sender, EventArgs e)
+        
+        private void SetOutputTileset(object sender, EventArgs e)
         {
-            UpdateImage();
-        }
-
-        private void btnSetInput_Click(object sender, EventArgs e)
-        {
-            LoadGrid();
-        }
-
-        private void btnClearAndSet_Click(object sender, EventArgs e)
-        {
-            SetOutputGrid();
-        }
-
-        private void setTilesetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadGrid();
-        }
-
-        private void clearAndSetOutputTilesetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetOutputGrid();
-        }
-
-        private void rPGMakerMVTilesetA12ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbOutput.SelectedIndex = 0;
-        }
-
-        private void rPGMakerMVTilesetA3ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbOutput.SelectedIndex = 1;
-        }
-
-        private void rPGMakerMVTilesetA4ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbOutput.SelectedIndex = 2;
-        }
-
-        private void rPGMakerMVTilesetA5ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbOutput.SelectedIndex = 3;
-        }
-
-        private void rPGMakerMVTilesetBCToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cbOutput.SelectedIndex = 4;
+            switch (sender.ToString())
+            {
+                case "RPG Maker MV (Tileset A1-2)": cbOutput.SelectedIndex = 0; break;
+                case "RPG Maker MV (Tileset A3)":   cbOutput.SelectedIndex = 1; break;
+                case "RPG Maker MV (Tileset A4)":   cbOutput.SelectedIndex = 2; break;
+                case "RPG Maker MV (Tileset A5)":   cbOutput.SelectedIndex = 3; break;
+                case "RPG Maker MV (Tileset B-C)":  cbOutput.SelectedIndex = 4; break;
+            }
         }
         #endregion
 
         #region Converter
-        private void Convert()
+        private void Convert(object sender, EventArgs e)
         {
             TilesetConverterBase con;
             ITileset tileset = GetTileset();
@@ -735,7 +587,7 @@ namespace tilecon
             }
         }
 
-        private void SetTransparentPixel()
+        private void SetTransparentPixel(object sender, EventArgs e)
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -745,7 +597,7 @@ namespace tilecon
             }
         }
 
-        private void NextImage()
+        private void NextImage(object sender, EventArgs e)
         {
             if (++bmpCurrentIndex >= bitmaps.Length)
                 bmpCurrentIndex = 0;
@@ -754,7 +606,7 @@ namespace tilecon
             labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
         }
 
-        private void PreviusImage()
+        private void PreviusImage(object sender, EventArgs e)
         {
             if (--bmpCurrentIndex < 0)
                 bmpCurrentIndex = bitmaps.Length - 1;
@@ -762,27 +614,6 @@ namespace tilecon
             pictureBoxOutput.Image = bitmaps[bmpCurrentIndex];
             labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
         }
-
-        private void btnConvert_Click(object sender, EventArgs e)
-        {
-            Convert();
-        }
-
-        private void btnNextImg_Click(object sender, EventArgs e)
-        {
-            NextImage();
-        }
-
-        private void btnPreviusImg_Click(object sender, EventArgs e)
-        {
-            PreviusImage();
-        }
-
-        private void btnSetPixelTransparent_Click(object sender, EventArgs e)
-        {
-            SetTransparentPixel();
-        }
-        #endregion
-
+        #endregion    
     }
 }

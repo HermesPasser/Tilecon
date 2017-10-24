@@ -1,19 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <stringtable>
- 
-    <file
-        en="File"
-        pt="Arquivo"
-    />  
-  
-    <exit 
-        en="Exit"
-        pt="Sair"
-    />  
-  
-    <converter
-        en="Converter"
-        pt="Conversor"
+    <about 
+        en="About"
+        pt="Sobre"
     />  
    
     <convert 
@@ -26,14 +15,24 @@
         pt="Conversão"
     /> 
   
+	<converter
+        en="Converter"
+        pt="Conversor"
+    />  
+
+    <clearAndSetTileset 
+        en="Clear and Set Tileset"
+        pt="Limpar e Definir Tileset"
+    />
+
+    <done
+        en="Done."
+        pt="Feito."
+    /> 
+  
     <editor
         en="Editor"
         pt="Editor"
-    />  
-  
-    <language 
-        en="Language"
-        pt="Linguagem"
     />  
   
     <english 
@@ -41,21 +40,36 @@
         pt="Inglês"
     />  
   
-    <portuguese 
-        en="Portuguese"
-        pt="Português"
-    />  
-  
-    <about 
-        en="About"
-        pt="Sobre"
+    <exit 
+        en="Exit"
+        pt="Sair"
+    />    
+ 
+    <file
+        en="File"
+        pt="Arquivo"
     />  
   
     <help
         en="Help"
         pt="Ajuda"
     /> 
-    
+  
+    <language 
+        en="Language"
+        pt="Linguagem"
+    />  
+  
+    <ignoreAlpha 
+        en="Ignore Alpha"
+        pt="Ignorar Alfa"
+    /> 
+
+    <imageFiles
+        en="Image files"
+        pt="Arquivo de Imagem"
+    /> 
+
     <mode
         en="Mode"
         pt="Modo"
@@ -66,24 +80,29 @@
         pt="Abrir Tileset"
     /> 
   
-    <saveEachSprite
-        en="Save each sprite"
-        pt="Salvar cada sprite"
+    <outputTileset 
+        en="Output Tileset"
+        pt="Tileset de Saída"
     /> 
+
+    <pngFiles 
+        en="Png Files"
+        pt="Arquivos Png"
+    /> 
+    
+    <portuguese 
+        en="Portuguese"
+        pt="Português"
+    />  
 
     <save
         en="Save"
         pt="Salvar"
     /> 
-  
-    <setTransparency
-        en="Set Transparency"
-        pt="Definir Transparência"
-    /> 
-  
-    <ignoreAlpha 
-        en="Ignore Alpha"
-        pt="Ignorar Alfa"
+
+    <saveEachSprite
+        en="Save each sprite"
+        pt="Salvar cada sprite"
     /> 
   
     <setTileset 
@@ -91,15 +110,22 @@
         pt="Definir Tileset"
     /> 
   
-    <outputTileset 
-        en="Output Tileset"
-        pt="Tileset de Saída"
+    <setTransparency
+        en="Set Transparency"
+        pt="Definir Transparência"
     /> 
-  
-    <clearAndSetTileset 
-        en="Clear and Set Tileset"
-        pt="Limpar e Definir Tileset"
+
+	<sourceCode
+        en="Source Code"
+        pt="Código Fonte"
+    />
+    
+    <wait 
+        en="Wait..."
+        pt="Espere..."
     /> 
+	
+	<!-- Aligns and Resize -->
   
     <topLeftAlign 
         en="Top Left Align"
@@ -150,31 +176,6 @@
         en="Resize"
         pt="Redimencionar"
     /> 
-
-    <wait 
-        en="Wait..."
-        pt="Espere..."
-    /> 
-
-    <done
-        en="Done."
-        pt="Feito."
-    /> 
-
-    <imageFiles
-        en="Image files"
-        pt="Arquivo de Imagem"
-    /> 
-
-    <pngFiles 
-        en="Png Files"
-        pt="Arquivos Png"
-    /> 
-  
-    <sourceCode
-        en="Source Code"
-        pt="Código Fonte"
-    />
   
     <!-- Messages -->
     

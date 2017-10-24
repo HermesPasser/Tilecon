@@ -47,6 +47,7 @@
             this.rPGMakerAlphaTSMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMaker20002003AutotilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGMaker20002003AnimatedObjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMaker20002003TilesetAB_SMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMaker20002003TilesetA_SMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMaker20002003TilesetB_SMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -140,7 +141,7 @@
             this.btnConvert.TabIndex = 0;
             this.btnConvert.Text = "Convert";
             this.btnConvert.UseVisualStyleBackColor = true;
-            this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
+            this.btnConvert.Click += new System.EventHandler(this.Convert);
             // 
             // btnOpen
             // 
@@ -161,7 +162,7 @@
             this.btnSaveEachSprite.TabIndex = 3;
             this.btnSaveEachSprite.Text = "Save individual frames";
             this.btnSaveEachSprite.UseVisualStyleBackColor = true;
-            this.btnSaveEachSprite.Click += new System.EventHandler(this.btnCutSave_Click);
+            this.btnSaveEachSprite.Click += new System.EventHandler(this.CutSave);
             // 
             // panelInput
             // 
@@ -254,26 +255,27 @@
             this.rPGMaker95_SMItem.Name = "rPGMaker95_SMItem";
             this.rPGMaker95_SMItem.Size = new System.Drawing.Size(188, 22);
             this.rPGMaker95_SMItem.Text = "RPG Maker 95";
-            this.rPGMaker95_SMItem.Click += new System.EventHandler(this.rPGMaker95ToolStripMenuItem_Click);
+            this.rPGMaker95_SMItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // simRPGMaker97_SMItem
             // 
             this.simRPGMaker97_SMItem.Name = "simRPGMaker97_SMItem";
             this.simRPGMaker97_SMItem.Size = new System.Drawing.Size(188, 22);
             this.simRPGMaker97_SMItem.Text = "Sim RPG Maker 97";
-            this.simRPGMaker97_SMItem.Click += new System.EventHandler(this.simRPGMaker97_SMItem_Click);
+            this.simRPGMaker97_SMItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMakerAlphaTSMItem
             // 
             this.rPGMakerAlphaTSMItem.Name = "rPGMakerAlphaTSMItem";
             this.rPGMakerAlphaTSMItem.Size = new System.Drawing.Size(188, 22);
             this.rPGMakerAlphaTSMItem.Text = "RPG Maker Alpha";
-            this.rPGMakerAlphaTSMItem.Click += new System.EventHandler(this.rPGMakerToolStripMenuItem_Click);
+            this.rPGMakerAlphaTSMItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rToolStripMenuItem
             // 
             this.rToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rPGMaker20002003AutotilesToolStripMenuItem,
+            this.rPGMaker20002003AnimatedObjectsToolStripMenuItem,
             this.rPGMaker20002003TilesetAB_SMItem,
             this.rPGMaker20002003TilesetA_SMItem,
             this.rPGMaker20002003TilesetB_SMItem});
@@ -284,30 +286,37 @@
             // rPGMaker20002003AutotilesToolStripMenuItem
             // 
             this.rPGMaker20002003AutotilesToolStripMenuItem.Name = "rPGMaker20002003AutotilesToolStripMenuItem";
-            this.rPGMaker20002003AutotilesToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.rPGMaker20002003AutotilesToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
             this.rPGMaker20002003AutotilesToolStripMenuItem.Text = "RPG Maker 2000/2003 (Autotiles)";
-            this.rPGMaker20002003AutotilesToolStripMenuItem.Click += new System.EventHandler(this.rPGMaker20002003AutotilesToolStripMenuItem_Click);
+            this.rPGMaker20002003AutotilesToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
+            // 
+            // rPGMaker20002003AnimatedObjectsToolStripMenuItem
+            // 
+            this.rPGMaker20002003AnimatedObjectsToolStripMenuItem.Name = "rPGMaker20002003AnimatedObjectsToolStripMenuItem";
+            this.rPGMaker20002003AnimatedObjectsToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
+            this.rPGMaker20002003AnimatedObjectsToolStripMenuItem.Text = "RPG Maker 2000/2003 (Animated Objects)";
+            this.rPGMaker20002003AnimatedObjectsToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMaker20002003TilesetAB_SMItem
             // 
             this.rPGMaker20002003TilesetAB_SMItem.Name = "rPGMaker20002003TilesetAB_SMItem";
-            this.rPGMaker20002003TilesetAB_SMItem.Size = new System.Drawing.Size(256, 22);
+            this.rPGMaker20002003TilesetAB_SMItem.Size = new System.Drawing.Size(294, 22);
             this.rPGMaker20002003TilesetAB_SMItem.Text = "RPG Maker 2000/2003 (Tileset A-B)";
-            this.rPGMaker20002003TilesetAB_SMItem.Click += new System.EventHandler(this.rPGMaker20002003TilesetAB_SMItem_Click);
+            this.rPGMaker20002003TilesetAB_SMItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMaker20002003TilesetA_SMItem
             // 
             this.rPGMaker20002003TilesetA_SMItem.Name = "rPGMaker20002003TilesetA_SMItem";
-            this.rPGMaker20002003TilesetA_SMItem.Size = new System.Drawing.Size(256, 22);
+            this.rPGMaker20002003TilesetA_SMItem.Size = new System.Drawing.Size(294, 22);
             this.rPGMaker20002003TilesetA_SMItem.Text = "RPG Maker 2000/2003 (Tileset A)";
-            this.rPGMaker20002003TilesetA_SMItem.Click += new System.EventHandler(this.rPGMaker20002003TilesetA_SMItem_Click);
+            this.rPGMaker20002003TilesetA_SMItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMaker20002003TilesetB_SMItem
             // 
             this.rPGMaker20002003TilesetB_SMItem.Name = "rPGMaker20002003TilesetB_SMItem";
-            this.rPGMaker20002003TilesetB_SMItem.Size = new System.Drawing.Size(256, 22);
+            this.rPGMaker20002003TilesetB_SMItem.Size = new System.Drawing.Size(294, 22);
             this.rPGMaker20002003TilesetB_SMItem.Text = "RPG Maker 2000/2003 (Tileset B)";
-            this.rPGMaker20002003TilesetB_SMItem.Click += new System.EventHandler(this.rPGMaker20002003TilesetB_SMItem_Click);
+            this.rPGMaker20002003TilesetB_SMItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMakerXP_SMItem
             // 
@@ -323,14 +332,14 @@
             this.rPGMakerXPToolStripMenuItem.Name = "rPGMakerXPToolStripMenuItem";
             this.rPGMakerXPToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.rPGMakerXPToolStripMenuItem.Text = "RPG Maker XP";
-            this.rPGMakerXPToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerXPToolStripMenuItem_Click);
+            this.rPGMakerXPToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMakerXPAutotileToolStripMenuItem
             // 
             this.rPGMakerXPAutotileToolStripMenuItem.Name = "rPGMakerXPAutotileToolStripMenuItem";
             this.rPGMakerXPAutotileToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.rPGMakerXPAutotileToolStripMenuItem.Text = "RPG Maker XP (Autotile)";
-            this.rPGMakerXPAutotileToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerXPAutotileToolStripMenuItem_Click);
+            this.rPGMakerXPAutotileToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMakerVXAceToolStripMenuItem
             // 
@@ -349,35 +358,35 @@
             this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Name = "rPGMakerVXAceTilesetA12ToolStripMenuItem";
             this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
             this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A1-2)";
-            this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXAceTilesetA12ToolStripMenuItem_Click);
+            this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMakerVXTilesetA3ToolStripMenuItem
             // 
             this.rPGMakerVXTilesetA3ToolStripMenuItem.Name = "rPGMakerVXTilesetA3ToolStripMenuItem";
             this.rPGMakerVXTilesetA3ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
             this.rPGMakerVXTilesetA3ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A3)";
-            this.rPGMakerVXTilesetA3ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXTilesetA3ToolStripMenuItem_Click);
+            this.rPGMakerVXTilesetA3ToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMakerVXAceTilesetA4ToolStripMenuItem
             // 
             this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Name = "rPGMakerVXAceTilesetA4ToolStripMenuItem";
             this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
             this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A4)";
-            this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXAceTilesetA4ToolStripMenuItem_Click);
+            this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMakerVXAceTilesetA5ToolStripMenuItem
             // 
             this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Name = "rPGMakerVXAceTilesetA5ToolStripMenuItem";
             this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
             this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A5)";
-            this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXAceTilesetA5ToolStripMenuItem_Click);
+            this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMakerVXAceTilesetBEToolStripMenuItem
             // 
             this.rPGMakerVXAceTilesetBEToolStripMenuItem.Name = "rPGMakerVXAceTilesetBEToolStripMenuItem";
             this.rPGMakerVXAceTilesetBEToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
             this.rPGMakerVXAceTilesetBEToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset B-E)";
-            this.rPGMakerVXAceTilesetBEToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerVXAceTilesetBEToolStripMenuItem_Click);
+            this.rPGMakerVXAceTilesetBEToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // modeMenu
             // 
@@ -401,70 +410,70 @@
             this.topLeftItem.Name = "topLeftItem";
             this.topLeftItem.Size = new System.Drawing.Size(183, 22);
             this.topLeftItem.Text = "Top Left Align";
-            this.topLeftItem.Click += new System.EventHandler(this.topLeftItem_Click);
+            this.topLeftItem.Click += new System.EventHandler(this.SetModeByMenuItem);
             // 
             // topCenterItem
             // 
             this.topCenterItem.Name = "topCenterItem";
             this.topCenterItem.Size = new System.Drawing.Size(183, 22);
             this.topCenterItem.Text = "Top Center Align";
-            this.topCenterItem.Click += new System.EventHandler(this.topCenterItem_Click);
+            this.topCenterItem.Click += new System.EventHandler(this.SetModeByMenuItem);
             // 
             // topRightItem
             // 
             this.topRightItem.Name = "topRightItem";
             this.topRightItem.Size = new System.Drawing.Size(183, 22);
             this.topRightItem.Text = "Top Right Align";
-            this.topRightItem.Click += new System.EventHandler(this.topRightItem_Click);
+            this.topRightItem.Click += new System.EventHandler(this.SetModeByMenuItem);
             // 
             // middleLeftItem
             // 
             this.middleLeftItem.Name = "middleLeftItem";
             this.middleLeftItem.Size = new System.Drawing.Size(183, 22);
             this.middleLeftItem.Text = "Middle Left Align";
-            this.middleLeftItem.Click += new System.EventHandler(this.middleLeftItem_Click);
+            this.middleLeftItem.Click += new System.EventHandler(this.SetModeByMenuItem);
             // 
             // middleCenterItem
             // 
             this.middleCenterItem.Name = "middleCenterItem";
             this.middleCenterItem.Size = new System.Drawing.Size(183, 22);
             this.middleCenterItem.Text = "Middle Center Align";
-            this.middleCenterItem.Click += new System.EventHandler(this.middleCenterItem_Click);
+            this.middleCenterItem.Click += new System.EventHandler(this.SetModeByMenuItem);
             // 
             // middleRightItem
             // 
             this.middleRightItem.Name = "middleRightItem";
             this.middleRightItem.Size = new System.Drawing.Size(183, 22);
             this.middleRightItem.Text = "Middle Right Align";
-            this.middleRightItem.Click += new System.EventHandler(this.middleRightItem_Click);
+            this.middleRightItem.Click += new System.EventHandler(this.SetModeByMenuItem);
             // 
             // bottomLeftItem
             // 
             this.bottomLeftItem.Name = "bottomLeftItem";
             this.bottomLeftItem.Size = new System.Drawing.Size(183, 22);
             this.bottomLeftItem.Text = "Bottom Left Align";
-            this.bottomLeftItem.Click += new System.EventHandler(this.bottomLeftItem_Click);
+            this.bottomLeftItem.Click += new System.EventHandler(this.SetModeByMenuItem);
             // 
             // bottomCenterItem
             // 
             this.bottomCenterItem.Name = "bottomCenterItem";
             this.bottomCenterItem.Size = new System.Drawing.Size(183, 22);
             this.bottomCenterItem.Text = "Bottom Center Align";
-            this.bottomCenterItem.Click += new System.EventHandler(this.bottomCenterItem_Click);
+            this.bottomCenterItem.Click += new System.EventHandler(this.SetModeByMenuItem);
             // 
             // bottomRightItem
             // 
             this.bottomRightItem.Name = "bottomRightItem";
             this.bottomRightItem.Size = new System.Drawing.Size(183, 22);
             this.bottomRightItem.Text = "Bottom Right Align";
-            this.bottomRightItem.Click += new System.EventHandler(this.bottomRightItem_Click);
+            this.bottomRightItem.Click += new System.EventHandler(this.SetModeByMenuItem);
             // 
             // resizeItem
             // 
             this.resizeItem.Name = "resizeItem";
             this.resizeItem.Size = new System.Drawing.Size(183, 22);
             this.resizeItem.Text = "Resize";
-            this.resizeItem.Click += new System.EventHandler(this.resizeItem_Click);
+            this.resizeItem.Click += new System.EventHandler(this.SetModeByMenuItem);
             // 
             // saveEachSpritesItem
             // 
@@ -472,14 +481,14 @@
             this.saveEachSpritesItem.Name = "saveEachSpritesItem";
             this.saveEachSpritesItem.Size = new System.Drawing.Size(192, 22);
             this.saveEachSpritesItem.Text = "Save individual frames";
-            this.saveEachSpritesItem.Click += new System.EventHandler(this.saveIndividualFramesToolStripMenuItem_Click);
+            this.saveEachSpritesItem.Click += new System.EventHandler(this.CutSave);
             // 
             // saveToolStripItem
             // 
             this.saveToolStripItem.Name = "saveToolStripItem";
             this.saveToolStripItem.Size = new System.Drawing.Size(192, 22);
             this.saveToolStripItem.Text = "Save";
-            this.saveToolStripItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripItem.Click += new System.EventHandler(this.Save);
             // 
             // exitItem
             // 
@@ -513,7 +522,7 @@
             this.setTransparentItem.Name = "setTransparentItem";
             this.setTransparentItem.Size = new System.Drawing.Size(163, 22);
             this.setTransparentItem.Text = "Set Transparency";
-            this.setTransparentItem.Click += new System.EventHandler(this.setTransparentPixelToolStripMenuItem_Click);
+            this.setTransparentItem.Click += new System.EventHandler(this.SetTransparentPixel);
             // 
             // convertAndSaveItem
             // 
@@ -521,7 +530,7 @@
             this.convertAndSaveItem.Name = "convertAndSaveItem";
             this.convertAndSaveItem.Size = new System.Drawing.Size(163, 22);
             this.convertAndSaveItem.Text = "Convert";
-            this.convertAndSaveItem.Click += new System.EventHandler(this.convertAndSaveToolStripMenuItem_Click);
+            this.convertAndSaveItem.Click += new System.EventHandler(this.Convert);
             // 
             // editorToolStripMenuItem
             // 
@@ -539,7 +548,7 @@
             this.setTileseItem.Name = "setTileseItem";
             this.setTileseItem.Size = new System.Drawing.Size(221, 22);
             this.setTileseItem.Text = "Set Input Tileset";
-            this.setTileseItem.Click += new System.EventHandler(this.setTilesetToolStripMenuItem_Click);
+            this.setTileseItem.Click += new System.EventHandler(this.LoadGrid);
             // 
             // outputTilesetItem
             // 
@@ -558,42 +567,42 @@
             this.rPGMakerMVTilesetA12ToolStripMenuItem.Name = "rPGMakerMVTilesetA12ToolStripMenuItem";
             this.rPGMakerMVTilesetA12ToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.rPGMakerMVTilesetA12ToolStripMenuItem.Text = "RPG Maker MV (Tileset A1-2)";
-            this.rPGMakerMVTilesetA12ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerMVTilesetA12ToolStripMenuItem_Click);
+            this.rPGMakerMVTilesetA12ToolStripMenuItem.Click += new System.EventHandler(this.SetOutputTileset);
             // 
             // rPGMakerMVTilesetA3ToolStripMenuItem
             // 
             this.rPGMakerMVTilesetA3ToolStripMenuItem.Name = "rPGMakerMVTilesetA3ToolStripMenuItem";
             this.rPGMakerMVTilesetA3ToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.rPGMakerMVTilesetA3ToolStripMenuItem.Text = "RPG Maker MV (Tileset A3)";
-            this.rPGMakerMVTilesetA3ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerMVTilesetA3ToolStripMenuItem_Click);
+            this.rPGMakerMVTilesetA3ToolStripMenuItem.Click += new System.EventHandler(this.SetOutputTileset);
             // 
             // rPGMakerMVTilesetA4ToolStripMenuItem
             // 
             this.rPGMakerMVTilesetA4ToolStripMenuItem.Name = "rPGMakerMVTilesetA4ToolStripMenuItem";
             this.rPGMakerMVTilesetA4ToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.rPGMakerMVTilesetA4ToolStripMenuItem.Text = "RPG Maker MV (Tileset A4)";
-            this.rPGMakerMVTilesetA4ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerMVTilesetA4ToolStripMenuItem_Click);
+            this.rPGMakerMVTilesetA4ToolStripMenuItem.Click += new System.EventHandler(this.SetOutputTileset);
             // 
             // rPGMakerMVTilesetA5ToolStripMenuItem
             // 
             this.rPGMakerMVTilesetA5ToolStripMenuItem.Name = "rPGMakerMVTilesetA5ToolStripMenuItem";
             this.rPGMakerMVTilesetA5ToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.rPGMakerMVTilesetA5ToolStripMenuItem.Text = "RPG Maker MV (Tileset A5)";
-            this.rPGMakerMVTilesetA5ToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerMVTilesetA5ToolStripMenuItem_Click);
+            this.rPGMakerMVTilesetA5ToolStripMenuItem.Click += new System.EventHandler(this.SetOutputTileset);
             // 
             // rPGMakerMVTilesetBCToolStripMenuItem
             // 
             this.rPGMakerMVTilesetBCToolStripMenuItem.Name = "rPGMakerMVTilesetBCToolStripMenuItem";
             this.rPGMakerMVTilesetBCToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.rPGMakerMVTilesetBCToolStripMenuItem.Text = "RPG Maker MV (Tileset B-C)";
-            this.rPGMakerMVTilesetBCToolStripMenuItem.Click += new System.EventHandler(this.rPGMakerMVTilesetBCToolStripMenuItem_Click);
+            this.rPGMakerMVTilesetBCToolStripMenuItem.Click += new System.EventHandler(this.SetOutputTileset);
             // 
             // clearAndSetOutputTilesetItem
             // 
             this.clearAndSetOutputTilesetItem.Name = "clearAndSetOutputTilesetItem";
             this.clearAndSetOutputTilesetItem.Size = new System.Drawing.Size(221, 22);
             this.clearAndSetOutputTilesetItem.Text = "Clear and Set Output Tileset";
-            this.clearAndSetOutputTilesetItem.Click += new System.EventHandler(this.clearAndSetOutputTilesetToolStripMenuItem_Click);
+            this.clearAndSetOutputTilesetItem.Click += new System.EventHandler(this.SetOutputGrid);
             // 
             // langaugeToolStripMenuItem
             // 
@@ -607,14 +616,14 @@
             // englishToolStripMenuItem
             // 
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
             // portugueseToolStripMenuItem
             // 
             this.portugueseToolStripMenuItem.Name = "portugueseToolStripMenuItem";
-            this.portugueseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.portugueseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.portugueseToolStripMenuItem.Text = "Portuguese";
             this.portugueseToolStripMenuItem.Click += new System.EventHandler(this.portugueseToolStripMenuItem_Click);
             // 
@@ -658,7 +667,7 @@
             this.btnTransparency.TabIndex = 4;
             this.btnTransparency.Text = "Set Transparency";
             this.btnTransparency.UseVisualStyleBackColor = true;
-            this.btnTransparency.Click += new System.EventHandler(this.btnSetPixelTransparent_Click);
+            this.btnTransparency.Click += new System.EventHandler(this.SetTransparentPixel);
             // 
             // cbMode
             // 
@@ -681,7 +690,7 @@
             this.cbMode.Name = "cbMode";
             this.cbMode.Size = new System.Drawing.Size(141, 20);
             this.cbMode.TabIndex = 3;
-            this.cbMode.SelectedIndexChanged += new System.EventHandler(this.cbMode_SelectedIndexChanged);
+            this.cbMode.SelectedIndexChanged += new System.EventHandler(this.UpdateImage);
             // 
             // btnSave
             // 
@@ -692,7 +701,7 @@
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.Save);
             // 
             // checkIgnore
             // 
@@ -716,7 +725,7 @@
             this.btnNextImg.TabIndex = 10;
             this.btnNextImg.Text = ">";
             this.btnNextImg.UseVisualStyleBackColor = true;
-            this.btnNextImg.Click += new System.EventHandler(this.btnNextImg_Click);
+            this.btnNextImg.Click += new System.EventHandler(this.NextImage);
             // 
             // btnPreviusImg
             // 
@@ -728,7 +737,7 @@
             this.btnPreviusImg.TabIndex = 11;
             this.btnPreviusImg.Text = "<";
             this.btnPreviusImg.UseVisualStyleBackColor = true;
-            this.btnPreviusImg.Click += new System.EventHandler(this.btnPreviusImg_Click);
+            this.btnPreviusImg.Click += new System.EventHandler(this.PreviusImage);
             // 
             // cbMaker
             // 
@@ -852,7 +861,7 @@
             this.btnSetInput.TabIndex = 19;
             this.btnSetInput.Text = "Set Tileset";
             this.btnSetInput.UseVisualStyleBackColor = true;
-            this.btnSetInput.Click += new System.EventHandler(this.btnSetInput_Click);
+            this.btnSetInput.Click += new System.EventHandler(this.LoadGrid);
             // 
             // btnClearAndSet
             // 
@@ -862,7 +871,7 @@
             this.btnClearAndSet.TabIndex = 18;
             this.btnClearAndSet.Text = "Clear and Set Tileset";
             this.btnClearAndSet.UseVisualStyleBackColor = true;
-            this.btnClearAndSet.Click += new System.EventHandler(this.btnClearAndSet_Click);
+            this.btnClearAndSet.Click += new System.EventHandler(this.SetOutputGrid);
             // 
             // cbOutput
             // 
@@ -1061,6 +1070,7 @@
         private System.Windows.Forms.ToolStripMenuItem bottomRightItem;
         private System.Windows.Forms.ToolStripMenuItem resizeItem;
         private System.Windows.Forms.PictureBox pictureBoxPreview;
+        private System.Windows.Forms.ToolStripMenuItem rPGMaker20002003AnimatedObjectsToolStripMenuItem;
     }
 }
 
