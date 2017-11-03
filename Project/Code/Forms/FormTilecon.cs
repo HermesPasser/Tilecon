@@ -93,7 +93,6 @@ namespace tilecon
             aboutToolStripMenuItem.Text = Vocab.GetText("about");
 
             btnClearAndSet.Text = Vocab.GetText("clearAndSetTileset");
-            btnSetInput.Text = Vocab.GetText("setTileset");
         }
 
         private void OnTilesetLoad(String filepath)
@@ -115,14 +114,15 @@ namespace tilecon
             ignoreItem.Enabled = true;
             checkIgnore.Enabled = true;
 
-            btnSetInput.Enabled = true;
-            setTileseItem.Enabled = true;
+            // Reset the grid
+            SetOutputGrid(null, null);
+            pictureBoxPreview.Image = null;
 
             // Load the grid
             LoadGrid(null, null);
         }
 
-        private bool LoadTilesetByDialog()
+        private bool LoadTilesetByDialog(object sender = null, EventArgs e = null)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -336,11 +336,6 @@ namespace tilecon
         private void portugueseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeLang(Vocab.lang.pt);
-        }
-
-        private void openTilesetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadTilesetByDialog();
         }
         
         private void ignoreAlphaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -614,6 +609,11 @@ namespace tilecon
             pictureBoxOutput.Image = bitmaps[bmpCurrentIndex];
             labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
         }
-        #endregion    
+        #endregion
+
+        private void LoadTilesetByDialog(object sender, EventArgs e)
+        {
+
+        }
     }
 }

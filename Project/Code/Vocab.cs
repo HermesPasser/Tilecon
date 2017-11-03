@@ -10,7 +10,7 @@ namespace tilecon
             pt, en
         }
 
-        public static string version = "1.8.2";
+        public static string version = "1.8.3";
         public static string aboutHelpText = "2017 - Hermes Passer (hermespasser@gmail.com)";
 
         public  static lang currentLanguage = lang.en;

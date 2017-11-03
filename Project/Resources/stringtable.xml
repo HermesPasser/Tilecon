@@ -105,11 +105,6 @@
         pt="Salvar cada sprite"
     /> 
   
-    <setTileset 
-        en="Set Tileset"
-        pt="Definir Tileset"
-    /> 
-  
     <setTransparency
         en="Set Transparency"
         pt="Definir Transparência"
