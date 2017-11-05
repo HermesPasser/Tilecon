@@ -220,7 +220,7 @@
         #endregion
 
         #region MV classes
-        // To that all tilesets below share the same type.
+        // All tilesets below share the same type.
 
         public abstract class MV
         {

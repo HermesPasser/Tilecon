@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace tilecon.Converter
+namespace tilecon.Tileset.Converter
 {
     /// <summary>Converter class for alpha tileset.</summary>
     public class TilesetConverterVerticalApha : TilesetConverterVertical

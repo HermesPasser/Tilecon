@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace tilecon.Converter
+namespace tilecon.Tileset.Converter
 {
     /// <summary>Autotile xp converter class.</summary>
     public class TilesetConverterAutotileXP : TilesetConverterVertical

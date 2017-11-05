@@ -2,10 +2,10 @@
 using System.Drawing;
 using System.IO;
 
-namespace tilecon.Converter
+namespace tilecon.Tileset.Converter
 {
     /// <summary>Super class for all tileset converters.</summary>
-    public abstract class TilesetConverterBase : ImageProcessing
+    public abstract class TilesetConverterBase : ImageEditor
     {
         /// <summary>Size sprite in output tileset.</summary>
         protected int outputSpriteSize;
@@ -13,16 +13,14 @@ namespace tilecon.Converter
         /// <summary>Flag for ignore empty sprites.</summary>
         protected bool ignoreAlpha;
 
-        /// <summary>Mode how sprites should be pasted into the output tileset.</summary>
-        protected SpriteMode mode;
-
         /// <summary>Tileset type to be converted.</summary>
         protected ITileset inputTileset;
 
         /// <summary>Tileset type after be converted.</summary>
         protected ITileset outputTileset;
 
-        //~TilesetConverterBase() { }
+        /// <summary>Mode how sprites should be manipulated.</summary>
+        protected SpriteMode mode;
 
         /// <summary>The empty constructor of the class to allow it to be inherited.</summary>
         public TilesetConverterBase() { }
@@ -164,7 +162,7 @@ namespace tilecon.Converter
         protected List<Bitmap> RemoveAlphaSprites(List<Bitmap> sprites)
         {
             for (int g = 0; ignoreAlpha && g < sprites.Count; g++)
-                if (IsAllAlphaImage(sprites[g])) sprites.Remove(sprites[g]);
+                if (IsAlphaImage(sprites[g])) sprites.Remove(sprites[g]);
             return sprites;
         }
 
@@ -253,27 +251,6 @@ namespace tilecon.Converter
             return currentSprite;
         }
         
-        /// <summary>Make a tileset of a bitmaps list.</summary>
-        /// <param name="bmps">List of bitmaps to be included in tileset.</param>
-        /// <param name="width">With of tileset.</param>
-        /// <param name="height">Height of tileset.</param>
-        /// <param name="spriteSize">Size of each sprite in tileset.</param>
-        /// <returns>Return the tileset as bitmap.</returns>
-        public Bitmap TilesToTileset(List<Bitmap> bmps, int width, int height, int spriteSize)
-        {
-            Bitmap mv = new Bitmap(width, height);
-
-            for (int y = 0, i = 0; y < height; y += spriteSize)
-            {
-                for (int x = 0; x < width; i++, x += spriteSize)
-                {
-                    if (bmps[i] != null)
-                        mv = Paste(mv, bmps[i], x, y, spriteSize, spriteSize);
-                }
-            }
-            return mv;
-        }
-
         /// <summary>Get the number of pixels to be moved to center the sprite on the tileset.</summary>
         /// <returns>The number of pixels to be moved to center the sprite on the tileset.</returns>
         protected abstract int GetCentralizeNumber();

@@ -24,7 +24,12 @@
         en="Clear and Set Tileset"
         pt="Limpar e Definir Tileset"
     />
-
+  
+    <clearSelectedTile 
+        en="Clear selected tile"
+        pt="Limpar Tile selecionado"
+    />
+  
     <done
         en="Done."
         pt="Feito."
@@ -105,12 +110,17 @@
         pt="Salvar cada sprite"
     /> 
   
+    <setTileset
+        en="Set Tileset"
+        pt="Definir Tileset"
+    />
+    
     <setTransparency
         en="Set Transparency"
         pt="Definir Transparência"
     /> 
 
-	<sourceCode
+	  <sourceCode
         en="Source Code"
         pt="Código Fonte"
     />

@@ -1,15 +1,20 @@
-﻿using System.Drawing;
-using System.Reflection;
+﻿using System.Reflection;
+using System.Drawing;
 using System.IO;
+using tilecon.Tileset.Converter;
+using tilecon.Tileset.Editor;
 
-namespace tilecon.Converter.Tests
+namespace tilecon.Tileset.Tests
 {
-    public class TilesetConverterTestBase
+    public class TilesetTestBase
     {
         public TilesetConverterBase converter;
+        public TilesetEditorIntput editorInput;
+        public TilesetEditorOutput editorOutput;
+
         private Stream stream;
 
-        ~TilesetConverterTestBase()
+        ~TilesetTestBase()
         {
             if (stream != null)
                 stream.Close();

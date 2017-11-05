@@ -1,10 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Drawing;
+using tilecon.Tileset.Tests;
 
-namespace tilecon.Converter.Tests
+namespace tilecon.Tileset.Converter.Tests
 {
     [TestClass()]
-    public class TilesetConverterAutotileXPTests : TilesetConverterTestBase
+    public class TilesetConverterAutotileXPTests : TilesetTestBase
     {
         [TestInitialize]
         public void Initalize()
@@ -13,19 +14,19 @@ namespace tilecon.Converter.Tests
         }
 
         [TestMethod()]
-        public void ConvertToMVTest()
+        public void Convert_XPAutotileToMVTest()
         {
             Bitmap converted = converter.ConvertToMV(BitmapFromResourceStream("Tests.Images.XP.XPAuto_in.png"))[0];
-            Bitmap XPOut = BitmapFromResourceStream("Tests.Images.XP.XPAuto_out_success.png");
-            Assert.IsTrue(ImageProcessing.IsEqual(converted, XPOut));
+            Bitmap XPOut = BitmapFromResourceStream("Tests.Images.XP.Converter.XPAuto_out_success.png");
+            Assert.IsTrue(ImageEditor.IsEqual(converted, XPOut));
         }
 
         [TestMethod()]
-        public void ConvertAnimatedToMVTest()
+        public void Convert_XPAnimatedToMVTest()
         {
             Bitmap converted = converter.ConvertToMV(BitmapFromResourceStream("Tests.Images.XP.XPAutoAnim_in.png"))[0];
-            Bitmap XPOut = BitmapFromResourceStream("Tests.Images.XP.XPAutoAnim_out_success.png");
-            Assert.IsTrue(ImageProcessing.IsEqual(converted, XPOut));
+            Bitmap XPOut = BitmapFromResourceStream("Tests.Images.XP.Converter.XPAutoAnim_out_success.png");
+            Assert.IsTrue(ImageEditor.IsEqual(converted, XPOut));
         }
     }
 }

@@ -28,7 +28,7 @@ Open tilecon.sln with Visual Studio, need install .NET Framework version 4.6.1 o
 
 **Converting tilesets/autotiles from RM XP to MV** - https://www.youtube.com/watch?v=BcbR2E2ZUOI
 
-** Editor** - https://www.youtube.com/watch?v=4iGQA1CZqJM
+**Editor** - https://www.youtube.com/watch?v=4iGQA1CZqJM
 
 
 ## Versions
@@ -45,3 +45,4 @@ Open tilecon.sln with Visual Studio, need install .NET Framework version 4.6.1 o
 | 28/05 - ver 1.7 | Added editor. | [MediaFire](http://www.mediafire.com/file/vuqkyxouh8v2627/Tilecon+1.7.zip)
 | 18/08 - ver 1.8 | Added RM2k Animated Objects conversion option. | [MediaFire](https://www.mediafire.com/file/w6futu5y13d6c7p/Tileset%20Converter%20MV%201.8.zip)
 | 24/10 - ver 1.8.2 | Added drag and drop tileset system;<br />Fixed spelling errors;<br />Improved performance. | [MediaFire](https://www.mediafire.com/file/ruzc8cuw1pvw2u9/Tileset%20Converter%20MV%201.8.2.zip)
+| 05/11 - ver 1.9 | Fixed bug in the editor;<br />Fixed general bugs;<br />Resizable interface.| [MediaFire](http://www.mediafire.com/file/2gyf9v1jmu2j3vb/Tileset+Converter+MV+1.9.zip)

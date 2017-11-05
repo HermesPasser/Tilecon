@@ -16,8 +16,8 @@ namespace tilecon
 
         private void OnClose(object sender, FormClosingEventArgs e)
         {
-            FormTilecon.formTileconController.Enabled = true;
-            FormTilecon.formTileconController.Focus();
+            FormTilecon.controller.Enabled = true;
+            FormTilecon.controller.Focus();
         }
 
         private void button1_Click(object sender, System.EventArgs e)

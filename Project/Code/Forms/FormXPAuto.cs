@@ -13,8 +13,8 @@ namespace tilecon
 
         private void FormXPAuto_FormClosing(object sender, FormClosingEventArgs e)
         {
-            FormTilecon.formTileconController.Enabled = true;
-            FormTilecon.formTileconController.Focus();
+            FormTilecon.controller.Enabled = true;
+            FormTilecon.controller.Focus();
         }
     }
 }

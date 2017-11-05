@@ -1,10 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Drawing;
+using tilecon.Tileset.Tests;
 
-namespace tilecon.Converter.Tests
+namespace tilecon.Tileset.Converter.Tests
 {
     [TestClass()]
-    public class TilesetConverterVerticalAphaTests : TilesetConverterTestBase
+    public class TilesetConverterVerticalAphaTests : TilesetTestBase
     {
         [TestInitialize]
         public void Initalize()
@@ -13,11 +14,11 @@ namespace tilecon.Converter.Tests
         }
 
         [TestMethod()]
-        public void ConvertToMVTest()
+        public void Convert_AlphaToMVTest()
         {
             Bitmap converted = converter.ConvertToMV(BitmapFromResourceStream("Tests.Images.Alpha.Alpha_in.png"))[0];
-            Bitmap AlphaOut = BitmapFromResourceStream("Tests.Images.Alpha.Alpha_out_success.png");
-            Assert.IsTrue(ImageProcessing.IsEqual(converted, AlphaOut));
+            Bitmap AlphaOut = BitmapFromResourceStream("Tests.Images.Alpha.Converter.Alpha_out_success.png");
+            Assert.IsTrue(ImageEditor.IsEqual(converted, AlphaOut));
         }
     }
 }

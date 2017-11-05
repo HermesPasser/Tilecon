@@ -2,12 +2,14 @@
 
 namespace tilecon
 {
-    public class ImageProcessing
+    /// <summary>Routines of image manipulation.</summary>
+    public class ImageEditor
     {
-        /// <summary>Protected constructor, this class cannot be instantiated.</summary>
-        protected ImageProcessing() { }
-
-        public static Bitmap ChangePixelsColor(Bitmap bmp, Color color)
+        /// <summary>Set a speficy color as transparent.</summary>
+        /// <param name="bmp">Origin bitmap.</param>
+        /// <param name="color">Color to be replaced with transparent.</param>
+        /// <returns>The bitmap with transparent pixels.</returns>
+        public static Bitmap SetColorAsAlpha(Bitmap bmp, Color color)
         {
             for (int x = 0; x < bmp.Width; x++)
                 for (int y = 0; y < bmp.Height; y++)
@@ -64,8 +66,8 @@ namespace tilecon
 
         /// <summary>Checks if all area of image is transparent.</summary>
         /// <param name="bmp">Image to be checked.</param>
-        /// <returns>Return true if it true and true if not.</returns>
-        protected virtual bool IsAllAlphaImage(Bitmap bmp)
+        /// <returns>Return true if is transparent and false if not.</returns>
+        protected virtual bool IsAlphaImage(Bitmap bmp)
         {
             for (int y = 0; y < bmp.Height; y++)
             {
@@ -110,7 +112,7 @@ namespace tilecon
         /// <param name="y">Beginning of the paste in y.</param>
         /// <param name="width">Width of the paste.</param>
         /// <param name="height">Height of the paste.</param>
-        /// <returns></returns>
+        /// <returns>The changed bitmap.</returns>
         protected Bitmap Paste(Bitmap origin, Bitmap bmpToBePasted, int x, int y, int width, int height)
         {
             Rectangle rect = new Rectangle(0, 0, width, height);
@@ -120,10 +122,10 @@ namespace tilecon
             return origin;
         }
 
-        /// <summary>Paste the bitmap in the other where the bitmap is alpha.</summary>
+        /// <summary>Paste a bitmap in the other where the bitmap is transparent.</summary>
         /// <param name="origin">Bitmap where another one will be pasted.</param>
         /// <param name="bmpToBePasted">Bitmap to be pasted.</param>
-        /// <returns></returns>
+        /// <returns>The changed bitmap.</returns>
         protected Bitmap PasteInAlpha(Bitmap origin, Bitmap bmpToBePasted)
         {
             for (int x = 0; x < origin.Width; x++)

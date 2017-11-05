@@ -6,17 +6,17 @@ namespace tilecon
 {
     static class Vocab
     {
-        public enum lang{
+        public enum Lang{
             pt, en
         }
 
-        public static string version = "1.8.3";
+        public static string version = "1.9";
         public static string aboutHelpText = "2017 - Hermes Passer (hermespasser@gmail.com)";
 
-        public  static lang currentLanguage = lang.en;
+        public  static Lang currentLanguage = Lang.en;
         private static XmlDocument xml = null;
 
-        private static void init()
+        private static void Init()
         {
             if (xml == null)
             {
@@ -32,7 +32,7 @@ namespace tilecon
 
         public static string GetText(string text)
         {
-            init();
+            Init();
             XmlNode list = xml.GetElementsByTagName(text)[0];
             return list.Attributes.GetNamedItem(currentLanguage.ToString()).InnerXml;
         }

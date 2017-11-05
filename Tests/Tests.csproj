@@ -62,7 +62,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Code\Converter\TilesetConverterAutotileXPTests.cs" />
-    <Compile Include="Code\Converter\TilesetConverterTestBase.cs" />
+    <Compile Include="Code\Editor\TilesetEditorOutputTests.cs" />
+    <Compile Include="Code\TilesetTestBase.cs" />
     <Compile Include="Code\Converter\TilesetConverterVerticalAphaTests.cs" />
     <Compile Include="Code\Converter\TilesetConverterVerticalRM2K3Tests.cs" />
     <Compile Include="Code\Converter\TilesetConverterVerticalTests.cs" />
@@ -84,41 +85,83 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\R95\95_out_success.png" />
+    <EmbeddedResource Include="Images\R95\Converter\95_out_success.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\Alpha\Alpha_in.png" />
-    <EmbeddedResource Include="Images\Alpha\Alpha_out_success.png" />
+    <EmbeddedResource Include="Images\Alpha\Converter\Alpha_out_success.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\S97\97_in.bmp" />
-    <EmbeddedResource Include="Images\S97\97_out1_success.png" />
-    <EmbeddedResource Include="Images\S97\97_out2_success.png" />
-    <EmbeddedResource Include="Images\R2k\R2k3_out_ab_success_0.png" />
-    <EmbeddedResource Include="Images\R2k\R2k3_out_ab_success_1.png" />
-    <EmbeddedResource Include="Images\R2k\R2k3_out_auto_success.png" />
+    <EmbeddedResource Include="Images\S97\Converter\97_out1_success.png" />
+    <EmbeddedResource Include="Images\S97\Converter\97_out2_success.png" />
+    <EmbeddedResource Include="Images\R2k\Converter\R2k3_out_ab_success_0.png" />
+    <EmbeddedResource Include="Images\R2k\Converter\R2k3_out_ab_success_1.png" />
+    <EmbeddedResource Include="Images\R2k\Converter\R2k3_out_auto_success.png" />
     <EmbeddedResource Include="Images\R2k\R2k3_in.png" />
-    <EmbeddedResource Include="Images\R2k\R2k3_out_a_success.png" />
-    <EmbeddedResource Include="Images\R2k\R2k3_out_b_success.png" />
+    <EmbeddedResource Include="Images\R2k\Converter\R2k3_out_a_success.png" />
+    <EmbeddedResource Include="Images\R2k\Converter\R2k3_out_b_success.png" />
     <EmbeddedResource Include="Images\VX\VX_a12_in.png" />
-    <EmbeddedResource Include="Images\VX\VX_a12_out_success.png" />
+    <EmbeddedResource Include="Images\VX\Converter\VX_a12_out_success.png" />
     <EmbeddedResource Include="Images\VX\VX_a3_in.png" />
-    <EmbeddedResource Include="Images\VX\VX_a3_out_success.png" />
+    <EmbeddedResource Include="Images\VX\Converter\VX_a3_out_success.png" />
     <EmbeddedResource Include="Images\VX\VX_a4_in.png" />
-    <EmbeddedResource Include="Images\VX\VX_a4_out_success.png" />
+    <EmbeddedResource Include="Images\VX\Converter\VX_a4_out_success.png" />
     <EmbeddedResource Include="Images\VX\VX_a5_in.png" />
-    <EmbeddedResource Include="Images\VX\VX_a5_out_success.png" />
+    <EmbeddedResource Include="Images\VX\Converter\VX_a5_out_success.png" />
     <EmbeddedResource Include="Images\VX\VX_be_in.png" />
-    <EmbeddedResource Include="Images\VX\VX_be_out_success.png" />
+    <EmbeddedResource Include="Images\VX\Converter\VX_be_out_success.png" />
     <EmbeddedResource Include="Images\XP\XPAutoAnim_in.png" />
-    <EmbeddedResource Include="Images\XP\XPAutoAnim_out_success.png" />
+    <EmbeddedResource Include="Images\XP\Converter\XPAutoAnim_out_success.png" />
     <EmbeddedResource Include="Images\XP\XPAuto_in.png" />
-    <EmbeddedResource Include="Images\XP\XPAuto_out_success.png" />
+    <EmbeddedResource Include="Images\XP\Converter\XPAuto_out_success.png" />
     <EmbeddedResource Include="Images\XP\XP_in.png" />
-    <EmbeddedResource Include="Images\XP\XP_out_success.png" />
+    <EmbeddedResource Include="Images\XP\Converter\XP_out_success.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\R2k\R2k3_out_anim_success.png" />
+    <EmbeddedResource Include="Images\R2k\Converter\R2k3_out_anim_success.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\XP\Editor\XP_Out_MVA12.png" />
+    <EmbeddedResource Include="Images\XP\Editor\XP_Out_MVA3.png" />
+    <EmbeddedResource Include="Images\XP\Editor\XP_Out_MVA4.png" />
+    <EmbeddedResource Include="Images\XP\Editor\XP_Out_MVA5.png" />
+    <EmbeddedResource Include="Images\XP\Editor\XP_Out_MVBE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\S97\Editor\97_out_MVA12.png" />
+    <EmbeddedResource Include="Images\S97\Editor\97_out_MVA3.png" />
+    <EmbeddedResource Include="Images\S97\Editor\97_out_MVA4.png" />
+    <EmbeddedResource Include="Images\S97\Editor\97_out_MVA5.png" />
+    <EmbeddedResource Include="Images\S97\Editor\97_out_MVBE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\R95\Editor\95_out_MVA12.png" />
+    <EmbeddedResource Include="Images\R95\Editor\95_out_MVA3.png" />
+    <EmbeddedResource Include="Images\R95\Editor\95_out_MVA4.png" />
+    <EmbeddedResource Include="Images\R95\Editor\95_out_MVBE.png" />
+    <EmbeddedResource Include="Images\R95\Editor\95_out_MVA5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\VX\Editor\VX_Out_MVA3.png" />
+    <EmbeddedResource Include="Images\VX\Editor\VX_Out_MVA12.png" />
+    <EmbeddedResource Include="Images\VX\Editor\VX_Out_MVA4.png" />
+    <EmbeddedResource Include="Images\VX\Editor\VX_Out_MVA5.png" />
+    <EmbeddedResource Include="Images\VX\Editor\VX_Out_MVBE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Alpha\Editor\Alpha_out_MVA12.png" />
+    <EmbeddedResource Include="Images\Alpha\Editor\Alpha_out_MVA3.png" />
+    <EmbeddedResource Include="Images\Alpha\Editor\Alpha_out_MVA4.png" />
+    <EmbeddedResource Include="Images\Alpha\Editor\Alpha_out_MVA5.png" />
+    <EmbeddedResource Include="Images\Alpha\Editor\Alpha_out_MVBE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\R2k\Editor\R2k3_out_MVA12.png" />
+    <EmbeddedResource Include="Images\R2k\Editor\R2k3_out_MVA3.png" />
+    <EmbeddedResource Include="Images\R2k\Editor\R2k3_out_MVA4.png" />
+    <EmbeddedResource Include="Images\R2k\Editor\R2k3_out_MVA5.png" />
+    <EmbeddedResource Include="Images\R2k\Editor\R2k3_out_MVBE.png" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

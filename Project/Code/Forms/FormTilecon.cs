@@ -3,8 +3,8 @@ using System.IO;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using tilecon.Converter;
+using tilecon.Tileset.Converter;
+using tilecon.Tileset.Editor;
 
 namespace tilecon
 {
@@ -13,75 +13,71 @@ namespace tilecon
     {
         // General
         private string filepath;
+
         /// <summary>Object reference to be called by other forms. </summary>
-        public static FormTilecon formTileconController;
-        //SpriteMode mode;
+        public static FormTilecon controller;
 
         // Editor
-        List<Button> inputGrid;
-        List<Button> outputGrid;
-        Image currentImageRaw;
-        Image currentImage;
-        
+        TilesetEditorIntput gridInp;
+        TilesetEditorOutput gridOut;
+
         // Converter
         private Bitmap[] bitmaps;
         private int bmpCurrentIndex;
-        //private Thread t;
 
         /// <summary>Default constructor.</summary>
         public FormTilecon()
         {
             InitializeComponent();
 
-            ChangeLang(Vocab.lang.en);
+            ChangeLang(Vocab.Lang.en);
             btnOpen.Select();
-            formTileconController = this;
-            currentImage = currentImageRaw = null;
+            controller = this;
 
             // Options not available in Visual Studio properties
-            cbMaker.SelectedIndexChanged += new EventHandler(OnIndexChange); 
+            cbMaker.SelectedIndexChanged += new EventHandler(OnIndexChange);
             cbMaker.SelectedIndex = 8;
             cbMode.SelectedIndex = 0;
-            cbOutput.SelectedIndex = 0;
+            cbOutput.SelectedIndex = 4;
         }
 
         #region General
-        private void ChangeLang(Vocab.lang l)
+        private void ChangeLang(Vocab.Lang l)
         {
             Vocab.currentLanguage = l;
 
-            saveFileDialog1.Filter = Vocab.GetText("pngFiles")   + " (*.png) | *.png";
+            saveFileDialog1.Filter = Vocab.GetText("pngFiles") + " (*.png) | *.png";
             openFileDialog1.Filter = Vocab.GetText("imageFiles") + " (*.gif, *.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.gif; *bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
 
-            btnConvert.Text        = convertAndSaveItem.Text  = Vocab.GetText("convert");
+            btnConvert.Text = convertAndSaveItem.Text = Vocab.GetText("convert");
             btnSaveEachSprite.Text = saveEachSpritesItem.Text = Vocab.GetText("saveEachSprite");
-            btnOpen.Text           = openTilesetItem.Text     = Vocab.GetText("openTileset");
-            btnSave.Text           = saveToolStripItem.Text   = Vocab.GetText("save");
-            btnTransparency.Text   = setTransparentItem.Text  = Vocab.GetText("setTransparency");
-            ignoreItem.Text        = checkIgnore.Text         = Vocab.GetText("ignoreAlpha");
+            btnOpen.Text = openTilesetItem.Text = Vocab.GetText("openTileset");
+            btnSave.Text = saveToolStripItem.Text = Vocab.GetText("save");
+            btnTransparency.Text = setTransparentItem.Text = Vocab.GetText("setTransparency");
+            ignoreItem.Text = checkIgnore.Text = Vocab.GetText("ignoreAlpha");
 
             groupConversion.Text = Vocab.GetText("conversion");
 
-            cbMode.Items[0] = topLeftItem.Text      = Vocab.GetText("topLeftAlign");
-            cbMode.Items[1] = topCenterItem.Text    = Vocab.GetText("topCenterAlign");
-            cbMode.Items[2] = topRightItem.Text     = Vocab.GetText("topRightAlign");
-            cbMode.Items[3] = middleLeftItem.Text   = Vocab.GetText("middleLeftAlign");
+            cbMode.Items[0] = topLeftItem.Text = Vocab.GetText("topLeftAlign");
+            cbMode.Items[1] = topCenterItem.Text = Vocab.GetText("topCenterAlign");
+            cbMode.Items[2] = topRightItem.Text = Vocab.GetText("topRightAlign");
+            cbMode.Items[3] = middleLeftItem.Text = Vocab.GetText("middleLeftAlign");
             cbMode.Items[4] = middleCenterItem.Text = Vocab.GetText("middleCenterAlign");
-            cbMode.Items[5] = middleRightItem.Text  = Vocab.GetText("middleRightAlign");
-            cbMode.Items[6] = bottomLeftItem.Text   = Vocab.GetText("bottomLeftAlign");
+            cbMode.Items[5] = middleRightItem.Text = Vocab.GetText("middleRightAlign");
+            cbMode.Items[6] = bottomLeftItem.Text = Vocab.GetText("bottomLeftAlign");
             cbMode.Items[7] = bottomCenterItem.Text = Vocab.GetText("bottomCenterAlign");
-            cbMode.Items[8] = bottomRightItem.Text  = Vocab.GetText("bottomRightAlign");
-            cbMode.Items[9] = resizeItem.Text       = Vocab.GetText("resize");
+            cbMode.Items[8] = bottomRightItem.Text = Vocab.GetText("bottomRightAlign");
+            cbMode.Items[9] = resizeItem.Text = Vocab.GetText("resize");
 
             menuStrip1.Items[0].Text = Vocab.GetText("file");
             modeMenu.Text = Vocab.GetText("mode");
-           
             exitItem.Text = Vocab.GetText("exit");
-            
-            menuStrip1.Items[1].Text = tabConverter.Text = Vocab.GetText("converter");
 
+            menuStrip1.Items[1].Text = tabConverter.Text = Vocab.GetText("converter");
             menuStrip1.Items[2].Text = tabEditor.Text = Vocab.GetText("editor");
-            setTileseItem.Text = Vocab.GetText("setTileset");
+
+            setInputTilesetItem.Text = btnSetInputTileset.Text =  Vocab.GetText("setTileset");
+            clearPreviewItem.Text = btnClearPreview.Text = Vocab.GetText("clearSelectedTile");
             outputTilesetItem.Text = Vocab.GetText("outputTileset");
             clearAndSetOutputTilesetItem.Text = Vocab.GetText("clearAndSetTileset");
 
@@ -114,22 +110,17 @@ namespace tilecon
             ignoreItem.Enabled = true;
             checkIgnore.Enabled = true;
 
-            // Reset the grid
-            SetOutputGrid(null, null);
-            pictureBoxPreview.Image = null;
+            btnSetInputTileset.Enabled = true;
+            setInputTilesetItem.Enabled = true;
 
-            // Load the grid
+            // Load/Reset the grid
             LoadGrid(null, null);
         }
 
-        private bool LoadTilesetByDialog(object sender = null, EventArgs e = null)
+        private void LoadTilesetByDialog(object sender = null, EventArgs e = null)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
                 OnTilesetLoad(openFileDialog1.FileName);
-                return true;
-            }
-            return false;
         }
 
         private void UIThread(MethodInvoker code) // Modified of: www.codeproject.com/Articles/37642/Avoiding-InvokeRequired
@@ -164,30 +155,30 @@ namespace tilecon
                 }
             })).Start();
         }
-        
+
         private ITileset GetTileset()
         {
             switch (cbMaker.SelectedItem.ToString())
             {
-                case Maker.R95.NAME:             return new Maker.R95();
-                case Maker.S97.NAME:             return new Maker.S97();
-                case Maker.Alpha.NAME:           return new Maker.Alpha();
+                case Maker.R95.NAME: return new Maker.R95();
+                case Maker.S97.NAME: return new Maker.S97();
+                case Maker.Alpha.NAME: return new Maker.Alpha();
                 case Maker.R2k_2k3_AnimObj.NAME: return new Maker.R2k_2k3_AnimObj();
-                case Maker.R2k_2k3_Auto.NAME:    return new Maker.R2k_2k3_Auto(); 
-                case Maker.R2k_2k3_AB.NAME:      return new Maker.R2k_2k3_AB();
-                case Maker.R2k_2k3_A.NAME:       return new Maker.R2k_2k3_A();
-                case Maker.R2k_2k3_B.NAME:       return new Maker.R2k_2k3_B();
-                case Maker.VX_Ace_A12.NAME:      return new Maker.VX_Ace_A12();
-                case Maker.VX_Ace_A3.NAME:       return new Maker.VX_Ace_A3();
-                case Maker.VX_Ace_A4.NAME:       return new Maker.VX_Ace_A4();
-                case Maker.VX_Ace_A5.NAME:       return new Maker.VX_Ace_A5();
-                case Maker.VX_Ace_BE.NAME:       return new Maker.VX_Ace_BE();
-                case Maker.XP_Auto.NAME:         return new Maker.XP_Auto();
+                case Maker.R2k_2k3_Auto.NAME: return new Maker.R2k_2k3_Auto();
+                case Maker.R2k_2k3_AB.NAME: return new Maker.R2k_2k3_AB();
+                case Maker.R2k_2k3_A.NAME: return new Maker.R2k_2k3_A();
+                case Maker.R2k_2k3_B.NAME: return new Maker.R2k_2k3_B();
+                case Maker.VX_Ace_A12.NAME: return new Maker.VX_Ace_A12();
+                case Maker.VX_Ace_A3.NAME: return new Maker.VX_Ace_A3();
+                case Maker.VX_Ace_A4.NAME: return new Maker.VX_Ace_A4();
+                case Maker.VX_Ace_A5.NAME: return new Maker.VX_Ace_A5();
+                case Maker.VX_Ace_BE.NAME: return new Maker.VX_Ace_BE();
+                case Maker.XP_Auto.NAME: return new Maker.XP_Auto();
                 case Maker.XP_Tile.NAME:
-                default:                         return new Maker.XP_Tile();
+                default: return new Maker.XP_Tile();
             }
         }
-        
+
         private void Save(object sender, EventArgs e)
         {
             if (bitmaps == null && tabControl1.SelectedIndex == 0) return;
@@ -201,13 +192,14 @@ namespace tilecon
                 return;
             }
 
-            if (tabControl1.SelectedIndex == 0) SaveConverter();
+            if (tabControl1.SelectedIndex == 0)
+                SaveConverter();
             else SaveEditor();
         }
 
         private void OnIndexChange(object sender, EventArgs e)
         {
-            TilesetConverterVX con = new TilesetConverterVX(GetTileset(), (SpriteMode) cbMode.SelectedIndex, checkIgnore.Checked);
+            TilesetConverterVX con = new TilesetConverterVX(GetTileset(), (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
 
             switch (con.SetOutputTileset().TilesetName())
             {
@@ -239,7 +231,7 @@ namespace tilecon
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 string extension = System.IO.Path.GetExtension(files[0]).ToLower();
 
-                if (extension == ".jpg" || extension == ".gif" || extension == ".bmp" || extension == ".png" || extension == ".jpeg" ||extension == ".jfif")
+                if (extension == ".jpg" || extension == ".gif" || extension == ".bmp" || extension == ".png" || extension == ".jpeg" || extension == ".jfif")
                 {
                     e.Effect = DragDropEffects.All;
                     return;
@@ -258,17 +250,17 @@ namespace tilecon
         {
             switch (sender.ToString())
             {
-                case "Top Left Align":   cbMode.SelectedIndex = 0; break;
+                case "Top Left Align": cbMode.SelectedIndex = 0; break;
                 case "Top Center Align": cbMode.SelectedIndex = 1; break;
-                case "Top Right Align":  cbMode.SelectedIndex = 2; break;
+                case "Top Right Align": cbMode.SelectedIndex = 2; break;
 
-                case "Middle Left Align":   cbMode.SelectedIndex = 3; break;
+                case "Middle Left Align": cbMode.SelectedIndex = 3; break;
                 case "Middle Center Align": cbMode.SelectedIndex = 4; break;
-                case "Middle Right Align":  cbMode.SelectedIndex = 5; break;
+                case "Middle Right Align": cbMode.SelectedIndex = 5; break;
 
-                case "Bottom Left Align":   cbMode.SelectedIndex = 6; break;
+                case "Bottom Left Align": cbMode.SelectedIndex = 6; break;
                 case "Bottom Center Align": cbMode.SelectedIndex = 7; break;
-                case "Bottom Right Align":  cbMode.SelectedIndex = 8; break;
+                case "Bottom Right Align": cbMode.SelectedIndex = 8; break;
 
                 default: cbMode.SelectedIndex = 9; break;
             }
@@ -278,42 +270,37 @@ namespace tilecon
         {
             switch (sender.ToString())
             {
-                case Maker.R95.NAME:              cbMaker.SelectedIndex = 0; break;
-                case Maker.S97.NAME:              cbMaker.SelectedIndex = 1; break;
-                case Maker.Alpha.NAME:            cbMaker.SelectedIndex = 2; break;
-                case Maker.R2k_2k3_Auto.NAME:     cbMaker.SelectedIndex = 3; break;
-                case Maker.R2k_2k3_AnimObj.NAME:  cbMaker.SelectedIndex = 4; break;
-                case Maker.R2k_2k3_AB.NAME:       cbMaker.SelectedIndex = 5; break;
-                case Maker.R2k_2k3_A.NAME:        cbMaker.SelectedIndex = 6; break;
-                case Maker.R2k_2k3_B.NAME:        cbMaker.SelectedIndex = 7; break;
-                case Maker.VX_Ace_A12.NAME:       cbMaker.SelectedIndex = 10; break;
-                case Maker.VX_Ace_A3.NAME:        cbMaker.SelectedIndex = 11; break;
-                case Maker.VX_Ace_A4.NAME:        cbMaker.SelectedIndex = 12; break;
-                case Maker.VX_Ace_A5.NAME:        cbMaker.SelectedIndex = 13; break;
-                case Maker.VX_Ace_BE.NAME:        cbMaker.SelectedIndex = 14; break;
-                case Maker.XP_Auto.NAME:          cbMaker.SelectedIndex = 9; break;
+                case Maker.R95.NAME: cbMaker.SelectedIndex = 0; break;
+                case Maker.S97.NAME: cbMaker.SelectedIndex = 1; break;
+                case Maker.Alpha.NAME: cbMaker.SelectedIndex = 2; break;
+                case Maker.R2k_2k3_Auto.NAME: cbMaker.SelectedIndex = 3; break;
+                case Maker.R2k_2k3_AnimObj.NAME: cbMaker.SelectedIndex = 4; break;
+                case Maker.R2k_2k3_AB.NAME: cbMaker.SelectedIndex = 5; break;
+                case Maker.R2k_2k3_A.NAME: cbMaker.SelectedIndex = 6; break;
+                case Maker.R2k_2k3_B.NAME: cbMaker.SelectedIndex = 7; break;
+                case Maker.VX_Ace_A12.NAME: cbMaker.SelectedIndex = 10; break;
+                case Maker.VX_Ace_A3.NAME: cbMaker.SelectedIndex = 11; break;
+                case Maker.VX_Ace_A4.NAME: cbMaker.SelectedIndex = 12; break;
+                case Maker.VX_Ace_A5.NAME: cbMaker.SelectedIndex = 13; break;
+                case Maker.VX_Ace_BE.NAME: cbMaker.SelectedIndex = 14; break;
+                case Maker.XP_Auto.NAME: cbMaker.SelectedIndex = 9; break;
                 case Maker.XP_Tile.NAME:
-                default:                          cbMaker.SelectedIndex = 8; break;
+                default: cbMaker.SelectedIndex = 8; break;
             }
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            LoadTilesetByDialog();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-        
+
         private void AboutTilesetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form2000 f = new Form2000();
             f.Show();
             this.Enabled = false;
         }
-        
+
         private void rMXPAutotileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormXPAuto f = new FormXPAuto();
@@ -330,14 +317,14 @@ namespace tilecon
 
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeLang(Vocab.lang.en);
+            ChangeLang(Vocab.Lang.en);
         }
 
         private void portugueseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeLang(Vocab.lang.pt);
+            ChangeLang(Vocab.Lang.pt);
         }
-        
+
         private void ignoreAlphaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             checkIgnore.Checked = ignoreItem.Checked;
@@ -346,145 +333,54 @@ namespace tilecon
         private void checkIgnore_CheckedChanged(object sender, EventArgs e)
         {
             ignoreItem.Checked = checkIgnore.Checked;
-        } 
-        #endregion
-        
-        #region Editor
-        private void UpdateImage(object sender = null, EventArgs e = null)
-        {
-            currentImage = currentImageRaw;
-
-            if (currentImage != null)
-            {
-                TilesetConverterBase con;
-                ITileset tileset = GetTileset();
-
-                switch (tileset.TilesetName())
-                {
-                    case Maker.Alpha.NAME:
-                        con = new TilesetConverterVerticalApha(tileset, (SpriteMode)cbMode.SelectedIndex, false);
-                        break;
-                    case Maker.R95.NAME:
-                    case Maker.S97.NAME:
-                    case Maker.XP_Tile.NAME:
-                        con = new TilesetConverterVertical(tileset, (SpriteMode)cbMode.SelectedIndex, false);
-                        break;
-                    case Maker.XP_Auto.NAME:
-                        con = new TilesetConverterAutotileXP(tileset, (SpriteMode)cbMode.SelectedIndex, false);
-                        break;
-                    case Maker.R2k_2k3_A.NAME:
-                    case Maker.R2k_2k3_B.NAME:
-                    case Maker.R2k_2k3_AB.NAME:
-                    case Maker.R2k_2k3_Auto.NAME:
-                        con = new TilesetConverterVerticalRM2K3(tileset, (SpriteMode)cbMode.SelectedIndex, false);
-                        break;
-                    default:
-                        con = new TilesetConverterVX(tileset, (SpriteMode)cbMode.SelectedIndex, false);
-                        break;
-                }
-
-                currentImage = con.SetModeInSprite(currentImage, Maker.MV_A12.SPRITE_SIZE);
-                pictureBoxPreview.Image = currentImage;
-            }
         }
+        #endregion
 
+        #region Editor
         private void SaveEditor()
         {
-            List<Bitmap> list = new List<Bitmap>();
-            foreach (Button b in outputGrid) list.Add(b.BackgroundImage as Bitmap);
-
-            Bitmap bmp = (new TilesetConverterVertical()).TilesToTileset(list, Maker.MV_A12.SIZE_WIDTH, Maker.MV_A12.SIZE_HEIGHT, Maker.MV_A12.SPRITE_SIZE);
-            bmp.Save(saveFileDialog1.FileName);
+            if (gridOut != null)
+                (gridOut.TilesToTileset()).Save(saveFileDialog1.FileName);
+        }
+        
+        private void UpdateImage(object sender, EventArgs e)
+        {
+            if (gridInp != null)
+                gridInp.UpdateSelectedImage((SpriteMode)cbMode.SelectedIndex);   
         }
 
         private void LoadGrid(object sender, EventArgs e)
         {
             Image img = Image.FromFile(filepath);
-            SetInputGrid(img, GetTileset());
-
-            if (outputGrid == null) SetOutputGrid(null, null);
-        }
-
-        private void SetInputGrid(Image img, ITileset tileset)
-        {
-            int spriteSize = tileset.SpriteSize();
-            int height = tileset.SizeHeight();
-            int width = tileset.SizeWidth();
-            if (height == -1) height = img.Height;
-
-            TilesetConverterVerticalRM2K3 con = new TilesetConverterVerticalRM2K3(tileset, SpriteMode.ALIGN_TOP_LEFT, false);
-            Bitmap[] tiles = con.GetSprites(img as Bitmap).ToArray();
-
-            inputPanel.Controls.Clear();
-            inputGrid = new List<Button>();
-            int i = 0;
-
-            try
-            {
-                for (int y = 0; y < height; y += spriteSize)
-                {
-                    for (int x = 0; x < width; i++, x += spriteSize)
-                    {
-                        Button btn = NewButton(tiles[i], spriteSize);
-                        btn.Click += new EventHandler(GetTileInButton);
-                        inputGrid.Add(btn);
-                        inputPanel.Controls.Add(btn);
-                        btn.Location = new Point(x, y);
-                    }
-                }
-            }
-            catch (IndexOutOfRangeException) { }
-        }
-
-        private Button NewButton(Image img, int spriteSize)
-        {
-            Button btn = new Button();
-            btn.BackColor = Color.Transparent;
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.ForeColor = Color.Transparent;
-            btn.Size = new Size(spriteSize, spriteSize);
-            btn.UseVisualStyleBackColor = false;
-            btn.BackgroundImage = img;
-            btn.BackgroundImageLayout = ImageLayout.Center;
-            return btn;
+            pictureBoxPreview.Image = null;
+            gridInp = new TilesetEditorIntput(GetTileset(), inputPanel, img, pictureBoxPreview);
+            
+            SetOutputGrid(null, null);
         }
 
         private void SetOutputGrid(object sender, EventArgs e)
         {
-            TilesetConverterVX con = new TilesetConverterVX(GetTileset(), (SpriteMode)cbMode.SelectedIndex, false);
-            var tileset = con.SetOutputTileset();
+            ITileset tileset;
 
-            int spriteSize = tileset.SpriteSize();
-            int height = tileset.SizeHeight();
-            int width = tileset.SizeWidth();
-
-            outputPanel.Controls.Clear();
-            outputGrid = new List<Button>();
-
-            for (int y = 0, i = 0; y < height; y += spriteSize)
+            switch (cbOutput.SelectedIndex)
             {
-                for (int x = 0; x < width; i++, x += spriteSize)
-                {
-                    Button btn = NewButton(null, spriteSize);
-                    btn.Click += new EventHandler(SetTileInButton);
-                    outputGrid.Add(btn);
-                    outputPanel.Controls.Add(btn);
-                    btn.Location = new Point(x, y);
-                }
+                case 0: tileset = new Maker.MV_A12(); break;
+                case 1: tileset = new Maker.MV_A3(); break;
+                case 2: tileset = new Maker.MV_A4(); break;
+                case 3: tileset = new Maker.MV_A5(); break;
+                case 4:
+                default: tileset = new Maker.MV_BE();  break;
             }
+            gridOut = new TilesetEditorOutput(tileset, outputPanel, gridInp);
         }
 
-        private void GetTileInButton(object sender, EventArgs e)
+        private void ClearPreview(object sender, EventArgs e)
         {
-            currentImageRaw = ((Button)sender).BackgroundImage;
-            UpdateImage();
+            pictureBoxPreview.Image = null;
+            gridInp.selectedImage = null;
         }
 
-        private void SetTileInButton(object sender, EventArgs e)
-        {
-            ((Button)sender).BackgroundImage = currentImage;
-        }
-        
+        // Used in tool menu
         private void SetOutputTileset(object sender, EventArgs e)
         {
             switch (sender.ToString())
@@ -587,7 +483,7 @@ namespace tilecon
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 for (int i = 0; i < bitmaps.Length; i++)
-                    bitmaps[i] = ImageProcessing.ChangePixelsColor(bitmaps[i], colorDialog1.Color);
+                    bitmaps[i] = ImageEditor.SetColorAsAlpha(bitmaps[i], colorDialog1.Color);
                 pictureBoxOutput.Image = bitmaps[bmpCurrentIndex];
             }
         }
@@ -610,10 +506,5 @@ namespace tilecon
             labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
         }
         #endregion
-
-        private void LoadTilesetByDialog(object sender, EventArgs e)
-        {
-
-        }
     }
 }

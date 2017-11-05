@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace tilecon.Converter
+namespace tilecon.Tileset.Converter
 {
     /// <summary>Converter class for vx tilesets.</summary>
     public class TilesetConverterVX : TilesetConverterBase
