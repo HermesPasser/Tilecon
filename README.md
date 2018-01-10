@@ -31,18 +31,7 @@ Open tilecon.sln with Visual Studio, need install .NET Framework version 4.6.1 o
 **Editor** - https://www.youtube.com/watch?v=4iGQA1CZqJM
 
 
-## Versions
+## Download & Versions
 
 | Version | Implementation | Download
-| ------ | ------ | ------ |
-| 27/03 - 1.1 | Added option to center and resize; <br />Added support for rmxp conversion; <br />Added system for cutting and saving isolated sprites. | [4Shared](https://www.4shared.com/get/Y9IMv2PJei/Tilecon_Setup_12.html)
-| 30/03 - ver 1.2 | Improved resize system;<br />Added support for rm95 and srm97 conversion. | [4Shared](https://www.4shared.com/rar/oGCUyRg0ca/Tilecon_Setup_12.html)
-| 31/03 - ver 1.3 | Added support for rm2000/2003. | [4Shared](https://www.4shared.com/rar/08m6D6wLca/Tilecon_Setup_13.html?)
-| 02/04 - ver 1.4 | Added support for rmvx/ace;<br />Removed bug when saving each sprite coming from previous update. | [4Shared](https://www.4shared.com/rar/wJuUvkhJca/Tilecon_Install_14.html?)
-| 08/04 - ver 1.5 | Improved resize;<br />Option to set the color transparent. | None
-| 10/04 - ver 1.5.2 | Interface bug solved. | [MediaFire](https://www.mediafire.com/?byoh0w7y1n1ktin)
-| 08/05 - ver 1.6 | RMXP Autotile conversion option. | [MediaFire](https://www.mediafire.com/?yt8yurt9m0f0yub)
-| 28/05 - ver 1.7 | Added editor. | [MediaFire](http://www.mediafire.com/file/vuqkyxouh8v2627/Tilecon+1.7.zip)
-| 18/08 - ver 1.8 | Added RM2k Animated Objects conversion option. | [MediaFire](https://www.mediafire.com/file/w6futu5y13d6c7p/Tileset%20Converter%20MV%201.8.zip)
-| 24/10 - ver 1.8.2 | Added drag and drop tileset system;<br />Fixed spelling errors;<br />Improved performance. | [MediaFire](https://www.mediafire.com/file/ruzc8cuw1pvw2u9/Tileset%20Converter%20MV%201.8.2.zip)
-| 05/11 - ver 1.9 | Fixed bug in the editor;<br />Fixed general bugs;<br />Resizable interface.| [MediaFire](http://www.mediafire.com/file/2gyf9v1jmu2j3vb/Tileset+Converter+MV+1.9.zip)
+[Tilecon download section](https://hermespasser.github.io/pages/tilecon.html#versions)
