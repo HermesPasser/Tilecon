@@ -10,7 +10,7 @@ namespace tilecon.Tileset.Converter
         /// <summary>Size sprite in output tileset.</summary>
         protected int outputSpriteSize;
         
-        /// <summary>Flag for ignore empty sprites.</summary>
+        /// <summary>Flag to ignore empty sprites.</summary>
         protected bool ignoreAlpha;
 
         /// <summary>Tileset type to be converted.</summary>
@@ -22,13 +22,13 @@ namespace tilecon.Tileset.Converter
         /// <summary>Mode how sprites should be manipulated.</summary>
         protected SpriteMode mode;
 
-        /// <summary>The empty constructor of the class to allow it to be inherited.</summary>
+        /// <summary>The empty constructor to allow it to be inherited.</summary>
         public TilesetConverterBase() { }
 
         /// <summary>Default constructor.</summary>
         /// <param name="inputMaker">Tileset type to be converted</param>
         /// <param name="mode">Mode how sprites should be pasted into the converted image.</param>
-        /// <param name="ignoreAlpha">Flag for ignore empty sprites.</param>
+        /// <param name="ignoreAlpha">Flag to ignore empty sprites.</param>
         public TilesetConverterBase(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha)
         {
             this.mode = mode;
@@ -40,22 +40,20 @@ namespace tilecon.Tileset.Converter
         /// <summary>Split and save each sprite</summary>
         /// <param name="img">Image to be cropped in sprites.</param>
         /// <param name="fileDir">The directory for the sprites to be saved.</param>
-        public void SaveEachSubimage(Image img, string fileDir)
+        public virtual void SaveEachSubimage(Image img, string fileDir)
         {
-            Bitmap bmp = img as Bitmap;
             int spriteSize = inputTileset.SpriteSize();
             string ex = Path.GetExtension(fileDir);
             fileDir = Path.GetDirectoryName(fileDir) + @"\" + Path.GetFileNameWithoutExtension(fileDir) + "_";
 
-            for (int i = 0, x = 0; x < img.Width; x += spriteSize)
+            Bitmap bmp = img as Bitmap;
+            Bitmap[] sprites = SplitImageInSprites(img, spriteSize, spriteSize);
+
+            for (int i = 0; i < sprites.Length; i++)
             {
-                for (int y = 0; y < img.Height; y += spriteSize, i++)
-                {
-                    int ipp = i + 1;
-                    string s = ipp > 99 ? s = ipp.ToString() : ipp > 9 ? s = ipp.ToString() : s = "0" + ipp;
-                    (Crop(bmp, x, y, spriteSize, spriteSize)).Save(fileDir + s + ex);
-                    
-                }
+                int ipp = i + 1;
+                string s = ipp > 99 ? s = ipp.ToString() : ipp > 9 ? s = ipp.ToString() : s = "0" + ipp;
+                sprites[i].Save(fileDir + s + ex);
             }
         }
 
@@ -250,10 +248,13 @@ namespace tilecon.Tileset.Converter
             graphics.Dispose();
             return currentSprite;
         }
-        
+
         /// <summary>Get the number of pixels to be moved to center the sprite on the tileset.</summary>
         /// <returns>The number of pixels to be moved to center the sprite on the tileset.</returns>
-        protected abstract int GetCentralizeNumber();
+        protected virtual int GetCentralizeNumber()
+        {
+            return outputTileset.SpriteSize() / 2 - inputTileset.SpriteSize() / 2;
+        }
 
         /// <summary>Split the image in various sprites.</summary>
         /// <param name="img">Image to be slip.</param>

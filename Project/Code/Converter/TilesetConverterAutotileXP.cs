@@ -8,7 +8,7 @@ namespace tilecon.Tileset.Converter
         /// <summary>Default constructor.</summary>
         /// <param name="inputMaker">Tileset type to be converted</param>
         /// <param name="mode">Mode how sprites should be pasted into the converted image.</param>
-        /// <param name="ignoreAlpha">Flag for ignore empty sprites.</param>
+        /// <param name="ignoreAlpha">Flag to ignore empty sprites.</param>
         public TilesetConverterAutotileXP(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 
         /// <summary>if the image is convertible to MV tileset.</summary>

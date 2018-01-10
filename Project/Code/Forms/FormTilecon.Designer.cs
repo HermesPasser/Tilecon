@@ -55,6 +55,7 @@
             this.rPGMakerVXAceTilesetA4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMakerVXAceTilesetA5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGMakerVXAceTilesetBEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modeMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.topLeftItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topCenterItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,6 +103,8 @@
             this.tabConverter = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupConversion = new System.Windows.Forms.GroupBox();
+            this.textCustomSize = new System.Windows.Forms.TextBox();
+            this.labelSpriteSize = new System.Windows.Forms.Label();
             this.btnTransparency = new System.Windows.Forms.Button();
             this.checkIgnore = new System.Windows.Forms.CheckBox();
             this.btnConvert = new System.Windows.Forms.Button();
@@ -140,6 +143,7 @@
             // 
             // btnOpen
             // 
+            this.btnOpen.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnOpen.Location = new System.Drawing.Point(3, 3);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(76, 21);
@@ -150,10 +154,11 @@
             // 
             // btnSaveEachSprite
             // 
+            this.btnSaveEachSprite.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnSaveEachSprite.Enabled = false;
             this.btnSaveEachSprite.Location = new System.Drawing.Point(363, 3);
             this.btnSaveEachSprite.Name = "btnSaveEachSprite";
-            this.btnSaveEachSprite.Size = new System.Drawing.Size(141, 21);
+            this.btnSaveEachSprite.Size = new System.Drawing.Size(100, 21);
             this.btnSaveEachSprite.TabIndex = 3;
             this.btnSaveEachSprite.Text = "Save individual frames";
             this.btnSaveEachSprite.UseVisualStyleBackColor = true;
@@ -201,7 +206,8 @@
             this.rPGMakerAlphaTSMItem,
             this.rToolStripMenuItem,
             this.rPGMakerXP_SMItem,
-            this.rPGMakerVXAceToolStripMenuItem});
+            this.rPGMakerVXAceToolStripMenuItem,
+            this.customToolStripMenuItem});
             this.tilesetToolStripMenuItem.Name = "tilesetToolStripMenuItem";
             this.tilesetToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.tilesetToolStripMenuItem.Text = "Tileset";
@@ -343,6 +349,12 @@
             this.rPGMakerVXAceTilesetBEToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
             this.rPGMakerVXAceTilesetBEToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset B-E)";
             this.rPGMakerVXAceTilesetBEToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
+            // 
+            // customToolStripMenuItem
+            // 
+            this.customToolStripMenuItem.Name = "customToolStripMenuItem";
+            this.customToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.customToolStripMenuItem.Text = "Custom";
             // 
             // modeMenu
             // 
@@ -623,6 +635,7 @@
             // 
             // cbMode
             // 
+            this.cbMode.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cbMode.DisplayMember = "None";
             this.cbMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -646,10 +659,11 @@
             // 
             // btnSave
             // 
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnSave.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnSave.Location = new System.Drawing.Point(510, 3);
+            this.btnSave.Location = new System.Drawing.Point(469, 3);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(141, 21);
+            this.btnSave.Size = new System.Drawing.Size(100, 21);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -659,7 +673,7 @@
             // 
             this.btnNextImg.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnNextImg.Enabled = false;
-            this.btnNextImg.Location = new System.Drawing.Point(226, 4);
+            this.btnNextImg.Location = new System.Drawing.Point(226, 6);
             this.btnNextImg.Name = "btnNextImg";
             this.btnNextImg.Size = new System.Drawing.Size(32, 23);
             this.btnNextImg.TabIndex = 10;
@@ -671,7 +685,7 @@
             // 
             this.btnPreviusImg.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnPreviusImg.Enabled = false;
-            this.btnPreviusImg.Location = new System.Drawing.Point(187, 4);
+            this.btnPreviusImg.Location = new System.Drawing.Point(187, 6);
             this.btnPreviusImg.Name = "btnPreviusImg";
             this.btnPreviusImg.Size = new System.Drawing.Size(32, 23);
             this.btnPreviusImg.TabIndex = 11;
@@ -681,6 +695,7 @@
             // 
             // cbMaker
             // 
+            this.cbMaker.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cbMaker.DropDownHeight = 160;
             this.cbMaker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMaker.DropDownWidth = 230;
@@ -701,7 +716,8 @@
             "RPG Maker VX/Ace (Tileset A3)",
             "RPG Maker VX/Ace (Tileset A4)",
             "RPG Maker VX/Ace (Tileset A5)",
-            "RPG Maker VX/Ace (Tileset B-E)"});
+            "RPG Maker VX/Ace (Tileset B-E)",
+            "Custom"});
             this.cbMaker.Location = new System.Drawing.Point(85, 3);
             this.cbMaker.Name = "cbMaker";
             this.cbMaker.Size = new System.Drawing.Size(125, 21);
@@ -711,7 +727,7 @@
             // 
             this.labelMVTilesetName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelMVTilesetName.AutoSize = true;
-            this.labelMVTilesetName.Location = new System.Drawing.Point(3, 9);
+            this.labelMVTilesetName.Location = new System.Drawing.Point(3, 11);
             this.labelMVTilesetName.Name = "labelMVTilesetName";
             this.labelMVTilesetName.Size = new System.Drawing.Size(24, 13);
             this.labelMVTilesetName.TabIndex = 13;
@@ -721,7 +737,7 @@
             // 
             this.labelMVPagesNumber.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelMVPagesNumber.AutoSize = true;
-            this.labelMVPagesNumber.Location = new System.Drawing.Point(121, 9);
+            this.labelMVPagesNumber.Location = new System.Drawing.Point(121, 11);
             this.labelMVPagesNumber.Name = "labelMVPagesNumber";
             this.labelMVPagesNumber.Size = new System.Drawing.Size(24, 13);
             this.labelMVPagesNumber.TabIndex = 14;
@@ -734,10 +750,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabConverter);
             this.tabControl1.Controls.Add(this.tabEditor);
-            this.tabControl1.Location = new System.Drawing.Point(13, 65);
+            this.tabControl1.Location = new System.Drawing.Point(17, 65);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(719, 355);
+            this.tabControl1.Size = new System.Drawing.Size(719, 388);
             this.tabControl1.TabIndex = 15;
             // 
             // tabConverter
@@ -747,7 +763,7 @@
             this.tabConverter.Location = new System.Drawing.Point(4, 22);
             this.tabConverter.Name = "tabConverter";
             this.tabConverter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabConverter.Size = new System.Drawing.Size(711, 329);
+            this.tabConverter.Size = new System.Drawing.Size(711, 362);
             this.tabConverter.TabIndex = 0;
             this.tabConverter.Text = "Converter";
             // 
@@ -762,35 +778,57 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.10123F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.79752F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.10125F));
-            this.tableLayoutPanel2.Controls.Add(this.groupConversion, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.panelOutput, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.panelInput, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.groupConversion, 1, 1);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(7, 7);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76471F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.23529F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(698, 316);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(698, 349);
             this.tableLayoutPanel2.TabIndex = 22;
             // 
             // groupConversion
             // 
-            this.groupConversion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupConversion.Controls.Add(this.btnTransparency);
             this.groupConversion.Controls.Add(this.checkIgnore);
             this.groupConversion.Controls.Add(this.btnConvert);
-            this.groupConversion.Location = new System.Drawing.Point(275, 40);
+            this.groupConversion.Location = new System.Drawing.Point(268, 44);
             this.groupConversion.Name = "groupConversion";
-            this.groupConversion.Size = new System.Drawing.Size(145, 119);
+            this.groupConversion.Size = new System.Drawing.Size(145, 102);
             this.groupConversion.TabIndex = 10;
             this.groupConversion.TabStop = false;
             this.groupConversion.Text = "Conversion";
             // 
+            // textCustomSize
+            // 
+            this.textCustomSize.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.textCustomSize.Enabled = false;
+            this.textCustomSize.Location = new System.Drawing.Point(631, 3);
+            this.textCustomSize.Name = "textCustomSize";
+            this.textCustomSize.Size = new System.Drawing.Size(35, 20);
+            this.textCustomSize.TabIndex = 15;
+            this.textCustomSize.Text = "0";
+            this.textCustomSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textCustomSize.TextChanged += new System.EventHandler(this.textCustomSize_TextChanged);
+            // 
+            // labelSpriteSize
+            // 
+            this.labelSpriteSize.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelSpriteSize.AutoSize = true;
+            this.labelSpriteSize.Location = new System.Drawing.Point(575, 7);
+            this.labelSpriteSize.Name = "labelSpriteSize";
+            this.labelSpriteSize.Size = new System.Drawing.Size(50, 13);
+            this.labelSpriteSize.TabIndex = 14;
+            this.labelSpriteSize.Text = "spritesize";
+            this.labelSpriteSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // btnTransparency
             // 
             this.btnTransparency.Enabled = false;
-            this.btnTransparency.Location = new System.Drawing.Point(6, 28);
+            this.btnTransparency.Location = new System.Drawing.Point(6, 19);
             this.btnTransparency.Name = "btnTransparency";
             this.btnTransparency.Size = new System.Drawing.Size(133, 23);
             this.btnTransparency.TabIndex = 4;
@@ -802,7 +840,7 @@
             // 
             this.checkIgnore.AutoSize = true;
             this.checkIgnore.Enabled = false;
-            this.checkIgnore.Location = new System.Drawing.Point(26, 57);
+            this.checkIgnore.Location = new System.Drawing.Point(26, 48);
             this.checkIgnore.Name = "checkIgnore";
             this.checkIgnore.Size = new System.Drawing.Size(86, 17);
             this.checkIgnore.TabIndex = 2;
@@ -812,7 +850,7 @@
             // btnConvert
             // 
             this.btnConvert.Enabled = false;
-            this.btnConvert.Location = new System.Drawing.Point(6, 80);
+            this.btnConvert.Location = new System.Drawing.Point(6, 71);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(133, 23);
             this.btnConvert.TabIndex = 0;
@@ -829,9 +867,9 @@
             this.panelOutput.AutoSize = true;
             this.panelOutput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelOutput.Controls.Add(this.pictureBoxOutput);
-            this.panelOutput.Location = new System.Drawing.Point(434, 40);
+            this.panelOutput.Location = new System.Drawing.Point(434, 44);
             this.panelOutput.Name = "panelOutput";
-            this.panelOutput.Size = new System.Drawing.Size(261, 273);
+            this.panelOutput.Size = new System.Drawing.Size(261, 302);
             this.panelOutput.TabIndex = 14;
             // 
             // pictureBoxOutput
@@ -852,9 +890,9 @@
             this.panelInput.AutoSize = true;
             this.panelInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelInput.Controls.Add(this.pictureBoxInput);
-            this.panelInput.Location = new System.Drawing.Point(3, 40);
+            this.panelInput.Location = new System.Drawing.Point(3, 44);
             this.panelInput.Name = "panelInput";
-            this.panelInput.Size = new System.Drawing.Size(259, 273);
+            this.panelInput.Size = new System.Drawing.Size(259, 302);
             this.panelInput.TabIndex = 13;
             // 
             // pictureBoxInput
@@ -885,7 +923,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(261, 31);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(261, 35);
             this.tableLayoutPanel3.TabIndex = 15;
             // 
             // tabEditor
@@ -895,7 +933,7 @@
             this.tabEditor.Location = new System.Drawing.Point(4, 22);
             this.tabEditor.Name = "tabEditor";
             this.tabEditor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEditor.Size = new System.Drawing.Size(711, 329);
+            this.tabEditor.Size = new System.Drawing.Size(711, 362);
             this.tabEditor.TabIndex = 1;
             this.tabEditor.Text = "Editor";
             // 
@@ -922,14 +960,14 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76471F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.23529F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(698, 317);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(698, 350);
             this.tableLayoutPanel1.TabIndex = 20;
             // 
             // pictureBoxPreview
             // 
             this.pictureBoxPreview.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBoxPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxPreview.Location = new System.Drawing.Point(324, 40);
+            this.pictureBoxPreview.Location = new System.Drawing.Point(324, 44);
             this.pictureBoxPreview.Name = "pictureBoxPreview";
             this.pictureBoxPreview.Size = new System.Drawing.Size(48, 48);
             this.pictureBoxPreview.TabIndex = 21;
@@ -940,9 +978,9 @@
             this.outputPanel.AutoScroll = true;
             this.outputPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.outputPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.outputPanel.Location = new System.Drawing.Point(434, 40);
+            this.outputPanel.Location = new System.Drawing.Point(434, 44);
             this.outputPanel.Name = "outputPanel";
-            this.outputPanel.Size = new System.Drawing.Size(261, 274);
+            this.outputPanel.Size = new System.Drawing.Size(261, 303);
             this.outputPanel.TabIndex = 23;
             // 
             // inputPanel
@@ -950,9 +988,9 @@
             this.inputPanel.AutoScroll = true;
             this.inputPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inputPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.inputPanel.Location = new System.Drawing.Point(3, 40);
+            this.inputPanel.Location = new System.Drawing.Point(3, 44);
             this.inputPanel.Name = "inputPanel";
-            this.inputPanel.Size = new System.Drawing.Size(259, 274);
+            this.inputPanel.Size = new System.Drawing.Size(259, 303);
             this.inputPanel.TabIndex = 22;
             // 
             // tableLayoutPanel4
@@ -970,13 +1008,13 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(261, 31);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(261, 35);
             this.tableLayoutPanel4.TabIndex = 24;
             // 
             // btnClearAndSet
             // 
             this.btnClearAndSet.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnClearAndSet.Location = new System.Drawing.Point(133, 4);
+            this.btnClearAndSet.Location = new System.Drawing.Point(133, 6);
             this.btnClearAndSet.Name = "btnClearAndSet";
             this.btnClearAndSet.Size = new System.Drawing.Size(125, 23);
             this.btnClearAndSet.TabIndex = 18;
@@ -998,7 +1036,7 @@
             "RPG Maker MV (Tileset A4)",
             "RPG Maker MV (Tileset A5)",
             "RPG Maker MV (Tileset B-C)"});
-            this.cbOutput.Location = new System.Drawing.Point(3, 5);
+            this.cbOutput.Location = new System.Drawing.Point(3, 7);
             this.cbOutput.Name = "cbOutput";
             this.cbOutput.Size = new System.Drawing.Size(124, 21);
             this.cbOutput.TabIndex = 17;
@@ -1007,7 +1045,7 @@
             // 
             this.btnSetInputTileset.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnSetInputTileset.Enabled = false;
-            this.btnSetInputTileset.Location = new System.Drawing.Point(3, 7);
+            this.btnSetInputTileset.Location = new System.Drawing.Point(3, 9);
             this.btnSetInputTileset.Name = "btnSetInputTileset";
             this.btnSetInputTileset.Size = new System.Drawing.Size(109, 23);
             this.btnSetInputTileset.TabIndex = 25;
@@ -1018,7 +1056,7 @@
             // btnClearPreview
             // 
             this.btnClearPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnClearPreview.Location = new System.Drawing.Point(283, 7);
+            this.btnClearPreview.Location = new System.Drawing.Point(283, 9);
             this.btnClearPreview.Name = "btnClearPreview";
             this.btnClearPreview.Size = new System.Drawing.Size(129, 23);
             this.btnClearPreview.TabIndex = 26;
@@ -1028,16 +1066,18 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.flowLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.Controls.Add(this.btnOpen);
             this.flowLayoutPanel1.Controls.Add(this.cbMaker);
             this.flowLayoutPanel1.Controls.Add(this.cbMode);
             this.flowLayoutPanel1.Controls.Add(this.btnSaveEachSprite);
             this.flowLayoutPanel1.Controls.Add(this.btnSave);
+            this.flowLayoutPanel1.Controls.Add(this.labelSpriteSize);
+            this.flowLayoutPanel1.Controls.Add(this.textCustomSize);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(14, 27);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(718, 27);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(718, 32);
             this.flowLayoutPanel1.TabIndex = 15;
             // 
             // FormTilecon
@@ -1045,7 +1085,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(744, 431);
+            this.ClientSize = new System.Drawing.Size(744, 461);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
@@ -1080,6 +1120,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1178,6 +1219,9 @@
         private System.Windows.Forms.ToolStripMenuItem setInputTilesetItem;
         private System.Windows.Forms.ToolStripMenuItem clearPreviewItem;
         private System.Windows.Forms.Button btnClearPreview;
+        private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem;
+        private System.Windows.Forms.TextBox textCustomSize;
+        private System.Windows.Forms.Label labelSpriteSize;
     }
 }
 

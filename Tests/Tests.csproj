@@ -62,6 +62,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Code\Converter\TilesetConverterAutotileXPTests.cs" />
+    <Compile Include="Code\Converter\TilesetConverterCustomTests.cs" />
     <Compile Include="Code\Editor\TilesetEditorOutputTests.cs" />
     <Compile Include="Code\TilesetTestBase.cs" />
     <Compile Include="Code\Converter\TilesetConverterVerticalAphaTests.cs" />
@@ -162,6 +163,18 @@
     <EmbeddedResource Include="Images\R2k\Editor\R2k3_out_MVA4.png" />
     <EmbeddedResource Include="Images\R2k\Editor\R2k3_out_MVA5.png" />
     <EmbeddedResource Include="Images\R2k\Editor\R2k3_out_MVBE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Custom\Converter\Custom22px_out_success.png" />
+    <EmbeddedResource Include="Images\Custom\Custom22px_in.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Custom\Editor\Custom22px_out_MVA12.png" />
+    <EmbeddedResource Include="Images\Custom\Editor\Custom22px_out_MVA3.png" />
+    <EmbeddedResource Include="Images\Custom\Editor\Custom22px_out_MVA4.png" />
+    <EmbeddedResource Include="Images\Custom\Editor\Custom22px_out_MVA5.png" />
+    <EmbeddedResource Include="Images\Custom\Editor\Custom22px_out_MVBE.png" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

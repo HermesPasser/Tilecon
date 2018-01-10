@@ -24,12 +24,13 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://none.com/</UpdateUrl>
-    <ProductName>Tileset Converte MV</ProductName>
+    <ProductName>Tileset Converter MV</ProductName>
     <PublisherName>Hermes Passer</PublisherName>
     <SuiteName>Tilecon</SuiteName>
-    <ApplicationRevision>21</ApplicationRevision>
-    <ApplicationVersion>1.9.0.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -44,6 +45,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>bin\Debug\Tileset Converter MV.xml</DocumentationFile>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -72,6 +74,7 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
@@ -89,6 +92,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Converter\TilesetConverterCustom.cs" />
+    <Compile Include="Code\ConvertException.cs" />
     <Compile Include="Code\ImageEditor.cs" />
     <Compile Include="Code\Converter\TilesetConverterVerticalApha.cs" />
     <Compile Include="Code\Converter\TilesetConverterAutotileXP.cs" />
@@ -183,7 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ico.ico" />
-    <EmbeddedResource Include="Resources\stringtable.xml" />
+    <EmbeddedResource Include="Resources\stringtable.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Resources\AboutXpTileset.png" />
     <None Include="Resources\About2kTileset.png" />
     <None Include="Resources\logo.png" />

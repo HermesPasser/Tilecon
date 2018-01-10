@@ -3,6 +3,7 @@ using System.IO;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using tilecon.Tileset.Converter;
 using tilecon.Tileset.Editor;
 
@@ -50,6 +51,7 @@ namespace tilecon
             openFileDialog1.Filter = Vocab.GetText("imageFiles") + " (*.gif, *.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.gif; *bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
 
             btnConvert.Text = convertAndSaveItem.Text = Vocab.GetText("convert");
+            labelSpriteSize.Text = Vocab.GetText("spriteSize");
             btnSaveEachSprite.Text = saveEachSpritesItem.Text = Vocab.GetText("saveEachSprite");
             btnOpen.Text = openTilesetItem.Text = Vocab.GetText("openTileset");
             btnSave.Text = saveToolStripItem.Text = Vocab.GetText("save");
@@ -132,6 +134,7 @@ namespace tilecon
         private void CutSave(object sender, EventArgs e)
         {
             ITileset tile = GetTileset();
+
             if (saveFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
 
@@ -141,13 +144,15 @@ namespace tilecon
             {
                 try
                 {
-                    TilesetConverterVertical cc = new TilesetConverterVertical(tile, SpriteMode.ALIGN_TOP_LEFT, false);
-                    cc.SaveEachSubimage(Image.FromFile(filepath), saveFileDialog1.FileName);
+                    int size = tile.TilesetName() == Maker.Custom.NAME ? Int32.Parse(textCustomSize.Text) : tile.SpriteSize();
+                    TilesetConverterVertical tilecon = new TilesetConverterCustom(SpriteMode.ALIGN_TOP_LEFT, false, size);
+                    tilecon.SaveEachSubimage(Image.FromFile(filepath), saveFileDialog1.FileName);
+
                     MessageBox.Show(Vocab.GetText("done"), "Tilecon");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.Message);
                 }
                 finally
                 {
@@ -168,14 +173,15 @@ namespace tilecon
                 case Maker.R2k_2k3_AB.NAME: return new Maker.R2k_2k3_AB();
                 case Maker.R2k_2k3_A.NAME: return new Maker.R2k_2k3_A();
                 case Maker.R2k_2k3_B.NAME: return new Maker.R2k_2k3_B();
+                case Maker.XP_Auto.NAME: return new Maker.XP_Auto();
+                case Maker.XP_Tile.NAME: return new Maker.XP_Tile();
                 case Maker.VX_Ace_A12.NAME: return new Maker.VX_Ace_A12();
                 case Maker.VX_Ace_A3.NAME: return new Maker.VX_Ace_A3();
                 case Maker.VX_Ace_A4.NAME: return new Maker.VX_Ace_A4();
                 case Maker.VX_Ace_A5.NAME: return new Maker.VX_Ace_A5();
                 case Maker.VX_Ace_BE.NAME: return new Maker.VX_Ace_BE();
-                case Maker.XP_Auto.NAME: return new Maker.XP_Auto();
-                case Maker.XP_Tile.NAME:
-                default: return new Maker.XP_Tile();
+                case Maker.Custom.NAME:
+                default: return new Maker.Custom();
             }
         }
 
@@ -188,7 +194,7 @@ namespace tilecon
 
             if (saveFileDialog1.FileName == filepath)
             {
-                MessageBox.Show(Vocab.GetText("saveErrorMsg"));
+                MessageBox.Show(Vocab.GetText("sizeNotMatchErrorMsg"));
                 return;
             }
 
@@ -199,7 +205,8 @@ namespace tilecon
 
         private void OnIndexChange(object sender, EventArgs e)
         {
-            TilesetConverterVX con = new TilesetConverterVX(GetTileset(), (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
+            TilesetConverterVX con = new TilesetConverterVX(new Maker.XP_Tile(), (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
+            textCustomSize.Enabled = GetTileset().TilesetName() == Maker.Custom.NAME;
 
             switch (con.SetOutputTileset().TilesetName())
             {
@@ -216,6 +223,7 @@ namespace tilecon
                     labelMVTilesetName.Text = "A5";
                     break;
                 case Maker.MV_BE.NAME:
+                case Maker.Custom.NAME:
                     labelMVTilesetName.Text = "B-E";
                     break;
                 default:
@@ -278,15 +286,23 @@ namespace tilecon
                 case Maker.R2k_2k3_AB.NAME: cbMaker.SelectedIndex = 5; break;
                 case Maker.R2k_2k3_A.NAME: cbMaker.SelectedIndex = 6; break;
                 case Maker.R2k_2k3_B.NAME: cbMaker.SelectedIndex = 7; break;
+                case Maker.XP_Tile.NAME: cbMaker.SelectedIndex = 8; break;
                 case Maker.VX_Ace_A12.NAME: cbMaker.SelectedIndex = 10; break;
                 case Maker.VX_Ace_A3.NAME: cbMaker.SelectedIndex = 11; break;
                 case Maker.VX_Ace_A4.NAME: cbMaker.SelectedIndex = 12; break;
                 case Maker.VX_Ace_A5.NAME: cbMaker.SelectedIndex = 13; break;
                 case Maker.VX_Ace_BE.NAME: cbMaker.SelectedIndex = 14; break;
                 case Maker.XP_Auto.NAME: cbMaker.SelectedIndex = 9; break;
-                case Maker.XP_Tile.NAME:
-                default: cbMaker.SelectedIndex = 8; break;
+                default: cbMaker.SelectedIndex = 15; break; // custom
             }
+        }
+
+        private void textCustomSize_TextChanged(object sender, EventArgs e)
+        {
+            textCustomSize.Text = Regex.Replace(textCustomSize.Text, "[^0-9]", "");
+
+            if (textCustomSize.Text == "")
+                textCustomSize.Text = "0";
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -351,11 +367,30 @@ namespace tilecon
 
         private void LoadGrid(object sender, EventArgs e)
         {
+			if (tabControl1.SelectedIndex != 1)
+				return;
+			
+            Maker.Custom.SPRITE_SIZE = Int32.Parse(textCustomSize.Text);
+
+            if (GetTileset().TilesetName() == Maker.Custom.NAME && Maker.Custom.SPRITE_SIZE == 0)
+            {
+                MessageBox.Show(Vocab.GetText("sizeIsZeroErrorMsg"));
+                return;
+            }
+
             Image img = Image.FromFile(filepath);
             pictureBoxPreview.Image = null;
-            gridInp = new TilesetEditorIntput(GetTileset(), inputPanel, img, pictureBoxPreview);
+
+            try
+            {
+                gridInp = new TilesetEditorIntput(GetTileset(), inputPanel, img, pictureBoxPreview);
+                SetOutputGrid(null, null);
+            }
+            catch (ConvertException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             
-            SetOutputGrid(null, null);
         }
 
         private void SetOutputGrid(object sender, EventArgs e)
@@ -369,7 +404,7 @@ namespace tilecon
                 case 2: tileset = new Maker.MV_A4(); break;
                 case 3: tileset = new Maker.MV_A5(); break;
                 case 4:
-                default: tileset = new Maker.MV_BE();  break;
+                default: tileset = new Maker.MV_BE(); break;
             }
             gridOut = new TilesetEditorOutput(tileset, outputPanel, gridInp);
         }
@@ -377,7 +412,8 @@ namespace tilecon
         private void ClearPreview(object sender, EventArgs e)
         {
             pictureBoxPreview.Image = null;
-            gridInp.selectedImage = null;
+            if (gridInp != null)
+                gridInp.selectedImage = null;
         }
 
         // Used in tool menu
@@ -427,15 +463,19 @@ namespace tilecon
                         con = new TilesetConverterVerticalRM2K3(tileset, (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
                         break;
 
+                    case Maker.Custom.NAME:
+                        con = new TilesetConverterCustom((SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked, Int32.Parse(textCustomSize.Text));
+                        break;
+
                     default:
                         con = new TilesetConverterVX(tileset, (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
                         break;
                 }
                 bitmaps = con.ConvertToMV(Image.FromFile(filepath));
             }
-            catch (Exception ex)
+            catch (ConvertException ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
                 return;
             }
 
@@ -506,5 +546,6 @@ namespace tilecon
             labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
         }
         #endregion
+
     }
 }

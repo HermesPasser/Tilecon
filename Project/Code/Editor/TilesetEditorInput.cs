@@ -66,6 +66,14 @@ namespace tilecon.Tileset.Editor
                 return;
 
             TilesetConverterBase con;
+            con = GetTilesetConverter(mode);
+            selectedImage = con.SetModeInSprite(selectedImage, Maker.MV_A12.SPRITE_SIZE); // must not be mv sprite size, add param to set this
+            if (preview != null) preview.Image = selectedImage;
+        }
+
+        private TilesetConverterBase GetTilesetConverter(SpriteMode mode)
+        {
+            TilesetConverterBase con;
             switch (tileset.TilesetName())
             {
                 case Maker.Alpha.NAME:
@@ -85,12 +93,15 @@ namespace tilecon.Tileset.Editor
                 case Maker.R2k_2k3_Auto.NAME:
                     con = new TilesetConverterVerticalRM2K3(tileset, mode, false);
                     break;
+                case Maker.Custom.NAME:
+                    con = new TilesetConverterCustom(mode, false);
+                    break;
                 default:
                     con = new TilesetConverterVX(tileset, mode, false);
                     break;
             }
-            selectedImage = con.SetModeInSprite(selectedImage, Maker.MV_A12.SPRITE_SIZE); // must not be mv sprite size, add param to set this
-            if (preview != null) preview.Image = selectedImage;   
+
+            return con;
         }
 
         /// <summary>Implementation of the abstract method SetUpGrid.</summary>
@@ -99,17 +110,20 @@ namespace tilecon.Tileset.Editor
             int width = tileset.SizeWidth();
             int height = tileset.SizeHeight();
             int spriteSize = tileset.SpriteSize();
-          //  System.Windows.Forms.MessageBox.Show(height + "");
-            if (height == -1) height = tilesetImage.Height;
 
-            TilesetConverterVerticalRM2K3 con = new TilesetConverterVerticalRM2K3(tileset, SpriteMode.ALIGN_TOP_LEFT, false);
-            Bitmap[] tiles = con.GetSprites(tilesetImage as Bitmap).ToArray();
+            if (width == -1) width = tilesetImage.Width;   // custom
+            if (height == -1) height = tilesetImage.Height; // XP and custom
+
+            if (spriteSize <= 0)
+                throw new ConvertException(Vocab.GetText("sizeIsZeroErrorMsg"));
+
+            Bitmap[] tiles = SplitImageInSprites(tilesetImage, tileset.SpriteSize());
 
             if (control != null) control.Controls.Clear();
             grid = new List<Button>();
             int i = 0;
 
-            // Verificar todas as possibilidade para ver se alguma vez cai na exception
+            // Verify all the options to see if throws any exception.
             try
             {
                 for (int y = 0; y < height; y += spriteSize)
@@ -128,7 +142,10 @@ namespace tilecon.Tileset.Editor
                     }
                 }
             }
-            catch (IndexOutOfRangeException) { System.Windows.Forms.MessageBox.Show("index out of range ex in set up grid"); }
+            catch (IndexOutOfRangeException)
+            {
+                throw new ConvertException(Vocab.GetText("sizeNotMatchErrorMsg"));
+            }
         }
     }
 }

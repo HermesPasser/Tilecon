@@ -15,11 +15,11 @@
         pt="Conversão"
     /> 
   
-	<converter
+    <converter
         en="Converter"
         pt="Conversor"
     />  
-
+  
     <clearAndSetTileset 
         en="Clear and Set Tileset"
         pt="Limpar e Definir Tileset"
@@ -106,8 +106,8 @@
     /> 
 
     <saveEachSprite
-        en="Save each sprite"
-        pt="Salvar cada sprite"
+        en="Split and save sprites"
+        pt="Cortar e salvar sprites"
     /> 
   
     <setTileset
@@ -123,6 +123,11 @@
 	  <sourceCode
         en="Source Code"
         pt="Código Fonte"
+    />
+    
+	  <spriteSize
+        en="Sprite Size"
+        pt="Tamanho do sprite"
     />
     
     <wait 
@@ -184,9 +189,19 @@
   
     <!-- Messages -->
     
-    <sizeErrorMsg 
+    <sizeNotMatchErrorMsg 
         en="Width or height does not match the size of the selected tileset."
         pt="Largura ou altura não corresponde ao tamanho do conjunto de telas selecionado."
+    /> 
+
+    <sizeIsZeroErrorMsg 
+        en="The sprite size cannot be zero."
+        pt="O tamanho do sprite não pode ser zero."
+    /> 
+  
+    <sizeOutOfRangeErrorMsg 
+        en="The sprite size must be less than the image size."
+        pt="O tamanho do sprite tem que ser menor que o tamanho da imagem."
     /> 
 
     <saveErrorMsg 

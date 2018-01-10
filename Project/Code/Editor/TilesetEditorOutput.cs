@@ -19,7 +19,7 @@ namespace tilecon.Tileset.Editor
             this.input = input;
 
             if (tileset.GetType() == new Maker.XP_Tile().GetType())
-                throw new Exception("Tileset cannot be XP because this class not contain the information of original image and the default is -1.");
+                throw new ConvertException("Tileset cannot be XP because this class not contain the information of original image and the default is -1.");
             SetUpGrid();
         }
 
@@ -72,7 +72,7 @@ namespace tilecon.Tileset.Editor
             if (control != null) control.Controls.Clear();
             grid = new List<Button>();
 
-            // Verificar todas as possibilidade para ver se alguma vez cai na exception
+            // Verify all the options to see if throws any exception.
             try
             {
                 for (int y = 0; y < height; y += spriteSize)
@@ -90,7 +90,9 @@ namespace tilecon.Tileset.Editor
                     }
                 }
             }
-            catch (IndexOutOfRangeException) { System.Windows.Forms.MessageBox.Show("index out of range ex in set up grid"); }
+            catch (IndexOutOfRangeException) {
+                throw new ConvertException(Vocab.GetText("sizeNotMatchErrorMsg"));
+            }
         }
     }
 }

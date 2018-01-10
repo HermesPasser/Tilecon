@@ -12,7 +12,7 @@ namespace tilecon.Tileset.Converter
         /// <summary>Default constructor.</summary>
         /// <param name="inputMaker">Tileset type to be converted</param>
         /// <param name="mode">Mode how sprites should be pasted into the converted image.</param>
-        /// <param name="ignoreAlpha">Flag for ignore empty sprites.</param>
+        /// <param name="ignoreAlpha">Flag to ignore empty sprites.</param>
         public TilesetConverterVertical(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 
         /// <summary>Call the protected GetSprites to be callsed by TilesetConverterVX</summary>
@@ -31,17 +31,11 @@ namespace tilecon.Tileset.Converter
             int spriteSize = inputTileset.SpriteSize();
             List<Bitmap> sprites = new List<Bitmap>();
 
+            // starts with 'y'
             for (int y = 0, i = 0; y < img.Height; y += spriteSize)
                 for (int x = 0; x < img.Width; x += spriteSize, i++)
                     sprites.Add(Crop(img as Bitmap, x, y, spriteSize, spriteSize));
             return RemoveAlphaSprites(sprites);
-        }
-
-        /// <summary>Get the number of pixels to be moved to center the sprite on the tileset.</summary>
-        /// <returns>The number of pixels to be moved to center the sprite on the tileset.</returns>
-        protected override int GetCentralizeNumber()
-        {
-            return 8;
         }
 
         /// <summary>Converter the image to MV tileset.</summary>
@@ -53,6 +47,7 @@ namespace tilecon.Tileset.Converter
 
             List<Bitmap> images = new List<Bitmap>();
             List<Bitmap> sprites = GetSprites(img);
+          //  System.Windows.Forms.MessageBox.Show(inputTileset.SpriteSize() + "");
 
             int i = 0;
 

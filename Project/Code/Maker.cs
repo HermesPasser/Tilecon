@@ -2,14 +2,43 @@
 {
     public interface ITileset
     {
+        /// <summary>Get the tileset name.</summary>
+        /// <returns>Tileset name.</returns>
         string TilesetName();
-        int SpriteSize();
-        int SizeWidth();
-        int SizeHeight();
-    }
 
-    public static class Maker
+        /// <summary>Get the sprite size.</summary>
+        /// <returns>Sprite size.</returns>
+        int SpriteSize();
+
+        /// <summary>Get the tileset width.</summary>
+        /// <returns>Tileset width.</returns>
+        int SizeWidth();
+
+        /// <summary>Get the tileset height.</summary>
+        /// <returns>Tileset height.</returns>
+        int SizeHeight();
+    }   
+
+    namespace Maker
     {
+        public class Custom : ITileset
+        {
+            public Custom() { }
+
+            public Custom(int spriteSize)
+            {
+                Custom.SPRITE_SIZE = spriteSize;
+            }
+
+            public static int SPRITE_SIZE = 0;
+            public const string NAME = "Custom";
+
+            public int SizeHeight() { return -1; }
+            public int SizeWidth() { return -1; }
+            public int SpriteSize() { return SPRITE_SIZE; }
+            public string TilesetName(){ return NAME; }
+        }
+
         public class R95 : ITileset
         {
             public static readonly int SPRITE_SIZE = 32;

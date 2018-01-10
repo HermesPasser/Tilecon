@@ -24,6 +24,38 @@ namespace tilecon.Tileset.Editor.Tests
             return ImageEditor.IsEqual(imgOut, editorOutput.TilesToTileset());
         }
 
+        #region Custom
+        [TestMethod()]
+        public void Editor_CustomToMV_A12()
+        {
+            Assert.IsTrue(EmulateEditor("Tests.Images.Custom.Custom22px_in.png", "Tests.Images.Custom.Editor.Custom22px_out_MVA12.png", new Maker.Custom(22), new Maker.MV_A12()));
+        }
+
+        [TestMethod()]
+        public void Editor_CustomToMV_A3()
+        {
+            Assert.IsTrue(EmulateEditor("Tests.Images.Custom.Custom22px_in.png", "Tests.Images.Custom.Editor.Custom22px_out_MVA3.png", new Maker.Custom(22), new Maker.MV_A3()));
+        }
+
+        [TestMethod()]
+        public void Editor_CustomToMV_A4()
+        {
+            Assert.IsTrue(EmulateEditor("Tests.Images.Custom.Custom22px_in.png", "Tests.Images.Custom.Editor.Custom22px_out_MVA4.png", new Maker.Custom(22), new Maker.MV_A4()));
+        }
+
+        [TestMethod()]
+        public void Editor_CustomToMV_A5()
+        {
+            Assert.IsTrue(EmulateEditor("Tests.Images.Custom.Custom22px_in.png", "Tests.Images.Custom.Editor.Custom22px_out_MVA5.png", new Maker.Custom(22), new Maker.MV_A5()));
+        }
+
+        [TestMethod()]
+        public void Editor_CustomToMV_BC()
+        {
+            Assert.IsTrue(EmulateEditor("Tests.Images.Custom.Custom22px_in.png", "Tests.Images.Custom.Editor.Custom22px_out_MVBE.png", new Maker.Custom(22), new Maker.MV_BE()));
+        }
+        #endregion
+
         #region Alpha
         [TestMethod()]
         public void Editor_AlphaToMV_A12()
