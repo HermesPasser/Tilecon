@@ -34,4 +34,4 @@ Open tilecon.sln with Visual Studio, need install .NET Framework version 4.6.1 o
 ## Download & Versions
 
 | Version | Implementation | Download
-[Tilecon download section](https://hermespasser.github.io/pages/tilecon.html#versions)
+https://hermespasser.github.io/pages/tilecon.html#versions)
