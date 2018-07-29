@@ -24,14 +24,6 @@ Open tilecon.sln with Visual Studio, need install .NET Framework version 4.6.1 o
 ![alt tag](https://3.bp.blogspot.com/-Jlh7tJ_OU9g/WSncl_BqTaI/AAAAAAAAHII/p_go504wabcYNbm_tw6kpTfet1uIis77wCLcB/s320/2.png)
 
 
-## Videos
-
-**Converting tilesets/autotiles from RM XP to MV** - https://www.youtube.com/watch?v=BcbR2E2ZUOI
-
-**Editor** - https://www.youtube.com/watch?v=4iGQA1CZqJM
-
-
 ## Download & Versions
 
-| Version | Implementation | Download
-https://hermespasser.github.io/pages/tilecon.html#versions)
+[in the website](https://hermespasser.github.io/pages/tilecon.html#versions)
