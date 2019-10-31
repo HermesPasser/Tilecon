@@ -67,7 +67,7 @@ namespace tilecon.Tileset.Editor
 
             TilesetConverterBase con;
             con = GetTilesetConverter(mode);
-            selectedImage = con.SetModeInSprite(selectedImage, Maker.MV_A12.SPRITE_SIZE); // must not be mv sprite size, add param to set this
+            selectedImage = con.SetModeInSprite(selectedImage, Maker.MV_A12.TILE_SIZE); // must not be mv sprite size, add param to set this
             if (preview != null) preview.Image = selectedImage;
         }
 

@@ -90,17 +90,22 @@ namespace tilecon.Tileset.Converter
             for (int i = 0; i < autotiles.Length; i++)
             {
                 Bitmap temp = new Bitmap(96, 144);
-                Bitmap bmp1 = Stretch(Crop(autotiles[i], 16, 0, 16, 16), Maker.MV_A12.SPRITE_SIZE);
-                Bitmap bmp2 = Stretch(Crop(autotiles[i], 32, 0, 16, 16), Maker.MV_A12.SPRITE_SIZE);
-                Bitmap bmp3 = Stretch(Crop(autotiles[i], 0, 16, 48, 48), 96);
-                temp = Paste(temp, bmp1, 0, 0, Maker.MV_A12.SPRITE_SIZE, Maker.MV_A12.SPRITE_SIZE);
-                temp = Paste(temp, bmp2, 48, 0, Maker.MV_A12.SPRITE_SIZE, Maker.MV_A12.SPRITE_SIZE);
-                temp = Paste(temp, bmp3, 0, 48, 96, 96);
+                Bitmap singleTileBmp = Stretch(Crop(autotiles[i], 0, 0, 16, 16), Maker.MV_A12.TILE_SIZE);
+                Bitmap cornerTileBpm = Stretch(Crop(autotiles[i], 32, 0, 16, 16), Maker.MV_A12.TILE_SIZE);
+                Bitmap edgesAndFillerTilesBmp = Stretch(Crop(autotiles[i], 0, 16, 48, 48), 96);
+                temp = Paste(temp, singleTileBmp, 0, 0, Maker.MV_A12.TILE_SIZE, Maker.MV_A12.TILE_SIZE);
+                temp = Paste(temp, cornerTileBpm, 48, 0, Maker.MV_A12.TILE_SIZE, Maker.MV_A12.TILE_SIZE);
+                temp = Paste(temp, edgesAndFillerTilesBmp, 0, 48, 96, 96);
                 sprites.Add(temp);
             }
             return sprites.ToArray();
         }
 
+        /// <summary>
+        /// Takes a whole RPG Maker 2000 or RPG Maker 2003 Chipset and extracts all the 12 autotile Areas into an Bitmap Array.
+        /// </summary>
+        /// <param name="bmp">The RPG Maker 2000 or 2003 Chipset Bitmap</param>
+        /// <returns>An array with all 12 autotile area bitmaps</returns>
         private Bitmap[] GetAutotiles(Bitmap bmp)
         {
             Bitmap[] bmps = new Bitmap[12];

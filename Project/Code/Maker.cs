@@ -253,7 +253,7 @@
 
         public abstract class MV
         {
-            public static readonly int SPRITE_SIZE = 48;
+            public static readonly int TILE_SIZE = 48;
         }
 
         public class MV_Other : MV, ITileset
@@ -264,7 +264,7 @@
 
             public int SizeHeight() { return SIZE_HEIGHT; }
             public int SizeWidth() { return SIZE_WIDTH; }
-            public int SpriteSize() { return SPRITE_SIZE; }
+            public int SpriteSize() { return TILE_SIZE; }
             public string TilesetName() { return NAME; }
         }
 
@@ -276,7 +276,7 @@
 
             public int SizeHeight() { return SIZE_HEIGHT; }
             public int SizeWidth() { return SIZE_WIDTH; }
-            public int SpriteSize() { return SPRITE_SIZE; }
+            public int SpriteSize() { return TILE_SIZE; }
             public string TilesetName() { return NAME; }
         }
 
@@ -288,7 +288,7 @@
 
             public int SizeHeight() { return SIZE_HEIGHT; }
             public int SizeWidth() { return SIZE_WIDTH; }
-            public int SpriteSize() { return SPRITE_SIZE; }
+            public int SpriteSize() { return TILE_SIZE; }
             public string TilesetName() { return NAME; }
         }
 
@@ -300,7 +300,7 @@
 
             public int SizeHeight() { return SIZE_HEIGHT; }
             public int SizeWidth() { return SIZE_WIDTH; }
-            public int SpriteSize() { return SPRITE_SIZE; }
+            public int SpriteSize() { return TILE_SIZE; }
             public string TilesetName() { return NAME; }
         }
 
@@ -312,7 +312,7 @@
 
             public int SizeHeight() { return SIZE_HEIGHT; }
             public int SizeWidth() { return SIZE_WIDTH; }
-            public int SpriteSize() { return SPRITE_SIZE; }
+            public int SpriteSize() { return TILE_SIZE; }
             public string TilesetName() { return NAME; }
         }
 
@@ -323,7 +323,7 @@
 
             public int SizeHeight() { return SIZE; }
             public int SizeWidth() { return SIZE; }
-            public int SpriteSize() { return SPRITE_SIZE; }
+            public int SpriteSize() { return TILE_SIZE; }
             public string TilesetName() { return NAME; }
         }
         #endregion
