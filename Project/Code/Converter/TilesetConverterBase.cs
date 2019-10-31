@@ -86,7 +86,7 @@ namespace tilecon.Tileset.Converter
             }
 
             // If output is a MV or MV childen then return mv sprite size else return -1
-            outputSpriteSize = outputTileset is Maker.MV ? Maker.MV.SPRITE_SIZE : -1;
+            outputSpriteSize = outputTileset is Maker.MV ? Maker.MV.TILE_SIZE : -1;
             return outputTileset;
         }
         

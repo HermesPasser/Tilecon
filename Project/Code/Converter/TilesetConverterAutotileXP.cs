@@ -25,7 +25,7 @@ namespace tilecon.Tileset.Converter
 
         private Bitmap GetMVAutotile(Bitmap bmp)
         {
-            Bitmap temp = new Bitmap(Maker.MV_A12.SPRITE_SIZE, Maker.MV_A12.SPRITE_SIZE);
+            Bitmap temp = new Bitmap(Maker.MV_A12.TILE_SIZE, Maker.MV_A12.TILE_SIZE);
             Bitmap mv = new Bitmap(96, 144);
             Bitmap xp1 = Crop(bmp, 00, 00, Maker.XP_Tile.SPRITE_SIZE, Maker.XP_Tile.SPRITE_SIZE);
             Bitmap xp2 = Crop(bmp, 64, 00, Maker.XP_Tile.SPRITE_SIZE / 2, Maker.XP_Tile.SPRITE_SIZE / 2);
@@ -33,7 +33,7 @@ namespace tilecon.Tileset.Converter
             Bitmap xp4 = Crop(bmp, 64, 16, Maker.XP_Tile.SPRITE_SIZE / 2, Maker.XP_Tile.SPRITE_SIZE / 2);
             Bitmap xp5 = Crop(bmp, 80, 16, Maker.XP_Tile.SPRITE_SIZE / 2, Maker.XP_Tile.SPRITE_SIZE / 2);
             Bitmap xp6 = Crop(bmp, 0, 32, 96, 96);
-            Bitmap xp7 = Crop(bmp, 26, 56, Maker.MV_A12.SPRITE_SIZE, Maker.MV_A12.SPRITE_SIZE);
+            Bitmap xp7 = Crop(bmp, 26, 56, Maker.MV_A12.TILE_SIZE, Maker.MV_A12.TILE_SIZE);
 
             mv = Paste(mv, xp1, 8, 8, Maker.XP_Tile.SPRITE_SIZE, Maker.XP_Tile.SPRITE_SIZE);
             temp = Paste(temp, xp2, 00, 00, Maker.XP_Tile.SPRITE_SIZE / 2, Maker.XP_Tile.SPRITE_SIZE / 2);
