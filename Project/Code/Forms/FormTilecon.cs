@@ -15,6 +15,8 @@ namespace tilecon
         // General
         private string filepath;
 
+        private string pathOpen, pathSave, pathCutSave;
+
         /// <summary>Object reference to be called by other forms. </summary>
         public static FormTilecon controller;
 
@@ -35,10 +37,15 @@ namespace tilecon
             btnOpen.Select();
             controller = this;
 
+            filepath = "";
+            pathOpen = Application.StartupPath;
+            pathSave = Application.StartupPath;
+            pathCutSave = Application.StartupPath;
+
             // Options not available in Visual Studio properties
-            cbMaker.SelectedIndexChanged += new EventHandler(OnIndexChange);
             cbMaker.SelectedIndex = 8;
-            cbMode.SelectedIndex = 0;
+            cbMaker.SelectedIndexChanged += new EventHandler(OnIndexChange);
+            cbMode.SelectedIndex = 9;
             cbOutput.SelectedIndex = 4;
         }
 
@@ -97,6 +104,7 @@ namespace tilecon
         {
             // Set the new filepath and load
             this.filepath = filepath;
+            pathOpen = Path.GetDirectoryName(filepath);
             pictureBoxInput.Image = Image.FromFile(filepath);
 
             // Enable all controls
@@ -121,6 +129,7 @@ namespace tilecon
 
         private void LoadTilesetByDialog(object sender = null, EventArgs e = null)
         {
+            openFileDialog1.InitialDirectory = pathOpen;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 OnTilesetLoad(openFileDialog1.FileName);
         }
@@ -135,6 +144,9 @@ namespace tilecon
         {
             ITileset tile = GetTileset();
 
+            saveFileDialog1.InitialDirectory = pathCutSave;
+            saveFileDialog1.FileName = Path.GetFileName(filepath);
+
             if (saveFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
 
@@ -147,6 +159,8 @@ namespace tilecon
                     int size = tile.TilesetName() == Maker.Custom.NAME ? Int32.Parse(textCustomSize.Text) : tile.SpriteSize();
                     TilesetConverterVertical tilecon = new TilesetConverterCustom(SpriteMode.ALIGN_TOP_LEFT, false, size);
                     tilecon.SaveEachSubimage(Image.FromFile(filepath), saveFileDialog1.FileName);
+
+                    pathCutSave = Path.GetDirectoryName(saveFileDialog1.FileName);
 
                     MessageBox.Show(Vocab.GetText("done"), "Tilecon");
                 }
@@ -188,6 +202,9 @@ namespace tilecon
         private void Save(object sender, EventArgs e)
         {
             if (bitmaps == null && tabControl1.SelectedIndex == 0) return;
+
+            saveFileDialog1.InitialDirectory = pathSave;
+            saveFileDialog1.FileName = Path.GetFileName(filepath);
 
             if (saveFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
@@ -357,6 +374,8 @@ namespace tilecon
         {
             if (gridOut != null)
                 (gridOut.TilesToTileset()).Save(saveFileDialog1.FileName);
+
+            pathSave = Path.GetDirectoryName(saveFileDialog1.FileName);
         }
         
         private void UpdateImage(object sender, EventArgs e)
@@ -516,6 +535,8 @@ namespace tilecon
                 for (int i = 0; i < bitmaps.Length; i++)
                     bitmaps[i].Save(dir + "_" + (i + 1) + ".png");
             }
+
+            pathSave = Path.GetDirectoryName(saveFileDialog1.FileName);
         }
 
         private void SetTransparentPixel(object sender, EventArgs e)
