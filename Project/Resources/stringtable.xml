@@ -3,136 +3,163 @@
     <about 
         en="About"
         pt="Sobre"
+        ru="О программе"
     />  
    
     <convert 
         en="Convert"
         pt="Converter"
+        ru="Конвертировать"
     /> 
   
     <conversion 
         en="Conversion"
         pt="Conversão"
+        ru="Преобразовать"
     /> 
   
     <converter
         en="Converter"
         pt="Conversor"
+        ru="Конвертер"
     />  
   
     <clearAndSetTileset 
         en="Clear and Set Tileset"
         pt="Limpar e Definir Tileset"
+        ru="Очистить и задать Tileset"
     />
   
     <clearSelectedTile 
         en="Clear selected tile"
         pt="Limpar Tile selecionado"
+        ru="Очистить выбранный тайл"
     />
   
     <done
         en="Done."
         pt="Feito."
+        ru="Завершено."
     /> 
   
     <editor
         en="Editor"
         pt="Editor"
+        ru="Редактор"
     />  
   
     <english 
         en="English"
         pt="Inglês"
+        ru="Английский"
     />  
   
     <exit 
         en="Exit"
         pt="Sair"
+        ru="Выход"
     />    
  
     <file
         en="File"
         pt="Arquivo"
+        ru="Файл"
     />  
   
     <help
         en="Help"
         pt="Ajuda"
+        ru="Помощь"
     /> 
   
     <language 
         en="Language"
         pt="Linguagem"
+        ru="Языки"
     />  
   
     <ignoreAlpha 
         en="Ignore Alpha"
         pt="Ignorar Alfa"
+        ru="Игнорировать альфа"
     /> 
 
     <imageFiles
         en="Image files"
         pt="Arquivo de Imagem"
+        ru="Файлы изображений"
     /> 
 
     <mode
         en="Mode"
         pt="Modo"
+        ru="Мод"
     /> 
   
     <openTileset 
         en="Open Tileset"
         pt="Abrir Tileset"
+        ru="Открыть Tileset"
     /> 
   
     <outputTileset 
         en="Output Tileset"
         pt="Tileset de Saída"
+        ru="Выходной Tileset"
     /> 
 
     <pngFiles 
         en="Png Files"
         pt="Arquivos Png"
+        ru="Png Файлы"
     /> 
     
     <portuguese 
         en="Portuguese"
         pt="Português"
+        ru="Португальский"
     />  
 
     <save
         en="Save"
         pt="Salvar"
+        ru="Сохранить"
     /> 
 
     <saveEachSprite
         en="Split and save sprites"
         pt="Cortar e salvar sprites"
+        ru="Split и сохранить спрайты"
     /> 
   
     <setTileset
         en="Set Tileset"
         pt="Definir Tileset"
+        ru="Задать Tileset"
     />
     
     <setTransparency
         en="Set Transparency"
         pt="Definir Transparência"
+        ru="Установить прозрачность"
     /> 
 
 	  <sourceCode
         en="Source Code"
         pt="Código Fonte"
+        ru="Исходный код"
     />
     
 	  <spriteSize
         en="Sprite Size"
         pt="Tamanho do sprite"
+        ru="Размер спрайтов"
     />
     
     <wait 
         en="Wait..."
         pt="Espere..."
+        ru="Ожидание..."
     /> 
 	
 	<!-- Aligns and Resize -->
@@ -140,72 +167,92 @@
     <topLeftAlign 
         en="Top Left Align"
         pt="Alinhamento Superior Esquerdo"
+        ru="Выровнять по левому верху"
     /> 
     
     <topCenterAlign 
         en="Top Center Align"
         pt="Alinhamento Superior Centro"
+        ru="Выровнять по центру сверху"
     /> 
 
     <topRightAlign 
         en="Top Right Align"
         pt="Alinhamento Superior Direito"
+        ru="Выровнять по правому верху"
     /> 
 
     <middleLeftAlign 
         en="Middle Left Align"
         pt="Alinhamento Médio Esquerdo"
+        ru="Выровнять по центру слева"
     /> 
 
     <middleCenterAlign 
         en="Middle Center Align"
         pt="Alinhamento Médio Centro"
+        ru="Выровнять по центру"
     /> 
 
     <middleRightAlign 
         en="Middle Right Align"
         pt="Alinhamento Médio Direito"
+        ru="Выровнять по центру справо"
     /> 
 
     <bottomLeftAlign 
         en="Bottom Left Align"
         pt="Alinhamento Inferior Esquerdo"
+        ru="Выровнять снизу по левому краю"
     /> 
 
     <bottomCenterAlign 
         en="Bottom Center Align"
         pt="Alinhamento Inferior Centro"
+        ru="Выровнять снизу по центру"
     /> 
 
     <bottomRightAlign 
         en="Bottom Right Align"
         pt="Alinhamento Inferior Direito"
+        ru="Выровнять снизу по правому краю"
     /> 
 
     <resize 
         en="Resize"
         pt="Redimencionar"
-    /> 
-  
-    <!-- Messages -->
+        ru="Выровнять по размеру тайла"
+    />
+
+    <russian
+        en="Russian"
+        pt="Russo"
+        ru="Русский"
+    />
+
+  <!-- Messages -->
     
     <sizeNotMatchErrorMsg 
         en="Width or height does not match the size of the selected tileset."
         pt="Largura ou altura não corresponde ao tamanho do conjunto de telas selecionado."
+        ru="Ширина или высота не соответствуют размеру выбранного набора тайлов."
     /> 
 
     <sizeIsZeroErrorMsg 
         en="The sprite size cannot be zero."
         pt="O tamanho do sprite não pode ser zero."
+        ru="Размер спрайта не может быть нулевым."
     /> 
   
     <sizeOutOfRangeErrorMsg 
         en="The sprite size must be less than the image size."
         pt="O tamanho do sprite tem que ser menor que o tamanho da imagem."
+        ru="Размер спрайта должен быть меньше размера изображения."
     /> 
 
     <saveErrorMsg 
         en="You cannot save over the image loaded in the program."
         pt="Você não pode salvar por cima da imagem carregada no programa."
+        ru="Вы не можете сохранить поверх изображения, загруженного в программу."
     /> 
 </stringtable>

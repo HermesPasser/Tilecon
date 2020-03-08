@@ -7,7 +7,7 @@ namespace tilecon
     static class Vocab
     {
         public enum Lang{
-            pt, en
+            pt, en, ru
         }
 
         public static string version = "2.0";

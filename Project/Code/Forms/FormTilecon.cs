@@ -93,6 +93,7 @@ namespace tilecon
             menuStrip1.Items[3].Text = Vocab.GetText("language");
             englishToolStripMenuItem.Text = Vocab.GetText("english");
             portugueseToolStripMenuItem.Text = Vocab.GetText("portuguese");
+            russianToolStripMenuItem.Text = Vocab.GetText("russian");
 
             menuStrip1.Items[4].Text = Vocab.GetText("help");
             aboutToolStripMenuItem.Text = Vocab.GetText("about");
@@ -356,6 +357,11 @@ namespace tilecon
         private void portugueseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeLang(Vocab.Lang.pt);
+        }
+
+        private void russianToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeLang(Vocab.Lang.ru);
         }
 
         private void ignoreAlphaToolStripMenuItem_Click(object sender, EventArgs e)

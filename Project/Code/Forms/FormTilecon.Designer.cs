@@ -102,17 +102,15 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabConverter = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupConversion = new System.Windows.Forms.GroupBox();
-            this.textCustomSize = new System.Windows.Forms.TextBox();
-            this.labelSpriteSize = new System.Windows.Forms.Label();
-            this.btnTransparency = new System.Windows.Forms.Button();
-            this.checkIgnore = new System.Windows.Forms.CheckBox();
-            this.btnConvert = new System.Windows.Forms.Button();
             this.panelOutput = new System.Windows.Forms.Panel();
             this.pictureBoxOutput = new System.Windows.Forms.PictureBox();
             this.panelInput = new System.Windows.Forms.Panel();
             this.pictureBoxInput = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupConversion = new System.Windows.Forms.GroupBox();
+            this.btnTransparency = new System.Windows.Forms.Button();
+            this.checkIgnore = new System.Windows.Forms.CheckBox();
+            this.btnConvert = new System.Windows.Forms.Button();
             this.tabEditor = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
@@ -123,17 +121,20 @@
             this.cbOutput = new System.Windows.Forms.ComboBox();
             this.btnSetInputTileset = new System.Windows.Forms.Button();
             this.btnClearPreview = new System.Windows.Forms.Button();
+            this.textCustomSize = new System.Windows.Forms.TextBox();
+            this.labelSpriteSize = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.russianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabConverter.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.groupConversion.SuspendLayout();
             this.panelOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOutput)).BeginInit();
             this.panelInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxInput)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
+            this.groupConversion.SuspendLayout();
             this.tabEditor.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
@@ -172,9 +173,9 @@
             this.editorToolStripMenuItem,
             this.langaugeToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Location = new System.Drawing.Point(8, 8);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(744, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(728, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -318,35 +319,35 @@
             // rPGMakerVXAceTilesetA12ToolStripMenuItem
             // 
             this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Name = "rPGMakerVXAceTilesetA12ToolStripMenuItem";
-            this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A1-2)";
             this.rPGMakerVXAceTilesetA12ToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMakerVXTilesetA3ToolStripMenuItem
             // 
             this.rPGMakerVXTilesetA3ToolStripMenuItem.Name = "rPGMakerVXTilesetA3ToolStripMenuItem";
-            this.rPGMakerVXTilesetA3ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.rPGMakerVXTilesetA3ToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.rPGMakerVXTilesetA3ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A3)";
             this.rPGMakerVXTilesetA3ToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMakerVXAceTilesetA4ToolStripMenuItem
             // 
             this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Name = "rPGMakerVXAceTilesetA4ToolStripMenuItem";
-            this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A4)";
             this.rPGMakerVXAceTilesetA4ToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMakerVXAceTilesetA5ToolStripMenuItem
             // 
             this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Name = "rPGMakerVXAceTilesetA5ToolStripMenuItem";
-            this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset A5)";
             this.rPGMakerVXAceTilesetA5ToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
             // rPGMakerVXAceTilesetBEToolStripMenuItem
             // 
             this.rPGMakerVXAceTilesetBEToolStripMenuItem.Name = "rPGMakerVXAceTilesetBEToolStripMenuItem";
-            this.rPGMakerVXAceTilesetBEToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.rPGMakerVXAceTilesetBEToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.rPGMakerVXAceTilesetBEToolStripMenuItem.Text = "RPG Maker VX/Ace (Tileset B-E)";
             this.rPGMakerVXAceTilesetBEToolStripMenuItem.Click += new System.EventHandler(this.SetTilesetByMenuItem);
             // 
@@ -480,7 +481,7 @@
             this.ignoreItem.CheckOnClick = true;
             this.ignoreItem.Enabled = false;
             this.ignoreItem.Name = "ignoreItem";
-            this.ignoreItem.Size = new System.Drawing.Size(163, 22);
+            this.ignoreItem.Size = new System.Drawing.Size(162, 22);
             this.ignoreItem.Text = "Ignore Alpha";
             this.ignoreItem.Click += new System.EventHandler(this.ignoreAlphaToolStripMenuItem_Click);
             // 
@@ -488,7 +489,7 @@
             // 
             this.setTransparentItem.Enabled = false;
             this.setTransparentItem.Name = "setTransparentItem";
-            this.setTransparentItem.Size = new System.Drawing.Size(163, 22);
+            this.setTransparentItem.Size = new System.Drawing.Size(162, 22);
             this.setTransparentItem.Text = "Set Transparency";
             this.setTransparentItem.Click += new System.EventHandler(this.SetTransparentPixel);
             // 
@@ -496,7 +497,7 @@
             // 
             this.convertAndSaveItem.Enabled = false;
             this.convertAndSaveItem.Name = "convertAndSaveItem";
-            this.convertAndSaveItem.Size = new System.Drawing.Size(163, 22);
+            this.convertAndSaveItem.Size = new System.Drawing.Size(162, 22);
             this.convertAndSaveItem.Text = "Convert";
             this.convertAndSaveItem.Click += new System.EventHandler(this.Convert);
             // 
@@ -515,14 +516,14 @@
             // 
             this.setInputTilesetItem.Enabled = false;
             this.setInputTilesetItem.Name = "setInputTilesetItem";
-            this.setInputTilesetItem.Size = new System.Drawing.Size(221, 22);
+            this.setInputTilesetItem.Size = new System.Drawing.Size(220, 22);
             this.setInputTilesetItem.Text = "[set input tileset]";
             this.setInputTilesetItem.Click += new System.EventHandler(this.LoadGrid);
             // 
             // clearPreviewItem
             // 
             this.clearPreviewItem.Name = "clearPreviewItem";
-            this.clearPreviewItem.Size = new System.Drawing.Size(221, 22);
+            this.clearPreviewItem.Size = new System.Drawing.Size(220, 22);
             this.clearPreviewItem.Text = "[clear preview]";
             // 
             // outputTilesetItem
@@ -534,48 +535,48 @@
             this.rPGMakerMVTilesetA5ToolStripMenuItem,
             this.rPGMakerMVTilesetBCToolStripMenuItem});
             this.outputTilesetItem.Name = "outputTilesetItem";
-            this.outputTilesetItem.Size = new System.Drawing.Size(221, 22);
+            this.outputTilesetItem.Size = new System.Drawing.Size(220, 22);
             this.outputTilesetItem.Text = "Output Tileset";
             // 
             // rPGMakerMVTilesetA12ToolStripMenuItem
             // 
             this.rPGMakerMVTilesetA12ToolStripMenuItem.Name = "rPGMakerMVTilesetA12ToolStripMenuItem";
-            this.rPGMakerMVTilesetA12ToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.rPGMakerMVTilesetA12ToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.rPGMakerMVTilesetA12ToolStripMenuItem.Text = "RPG Maker MV (Tileset A1-2)";
             this.rPGMakerMVTilesetA12ToolStripMenuItem.Click += new System.EventHandler(this.SetOutputTileset);
             // 
             // rPGMakerMVTilesetA3ToolStripMenuItem
             // 
             this.rPGMakerMVTilesetA3ToolStripMenuItem.Name = "rPGMakerMVTilesetA3ToolStripMenuItem";
-            this.rPGMakerMVTilesetA3ToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.rPGMakerMVTilesetA3ToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.rPGMakerMVTilesetA3ToolStripMenuItem.Text = "RPG Maker MV (Tileset A3)";
             this.rPGMakerMVTilesetA3ToolStripMenuItem.Click += new System.EventHandler(this.SetOutputTileset);
             // 
             // rPGMakerMVTilesetA4ToolStripMenuItem
             // 
             this.rPGMakerMVTilesetA4ToolStripMenuItem.Name = "rPGMakerMVTilesetA4ToolStripMenuItem";
-            this.rPGMakerMVTilesetA4ToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.rPGMakerMVTilesetA4ToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.rPGMakerMVTilesetA4ToolStripMenuItem.Text = "RPG Maker MV (Tileset A4)";
             this.rPGMakerMVTilesetA4ToolStripMenuItem.Click += new System.EventHandler(this.SetOutputTileset);
             // 
             // rPGMakerMVTilesetA5ToolStripMenuItem
             // 
             this.rPGMakerMVTilesetA5ToolStripMenuItem.Name = "rPGMakerMVTilesetA5ToolStripMenuItem";
-            this.rPGMakerMVTilesetA5ToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.rPGMakerMVTilesetA5ToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.rPGMakerMVTilesetA5ToolStripMenuItem.Text = "RPG Maker MV (Tileset A5)";
             this.rPGMakerMVTilesetA5ToolStripMenuItem.Click += new System.EventHandler(this.SetOutputTileset);
             // 
             // rPGMakerMVTilesetBCToolStripMenuItem
             // 
             this.rPGMakerMVTilesetBCToolStripMenuItem.Name = "rPGMakerMVTilesetBCToolStripMenuItem";
-            this.rPGMakerMVTilesetBCToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.rPGMakerMVTilesetBCToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.rPGMakerMVTilesetBCToolStripMenuItem.Text = "RPG Maker MV (Tileset B-C)";
             this.rPGMakerMVTilesetBCToolStripMenuItem.Click += new System.EventHandler(this.SetOutputTileset);
             // 
             // clearAndSetOutputTilesetItem
             // 
             this.clearAndSetOutputTilesetItem.Name = "clearAndSetOutputTilesetItem";
-            this.clearAndSetOutputTilesetItem.Size = new System.Drawing.Size(221, 22);
+            this.clearAndSetOutputTilesetItem.Size = new System.Drawing.Size(220, 22);
             this.clearAndSetOutputTilesetItem.Text = "Clear and Set Output Tileset";
             this.clearAndSetOutputTilesetItem.Click += new System.EventHandler(this.SetOutputGrid);
             // 
@@ -583,7 +584,8 @@
             // 
             this.langaugeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.englishToolStripMenuItem,
-            this.portugueseToolStripMenuItem});
+            this.portugueseToolStripMenuItem,
+            this.russianToolStripMenuItem});
             this.langaugeToolStripMenuItem.Name = "langaugeToolStripMenuItem";
             this.langaugeToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.langaugeToolStripMenuItem.Text = "Language";
@@ -591,14 +593,14 @@
             // englishToolStripMenuItem
             // 
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.englishToolStripMenuItem.Text = "English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
             // portugueseToolStripMenuItem
             // 
             this.portugueseToolStripMenuItem.Name = "portugueseToolStripMenuItem";
-            this.portugueseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.portugueseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.portugueseToolStripMenuItem.Text = "Portuguese";
             this.portugueseToolStripMenuItem.Click += new System.EventHandler(this.portugueseToolStripMenuItem_Click);
             // 
@@ -615,21 +617,21 @@
             // rM20002003TilesetToolStripMenuItem
             // 
             this.rM20002003TilesetToolStripMenuItem.Name = "rM20002003TilesetToolStripMenuItem";
-            this.rM20002003TilesetToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.rM20002003TilesetToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.rM20002003TilesetToolStripMenuItem.Text = "RM2000/2003 Tileset";
             this.rM20002003TilesetToolStripMenuItem.Click += new System.EventHandler(this.AboutTilesetToolStripMenuItem_Click);
             // 
             // rMXPAutotileToolStripMenuItem
             // 
             this.rMXPAutotileToolStripMenuItem.Name = "rMXPAutotileToolStripMenuItem";
-            this.rMXPAutotileToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.rMXPAutotileToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.rMXPAutotileToolStripMenuItem.Text = "RMXP Autotile";
             this.rMXPAutotileToolStripMenuItem.Click += new System.EventHandler(this.rMXPAutotileToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -673,7 +675,7 @@
             // 
             this.btnNextImg.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnNextImg.Enabled = false;
-            this.btnNextImg.Location = new System.Drawing.Point(226, 6);
+            this.btnNextImg.Location = new System.Drawing.Point(229, 7);
             this.btnNextImg.Name = "btnNextImg";
             this.btnNextImg.Size = new System.Drawing.Size(32, 23);
             this.btnNextImg.TabIndex = 10;
@@ -685,7 +687,7 @@
             // 
             this.btnPreviusImg.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnPreviusImg.Enabled = false;
-            this.btnPreviusImg.Location = new System.Drawing.Point(187, 6);
+            this.btnPreviusImg.Location = new System.Drawing.Point(190, 7);
             this.btnPreviusImg.Name = "btnPreviusImg";
             this.btnPreviusImg.Size = new System.Drawing.Size(32, 23);
             this.btnPreviusImg.TabIndex = 11;
@@ -727,7 +729,7 @@
             // 
             this.labelMVTilesetName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelMVTilesetName.AutoSize = true;
-            this.labelMVTilesetName.Location = new System.Drawing.Point(3, 11);
+            this.labelMVTilesetName.Location = new System.Drawing.Point(3, 12);
             this.labelMVTilesetName.Name = "labelMVTilesetName";
             this.labelMVTilesetName.Size = new System.Drawing.Size(24, 13);
             this.labelMVTilesetName.TabIndex = 13;
@@ -737,7 +739,7 @@
             // 
             this.labelMVPagesNumber.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelMVPagesNumber.AutoSize = true;
-            this.labelMVPagesNumber.Location = new System.Drawing.Point(121, 11);
+            this.labelMVPagesNumber.Location = new System.Drawing.Point(123, 12);
             this.labelMVPagesNumber.Name = "labelMVPagesNumber";
             this.labelMVPagesNumber.Size = new System.Drawing.Size(24, 13);
             this.labelMVPagesNumber.TabIndex = 14;
@@ -745,15 +747,13 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabConverter);
             this.tabControl1.Controls.Add(this.tabEditor);
-            this.tabControl1.Location = new System.Drawing.Point(17, 65);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(8, 32);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(719, 388);
+            this.tabControl1.Size = new System.Drawing.Size(728, 421);
             this.tabControl1.TabIndex = 15;
             // 
             // tabConverter
@@ -763,7 +763,7 @@
             this.tabConverter.Location = new System.Drawing.Point(4, 22);
             this.tabConverter.Name = "tabConverter";
             this.tabConverter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabConverter.Size = new System.Drawing.Size(711, 362);
+            this.tabConverter.Size = new System.Drawing.Size(720, 395);
             this.tabConverter.TabIndex = 0;
             this.tabConverter.Text = "Converter";
             // 
@@ -787,76 +787,8 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76471F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.23529F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(698, 349);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(707, 382);
             this.tableLayoutPanel2.TabIndex = 22;
-            // 
-            // groupConversion
-            // 
-            this.groupConversion.Controls.Add(this.btnTransparency);
-            this.groupConversion.Controls.Add(this.checkIgnore);
-            this.groupConversion.Controls.Add(this.btnConvert);
-            this.groupConversion.Location = new System.Drawing.Point(268, 44);
-            this.groupConversion.Name = "groupConversion";
-            this.groupConversion.Size = new System.Drawing.Size(145, 102);
-            this.groupConversion.TabIndex = 10;
-            this.groupConversion.TabStop = false;
-            this.groupConversion.Text = "Conversion";
-            // 
-            // textCustomSize
-            // 
-            this.textCustomSize.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textCustomSize.Enabled = false;
-            this.textCustomSize.Location = new System.Drawing.Point(631, 3);
-            this.textCustomSize.Name = "textCustomSize";
-            this.textCustomSize.Size = new System.Drawing.Size(35, 20);
-            this.textCustomSize.TabIndex = 15;
-            this.textCustomSize.Text = "0";
-            this.textCustomSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textCustomSize.TextChanged += new System.EventHandler(this.textCustomSize_TextChanged);
-            // 
-            // labelSpriteSize
-            // 
-            this.labelSpriteSize.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.labelSpriteSize.AutoSize = true;
-            this.labelSpriteSize.Location = new System.Drawing.Point(575, 7);
-            this.labelSpriteSize.Name = "labelSpriteSize";
-            this.labelSpriteSize.Size = new System.Drawing.Size(50, 13);
-            this.labelSpriteSize.TabIndex = 14;
-            this.labelSpriteSize.Text = "spritesize";
-            this.labelSpriteSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // btnTransparency
-            // 
-            this.btnTransparency.Enabled = false;
-            this.btnTransparency.Location = new System.Drawing.Point(6, 19);
-            this.btnTransparency.Name = "btnTransparency";
-            this.btnTransparency.Size = new System.Drawing.Size(133, 23);
-            this.btnTransparency.TabIndex = 4;
-            this.btnTransparency.Text = "Set Transparency";
-            this.btnTransparency.UseVisualStyleBackColor = true;
-            this.btnTransparency.Click += new System.EventHandler(this.SetTransparentPixel);
-            // 
-            // checkIgnore
-            // 
-            this.checkIgnore.AutoSize = true;
-            this.checkIgnore.Enabled = false;
-            this.checkIgnore.Location = new System.Drawing.Point(26, 48);
-            this.checkIgnore.Name = "checkIgnore";
-            this.checkIgnore.Size = new System.Drawing.Size(86, 17);
-            this.checkIgnore.TabIndex = 2;
-            this.checkIgnore.Text = "Ignore Alpha";
-            this.checkIgnore.UseVisualStyleBackColor = true;
-            // 
-            // btnConvert
-            // 
-            this.btnConvert.Enabled = false;
-            this.btnConvert.Location = new System.Drawing.Point(6, 71);
-            this.btnConvert.Name = "btnConvert";
-            this.btnConvert.Size = new System.Drawing.Size(133, 23);
-            this.btnConvert.TabIndex = 0;
-            this.btnConvert.Text = "Convert";
-            this.btnConvert.UseVisualStyleBackColor = true;
-            this.btnConvert.Click += new System.EventHandler(this.Convert);
             // 
             // panelOutput
             // 
@@ -867,9 +799,9 @@
             this.panelOutput.AutoSize = true;
             this.panelOutput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelOutput.Controls.Add(this.pictureBoxOutput);
-            this.panelOutput.Location = new System.Drawing.Point(434, 44);
+            this.panelOutput.Location = new System.Drawing.Point(440, 47);
             this.panelOutput.Name = "panelOutput";
-            this.panelOutput.Size = new System.Drawing.Size(261, 302);
+            this.panelOutput.Size = new System.Drawing.Size(264, 332);
             this.panelOutput.TabIndex = 14;
             // 
             // pictureBoxOutput
@@ -890,9 +822,9 @@
             this.panelInput.AutoSize = true;
             this.panelInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelInput.Controls.Add(this.pictureBoxInput);
-            this.panelInput.Location = new System.Drawing.Point(3, 44);
+            this.panelInput.Location = new System.Drawing.Point(3, 47);
             this.panelInput.Name = "panelInput";
-            this.panelInput.Size = new System.Drawing.Size(259, 302);
+            this.panelInput.Size = new System.Drawing.Size(263, 332);
             this.panelInput.TabIndex = 13;
             // 
             // pictureBoxInput
@@ -919,12 +851,63 @@
             this.tableLayoutPanel3.Controls.Add(this.btnNextImg, 3, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnPreviusImg, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.labelMVPagesNumber, 1, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(434, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(440, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(261, 35);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(264, 38);
             this.tableLayoutPanel3.TabIndex = 15;
+            // 
+            // groupConversion
+            // 
+            this.groupConversion.Controls.Add(this.btnTransparency);
+            this.groupConversion.Controls.Add(this.checkIgnore);
+            this.groupConversion.Controls.Add(this.btnConvert);
+            this.groupConversion.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupConversion.Location = new System.Drawing.Point(272, 47);
+            this.groupConversion.Name = "groupConversion";
+            this.groupConversion.Size = new System.Drawing.Size(162, 102);
+            this.groupConversion.TabIndex = 10;
+            this.groupConversion.TabStop = false;
+            this.groupConversion.Text = "Conversion";
+            // 
+            // btnTransparency
+            // 
+            this.btnTransparency.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTransparency.Enabled = false;
+            this.btnTransparency.Location = new System.Drawing.Point(6, 19);
+            this.btnTransparency.Name = "btnTransparency";
+            this.btnTransparency.Size = new System.Drawing.Size(150, 23);
+            this.btnTransparency.TabIndex = 4;
+            this.btnTransparency.Text = "Set Transparency";
+            this.btnTransparency.UseVisualStyleBackColor = true;
+            this.btnTransparency.Click += new System.EventHandler(this.SetTransparentPixel);
+            // 
+            // checkIgnore
+            // 
+            this.checkIgnore.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.checkIgnore.AutoSize = true;
+            this.checkIgnore.Enabled = false;
+            this.checkIgnore.Location = new System.Drawing.Point(6, 48);
+            this.checkIgnore.Name = "checkIgnore";
+            this.checkIgnore.Size = new System.Drawing.Size(86, 17);
+            this.checkIgnore.TabIndex = 2;
+            this.checkIgnore.Text = "Ignore Alpha";
+            this.checkIgnore.UseVisualStyleBackColor = true;
+            // 
+            // btnConvert
+            // 
+            this.btnConvert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConvert.Enabled = false;
+            this.btnConvert.Location = new System.Drawing.Point(6, 71);
+            this.btnConvert.Name = "btnConvert";
+            this.btnConvert.Size = new System.Drawing.Size(150, 23);
+            this.btnConvert.TabIndex = 0;
+            this.btnConvert.Text = "Convert";
+            this.btnConvert.UseVisualStyleBackColor = true;
+            this.btnConvert.Click += new System.EventHandler(this.Convert);
             // 
             // tabEditor
             // 
@@ -933,7 +916,7 @@
             this.tabEditor.Location = new System.Drawing.Point(4, 22);
             this.tabEditor.Name = "tabEditor";
             this.tabEditor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEditor.Size = new System.Drawing.Size(711, 362);
+            this.tabEditor.Size = new System.Drawing.Size(720, 395);
             this.tabEditor.TabIndex = 1;
             this.tabEditor.Text = "Editor";
             // 
@@ -1064,9 +1047,31 @@
             this.btnClearPreview.UseVisualStyleBackColor = true;
             this.btnClearPreview.Click += new System.EventHandler(this.ClearPreview);
             // 
+            // textCustomSize
+            // 
+            this.textCustomSize.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.textCustomSize.Enabled = false;
+            this.textCustomSize.Location = new System.Drawing.Point(631, 3);
+            this.textCustomSize.Name = "textCustomSize";
+            this.textCustomSize.Size = new System.Drawing.Size(35, 20);
+            this.textCustomSize.TabIndex = 15;
+            this.textCustomSize.Text = "0";
+            this.textCustomSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textCustomSize.TextChanged += new System.EventHandler(this.textCustomSize_TextChanged);
+            // 
+            // labelSpriteSize
+            // 
+            this.labelSpriteSize.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelSpriteSize.AutoSize = true;
+            this.labelSpriteSize.Location = new System.Drawing.Point(575, 7);
+            this.labelSpriteSize.Name = "labelSpriteSize";
+            this.labelSpriteSize.Size = new System.Drawing.Size(50, 13);
+            this.labelSpriteSize.TabIndex = 14;
+            this.labelSpriteSize.Text = "spritesize";
+            this.labelSpriteSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.Controls.Add(this.btnOpen);
             this.flowLayoutPanel1.Controls.Add(this.cbMaker);
@@ -1075,10 +1080,18 @@
             this.flowLayoutPanel1.Controls.Add(this.btnSave);
             this.flowLayoutPanel1.Controls.Add(this.labelSpriteSize);
             this.flowLayoutPanel1.Controls.Add(this.textCustomSize);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(14, 27);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(8, 32);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(718, 32);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(728, 27);
             this.flowLayoutPanel1.TabIndex = 15;
+            // 
+            // russianToolStripMenuItem
+            // 
+            this.russianToolStripMenuItem.Name = "russianToolStripMenuItem";
+            this.russianToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.russianToolStripMenuItem.Text = "Russian";
+            this.russianToolStripMenuItem.Click += new System.EventHandler(this.russianToolStripMenuItem_Click);
             // 
             // FormTilecon
             // 
@@ -1093,6 +1106,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(759, 468);
             this.Name = "FormTilecon";
+            this.Padding = new System.Windows.Forms.Padding(8);
             this.Text = "Tileset Converter MV";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormTilecon_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormTilecon_DragEnter);
@@ -1103,8 +1117,6 @@
             this.tabConverter.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.groupConversion.ResumeLayout(false);
-            this.groupConversion.PerformLayout();
             this.panelOutput.ResumeLayout(false);
             this.panelOutput.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOutput)).EndInit();
@@ -1113,6 +1125,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxInput)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.groupConversion.ResumeLayout(false);
+            this.groupConversion.PerformLayout();
             this.tabEditor.ResumeLayout(false);
             this.tabEditor.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -1222,6 +1236,7 @@
         private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem;
         private System.Windows.Forms.TextBox textCustomSize;
         private System.Windows.Forms.Label labelSpriteSize;
+        private System.Windows.Forms.ToolStripMenuItem russianToolStripMenuItem;
     }
 }
 
