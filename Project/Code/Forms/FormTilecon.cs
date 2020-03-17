@@ -22,10 +22,6 @@ namespace tilecon
         TilesetEditorIntput gridInp;
         TilesetEditorOutput gridOut;
 
-        // Converter
-        private Bitmap[] bitmaps;
-        private int bmpCurrentIndex;
-
         /// <summary>Default constructor.</summary>
         public FormTilecon()
         {
@@ -43,6 +39,7 @@ namespace tilecon
         }
 
         #region General
+        // TODO: make it work in convertercontrol too
         private void ChangeLang(Vocab.Lang l)
         {
             Vocab.currentLanguage = l;
@@ -50,16 +47,20 @@ namespace tilecon
             saveFileDialog1.Filter = Vocab.GetText("pngFiles") + " (*.png) | *.png";
             openFileDialog1.Filter = Vocab.GetText("imageFiles") + " (*.gif, *.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.gif; *bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
 
+            /*
+               TODO: Move this to ConverterControl
             btnConvert.Text = convertAndSaveItem.Text = Vocab.GetText("convert");
+            btnTransparency.Text = setTransparentItem.Text = Vocab.GetText("setTransparency");
+            checkIgnore.Text = Vocab.GetText("ignoreAlpha");
+            groupConversion.Text = Vocab.GetText("conversion");
+            */
+
             labelSpriteSize.Text = Vocab.GetText("spriteSize");
             btnSaveEachSprite.Text = saveEachSpritesItem.Text = Vocab.GetText("saveEachSprite");
             btnOpen.Text = openTilesetItem.Text = Vocab.GetText("openTileset");
             btnSave.Text = saveToolStripItem.Text = Vocab.GetText("save");
-            btnTransparency.Text = setTransparentItem.Text = Vocab.GetText("setTransparency");
-            ignoreItem.Text = checkIgnore.Text = Vocab.GetText("ignoreAlpha");
-
-            groupConversion.Text = Vocab.GetText("conversion");
-
+            ignoreItem.Text = Vocab.GetText("ignoreAlpha");
+            
             cbMode.Items[0] = topLeftItem.Text = Vocab.GetText("topLeftAlign");
             cbMode.Items[1] = topCenterItem.Text = Vocab.GetText("topCenterAlign");
             cbMode.Items[2] = topRightItem.Text = Vocab.GetText("topRightAlign");
@@ -95,25 +96,22 @@ namespace tilecon
 
         private void OnTilesetLoad(String filepath)
         {
-            // Set the new filepath and load
             this.filepath = filepath;
-            pictureBoxInput.Image = Image.FromFile(filepath);
 
             // Enable all controls
             btnSaveEachSprite.Enabled = true;
-            btnConvert.Enabled = true;
 
             saveEachSpritesItem.Enabled = true;
             convertAndSaveItem.Enabled = true;
 
-            btnTransparency.Enabled = true;
             setTransparentItem.Enabled = true;
 
             ignoreItem.Enabled = true;
-            checkIgnore.Enabled = true;
 
             btnSetInputTileset.Enabled = true;
             setInputTilesetItem.Enabled = true;
+
+            converterControl1.LoadTileset(filepath);
 
             // Load/Reset the grid
             LoadGrid(null, null);
@@ -165,6 +163,7 @@ namespace tilecon
         {
             switch (cbMaker.SelectedItem.ToString())
             {
+                // TODO: add reflection here
                 case Maker.R95.NAME: return new Maker.R95();
                 case Maker.S97.NAME: return new Maker.S97();
                 case Maker.Alpha.NAME: return new Maker.Alpha();
@@ -187,7 +186,7 @@ namespace tilecon
 
         private void Save(object sender, EventArgs e)
         {
-            if (bitmaps == null && tabControl1.SelectedIndex == 0) return;
+            if (converterControl1.Bitmaps == null && tabControl1.SelectedIndex == 0) return;
 
             if (saveFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
@@ -205,31 +204,8 @@ namespace tilecon
 
         private void OnIndexChange(object sender, EventArgs e)
         {
-            TilesetConverterVX con = new TilesetConverterVX(new Maker.XP_Tile(), (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
             textCustomSize.Enabled = GetTileset().TilesetName() == Maker.Custom.NAME;
-
-            switch (con.SetOutputTileset().TilesetName())
-            {
-                case Maker.MV_A12.NAME:
-                    labelMVTilesetName.Text = "A1-2";
-                    break;
-                case Maker.MV_A3.NAME:
-                    labelMVTilesetName.Text = "A3";
-                    break;
-                case Maker.MV_A4.NAME:
-                    labelMVTilesetName.Text = "A4";
-                    break;
-                case Maker.MV_A5.NAME:
-                    labelMVTilesetName.Text = "A5";
-                    break;
-                case Maker.MV_BE.NAME:
-                case Maker.Custom.NAME:
-                    labelMVTilesetName.Text = "B-E";
-                    break;
-                default:
-                    labelMVTilesetName.Text = "Character";
-                    break;
-            }
+            converterControl1.UpdateOutputLabel((SpriteMode)cbMode.SelectedIndex);
         }
 
         private void FormTilecon_DragEnter(object sender, DragEventArgs e)
@@ -237,7 +213,7 @@ namespace tilecon
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                string extension = System.IO.Path.GetExtension(files[0]).ToLower();
+                string extension = Path.GetExtension(files[0]).ToLower();
 
                 if (extension == ".jpg" || extension == ".gif" || extension == ".bmp" || extension == ".png" || extension == ".jpeg" || extension == ".jfif")
                 {
@@ -343,12 +319,12 @@ namespace tilecon
 
         private void ignoreAlphaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            checkIgnore.Checked = ignoreItem.Checked;
+            converterControl1.IgnoreAlpha = ignoreItem.Checked;
         }
 
         private void checkIgnore_CheckedChanged(object sender, EventArgs e)
         {
-            ignoreItem.Checked = checkIgnore.Checked;
+            ignoreItem.Checked = converterControl1.IgnoreAlpha;
         }
         #endregion
 
@@ -390,7 +366,6 @@ namespace tilecon
             {
                 MessageBox.Show(ex.Message);
             }
-            
         }
 
         private void SetOutputGrid(object sender, EventArgs e)
@@ -430,122 +405,20 @@ namespace tilecon
         }
         #endregion
 
-        #region Converter
-        private void Convert(object sender, EventArgs e)
-        {
-            TilesetConverterBase con;
-            ITileset tileset = GetTileset();
-            btnConvert.Text = Vocab.GetText("wait");
-
-            try
-            {
-                switch (tileset.TilesetName())
-                {
-                    case Maker.Alpha.NAME:
-                        con = new TilesetConverterVerticalApha(tileset, (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
-                        break;
-
-                    case Maker.R95.NAME:
-                    case Maker.S97.NAME:
-                    case Maker.XP_Tile.NAME:
-                        con = new TilesetConverterVertical(tileset, (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
-                        break;
-
-                    case Maker.XP_Auto.NAME:
-                        con = new TilesetConverterAutotileXP(tileset, (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
-                        break;
-
-                    case Maker.R2k_2k3_A.NAME:
-                    case Maker.R2k_2k3_B.NAME:
-                    case Maker.R2k_2k3_AB.NAME:
-                    case Maker.R2k_2k3_Auto.NAME:
-                    case Maker.R2k_2k3_AnimObj.NAME:
-                        con = new TilesetConverterVerticalRM2K3(tileset, (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
-                        break;
-
-                    case Maker.Custom.NAME:
-                        con = new TilesetConverterCustom((SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked, Int32.Parse(textCustomSize.Text));
-                        break;
-
-                    default:
-                        con = new TilesetConverterVX(tileset, (SpriteMode)cbMode.SelectedIndex, checkIgnore.Checked);
-                        break;
-                }
-                bitmaps = con.ConvertToMV(Image.FromFile(filepath));
-            }
-            catch (ConvertException ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
-
-            if (bitmaps == null)
-            {
-                btnConvert.Text = Vocab.GetText("converter");
-                return;
-            }
-
-            pictureBoxOutput.Image = bitmaps[0];
-            btnNextImg.Enabled = btnPreviusImg.Enabled = false;
-            btnTransparency.Enabled = true;
-            setTransparentItem.Enabled = true;
-
-            if (bitmaps.Length > 1)
-                btnNextImg.Enabled = btnPreviusImg.Enabled = true;
-            else btnNextImg.Enabled = btnPreviusImg.Enabled = false;
-
-            bmpCurrentIndex = 0;
-            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
-            btnConvert.Text = Vocab.GetText("converter");
-        }
-
         private void SaveConverter()
         {
-            string dir = saveFileDialog1.FileName;
+            converterControl1.SaveTilesets();
+        }
 
-            if (bitmaps.Length == 1) // one bitmap
-            {
-                // If the bitmap is a character (player sprite)
-                if ((bitmaps[0].Width == 48 && bitmaps[0].Height == 64) || (bitmaps[0].Width == 144 && bitmaps[0].Height == 192))
-                    dir = Path.GetDirectoryName(dir) + @"\!$" + Path.GetFileName(dir);
-                bitmaps[0].Save(dir);
-            }
-            else // various bitmaps
-            {
-                dir = Path.GetDirectoryName(dir) + @"\" + Path.GetFileNameWithoutExtension(dir);
-                for (int i = 0; i < bitmaps.Length; i++)
-                    bitmaps[i].Save(dir + "_" + (i + 1) + ".png");
-            }
+        private void Convert(object sender, EventArgs e)
+        {
+            converterControl1.Convert((SpriteMode)cbMode.SelectedIndex, GetTileset(), int.Parse(textCustomSize.Text)); 
+            setTransparentItem.Enabled = true;
         }
 
         private void SetTransparentPixel(object sender, EventArgs e)
         {
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                for (int i = 0; i < bitmaps.Length; i++)
-                    bitmaps[i] = ImageEditor.SetColorAsAlpha(bitmaps[i], colorDialog1.Color);
-                pictureBoxOutput.Image = bitmaps[bmpCurrentIndex];
-            }
+            converterControl1.SetTransparentColor();
         }
-
-        private void NextImage(object sender, EventArgs e)
-        {
-            if (++bmpCurrentIndex >= bitmaps.Length)
-                bmpCurrentIndex = 0;
-
-            pictureBoxOutput.Image = bitmaps[bmpCurrentIndex];
-            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
-        }
-
-        private void PreviusImage(object sender, EventArgs e)
-        {
-            if (--bmpCurrentIndex < 0)
-                bmpCurrentIndex = bitmaps.Length - 1;
-
-            pictureBoxOutput.Image = bitmaps[bmpCurrentIndex];
-            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
-        }
-        #endregion
-
     }
 }

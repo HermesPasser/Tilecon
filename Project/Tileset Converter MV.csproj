@@ -72,7 +72,8 @@
     <ApplicationIcon>ico.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -94,6 +95,12 @@
   <ItemGroup>
     <Compile Include="Code\Converter\TilesetConverterCustom.cs" />
     <Compile Include="Code\ConvertException.cs" />
+    <Compile Include="Code\Forms\ConverterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Forms\ConverterControl.Designer.cs">
+      <DependentUpon>ConverterControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Code\ImageEditor.cs" />
     <Compile Include="Code\Converter\TilesetConverterVerticalApha.cs" />
     <Compile Include="Code\Converter\TilesetConverterAutotileXP.cs" />
@@ -133,6 +140,9 @@
     <Compile Include="Code\SpriteMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Code\Vocab.cs" />
+    <EmbeddedResource Include="Code\Forms\ConverterControl.resx">
+      <DependentUpon>ConverterControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Code\Forms\FormXPAuto.resx">
       <DependentUpon>FormXPAuto.cs</DependentUpon>
     </EmbeddedResource>
