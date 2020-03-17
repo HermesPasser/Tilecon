@@ -2,6 +2,7 @@
 Thumbs.db
 ehthumbs.db
 
+**/.vs/*
 **/vs/*
 **/bin/*
 **/obj/*
