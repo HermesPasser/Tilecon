@@ -1,4 +1,5 @@
-﻿namespace tilecon
+﻿#pragma warning disable CS1591
+namespace tilecon
 {
     public interface ITileset
     {
