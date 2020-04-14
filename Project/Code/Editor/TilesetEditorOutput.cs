@@ -34,7 +34,7 @@ namespace tilecon.Tileset.Editor
         private void SetTileInButton(object sender)
         {
             if (input != null)
-               ((Button)sender).BackgroundImage = input.selectedImage;
+               ((TileButton)sender).BackgroundImage = input.selectedImage;
         }
 
         /// <summary>Make a tileset of a bitmaps list.</summary>
@@ -69,8 +69,7 @@ namespace tilecon.Tileset.Editor
             int height = this.tileset.SizeHeight();
             int spriteSize = this.tileset.SpriteSize();
 
-            if (control != null) control.Controls.Clear();
-            grid = new List<Button>();
+            ClearGrid();
 
             // Verify all the options to see if throws any exception.
             try

@@ -44,7 +44,7 @@ namespace tilecon.Tileset.Editor
 
         private void SetSelectedImage(object sender)
         {
-            selectedImageRaw = ((Button)sender).BackgroundImage;
+            selectedImageRaw = ((TileButton)sender).BackgroundImage;
             UpdateSelectedImage(mode);
         }
 
@@ -119,8 +119,7 @@ namespace tilecon.Tileset.Editor
 
             Bitmap[] tiles = SplitImageInSprites(tilesetImage, tileset.SpriteSize());
 
-            if (control != null) control.Controls.Clear();
-            grid = new List<Button>();
+            ClearGrid();
             int i = 0;
 
             // Verify all the options to see if throws any exception.

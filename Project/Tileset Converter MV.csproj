@@ -80,6 +80,7 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -100,6 +101,9 @@
     </Compile>
     <Compile Include="Code\Forms\ConverterControl.Designer.cs">
       <DependentUpon>ConverterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Forms\TileButton.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Code\ImageEditor.cs" />
     <Compile Include="Code\Converter\TilesetConverterVerticalApha.cs" />

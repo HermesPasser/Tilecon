@@ -904,6 +904,7 @@
             this.MinimumSize = new System.Drawing.Size(759, 468);
             this.Name = "FormTilecon";
             this.Text = "Tileset Converter MV";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormTilecon_FormClosing);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormTilecon_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormTilecon_DragEnter);
             this.menuStrip1.ResumeLayout(false);
@@ -1008,4 +1009,3 @@
         private ConverterControl converterControl1;
     }
 }
-

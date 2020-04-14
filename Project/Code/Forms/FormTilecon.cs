@@ -420,5 +420,11 @@ namespace tilecon
         {
             converterControl1.SetTransparentColor();
         }
+
+        private void FormTilecon_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //gridOut.ClearGrid();
+            //gridInp.ClearGrid();
+        }
     }
 }
