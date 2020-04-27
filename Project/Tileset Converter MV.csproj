@@ -80,9 +80,11 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,6 +94,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\Converter\TilesetConverterCustom.cs" />
@@ -101,6 +104,12 @@
     </Compile>
     <Compile Include="Code\Forms\ConverterControl.Designer.cs">
       <DependentUpon>ConverterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Forms\EditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Forms\EditorControl.Designer.cs">
+      <DependentUpon>EditorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Code\Forms\TileButton.cs">
       <SubType>Component</SubType>
@@ -146,6 +155,9 @@
     <Compile Include="Code\Vocab.cs" />
     <EmbeddedResource Include="Code\Forms\ConverterControl.resx">
       <DependentUpon>ConverterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Forms\EditorControl.resx">
+      <DependentUpon>EditorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Code\Forms\FormXPAuto.resx">
       <DependentUpon>FormXPAuto.cs</DependentUpon>
@@ -209,6 +221,5 @@
     <None Include="Resources\About2kTileset.png" />
     <None Include="Resources\logo.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

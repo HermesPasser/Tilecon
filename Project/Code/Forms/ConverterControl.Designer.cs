@@ -77,7 +77,7 @@
             this.tableLayoutPanel.Controls.Add(this.tableLayoutPanel2, 2, 0);
             this.tableLayoutPanel.Controls.Add(this.groupConversion, 1, 1);
             this.tableLayoutPanel.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.tableLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel.Location = new System.Drawing.Point(1, 1);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 2;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76471F));

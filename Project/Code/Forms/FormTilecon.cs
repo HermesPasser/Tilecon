@@ -18,10 +18,6 @@ namespace tilecon
         /// <summary>Object reference to be called by other forms. </summary>
         public static FormTilecon controller;
 
-        // Editor
-        TilesetEditorIntput gridInp;
-        TilesetEditorOutput gridOut;
-
         /// <summary>Default constructor.</summary>
         public FormTilecon()
         {
@@ -110,11 +106,11 @@ namespace tilecon
 
             btnSetInputTileset.Enabled = true;
             setInputTilesetItem.Enabled = true;
+            editor.Enabled = true;
 
             converterControl1.LoadTileset(filepath);
 
-            // Load/Reset the grid
-            LoadGrid(null, null);
+            editor.LoadTileset(filepath, GetTileset());
         }
 
         private void LoadTilesetByDialog(object sender = null, EventArgs e = null)
@@ -193,13 +189,15 @@ namespace tilecon
 
             if (saveFileDialog1.FileName == filepath)
             {
+                // Is this message really right?
                 MessageBox.Show(Vocab.GetText("sizeNotMatchErrorMsg"));
                 return;
             }
 
             if (tabControl1.SelectedIndex == 0)
                 SaveConverter();
-            else SaveEditor();
+            else
+                editor.Save(saveFileDialog1.FileName);
         }
 
         private void OnIndexChange(object sender, EventArgs e)
@@ -279,6 +277,8 @@ namespace tilecon
 
             if (textCustomSize.Text == "")
                 textCustomSize.Text = "0";
+
+            editor.CustomSpriteSize = Int32.Parse(textCustomSize.Text);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -329,79 +329,44 @@ namespace tilecon
         #endregion
 
         #region Editor
-        private void SaveEditor()
-        {
-            if (gridOut != null)
-                (gridOut.TilesToTileset()).Save(saveFileDialog1.FileName);
-        }
         
         private void UpdateImage(object sender, EventArgs e)
         {
-            if (gridInp != null)
-                gridInp.UpdateSelectedImage((SpriteMode)cbMode.SelectedIndex);   
+            editor.UpdateImage((SpriteMode)cbMode.SelectedIndex);
         }
 
+        // set output tileset menustip
         private void LoadGrid(object sender, EventArgs e)
         {
-			if (tabControl1.SelectedIndex != 1)
-				return;
-			
-            Maker.Custom.SPRITE_SIZE = Int32.Parse(textCustomSize.Text);
-
-            if (GetTileset().TilesetName() == Maker.Custom.NAME && Maker.Custom.SPRITE_SIZE == 0)
-            {
-                MessageBox.Show(Vocab.GetText("sizeIsZeroErrorMsg"));
-                return;
-            }
-
-            Image img = Image.FromFile(filepath);
-            pictureBoxPreview.Image = null;
-
-            try
-            {
-                gridInp = new TilesetEditorIntput(GetTileset(), inputPanel, img, pictureBoxPreview);
-                SetOutputGrid(null, null);
-            }
-            catch (ConvertException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            // Prevents from loading tileset in the editor when the user is using the converter
+			if (tabControl1.SelectedIndex == 1)
+                editor.LoadGrid();
         }
 
+        // set output tileset tool stip
         private void SetOutputGrid(object sender, EventArgs e)
         {
-            ITileset tileset;
-
-            switch (cbOutput.SelectedIndex)
-            {
-                case 0: tileset = new Maker.MV_A12(); break;
-                case 1: tileset = new Maker.MV_A3(); break;
-                case 2: tileset = new Maker.MV_A4(); break;
-                case 3: tileset = new Maker.MV_A5(); break;
-                case 4:
-                default: tileset = new Maker.MV_BE(); break;
-            }
-            gridOut = new TilesetEditorOutput(tileset, outputPanel, gridInp);
+            editor.SetOutputGrid();
         }
 
         private void ClearPreview(object sender, EventArgs e)
         {
-            pictureBoxPreview.Image = null;
-            if (gridInp != null)
-                gridInp.selectedImage = null;
+            editor.ClearPreview();
         }
 
-        // Used in tool menu
-        private void SetOutputTileset(object sender, EventArgs e)
+        private void outputTilesetItemChildItems_Click(object sender, EventArgs e)
         {
+            int index;
             switch (sender.ToString())
             {
-                case "RPG Maker MV (Tileset A1-2)": cbOutput.SelectedIndex = 0; break;
-                case "RPG Maker MV (Tileset A3)":   cbOutput.SelectedIndex = 1; break;
-                case "RPG Maker MV (Tileset A4)":   cbOutput.SelectedIndex = 2; break;
-                case "RPG Maker MV (Tileset A5)":   cbOutput.SelectedIndex = 3; break;
-                case "RPG Maker MV (Tileset B-C)":  cbOutput.SelectedIndex = 4; break;
+                case "RPG Maker MV (Tileset A1-2)": index = 0; break;
+                case "RPG Maker MV (Tileset A3)": index = 1; break;
+                case "RPG Maker MV (Tileset A4)": index = 2; break;
+                case "RPG Maker MV (Tileset A5)": index = 3; break;
+                default: index = 4; break;
             }
+
+            editor.OutputComboBoxCurrentIndex = index;
         }
         #endregion
 
@@ -421,10 +386,16 @@ namespace tilecon
             converterControl1.SetTransparentColor();
         }
 
-        private void FormTilecon_FormClosing(object sender, FormClosingEventArgs e)
+        private void clearPreviewItem_Click(object sender, EventArgs e)
         {
-            //gridOut.ClearGrid();
-            //gridInp.ClearGrid();
+            editor.ClearPreview();
+        }
+
+        // TODO: i can remember  the purpose of this method. so far the 
+		// existence of this isnt making any change to the overral expected behaviour of the editor
+        private void editor_TilesetLoaded(object sender, EventArgs e)
+        {
+
         }
     }
 }
