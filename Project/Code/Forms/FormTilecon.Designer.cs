@@ -764,17 +764,6 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(718, 32);
             this.flowLayoutPanel1.TabIndex = 15;
             // 
-            // editorControl
-            // 
-            this.editorControl.AutoSize = true;
-            this.editorControl.CustomSpriteSize = 0;
-            this.editorControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.editorControl.Location = new System.Drawing.Point(3, 3);
-            this.editorControl.Name = "editorControl";
-            this.editorControl.OutputComboBoxCurrentIndex = 4;
-            this.editorControl.Size = new System.Drawing.Size(705, 356);
-            this.editorControl.TabIndex = 2;
-            // 
             // btnClearPreview
             // 
             this.btnClearPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -988,7 +977,6 @@
         private System.Windows.Forms.TextBox textCustomSize;
         private System.Windows.Forms.Label labelSpriteSize;
         private ConverterControl converterControl1;
-        private EditorControl editorControl;
         private EditorControl editor;
         private System.Windows.Forms.TabPage tabEditor;
         private System.Windows.Forms.Button btnClearPreview;

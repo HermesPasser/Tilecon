@@ -28,6 +28,7 @@ namespace tilecon
         {
             InitializeComponent();
             cbOutput.SelectedIndex = 4;
+            ChangeLang();
         }
 
         /// <summary>Clear the preview PictureBox.</summary>
@@ -105,6 +106,14 @@ namespace tilecon
                 default: tileset = new Maker.MV_BE(); break;
             }
             gridOut = new TilesetEditorOutput(tileset, outputPanel, gridIn);
+        }
+
+        internal void ChangeLang()
+        { 
+
+            btnSetInputTileset.Text = Vocab.GetText("setTileset");
+            btnClearPreview.Text = Vocab.GetText("clearSelectedTile");
+            btnClearAndSet.Text = Vocab.GetText("clearAndSetTileset");
         }
 
         /// <summary>Defines the value of the CheckBox that shows the output tileset type (0: A1-2, 1: A3, 2: A4, 3: A5, 4: B-C).</summary>

@@ -45,6 +45,7 @@ namespace tilecon
 
             btnConvert.Click += ConvertEvent; // TODO: is this necessary?
             checkBoxIgnoreAlpha.CheckedChanged += IgnoreAlphaCheckedChanged;
+            ChangeLang();
         }
 
         /// <summary>
@@ -243,6 +244,14 @@ namespace tilecon
 
             outputPictureBox.Image = Bitmaps[bmpCurrentIndex];
             labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + Bitmaps.Length;
+        }
+
+        internal void ChangeLang()
+        {
+            btnConvert.Text = Vocab.GetText("convert");
+            btnTransparency.Text = Vocab.GetText("setTransparency");
+            checkBoxIgnoreAlpha.Text = Vocab.GetText("ignoreAlpha");
+            groupConversion.Text = Vocab.GetText("conversion");
         }
 
         private void btnConvert_Click(object sender, EventArgs e)

@@ -43,13 +43,11 @@ namespace tilecon
             saveFileDialog1.Filter = Vocab.GetText("pngFiles") + " (*.png) | *.png";
             openFileDialog1.Filter = Vocab.GetText("imageFiles") + " (*.gif, *.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.gif; *bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
 
-            /*
-               TODO: Move this to ConverterControl
-            btnConvert.Text = convertAndSaveItem.Text = Vocab.GetText("convert");
-            btnTransparency.Text = setTransparentItem.Text = Vocab.GetText("setTransparency");
-            checkIgnore.Text = Vocab.GetText("ignoreAlpha");
-            groupConversion.Text = Vocab.GetText("conversion");
-            */
+            convertAndSaveItem.Text = Vocab.GetText("convert");
+            setTransparentItem.Text = Vocab.GetText("setTransparency");
+            Vocab.GetText("ignoreAlpha");
+            Vocab.GetText("conversion");
+            
 
             labelSpriteSize.Text = Vocab.GetText("spriteSize");
             btnSaveEachSprite.Text = saveEachSpritesItem.Text = Vocab.GetText("saveEachSprite");
@@ -88,6 +86,8 @@ namespace tilecon
             aboutToolStripMenuItem.Text = Vocab.GetText("about");
 
             btnClearAndSet.Text = Vocab.GetText("clearAndSetTileset");
+            converterControl1.ChangeLang();
+            editor.ChangeLang();
         }
 
         private void OnTilesetLoad(String filepath)
