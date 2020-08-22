@@ -101,7 +101,6 @@
             this.textCustomSize = new System.Windows.Forms.TextBox();
             this.labelSpriteSize = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.editorControl = new tilecon.EditorControl();
             this.btnClearPreview = new System.Windows.Forms.Button();
             this.btnSetInputTileset = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
