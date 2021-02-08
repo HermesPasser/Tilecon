@@ -733,7 +733,6 @@
             this.editor.OutputComboBoxCurrentIndex = 4;
             this.editor.Size = new System.Drawing.Size(705, 356);
             this.editor.TabIndex = 0;
-            this.editor.TilesetLoaded += new System.EventHandler(this.editor_TilesetLoaded);
             // 
             // textCustomSize
             // 
