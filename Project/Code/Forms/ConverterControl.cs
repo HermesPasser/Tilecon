@@ -192,7 +192,7 @@ namespace tilecon
             {
                 dir = $@"{Path.GetDirectoryName(dir)}\{Path.GetFileNameWithoutExtension(dir)}";
                 for (int i = 0; i < Bitmaps.Length; i++)
-                    Bitmaps[i].Save(dir + "_" + (i + 1) + ".png");
+                    Bitmaps[i].Save($"{dir}_{i + 1}.png");
             }
         }
 
@@ -214,9 +214,7 @@ namespace tilecon
         /// </summary>
         /// <param name="e">The event</param>
         protected virtual void OnIgnoreAlphaCheckedChanged(EventArgs e)
-        {
-            IgnoreAlphaCheckedChanged?.Invoke(this, e);
-        }
+            => IgnoreAlphaCheckedChanged?.Invoke(this, e);
 
         private bool IsPlayerSprite() // If the bitmap is a character (player sprite)
             => (Bitmaps[0].Width == 48 && Bitmaps[0].Height == 64) || (Bitmaps[0].Width == 144 && Bitmaps[0].Height == 192);
@@ -255,28 +253,18 @@ namespace tilecon
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
-        {
-            OnConvert(e);
-        }
+            => OnConvert(e);
 
         private void btnTransparency_Click(object sender, EventArgs e)
-        {
-            SetTransparentColor();
-        }
+            => SetTransparentColor();
 
         private void btnPreviusImg_Click(object sender, EventArgs e)
-        {
-            PreviusImage();
-        }
+            => PreviusImage();
 
         private void btnNextImg_Click(object sender, EventArgs e)
-        {
-            NextImage();
-        }
+            => NextImage();
 
         private void checkBoxIgnoreAlpha_CheckedChanged(object sender, EventArgs e)
-        {
-            OnIgnoreAlphaCheckedChanged(e);
-        }
+            => OnIgnoreAlphaCheckedChanged(e);
     }
 }

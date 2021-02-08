@@ -47,7 +47,6 @@ namespace tilecon
             setTransparentItem.Text = Vocab.GetText("setTransparency");
             Vocab.GetText("ignoreAlpha");
             Vocab.GetText("conversion");
-            
 
             labelSpriteSize.Text = Vocab.GetText("spriteSize");
             btnSaveEachSprite.Text = saveEachSpritesItem.Text = Vocab.GetText("saveEachSprite");
@@ -282,9 +281,7 @@ namespace tilecon
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+            => Application.Exit();
 
         private void AboutTilesetToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -308,32 +305,25 @@ namespace tilecon
         }
 
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ChangeLang(Vocab.Lang.en);
-        }
+            => ChangeLang(Vocab.Lang.en);
+
 
         private void portugueseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ChangeLang(Vocab.Lang.pt);
-        }
+            => ChangeLang(Vocab.Lang.pt);
+        
 
         private void ignoreAlphaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            converterControl1.IgnoreAlpha = ignoreItem.Checked;
-        }
+            => converterControl1.IgnoreAlpha = ignoreItem.Checked;
 
         private void checkIgnore_CheckedChanged(object sender, EventArgs e)
-        {
-            ignoreItem.Checked = converterControl1.IgnoreAlpha;
-        }
+            => ignoreItem.Checked = converterControl1.IgnoreAlpha;
+
         #endregion
 
         #region Editor
         
-        private void UpdateImage(object sender, EventArgs e)
-        {
-            editor.UpdateImage((SpriteMode)cbMode.SelectedIndex);
-        }
+        private void UpdateImage(object sender, EventArgs e) 
+            => editor.UpdateImage((SpriteMode)cbMode.SelectedIndex);
 
         // set output tileset menustip
         private void LoadGrid(object sender, EventArgs e)
@@ -344,15 +334,9 @@ namespace tilecon
         }
 
         // set output tileset tool stip
-        private void SetOutputGrid(object sender, EventArgs e)
-        {
-            editor.SetOutputGrid();
-        }
+        private void SetOutputGrid(object sender, EventArgs e) => editor.SetOutputGrid();
 
-        private void ClearPreview(object sender, EventArgs e)
-        {
-            editor.ClearPreview();
-        }
+        private void ClearPreview(object sender, EventArgs e) => editor.ClearPreview();
 
         private void outputTilesetItemChildItems_Click(object sender, EventArgs e)
         {
@@ -370,10 +354,7 @@ namespace tilecon
         }
         #endregion
 
-        private void SaveConverter()
-        {
-            converterControl1.SaveTilesets();
-        }
+        private void SaveConverter() => converterControl1.SaveTilesets();
 
         private void Convert(object sender, EventArgs e)
         {
@@ -381,21 +362,10 @@ namespace tilecon
             setTransparentItem.Enabled = true;
         }
 
-        private void SetTransparentPixel(object sender, EventArgs e)
-        {
-            converterControl1.SetTransparentColor();
-        }
+        private void SetTransparentPixel(object sender, EventArgs e) 
+            => converterControl1.SetTransparentColor();
 
         private void clearPreviewItem_Click(object sender, EventArgs e)
-        {
-            editor.ClearPreview();
-        }
-
-        // TODO: i can remember  the purpose of this method. so far the 
-		// existence of this isnt making any change to the overral expected behaviour of the editor
-        private void editor_TilesetLoaded(object sender, EventArgs e)
-        {
-
-        }
+            => editor.ClearPreview();
     }
 }

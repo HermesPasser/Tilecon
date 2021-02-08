@@ -97,6 +97,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabConverter = new System.Windows.Forms.TabPage();
             this.converterControl1 = new tilecon.ConverterControl();
+            this.tabEditor = new System.Windows.Forms.TabPage();
             this.editor = new tilecon.EditorControl();
             this.textCustomSize = new System.Windows.Forms.TextBox();
             this.labelSpriteSize = new System.Windows.Forms.Label();
@@ -109,13 +110,12 @@
             this.inputPanel = new System.Windows.Forms.Panel();
             this.outputPanel = new System.Windows.Forms.Panel();
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
-            this.tabEditor = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabConverter.SuspendLayout();
+            this.tabEditor.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
-            this.tabEditor.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOpen
@@ -711,6 +711,17 @@
             this.converterControl1.Size = new System.Drawing.Size(705, 356);
             this.converterControl1.TabIndex = 2;
             // 
+            // tabEditor
+            // 
+            this.tabEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.tabEditor.Controls.Add(this.editor);
+            this.tabEditor.Location = new System.Drawing.Point(4, 22);
+            this.tabEditor.Name = "tabEditor";
+            this.tabEditor.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEditor.Size = new System.Drawing.Size(711, 362);
+            this.tabEditor.TabIndex = 1;
+            this.tabEditor.Text = "Editor";
+            // 
             // editor
             // 
             this.editor.AutoSize = true;
@@ -723,9 +734,9 @@
             this.editor.Size = new System.Drawing.Size(705, 356);
             this.editor.TabIndex = 0;
             this.editor.TilesetLoaded += new System.EventHandler(this.editor_TilesetLoaded);
-            //
+            // 
             // textCustomSize
-            //
+            // 
             this.textCustomSize.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textCustomSize.Enabled = false;
             this.textCustomSize.Location = new System.Drawing.Point(631, 3);
@@ -735,9 +746,9 @@
             this.textCustomSize.Text = "0";
             this.textCustomSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textCustomSize.TextChanged += new System.EventHandler(this.textCustomSize_TextChanged);
-            //
+            // 
             // labelSpriteSize
-            //
+            // 
             this.labelSpriteSize.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelSpriteSize.AutoSize = true;
             this.labelSpriteSize.Location = new System.Drawing.Point(575, 7);
@@ -746,10 +757,10 @@
             this.labelSpriteSize.TabIndex = 14;
             this.labelSpriteSize.Text = "spritesize";
             this.labelSpriteSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
             // flowLayoutPanel1
-            //
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.Controls.Add(this.btnOpen);
@@ -863,25 +874,14 @@
             this.pictureBoxPreview.TabIndex = 21;
             this.pictureBoxPreview.TabStop = false;
             // 
-            // tabEditor
-            // 
-            this.tabEditor.BackColor = System.Drawing.SystemColors.Control;
-            this.tabEditor.Controls.Add(this.editor);
-            this.tabEditor.Location = new System.Drawing.Point(4, 22);
-            this.tabEditor.Name = "tabEditor";
-            this.tabEditor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEditor.Size = new System.Drawing.Size(711, 362);
-            this.tabEditor.TabIndex = 1;
-            this.tabEditor.Text = "Editor";
-            // 
             // FormTilecon
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(744, 461);
-            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -895,11 +895,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabConverter.ResumeLayout(false);
             this.tabConverter.PerformLayout();
+            this.tabEditor.ResumeLayout(false);
+            this.tabEditor.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).EndInit();
-            this.tabEditor.ResumeLayout(false);
-            this.tabEditor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -42,9 +42,7 @@ namespace tilecon
         /// <summary>Saves the edited tileset</summary>
         /// <param name="filename">the file name</param>
         public void Save(string filename)
-        {
-            (gridOut?.TilesToTileset()).Save(filename);
-        }
+            => (gridOut?.TilesToTileset()).Save(filename);
 
         public void LoadTileset(string originTilesetFilename, ITileset originTileset)
         {
@@ -87,9 +85,7 @@ namespace tilecon
         /// <summary>Update the input tileset image.</summary>
         /// <param name="mode"></param>
         public void UpdateImage(SpriteMode mode)
-        {
-            gridIn?.UpdateSelectedImage(mode);   
-        }
+            => gridIn?.UpdateSelectedImage(mode);
 
         /// <summary>Set up the output grid with the selected mv tileset type.</summary>
         public void SetOutputGrid()
@@ -126,14 +122,10 @@ namespace tilecon
     }
 		
         private void BtnClearAndSet_Click(object sender, EventArgs e)
-        {
-            SetOutputGrid();
-        }
-
+            => SetOutputGrid();
+        
         private void BtnClearPreview_Click(object sender, EventArgs e)
-        {
-			ClearPreview();
-        }
+            => ClearPreview();
 
         private void BtnSetInputTileset_Click(object sender, EventArgs e)
         {
