@@ -710,6 +710,7 @@
             this.converterControl1.Name = "converterControl1";
             this.converterControl1.Size = new System.Drawing.Size(705, 356);
             this.converterControl1.TabIndex = 2;
+            this.converterControl1.ConvertButtonClickedEvent += new System.EventHandler(this.Convert);
             // 
             // tabEditor
             // 
