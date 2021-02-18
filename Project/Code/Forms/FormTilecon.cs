@@ -109,7 +109,7 @@ namespace tilecon
 
             converterControl1.LoadTileset(filepath);
 
-            editor.LoadTileset(filepath, GetTileset());
+            editor.LoadTileset(filepath, GetSelectedInputTileset());
         }
 
         private void LoadTilesetByDialog(object sender = null, EventArgs e = null)
@@ -126,7 +126,7 @@ namespace tilecon
 
         private void CutSave(object sender, EventArgs e)
         {
-            ITileset tile = GetTileset();
+            ITileset tile = GetSelectedInputTileset();
 
             if (saveFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
@@ -154,7 +154,7 @@ namespace tilecon
             })).Start();
         }
 
-        private ITileset GetTileset()
+        private ITileset GetSelectedInputTileset()
             => (ITileset) cbMaker.SelectedItem;
 
         private void Save(object sender, EventArgs e)
@@ -179,7 +179,7 @@ namespace tilecon
 
         private void OnIndexChange(object sender, EventArgs e)
         {
-            textCustomSize.Enabled = GetTileset().TilesetName() == Maker.Custom.NAME;
+            textCustomSize.Enabled = GetSelectedInputTileset().TilesetName() == Maker.Custom.NAME;
             converterControl1.UpdateOutputLabel((SpriteMode)cbMode.SelectedIndex);
         }
 
@@ -336,7 +336,7 @@ namespace tilecon
 
         private void Convert(object sender, EventArgs e)
         {
-            converterControl1.Convert((SpriteMode)cbMode.SelectedIndex, GetTileset(), int.Parse(textCustomSize.Text)); 
+            converterControl1.Convert((SpriteMode)cbMode.SelectedIndex, GetSelectedInputTileset(), int.Parse(textCustomSize.Text)); 
             setTransparentItem.Enabled = true;
         }
 
