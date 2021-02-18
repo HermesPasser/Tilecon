@@ -10,25 +10,25 @@ namespace tilecon
     /// <summary>
     /// Control from the convert tag from Tilecon
     /// </summary>
+
     public partial class ConverterControl : UserControl
     {
         private int bmpCurrentIndex;
         private string inputTilesetFilepath;
         private Image inputTileset;
-        
-        /// <summary>
-        /// List of images that will appear in the output picture box
-        /// </summary>
-        public Bitmap[] Bitmaps { get; private set; }
+        private Bitmap[] bitmaps = new Bitmap[0];
 
-        [Category("Action")]
-        [Description("Fires when the convert buttom is clicked")]
-        public event EventHandler ConvertEvent;
-
-        protected virtual void OnConvert(EventArgs e)
+        public Bitmap[] ConvertedTilesets 
         {
-            ConvertEvent?.Invoke(this, e);
+            get => bitmaps is null ? new Bitmap[0] : bitmaps;
+            private set => bitmaps = (value is null ? new Bitmap[0] : value);
         }
+
+        [Browsable(true), Category("Action"), Description("Fires when the convert button is clicked")]
+        public event EventHandler ConvertButtonClickedEvent;
+
+        protected virtual void OnConvertButtonClicked(EventArgs e)
+            => ConvertButtonClickedEvent?.Invoke(this, e);
 
         /// <summary>
         /// Occurs when value from the Checked from the IgnoreAlpha changes
@@ -43,7 +43,6 @@ namespace tilecon
         {
             InitializeComponent();
 
-            btnConvert.Click += ConvertEvent; // TODO: is this necessary?
             checkBoxIgnoreAlpha.CheckedChanged += IgnoreAlphaCheckedChanged;
             ChangeLang();
         }
@@ -150,7 +149,7 @@ namespace tilecon
                         con = new TilesetConverterVX(tileset, mode, IgnoreAlpha);
                         break;
                 }
-                Bitmaps = con.ConvertToMV(inputTileset);
+                bitmaps = con.ConvertToMV(inputTileset);
             }
             catch (ConvertException ex)
             {
@@ -158,20 +157,21 @@ namespace tilecon
                 return;
             }
 
-            if (Bitmaps == null)
+            System.Diagnostics.Debug.Assert(bitmaps != null);
+            if (bitmaps.Length == 0)
             {
                 btnConvert.Text = Vocab.GetText("converter");
                 return;
             }
 
-            outputPictureBox.Image = Bitmaps[0];
+            outputPictureBox.Image = bitmaps[0];
             btnNextImg.Enabled = btnPreviusImg.Enabled = false;
             btnTransparency.Enabled = true;
 
-            btnNextImg.Enabled = btnPreviusImg.Enabled = Bitmaps.Length > 1 ? true : false;
+            btnNextImg.Enabled = btnPreviusImg.Enabled = bitmaps.Length > 1 ? true : false;
 
             bmpCurrentIndex = 0;
-            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + Bitmaps.Length;
+            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
             btnConvert.Text = Vocab.GetText("converter");
         }
 
@@ -182,17 +182,17 @@ namespace tilecon
         {
             string dir = inputTilesetFilepath;
 
-            if (Bitmaps.Length == 1)
+            if (bitmaps.Length == 1)
             {
                 if (IsPlayerSprite())
                     dir = $@"{Path.GetDirectoryName(dir)}\!${Path.GetFileName(dir)}";
-                Bitmaps[0].Save(dir);
+                bitmaps[0].Save(dir);
             }
             else // multiple bitmaps
             {
                 dir = $@"{Path.GetDirectoryName(dir)}\{Path.GetFileNameWithoutExtension(dir)}";
-                for (int i = 0; i < Bitmaps.Length; i++)
-                    Bitmaps[i].Save($"{dir}_{i + 1}.png");
+                for (int i = 0; i < bitmaps.Length; i++)
+                    bitmaps[i].Save($"{dir}_{i + 1}.png");
             }
         }
 
@@ -203,9 +203,9 @@ namespace tilecon
         {
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                for (int i = 0; i < Bitmaps.Length; i++)
-                    Bitmaps[i] = ImageEditor.SetColorAsAlpha(Bitmaps[i], colorDialog.Color);
-                outputPictureBox.Image = Bitmaps[bmpCurrentIndex];
+                for (int i = 0; i < bitmaps.Length; i++)
+                    bitmaps[i] = ImageEditor.SetColorAsAlpha(bitmaps[i], colorDialog.Color);
+                outputPictureBox.Image = bitmaps[bmpCurrentIndex];
             }
         }
 
@@ -217,7 +217,7 @@ namespace tilecon
             => IgnoreAlphaCheckedChanged?.Invoke(this, e);
 
         private bool IsPlayerSprite() // If the bitmap is a character (player sprite)
-            => (Bitmaps[0].Width == 48 && Bitmaps[0].Height == 64) || (Bitmaps[0].Width == 144 && Bitmaps[0].Height == 192);
+            => (bitmaps[0].Width == 48 && bitmaps[0].Height == 64) || (bitmaps[0].Width == 144 && bitmaps[0].Height == 192);
 
         private void Enable()
         {
@@ -228,20 +228,20 @@ namespace tilecon
 
         private void NextImage()
         {
-            if (++bmpCurrentIndex >= Bitmaps.Length)
+            if (++bmpCurrentIndex >= bitmaps.Length)
                 bmpCurrentIndex = 0;
 
-            outputPictureBox.Image = Bitmaps[bmpCurrentIndex];
-            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + Bitmaps.Length;
+            outputPictureBox.Image = bitmaps[bmpCurrentIndex];
+            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
         }
 
         private void PreviusImage()
         {
             if (--bmpCurrentIndex < 0)
-                bmpCurrentIndex = Bitmaps.Length - 1;
+                bmpCurrentIndex = bitmaps.Length - 1;
 
-            outputPictureBox.Image = Bitmaps[bmpCurrentIndex];
-            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + Bitmaps.Length;
+            outputPictureBox.Image = bitmaps[bmpCurrentIndex];
+            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
         }
 
         internal void ChangeLang()
@@ -253,7 +253,7 @@ namespace tilecon
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
-            => OnConvert(e);
+            => OnConvertButtonClicked(e);
 
         private void btnTransparency_Click(object sender, EventArgs e)
             => SetTransparentColor();

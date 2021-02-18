@@ -17,7 +17,8 @@ namespace tilecon.Tileset.Converter
         /// <returns>An array of bitmaps converteds to MV tileset.</returns>
         public override Bitmap[] ConvertToMV(Image img)
         {
-            if (!IsConvertible(img)) return null;
+            if (!IsConvertible(img)) 
+                return new Bitmap[0];
 
             Bitmap[] images = new Bitmap[1];
             List<Bitmap> sprites = GetSprites(img);

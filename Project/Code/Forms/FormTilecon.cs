@@ -159,7 +159,8 @@ namespace tilecon
 
         private void Save(object sender, EventArgs e)
         {
-            if (converterControl1.Bitmaps == null && tabControl1.SelectedIndex == 0) return;
+            System.Diagnostics.Debug.Assert(converterControl1.ConvertedTilesets != null);
+            if (converterControl1.ConvertedTilesets.Length == 0 && tabControl1.SelectedIndex == 0) return;
 
             if (saveFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
