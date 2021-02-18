@@ -5,7 +5,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using tilecon.Tileset.Converter;
-using tilecon.Tileset.Editor;
 
 namespace tilecon
 {
