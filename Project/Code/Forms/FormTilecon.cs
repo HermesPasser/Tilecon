@@ -22,6 +22,7 @@ namespace tilecon
         public FormTilecon()
         {
             InitializeComponent();
+            BindDataSourceToCbMakerComboBox();
 
             ChangeLang(Vocab.Lang.en);
             btnOpen.Select();
@@ -29,9 +30,9 @@ namespace tilecon
 
             // Options not available in Visual Studio properties
             cbMaker.SelectedIndexChanged += new EventHandler(OnIndexChange);
-            cbMaker.SelectedIndex = 8;
             cbMode.SelectedIndex = 0;
             cbOutput.SelectedIndex = 4;
+
         }
 
         #region General
@@ -155,29 +156,7 @@ namespace tilecon
         }
 
         private ITileset GetTileset()
-        {
-            switch (cbMaker.SelectedItem.ToString())
-            {
-                // TODO: add reflection here
-                case Maker.R95.NAME: return new Maker.R95();
-                case Maker.S97.NAME: return new Maker.S97();
-                case Maker.Alpha.NAME: return new Maker.Alpha();
-                case Maker.R2k_2k3_AnimObj.NAME: return new Maker.R2k_2k3_AnimObj();
-                case Maker.R2k_2k3_Auto.NAME: return new Maker.R2k_2k3_Auto();
-                case Maker.R2k_2k3_AB.NAME: return new Maker.R2k_2k3_AB();
-                case Maker.R2k_2k3_A.NAME: return new Maker.R2k_2k3_A();
-                case Maker.R2k_2k3_B.NAME: return new Maker.R2k_2k3_B();
-                case Maker.XP_Auto.NAME: return new Maker.XP_Auto();
-                case Maker.XP_Tile.NAME: return new Maker.XP_Tile();
-                case Maker.VX_Ace_A12.NAME: return new Maker.VX_Ace_A12();
-                case Maker.VX_Ace_A3.NAME: return new Maker.VX_Ace_A3();
-                case Maker.VX_Ace_A4.NAME: return new Maker.VX_Ace_A4();
-                case Maker.VX_Ace_A5.NAME: return new Maker.VX_Ace_A5();
-                case Maker.VX_Ace_BE.NAME: return new Maker.VX_Ace_BE();
-                case Maker.Custom.NAME:
-                default: return new Maker.Custom();
-            }
-        }
+            => (ITileset) cbMaker.SelectedItem;
 
         private void Save(object sender, EventArgs e)
         {

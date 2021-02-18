@@ -655,23 +655,6 @@
             this.cbMaker.DropDownWidth = 230;
             this.cbMaker.FormattingEnabled = true;
             this.cbMaker.IntegralHeight = false;
-            this.cbMaker.Items.AddRange(new object[] {
-            "RPG Maker 95",
-            "Sim RPG Maker 97",
-            "RPG Maker Alpha",
-            "RPG Maker 2000/2003 (Autotiles)",
-            "RPG Maker 2000/2003 (Animated Objects)",
-            "RPG Maker 2000/2003 (Tileset A-B)",
-            "RPG Maker 2000/2003 (Tileset A)",
-            "RPG Maker 2000/2003 (Tileset B)",
-            "RPG Maker XP",
-            "RPG Maker XP (Autotile)",
-            "RPG Maker VX/Ace (Tileset A1-2)",
-            "RPG Maker VX/Ace (Tileset A3)",
-            "RPG Maker VX/Ace (Tileset A4)",
-            "RPG Maker VX/Ace (Tileset A5)",
-            "RPG Maker VX/Ace (Tileset B-E)",
-            "Custom"});
             this.cbMaker.Location = new System.Drawing.Point(85, 3);
             this.cbMaker.Name = "cbMaker";
             this.cbMaker.Size = new System.Drawing.Size(125, 21);
@@ -906,6 +889,31 @@
         }
 
         #endregion
+        private void BindDataSourceToCbMakerComboBox()
+        {
+            var cbMakerItens = new System.Collections.Generic.List<ITileset>(new ITileset[] {
+                new Maker.R95(),
+                new Maker.S97(),
+                new Maker.Alpha(),
+                new Maker.R2k_2k3_Auto(),
+                new Maker.R2k_2k3_AnimObj(),
+                new Maker.R2k_2k3_AB(),
+                new Maker.R2k_2k3_A(),
+                new Maker.R2k_2k3_B(),
+                new Maker.XP_Auto(),
+                new Maker.XP_Tile(),
+                new Maker.VX_Ace_A12(),
+                new Maker.VX_Ace_A3(),
+                new Maker.VX_Ace_A4(),
+                new Maker.VX_Ace_A5(),
+                new Maker.VX_Ace_BE(),
+                new Maker.Custom()
+            });
+            this.cbMaker.BindingContext = new System.Windows.Forms.BindingContext();
+            this.cbMaker.DataSource = cbMakerItens;
+            this.cbMaker.SelectedIndex = 9;
+        }
+
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Button btnSaveEachSprite;
