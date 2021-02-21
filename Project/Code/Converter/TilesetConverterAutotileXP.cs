@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using static tilecon.ImageEditor;
 
 namespace tilecon.Tileset.Converter
 {

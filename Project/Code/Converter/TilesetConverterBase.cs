@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using static tilecon.ImageEditor;
 
 namespace tilecon.Tileset.Converter
 {
     /// <summary>Super class for all tileset converters.</summary>
-    public abstract class TilesetConverterBase : ImageEditor
+    public abstract class TilesetConverterBase
     {
         /// <summary>Size sprite in output tileset.</summary>
         protected int outputSpriteSize;
@@ -22,7 +23,6 @@ namespace tilecon.Tileset.Converter
         /// <summary>Mode how sprites should be manipulated.</summary>
         protected SpriteMode mode;
 
-        /// <summary>The empty constructor to allow it to be inherited.</summary>
         public TilesetConverterBase() { }
 
         /// <summary>Default constructor.</summary>
@@ -46,7 +46,6 @@ namespace tilecon.Tileset.Converter
             string ex = Path.GetExtension(fileDir);
             fileDir = Path.GetDirectoryName(fileDir) + @"\" + Path.GetFileNameWithoutExtension(fileDir) + "_";
 
-            Bitmap bmp = img as Bitmap;
             Bitmap[] sprites = SplitImageInSprites(img, spriteSize, spriteSize);
 
             for (int i = 0; i < sprites.Length; i++)

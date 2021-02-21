@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using static tilecon.ImageEditor;
 
 namespace tilecon.Tileset.Converter
 {
     /// <summary>Converter class for alpha tileset.</summary>
     public class TilesetConverterVerticalApha : TilesetConverterVertical
     {
-        /// <summary>Default constructor.</summary>
-        /// <param name="inputMaker">Tileset type to be converted</param>
-        /// <param name="mode">Mode how sprites should be pasted into the converted image.</param>
-        /// <param name="ignoreAlpha">Flag to ignore empty sprites.</param>
+    
         public TilesetConverterVerticalApha(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
 
         /// <summary>Converter the image to MV tileset.</summary>

@@ -11,7 +11,7 @@ namespace tilecon
         /// <param name="sizeWidth">Sprite width.</param>
         /// <param name="sizeHeight">Sprite heigh.</param>
         /// <returns>Each sprite of the bitmap.</returns>
-        public Bitmap[] SplitImageInSprites(Image img, int sizeWidth, int sizeHeight)
+        public static Bitmap[] SplitImageInSprites(Image img, int sizeWidth, int sizeHeight)
         {
             Bitmap bmp = img as Bitmap;
             List<Bitmap> sprites = new List<Bitmap>();
@@ -30,7 +30,7 @@ namespace tilecon
         /// <param name="img">Image to be cropped in sprites.</param>
         /// <param name="size">Sprite size.</param>
         /// <returns>Each sprite of the bitmap.</returns>
-        public Bitmap[] SplitImageInSprites(Image img, int size)
+        public static Bitmap[] SplitImageInSprites(Image img, int size)
         {
             return SplitImageInSprites(img, size, size);
         }
@@ -76,7 +76,7 @@ namespace tilecon
         /// <param name="width">Width of the crop.</param>
         /// <param name="height">Height of the crop.</param>
         /// <returns>Cropped bitmap.</returns>
-        public Bitmap Crop(Bitmap src, int x, int y, int width, int height)
+        public static Bitmap Crop(Bitmap src, int x, int y, int width, int height)
         {
             return Crop(src, new Rectangle(x, y, width, height));
         }
@@ -85,7 +85,7 @@ namespace tilecon
         /// <param name="src">Bitmap to be cropped.</param>
         /// <param name="rect">Rectangle of crop.</param>
         /// <returns>Cropped bitmap.</returns>
-        public Bitmap Crop(Bitmap src, Rectangle rect)
+        public static Bitmap Crop(Bitmap src, Rectangle rect)
         {
             Bitmap bmp = new Bitmap(rect.Width, rect.Height);
             Graphics g = Graphics.FromImage(bmp);
@@ -97,7 +97,7 @@ namespace tilecon
         /// <summary>Checks if all area of image is transparent.</summary>
         /// <param name="bmp">Image to be checked.</param>
         /// <returns>Return true if is transparent and false if not.</returns>
-        public virtual bool IsAlphaImage(Bitmap bmp)
+        public static bool IsAlphaImage(Bitmap bmp)
         {
             for (int y = 0; y < bmp.Height; y++)
             {
@@ -114,7 +114,7 @@ namespace tilecon
         /// <param name="bmp">Bitmap to be stretched.</param>
         /// <param name="newSize">New size of bitmap.</param>
         /// <returns>Bitmap stretched.</returns>
-        public Bitmap Stretch(Bitmap bmp, int newSize)
+        public static Bitmap Stretch(Bitmap bmp, int newSize)
         {
             return Stretch(bmp, newSize, newSize);
         }
@@ -124,7 +124,7 @@ namespace tilecon
         /// <param name="newSizeX">New size in x of bitmap.</param>
         /// <param name="newSizeY">New size in y of bitmap.</param>
         /// <returns>Bitmap stretched.</returns>
-        public Bitmap Stretch(Bitmap bmp, int newSizeX, int newSizeY)
+        public static Bitmap Stretch(Bitmap bmp, int newSizeX, int newSizeY)
         {
             Bitmap result = new Bitmap(newSizeX, newSizeY);
             Graphics g = Graphics.FromImage(result);
@@ -143,7 +143,7 @@ namespace tilecon
         /// <param name="width">Width of the paste.</param>
         /// <param name="height">Height of the paste.</param>
         /// <returns>The changed bitmap.</returns>
-        public Bitmap Paste(Bitmap origin, Bitmap bmpToBePasted, int x, int y, int width, int height)
+        public static Bitmap Paste(Bitmap origin, Bitmap bmpToBePasted, int x, int y, int width, int height)
         {
             Rectangle rect = new Rectangle(0, 0, width, height);
             Graphics graphics = Graphics.FromImage(origin);
@@ -156,7 +156,7 @@ namespace tilecon
         /// <param name="origin">Bitmap where another one will be pasted.</param>
         /// <param name="bmpToBePasted">Bitmap to be pasted.</param>
         /// <returns>The changed bitmap.</returns>
-        public Bitmap PasteInAlpha(Bitmap origin, Bitmap bmpToBePasted)
+        public static Bitmap PasteInAlpha(Bitmap origin, Bitmap bmpToBePasted)
         {
             for (int x = 0; x < origin.Width; x++)
             {
