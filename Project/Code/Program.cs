@@ -8,7 +8,8 @@ namespace tilecon
     {
         static void WriteLog(Exception e)
         {
-            string filename = $"crash {DateTime.Now}.log";
+            var d = DateTime.Now;
+            string filename = $"crash {d.Year}-{d.Month}-{d.Day} {d.Hour}-{d.Minute}-{d.Second}.log";
             File.WriteAllText(filename, e.StackTrace);
         }
 
