@@ -16,12 +16,12 @@ namespace tilecon
         private int bmpCurrentIndex;
         private string inputTilesetFilepath;
         private Image inputTileset;
-        private Bitmap[] bitmaps = new Bitmap[0];
+        private Bitmap[] convertedBitmaps = new Bitmap[0];
 
         public Bitmap[] ConvertedTilesets 
         {
-            get => bitmaps is null ? new Bitmap[0] : bitmaps;
-            private set => bitmaps = (value is null ? new Bitmap[0] : value);
+            get => convertedBitmaps is null ? new Bitmap[0] : convertedBitmaps;
+            private set => convertedBitmaps = (value is null ? new Bitmap[0] : value);
         }
 
         [Browsable(true), Category("Action"), Description("Fires when the convert button is clicked")]
@@ -149,7 +149,7 @@ namespace tilecon
                         con = new TilesetConverterVX(tileset, mode, IgnoreAlpha);
                         break;
                 }
-                bitmaps = con.ConvertToMV(inputTileset);
+                convertedBitmaps = con.ConvertToMV(inputTileset);
             }
             catch (ConvertException ex)
             {
@@ -157,21 +157,21 @@ namespace tilecon
                 return;
             }
 
-            System.Diagnostics.Debug.Assert(bitmaps != null);
-            if (bitmaps.Length == 0)
+            System.Diagnostics.Debug.Assert(convertedBitmaps != null);
+            if (convertedBitmaps.Length == 0)
             {
                 btnConvert.Text = Vocab.GetText("converter");
                 return;
             }
 
-            outputPictureBox.Image = bitmaps[0];
+            outputPictureBox.Image = convertedBitmaps[0];
             btnNextImg.Enabled = btnPreviusImg.Enabled = false;
             btnTransparency.Enabled = true;
 
-            btnNextImg.Enabled = btnPreviusImg.Enabled = bitmaps.Length > 1 ? true : false;
+            btnNextImg.Enabled = btnPreviusImg.Enabled = convertedBitmaps.Length > 1 ? true : false;
 
             bmpCurrentIndex = 0;
-            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
+            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + convertedBitmaps.Length;
             btnConvert.Text = Vocab.GetText("converter");
         }
 
@@ -182,17 +182,17 @@ namespace tilecon
         {
             string dir = inputTilesetFilepath;
 
-            if (bitmaps.Length == 1)
+            if (convertedBitmaps.Length == 1)
             {
                 if (IsPlayerSprite())
                     dir = $@"{Path.GetDirectoryName(dir)}\!${Path.GetFileName(dir)}";
-                bitmaps[0].Save(dir);
+                convertedBitmaps[0].Save(dir);
             }
             else // multiple bitmaps
             {
                 dir = $@"{Path.GetDirectoryName(dir)}\{Path.GetFileNameWithoutExtension(dir)}";
-                for (int i = 0; i < bitmaps.Length; i++)
-                    bitmaps[i].Save($"{dir}_{i + 1}.png");
+                for (int i = 0; i < convertedBitmaps.Length; i++)
+                    convertedBitmaps[i].Save($"{dir}_{i + 1}.png");
             }
         }
 
@@ -203,9 +203,11 @@ namespace tilecon
         {
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                for (int i = 0; i < bitmaps.Length; i++)
-                    bitmaps[i] = ImageEditor.SetColorAsAlpha(bitmaps[i], colorDialog.Color);
-                outputPictureBox.Image = bitmaps[bmpCurrentIndex];
+                for (int i = 0; i < convertedBitmaps.Length; i++)
+                    convertedBitmaps[i] = ImageEditor.SetColorAsAlpha(convertedBitmaps[i], colorDialog.Color);
+                
+                if (convertedBitmaps.Length > 0)
+                    outputPictureBox.Image = convertedBitmaps[bmpCurrentIndex];
             }
         }
 
@@ -217,31 +219,34 @@ namespace tilecon
             => IgnoreAlphaCheckedChanged?.Invoke(this, e);
 
         private bool IsPlayerSprite() // If the bitmap is a character (player sprite)
-            => (bitmaps[0].Width == 48 && bitmaps[0].Height == 64) || (bitmaps[0].Width == 144 && bitmaps[0].Height == 192);
+            => (convertedBitmaps[0].Width == 48 && convertedBitmaps[0].Height == 64) || (convertedBitmaps[0].Width == 144 && convertedBitmaps[0].Height == 192);
 
         private void Enable()
         {
             btnConvert.Enabled = true;
-            btnTransparency.Enabled = true;
             checkBoxIgnoreAlpha.Enabled = true;
+
+            // let it disabled if there is no converted images to add transparency
+            if (convertedBitmaps.Length > 0)
+                btnTransparency.Enabled = true;
         }
 
         private void NextImage()
         {
-            if (++bmpCurrentIndex >= bitmaps.Length)
+            if (++bmpCurrentIndex >= convertedBitmaps.Length)
                 bmpCurrentIndex = 0;
 
-            outputPictureBox.Image = bitmaps[bmpCurrentIndex];
-            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
+            outputPictureBox.Image = convertedBitmaps[bmpCurrentIndex];
+            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + convertedBitmaps.Length;
         }
 
         private void PreviusImage()
         {
             if (--bmpCurrentIndex < 0)
-                bmpCurrentIndex = bitmaps.Length - 1;
+                bmpCurrentIndex = convertedBitmaps.Length - 1;
 
-            outputPictureBox.Image = bitmaps[bmpCurrentIndex];
-            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + bitmaps.Length;
+            outputPictureBox.Image = convertedBitmaps[bmpCurrentIndex];
+            labelMVPagesNumber.Text = bmpCurrentIndex + 1 + "/" + convertedBitmaps.Length;
         }
 
         internal void ChangeLang()
