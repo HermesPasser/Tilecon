@@ -2,6 +2,8 @@
 Thumbs.db
 ehthumbs.db
 
+*.csproj.user
+
 **/.vs/*
 **/vs/*
 **/bin/*
