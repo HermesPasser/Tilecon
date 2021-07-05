@@ -94,7 +94,7 @@ namespace tilecon
             return bmp;
         }
 
-        /// <summary>Checks if all area of image is transparent.</summary>
+        /// <summary>Checks if the entire area an bitmap is transparent.</summary>
         /// <param name="bmp">Image to be checked.</param>
         /// <returns>Return true if is transparent and false if not.</returns>
         public static bool IsAlphaImage(Bitmap bmp)
@@ -103,11 +103,11 @@ namespace tilecon
             {
                 for (int x = 0; x < bmp.Width; x++)
                 {
-                    if (bmp.GetPixel(x, y).A == 0)
-                        return true;
+                    if (bmp.GetPixel(x, y).A > 0)
+                        return false;
                 }
             }
-            return false;
+            return true;
         }
 
         /// <summary>Stretch the bitmap.</summary>
