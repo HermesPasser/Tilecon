@@ -10,7 +10,7 @@ namespace tilecon
         {
             InitializeComponent();
             labelTitle.Text = "Tileset Converter MV" + Vocab.version;
-            labelAbout.Text = Vocab.aboutHelpText;
+            linkLabel1.Text = Vocab.GetText("projectPage");
             linkLabel2.Text = Vocab.GetText("sourceCode");
         }
 
@@ -20,14 +20,9 @@ namespace tilecon
             FormTilecon.controller.Focus();
         }
 
-        private void button1_Click(object sender, System.EventArgs e)
-        {
-            this.Close();
-        }
-
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://hermespasser.github.io/pages/tilecon.html");
+            System.Diagnostics.Process.Start("https://hermespasser.github.io/p/tilecon.html");
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

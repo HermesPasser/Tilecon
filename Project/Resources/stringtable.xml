@@ -98,8 +98,13 @@
     <portuguese 
         en="Portuguese"
         pt="Português"
-    />  
+    />
 
+	<projectPage
+        en="Project Page"
+        pt="Pág. do Projeto"
+    />
+	
     <save
         en="Save"
         pt="Salvar"
@@ -120,7 +125,7 @@
         pt="Definir Transparência"
     /> 
 
-	  <sourceCode
+	<sourceCode
         en="Source Code"
         pt="Código Fonte"
     />
