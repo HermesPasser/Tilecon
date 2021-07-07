@@ -71,7 +71,7 @@ namespace tilecon.Tileset.Converter
 
         /// <summary>Get the number of pixels to be moved to center the sprite on the tileset.</summary>
         /// <returns>The number of pixels to be moved to center the sprite on the tileset.</returns>
-        protected override int GetCentralizeNumber()
+        protected override int GetOffset()
         {
             return 0;
         }

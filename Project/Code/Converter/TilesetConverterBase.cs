@@ -104,7 +104,7 @@ namespace tilecon.Tileset.Converter
         /// <returns>A bitmap who contains the sprite with the setted mode.</returns>
         public Bitmap SetModeInSprite(Image img, int spriteSize)
         {
-            int x = 0, y = 0, z = GetCentralizeNumber();
+            int x = 0, y = 0, z = GetOffset();
             Bitmap temp = new Bitmap(spriteSize, spriteSize);
             Bitmap bmp = img as Bitmap;
             
@@ -250,7 +250,7 @@ namespace tilecon.Tileset.Converter
 
         /// <summary>Get the number of pixels to be moved to center the sprite on the tileset.</summary>
         /// <returns>The number of pixels to be moved to center the sprite on the tileset.</returns>
-        protected virtual int GetCentralizeNumber()
+        protected virtual int GetOffset()
         {
             return outputTileset.SpriteSize() / 2 - inputTileset.SpriteSize() / 2;
         }
