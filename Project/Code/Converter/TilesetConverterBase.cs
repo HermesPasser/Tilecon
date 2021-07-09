@@ -181,7 +181,8 @@ namespace tilecon.Tileset.Converter
             {
                 if (img.Width != inputTileset.SizeWidth() || img.Height != inputTileset.SizeHeight())
                 {
-                    System.Windows.Forms.MessageBox.Show(Vocab.GetText("sizeErrorMsg"));
+                    System.Console.WriteLine($"{img.Width}x{img.Height} != {inputTileset.SizeWidth()}x{inputTileset.SizeHeight()} | input tileset: {inputTileset}");
+                    System.Windows.Forms.MessageBox.Show(Vocab.GetText("sizeNotMatchErrorMsg"));
                     return false;
                 }
             }
