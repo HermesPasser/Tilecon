@@ -10,7 +10,7 @@ namespace tilecon.Tileset.Converter.Tests
         [TestInitialize]
         public void Initalize()
         {
-            converter = new TilesetConverterVerticalApha(new Maker.Alpha(), SpriteMode.ALIGN_TOP_LEFT, false);
+            converter = new TilesetConverterVerticalApha(Tileset.Alpha, SpriteMode.ALIGN_TOP_LEFT, false);
         }
 
         [TestMethod()]

@@ -1,4 +1,5 @@
-﻿namespace tilecon
+﻿using tilecon.Tileset;
+namespace tilecon
 {
     partial class FormTilecon
     {
@@ -892,22 +893,22 @@
         private void BindDataSourceToCbMakerComboBox()
         {
             var cbMakerItens = new System.Collections.Generic.List<ITileset>(new ITileset[] {
-                new Maker.R95(),
-                new Maker.S97(),
-                new Maker.Alpha(),
-                new Maker.R2k_2k3_Auto(),
-                new Maker.R2k_2k3_AnimObj(),
-                new Maker.R2k_2k3_AB(),
-                new Maker.R2k_2k3_A(),
-                new Maker.R2k_2k3_B(),
-                new Maker.XP_Auto(),
-                new Maker.XP_Tile(),
-                new Maker.VX_Ace_A12(),
-                new Maker.VX_Ace_A3(),
-                new Maker.VX_Ace_A4(),
-                new Maker.VX_Ace_A5(),
-                new Maker.VX_Ace_BE(),
-                new Maker.Custom()
+                Tileset.Tileset.R95,
+                Tileset.Tileset.S97,
+                Tileset.Tileset.Alpha,
+                Tileset.Tileset.R2k_2k3_Auto,
+                Tileset.Tileset.R2k_2k3_AnimObj,
+                Tileset.Tileset.R2k_2k3_AB,
+                Tileset.Tileset.R2k_2k3_A,
+                Tileset.Tileset.R2k_2k3_B,
+                Tileset.Tileset.XP_Auto,
+                Tileset.Tileset.XP_Tile,
+                Tileset.Tileset.VX_Ace_A12,
+                Tileset.Tileset.VX_Ace_A3,
+                Tileset.Tileset.VX_Ace_A4,
+                Tileset.Tileset.VX_Ace_A5,
+                Tileset.Tileset.VX_Ace_BE,
+                Tileset.Tileset.Custom(0)
             });
             this.cbMaker.BindingContext = new System.Windows.Forms.BindingContext();
             this.cbMaker.DataSource = cbMakerItens;

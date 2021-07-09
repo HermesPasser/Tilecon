@@ -8,10 +8,10 @@ namespace tilecon.Tileset.Converter
     public class TilesetConverterVX : TilesetConverterBase
     {
         /// <summary>Default constructor.</summary>
-        /// <param name="inputMaker">Tileset type to be converted</param>
+        /// <param name="inputTilesetImpl">Tileset type to be converted</param>
         /// <param name="mode">Mode how sprites should be pasted into the converted image.</param>
         /// <param name="ignoreAlpha">Flag to ignore empty sprites.</param>
-        public TilesetConverterVX(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+        public TilesetConverterVX(ITileset inputTilesetImpl, SpriteMode mode, bool ignoreAlpha) : base(inputTilesetImpl, mode, ignoreAlpha) { }
 
         /// <summary>Split the image in various sprites.</summary>
         /// <param name="img">Image to be slip.</param>
@@ -41,35 +41,36 @@ namespace tilecon.Tileset.Converter
             if (!IsConvertible(img)) return new Bitmap[1];
             List<Bitmap> images = new List<Bitmap>();
             List<Bitmap> sprites = GetSprites(img);
+            string name = outputTileset.TilesetName();
             int i = 0;
 
-            if (outputTileset.GetType() == typeof(Maker.MV_A5) || outputTileset.GetType() == typeof(Maker.MV_BE))
+            if (name == Tileset.MV_A5.Name || name == Tileset.MV_BE.Name)
             {
                 TilesetConverterVertical con = new TilesetConverterVertical(inputTileset, mode, ignoreAlpha);
                 sprites.Clear();
                 sprites = con.GetSprites(img as Bitmap);
             }
+            
             //For each image
             while (i < sprites.Count)
             {
                 Bitmap tempBmp = GetOutputBitmap();
 
                 //Set image format
-                switch (outputTileset.TilesetName())
+                if (name == Tileset.MV_A12.Name || name == Tileset.MV_A4.Name || name == Tileset.MV_A3.Name)
                 {
-                    case Maker.MV_A12.NAME:
-                    case Maker.MV_A4.NAME:
-                    case Maker.MV_A3.NAME:
-                        i = PasteEachSpriteVertical(tempBmp, sprites, 0, 0, tempBmp.Height, tempBmp.Width / 2, i);
-                        i = PasteEachSpriteVertical(tempBmp, sprites, 0, tempBmp.Width / 2, tempBmp.Height, tempBmp.Width, i);
-                        break;
-                    case Maker.MV_A5.NAME: 
-                        i = PasteEachSpriteHorizontal(tempBmp, sprites, 0, 0, tempBmp.Height, tempBmp.Width, i);
-                        break;
-                    case Maker.MV_BE.NAME:
-                        i = PasteEachSpriteHorizontal(tempBmp, sprites, 0, 0, tempBmp.Height, tempBmp.Width, i);
-                        break;
+                    i = PasteEachSpriteVertical(tempBmp, sprites, 0, 0, tempBmp.Height, tempBmp.Width / 2, i);
+                    i = PasteEachSpriteVertical(tempBmp, sprites, 0, tempBmp.Width / 2, tempBmp.Height, tempBmp.Width, i);
                 }
+                else if (name == Tileset.MV_A5.Name)
+                {
+                    i = PasteEachSpriteHorizontal(tempBmp, sprites, 0, 0, tempBmp.Height, tempBmp.Width, i);
+                }
+                else if (name == Tileset.MV_BE.Name)
+                {
+                    i = PasteEachSpriteHorizontal(tempBmp, sprites, 0, 0, tempBmp.Height, tempBmp.Width, i);
+                }
+     
                 images.Add(tempBmp);
             }
             return images.ToArray();

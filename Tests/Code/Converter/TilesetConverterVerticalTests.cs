@@ -10,7 +10,7 @@ namespace tilecon.Tileset.Converter.Tests
         [TestMethod()]
         public void Convert_R95ToMVTest()
         {
-            converter = new TilesetConverterVertical(new Maker.R95(), SpriteMode.ALIGN_TOP_LEFT, false);
+            converter = new TilesetConverterVertical(Tileset.R95, SpriteMode.ALIGN_TOP_LEFT, false);
             Bitmap converted = converter.ConvertToMV(BitmapFromResourceStream("Tests.Images.R95.95_in.bmp"))[0];
             Bitmap R95out = BitmapFromResourceStream("Tests.Images.R95.Converter.95_out_success.png");
             Assert.IsTrue(ImageEditor.IsEqual(converted, R95out));
@@ -19,7 +19,7 @@ namespace tilecon.Tileset.Converter.Tests
         [TestMethod()]
         public void Convert_S97ToMVTest()
         {
-            converter = new TilesetConverterVertical(new Maker.S97(), SpriteMode.ALIGN_TOP_LEFT, false);
+            converter = new TilesetConverterVertical(Tileset.S97, SpriteMode.ALIGN_TOP_LEFT, false);
             Bitmap[] converted = converter.ConvertToMV(BitmapFromResourceStream("Tests.Images.S97.97_in.bmp"));
             Bitmap S97out1 = BitmapFromResourceStream("Tests.Images.S97.Converter.97_out1_success.png");
             Bitmap S97out2 = BitmapFromResourceStream("Tests.Images.S97.Converter.97_out2_success.png");
@@ -31,7 +31,7 @@ namespace tilecon.Tileset.Converter.Tests
         [TestMethod()]
         public void Convert_XPToMVTest()
         {
-            converter = new TilesetConverterVertical(new Maker.XP_Tile(), SpriteMode.ALIGN_TOP_LEFT, false);
+            converter = new TilesetConverterVertical(Tileset.XP_Tile, SpriteMode.ALIGN_TOP_LEFT, false);
             Bitmap converted = converter.ConvertToMV(BitmapFromResourceStream("Tests.Images.XP.XP_in.png"))[0];
             Bitmap XPOut = BitmapFromResourceStream("Tests.Images.XP.Converter.XP_out_success.png");
             Assert.IsTrue(ImageEditor.IsEqual(converted, XPOut));

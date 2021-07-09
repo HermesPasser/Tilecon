@@ -8,31 +8,32 @@ namespace tilecon.Tileset.Converter
     public class TilesetConverterVerticalRM2K3 : TilesetConverterVertical
     {
         /// <summary>Default constructor.</summary>
-        /// <param name="inputMaker">Tileset type to be converted</param>
+        /// <param name="inputTilesetImpl">Tileset type to be converted</param>
         /// <param name="mode">Mode how sprites should be pasted into the converted image.</param>
         /// <param name="ignoreAlpha">Flag to ignore empty sprites.</param>
-        public TilesetConverterVerticalRM2K3(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+        public TilesetConverterVerticalRM2K3(ITileset inputTilesetImpl, SpriteMode mode, bool ignoreAlpha) : base(inputTilesetImpl, mode, ignoreAlpha) { }
 
         private Bitmap PasteAnimatedObjectInMV(Bitmap bmp)
         {
             Bitmap[] bmps = GetAnimatedObj(bmp);
             Bitmap fbmp = new Bitmap(48, 64);
+            short r2kSize = Tileset.R2k_2k3_AB.Size;
 
-            fbmp = Paste(fbmp, bmps[0], 0, 0, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            fbmp = Paste(fbmp, bmps[1], 16, 0, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            fbmp = Paste(fbmp, bmps[2], 32, 0, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            fbmp = Paste(fbmp, bmps[0], 0, 0, r2kSize, r2kSize);
+            fbmp = Paste(fbmp, bmps[1], 16, 0, r2kSize, r2kSize);
+            fbmp = Paste(fbmp, bmps[2], 32, 0, r2kSize, r2kSize);
 
-            fbmp = Paste(fbmp, bmps[4], 0, 16, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            fbmp = Paste(fbmp, bmps[5], 16, 16, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            fbmp = Paste(fbmp, bmps[6], 32, 16, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            fbmp = Paste(fbmp, bmps[4], 0, 16, r2kSize, r2kSize);
+            fbmp = Paste(fbmp, bmps[5], 16, 16, r2kSize, r2kSize);
+            fbmp = Paste(fbmp, bmps[6], 32, 16, r2kSize, r2kSize);
 
-            fbmp = Paste(fbmp, bmps[8], 0, 32, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            fbmp = Paste(fbmp, bmps[9], 16, 32, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            fbmp = Paste(fbmp, bmps[10], 32, 32, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            fbmp = Paste(fbmp, bmps[8], 0, 32, r2kSize, r2kSize);
+            fbmp = Paste(fbmp, bmps[9], 16, 32, r2kSize, r2kSize);
+            fbmp = Paste(fbmp, bmps[10], 32, 32, r2kSize, r2kSize);
 
-            fbmp = Paste(fbmp, bmps[3], 0, 48, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            fbmp = Paste(fbmp, bmps[7], 16, 48, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            fbmp = Paste(fbmp, bmps[11], 32, 48, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            fbmp = Paste(fbmp, bmps[3], 0, 48, r2kSize, r2kSize);
+            fbmp = Paste(fbmp, bmps[7], 16, 48, r2kSize, r2kSize);
+            fbmp = Paste(fbmp, bmps[11], 32, 48, r2kSize, r2kSize);
 
             if (mode == SpriteMode.RESIZE) fbmp = Stretch(fbmp, 144, 192);
 
@@ -42,21 +43,22 @@ namespace tilecon.Tileset.Converter
         private Bitmap[] GetAnimatedObj(Bitmap bmp)
         {
             Bitmap[] bmps = new Bitmap[12];
+            short r2kSize = Tileset.R2k_2k3_AB.Size;
 
-            bmps[0] = Crop(bmp, 48, 64, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            bmps[1] = Crop(bmp, 48, 80, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            bmps[2] = Crop(bmp, 48, 96, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            bmps[3] = Crop(bmp, 48, 112, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            bmps[0] = Crop(bmp, 48, 64, r2kSize, r2kSize);
+            bmps[1] = Crop(bmp, 48, 80, r2kSize, r2kSize);
+            bmps[2] = Crop(bmp, 48, 96, r2kSize, r2kSize);
+            bmps[3] = Crop(bmp, 48, 112, r2kSize, r2kSize);
 
-            bmps[4] = Crop(bmp, 64, 64, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            bmps[5] = Crop(bmp, 64, 80, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            bmps[6] = Crop(bmp, 64, 96, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            bmps[7] = Crop(bmp, 64, 112, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            bmps[4] = Crop(bmp, 64, 64, r2kSize, r2kSize);
+            bmps[5] = Crop(bmp, 64, 80, r2kSize, r2kSize);
+            bmps[6] = Crop(bmp, 64, 96, r2kSize, r2kSize);
+            bmps[7] = Crop(bmp, 64, 112, r2kSize, r2kSize);
 
-            bmps[8] = Crop(bmp, 80, 64, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            bmps[9] = Crop(bmp, 80, 80, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            bmps[10] = Crop(bmp, 80, 96, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
-            bmps[11] = Crop(bmp, 80, 112, Maker.R2k_2k3.SPRITE_SIZE, Maker.R2k_2k3.SPRITE_SIZE);
+            bmps[8] = Crop(bmp, 80, 64, r2kSize, r2kSize);
+            bmps[9] = Crop(bmp, 80, 80, r2kSize, r2kSize);
+            bmps[10] = Crop(bmp, 80, 96, r2kSize, r2kSize);
+            bmps[11] = Crop(bmp, 80, 112, r2kSize, r2kSize);
 
             return bmps;
         }
@@ -64,7 +66,7 @@ namespace tilecon.Tileset.Converter
         private Bitmap PasteAutotileInMV(Bitmap bmp)
         {
             Bitmap[] sprites = SetMVAutotile(bmp);
-            Bitmap img = new Bitmap(Maker.MV_A12.SIZE_WIDTH, Maker.MV_A12.SIZE_HEIGHT);
+            Bitmap img = new Bitmap(Tileset.MV_A12.Width, Tileset.MV_A12.Height);
             Rectangle rect = new Rectangle(0, 0, sprites[0].Width, sprites[0].Height);
             Graphics graphics = Graphics.FromImage(img);
 
@@ -91,11 +93,11 @@ namespace tilecon.Tileset.Converter
             for (int i = 0; i < autotiles.Length; i++)
             {
                 Bitmap temp = new Bitmap(96, 144);
-                Bitmap bmp1 = Stretch(Crop(autotiles[i], 16, 0, 16, 16), Maker.MV_A12.SPRITE_SIZE);
-                Bitmap bmp2 = Stretch(Crop(autotiles[i], 32, 0, 16, 16), Maker.MV_A12.SPRITE_SIZE);
+                Bitmap bmp1 = Stretch(Crop(autotiles[i], 16, 0, 16, 16), Tileset.MV_A12.Size);
+                Bitmap bmp2 = Stretch(Crop(autotiles[i], 32, 0, 16, 16), Tileset.MV_A12.Size);
                 Bitmap bmp3 = Stretch(Crop(autotiles[i], 0, 16, 48, 48), 96);
-                temp = Paste(temp, bmp1, 0, 0, Maker.MV_A12.SPRITE_SIZE, Maker.MV_A12.SPRITE_SIZE);
-                temp = Paste(temp, bmp2, 48, 0, Maker.MV_A12.SPRITE_SIZE, Maker.MV_A12.SPRITE_SIZE);
+                temp = Paste(temp, bmp1, 0, 0, Tileset.MV_A12.Size, Tileset.MV_A12.Size);
+                temp = Paste(temp, bmp2, 48, 0, Tileset.MV_A12.Size, Tileset.MV_A12.Size);
                 temp = Paste(temp, bmp3, 0, 48, 96, 96);
                 sprites.Add(temp);
             }
@@ -105,7 +107,7 @@ namespace tilecon.Tileset.Converter
         private Bitmap[] GetAutotiles(Bitmap bmp)
         {
             Bitmap[] bmps = new Bitmap[12];
-            Bitmap temp = Crop(bmp, 0, 0, 192, Maker.R2k_2k3_AB.SIZE_HEIGHT);
+            Bitmap temp = Crop(bmp, 0, 0, 192, Tileset.R2k_2k3_AB.Height);
 
             bmps[0] = Crop(temp, 0, 128, 48, 64);
             bmps[1] = Crop(temp, 48, 128, 48, 64);
@@ -135,29 +137,29 @@ namespace tilecon.Tileset.Converter
 
         private Bitmap GetTilesetA(Bitmap bmp)
         {
-            Bitmap temp = Crop(bmp, 192, 0, 288, Maker.R2k_2k3_AB.SIZE_HEIGHT);
-            Bitmap bmp1 = Crop(temp, 0, 0, 96, Maker.R2k_2k3_AB.SIZE_HEIGHT / 2);
-            Bitmap bmp2 = Crop(temp, 0, Maker.R2k_2k3_AB.SIZE_HEIGHT / 2, 96, Maker.R2k_2k3_AB.SIZE_HEIGHT / 2);
-            Bitmap bmp3 = Crop(temp, 96, 0, 96, Maker.R2k_2k3_AB.SIZE_HEIGHT / 2);
+            Bitmap temp = Crop(bmp, 192, 0, 288, Tileset.R2k_2k3_AB.Height);
+            Bitmap bmp1 = Crop(temp, 0, 0, 96, Tileset.R2k_2k3_AB.Height / 2);
+            Bitmap bmp2 = Crop(temp, 0, Tileset.R2k_2k3_AB.Height / 2, 96, Tileset.R2k_2k3_AB.Height / 2);
+            Bitmap bmp3 = Crop(temp, 96, 0, 96, Tileset.R2k_2k3_AB.Height / 2);
 
             temp = new Bitmap(96, 384);
             temp = Paste(temp, bmp1, 0, 0, 192, 197);
-            temp = Paste(temp, bmp2, 0, Maker.R2k_2k3_AB.SIZE_HEIGHT / 2, 191, 197);
-            temp = Paste(temp, bmp3, 0, Maker.R2k_2k3_AB.SIZE_HEIGHT, 191, 197);
+            temp = Paste(temp, bmp2, 0, Tileset.R2k_2k3_AB.Height / 2, 191, 197);
+            temp = Paste(temp, bmp3, 0, Tileset.R2k_2k3_AB.Height, 191, 197);
             return temp;
         }
 
         private Bitmap GetTilesetB(Bitmap bmp)
         {
-            Bitmap temp = Crop(bmp, 288, 00, 192, Maker.R2k_2k3_AB.SIZE_HEIGHT);
-            Bitmap bmp1 = Crop(temp, 00, Maker.R2k_2k3_AB.SIZE_HEIGHT / 2, 96, Maker.R2k_2k3_AB.SIZE_HEIGHT / 2);
-            Bitmap bmp2 = Crop(temp, 96, 00, 96, Maker.R2k_2k3_AB.SIZE_HEIGHT / 2);
-            Bitmap bmp3 = Crop(temp, 96, Maker.R2k_2k3_AB.SIZE_HEIGHT / 2, 96, Maker.R2k_2k3_AB.SIZE_HEIGHT / 2);
+            Bitmap temp = Crop(bmp, 288, 00, 192, Tileset.R2k_2k3_AB.Height);
+            Bitmap bmp1 = Crop(temp, 00, Tileset.R2k_2k3_AB.Height / 2, 96, Tileset.R2k_2k3_AB.Height / 2);
+            Bitmap bmp2 = Crop(temp, 96, 00, 96, Tileset.R2k_2k3_AB.Height / 2);
+            Bitmap bmp3 = Crop(temp, 96, Tileset.R2k_2k3_AB.Height / 2, 96, Tileset.R2k_2k3_AB.Height / 2);
 
             temp = new Bitmap(96, 384);
             temp = Paste(temp, bmp1, 0, 0, 192, 197);
-            temp = Paste(temp, bmp2, 0, Maker.R2k_2k3_AB.SIZE_HEIGHT / 2, 191, 197);
-            temp = Paste(temp, bmp3, 0, Maker.R2k_2k3_AB.SIZE_HEIGHT, 191, 197);
+            temp = Paste(temp, bmp2, 0, Tileset.R2k_2k3_AB.Height / 2, 191, 197);
+            temp = Paste(temp, bmp3, 0, Tileset.R2k_2k3_AB.Height, 191, 197);
             return temp;
         }
 
@@ -171,23 +173,28 @@ namespace tilecon.Tileset.Converter
 
             List<Bitmap> images = new List<Bitmap>();
 
-            switch (inputTileset.TilesetName())
+            string name = inputTileset.TilesetName();
+            if (name == Tileset.R2k_2k3_Auto.Name)
             {
-                case Maker.R2k_2k3_Auto.NAME:
-                    images.Add(PasteAutotileInMV(img as Bitmap));
-                    return images.ToArray();
-                case Maker.R2k_2k3_AnimObj.NAME:
-                    images.Add(PasteAnimatedObjectInMV(img as Bitmap));
-                    return images.ToArray();
-                case Maker.R2k_2k3_AB.NAME:
-                    img = GetTilesetAB(img as Bitmap);
-                    break;
-                case Maker.R2k_2k3_A.NAME:
-                    img = GetTilesetA(img as Bitmap);
-                    break;
-                case Maker.R2k_2k3_B.NAME:
-                    img = GetTilesetB(img as Bitmap);
-                    break;
+                images.Add(PasteAutotileInMV(img as Bitmap));
+                return images.ToArray();
+            }
+            else if (name == Tileset.R2k_2k3_AnimObj.Name)
+            {
+                images.Add(PasteAnimatedObjectInMV(img as Bitmap));
+                return images.ToArray();
+            }
+            else if (name == Tileset.R2k_2k3_AB.Name)
+            {
+                img = GetTilesetAB(img as Bitmap);
+            }
+            else if (name == Tileset.R2k_2k3_A.Name)
+            {
+                img = GetTilesetA(img as Bitmap);
+            }
+            else if (name == Tileset.R2k_2k3_B.Name)
+            {
+                img = GetTilesetB(img as Bitmap);
             }
 
             List<Bitmap> sprites = GetSprites(img);

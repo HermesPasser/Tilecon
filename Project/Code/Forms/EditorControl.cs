@@ -3,6 +3,7 @@ using System.Drawing;
 using System.ComponentModel;
 using System.Windows.Forms;
 using tilecon.Tileset.Editor;
+using tilecon.Tileset;
 
 namespace tilecon
 {
@@ -13,7 +14,7 @@ namespace tilecon
         private TilesetEditorOutput gridOut;
         private ITileset mvTilesetType;
         private string originFilename;
-        private int customSpriteSize;
+        private byte customSpriteSize;
 
         [Description("add...")]
         public event EventHandler TilesetLoaded;
@@ -52,7 +53,7 @@ namespace tilecon
         }
 
         /// <summary>Stores the value to set Maker.Custom.SPRITE_SIZE when generete the grid.</summary>
-        public int CustomSpriteSize
+        public byte CustomSpriteSize
         {
             set => customSpriteSize = value;
             get => customSpriteSize;
@@ -60,12 +61,14 @@ namespace tilecon
 
         public void LoadGrid()
         {
-            Maker.Custom.SPRITE_SIZE = customSpriteSize;
-
-            if (mvTilesetType.TilesetName() == Maker.Custom.NAME && Maker.Custom.SPRITE_SIZE == 0)
+            if (mvTilesetType.TilesetName() == Tileset.Tileset.Custom(0).Name)
             {
-                MessageBox.Show(Vocab.GetText("sizeIsZeroErrorMsg"));
-                return;
+                if (customSpriteSize == 0)
+                {
+                    MessageBox.Show(Vocab.GetText("sizeIsZeroErrorMsg"));
+                    return;
+                }
+                mvTilesetType = Tileset.Tileset.Custom(customSpriteSize);
             }
 
             Image img = Image.FromFile(originFilename);
@@ -94,12 +97,12 @@ namespace tilecon
 
             switch (cbOutput.SelectedIndex)
             {
-                case 0: tileset = new Maker.MV_A12(); break;
-                case 1: tileset = new Maker.MV_A3(); break;
-                case 2: tileset = new Maker.MV_A4(); break;
-                case 3: tileset = new Maker.MV_A5(); break;
+                case 0: tileset = Tileset.Tileset.MV_A12; break;
+                case 1: tileset = Tileset.Tileset.MV_A3; break;
+                case 2: tileset = Tileset.Tileset.MV_A4; break;
+                case 3: tileset = Tileset.Tileset.MV_A5; break;
                 case 4:
-                default: tileset = new Maker.MV_BE(); break;
+                default: tileset = Tileset.Tileset.MV_BE; break;
             }
             gridOut = new TilesetEditorOutput(tileset, outputPanel, gridIn);
         }

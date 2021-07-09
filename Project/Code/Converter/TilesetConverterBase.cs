@@ -60,32 +60,34 @@ namespace tilecon.Tileset.Converter
         /// <returns>The output tileset.</returns>
         public ITileset SetOutputTileset()
         {
-            switch (inputTileset.TilesetName())
+            string name = inputTileset.TilesetName();
+            if (name == Tileset.R2k_2k3_AnimObj.Name)
             {
-                case Maker.R2k_2k3_AnimObj.NAME:
-                    outputTileset = new Maker.MV_Other();
-                    break;
-                case Maker.VX_Ace_A12.NAME:
-                case Maker.R2k_2k3_Auto.NAME:
-                case Maker.XP_Auto.NAME:
-                    outputTileset = new Maker.MV_A12();
-                    break;
-                case Maker.VX_Ace_A3.NAME:
-                    outputTileset = new Maker.MV_A3();
-                    break;
-                case Maker.VX_Ace_A4.NAME:
-                    outputTileset = new Maker.MV_A4();
-                    break;
-                case Maker.VX_Ace_A5.NAME:
-                    outputTileset = new Maker.MV_A5();
-                    break;
-                default:
-                    outputTileset = new Maker.MV_BE();
-                    break;
+                outputTileset = Tileset.MV_Other;
+            }
+            else if (name == Tileset.VX_Ace_A12.Name || name == Tileset.R2k_2k3_Auto.Name || name == Tileset.XP_Auto.Name)
+            {
+                outputTileset = Tileset.MV_A12;
+            }
+            else if (name == Tileset.VX_Ace_A3.Name)
+            {
+                outputTileset = Tileset.MV_A3;
+            }
+            else if (name == Tileset.VX_Ace_A4.Name)
+            {
+                outputTileset = Tileset.MV_A4;
+            }
+            else if (name == Tileset.VX_Ace_A5.Name)
+            {
+                outputTileset = Tileset.MV_A5;
+            }
+            else
+            {
+                outputTileset = Tileset.MV_BE;
             }
 
             // If output is a MV or MV childen then return mv sprite size else return -1
-            outputSpriteSize = outputTileset is Maker.MV ? Maker.MV.SPRITE_SIZE : -1;
+            outputSpriteSize = Tileset.IsMV((Tileset)outputTileset) ? Tileset.MV_A12.Size: -1;
             return outputTileset;
         }
         
@@ -177,7 +179,7 @@ namespace tilecon.Tileset.Converter
         /// <returns>Return true if the image is convertible and false if not.</returns>
         protected virtual bool IsConvertible(Image img)
         {
-            if (inputTileset.GetType() != typeof(Maker.XP_Tile))
+            if (inputTileset.TilesetName() != Tileset.XP_Tile.Name)
             {
                 if (img.Width != inputTileset.SizeWidth() || img.Height != inputTileset.SizeHeight())
                 {

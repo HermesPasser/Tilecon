@@ -67,38 +67,38 @@ namespace tilecon.Tileset.Editor
 
             TilesetConverterBase con;
             con = GetTilesetConverter(mode);
-            selectedImage = con.SetModeInSprite(selectedImage, Maker.MV_A12.SPRITE_SIZE); // must not be mv sprite size, add param to set this
+            selectedImage = con.SetModeInSprite(selectedImage, Tileset.MV_A12.Size); // must not be mv sprite size, add param to set this
             if (preview != null) preview.Image = selectedImage;
         }
 
         private TilesetConverterBase GetTilesetConverter(SpriteMode mode)
         {
             TilesetConverterBase con;
-            switch (tileset.TilesetName())
+            string name = tileset.TilesetName();
+
+            if (name == Tileset.Alpha.Name)
             {
-                case Maker.Alpha.NAME:
-                    con = new TilesetConverterVerticalApha(tileset, mode, false);
-                    break;
-                case Maker.R95.NAME:
-                case Maker.S97.NAME:
-                case Maker.XP_Tile.NAME:
-                    con = new TilesetConverterVertical(tileset, mode, false);
-                    break;
-                case Maker.XP_Auto.NAME:
-                    con = new TilesetConverterAutotileXP(tileset, mode, false);
-                    break;
-                case Maker.R2k_2k3_A.NAME:
-                case Maker.R2k_2k3_B.NAME:
-                case Maker.R2k_2k3_AB.NAME:
-                case Maker.R2k_2k3_Auto.NAME:
-                    con = new TilesetConverterVerticalRM2K3(tileset, mode, false);
-                    break;
-                case Maker.Custom.NAME:
-                    con = new TilesetConverterCustom(mode, false);
-                    break;
-                default:
-                    con = new TilesetConverterVX(tileset, mode, false);
-                    break;
+                con = new TilesetConverterVerticalApha(tileset, mode, false);
+            }
+            else if (name == Tileset.R95.Name || name == Tileset.S97.Name || name == Tileset.XP_Tile.Name)
+            {
+                con = new TilesetConverterVertical(tileset, mode, false);
+            }
+            else if (name == Tileset.XP_Auto.Name)
+            {
+                con = new TilesetConverterAutotileXP(tileset, mode, false);
+            } 
+            else if (Tileset.IsR2k_2k3((Tileset)tileset) && name != Tileset.R2k_2k3_AnimObj.Name)
+            { // all 2000/2003 tilesets but not an animated object
+                con = new TilesetConverterVerticalRM2K3(tileset, mode, false);
+            }
+            else if (name == Tileset.Custom(0).Name)
+            {
+                con = new TilesetConverterCustom(tileset, mode, false);
+            } 
+            else
+            {
+                con = new TilesetConverterVX(tileset, mode, false);
             }
 
             return con;

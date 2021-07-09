@@ -10,7 +10,7 @@ namespace tilecon.Tileset.Converter.Tests
         [TestInitialize]
         public void Initalize()
         {
-            converter = new TilesetConverterAutotileXP(new Maker.XP_Auto(), SpriteMode.ALIGN_TOP_LEFT, false);
+            converter = new TilesetConverterAutotileXP(Tileset.XP_Auto, SpriteMode.ALIGN_TOP_LEFT, false);
         }
 
         [TestMethod()]

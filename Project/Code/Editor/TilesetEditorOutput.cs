@@ -18,7 +18,7 @@ namespace tilecon.Tileset.Editor
         {
             this.input = input;
 
-            if (tileset.GetType() == new Maker.XP_Tile().GetType())
+            if (tileset.TilesetName() == Tileset.XP_Tile.Name)
                 throw new ConvertException("Tileset cannot be XP because this class not contain the information of original image and the default is -1.");
             SetUpGrid();
         }

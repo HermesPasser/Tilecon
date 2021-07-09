@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using tilecon.Tileset.Converter;
+using tilecon.Tileset;
 
 namespace tilecon
 {
@@ -137,8 +138,12 @@ namespace tilecon
             {
                 try
                 {
-                    int size = tile.TilesetName() == Maker.Custom.NAME ? Int32.Parse(textCustomSize.Text) : tile.SpriteSize();
-                    TilesetConverterVertical tilecon = new TilesetConverterCustom(SpriteMode.ALIGN_TOP_LEFT, false, size);
+                    // FIXME: prevent stack overflow
+                    tile = tile.TilesetName() == Tileset.Tileset.Custom(0).Name ?
+                        Tileset.Tileset.Custom(byte.Parse(textCustomSize.Text))
+                        : tile;
+
+                    TilesetConverterVertical tilecon = new TilesetConverterCustom(tile, SpriteMode.ALIGN_TOP_LEFT, false);
                     tilecon.SaveEachSubimage(Image.FromFile(filepath), saveFileDialog1.FileName);
 
                     MessageBox.Show(Vocab.GetText("done"), "Tilecon");
@@ -180,7 +185,7 @@ namespace tilecon
 
         private void OnIndexChange(object sender, EventArgs e)
         {
-            textCustomSize.Enabled = GetSelectedInputTileset().TilesetName() == Maker.Custom.NAME;
+            textCustomSize.Enabled = GetSelectedInputTileset().TilesetName() == Tileset.Tileset.Custom(0).Name;
             converterControl1.UpdateOutputLabel((SpriteMode)cbMode.SelectedIndex);
         }
 
@@ -228,35 +233,43 @@ namespace tilecon
 
         private void SetTilesetByMenuItem(object sender, EventArgs e)
         {
-            switch (sender.ToString())
-            {
-                case Maker.R95.NAME: cbMaker.SelectedIndex = 0; break;
-                case Maker.S97.NAME: cbMaker.SelectedIndex = 1; break;
-                case Maker.Alpha.NAME: cbMaker.SelectedIndex = 2; break;
-                case Maker.R2k_2k3_Auto.NAME: cbMaker.SelectedIndex = 3; break;
-                case Maker.R2k_2k3_AnimObj.NAME: cbMaker.SelectedIndex = 4; break;
-                case Maker.R2k_2k3_AB.NAME: cbMaker.SelectedIndex = 5; break;
-                case Maker.R2k_2k3_A.NAME: cbMaker.SelectedIndex = 6; break;
-                case Maker.R2k_2k3_B.NAME: cbMaker.SelectedIndex = 7; break;
-                case Maker.XP_Tile.NAME: cbMaker.SelectedIndex = 8; break;
-                case Maker.VX_Ace_A12.NAME: cbMaker.SelectedIndex = 10; break;
-                case Maker.VX_Ace_A3.NAME: cbMaker.SelectedIndex = 11; break;
-                case Maker.VX_Ace_A4.NAME: cbMaker.SelectedIndex = 12; break;
-                case Maker.VX_Ace_A5.NAME: cbMaker.SelectedIndex = 13; break;
-                case Maker.VX_Ace_BE.NAME: cbMaker.SelectedIndex = 14; break;
-                case Maker.XP_Auto.NAME: cbMaker.SelectedIndex = 9; break;
-                default: cbMaker.SelectedIndex = 15; break; // custom
-            }
+            string tilesetName = sender.ToString();
+            if (tilesetName == Tileset.Tileset.R95.Name) cbMaker.SelectedIndex = 0;
+            else if (tilesetName == Tileset.Tileset.S97.Name) cbMaker.SelectedIndex = 1;
+            else if (tilesetName == Tileset.Tileset.Alpha.Name) cbMaker.SelectedIndex = 2;
+            else if (tilesetName == Tileset.Tileset.R2k_2k3_Auto.Name) cbMaker.SelectedIndex = 3;
+            else if (tilesetName == Tileset.Tileset.R2k_2k3_AnimObj.Name) cbMaker.SelectedIndex = 4;
+            else if (tilesetName == Tileset.Tileset.R2k_2k3_AB.Name) cbMaker.SelectedIndex = 5;
+            else if (tilesetName == Tileset.Tileset.R2k_2k3_A.Name) cbMaker.SelectedIndex = 6;
+            else if (tilesetName == Tileset.Tileset.R2k_2k3_B.Name) cbMaker.SelectedIndex = 7;
+            else if (tilesetName == Tileset.Tileset.XP_Tile.Name) cbMaker.SelectedIndex = 8;
+            else if (tilesetName == Tileset.Tileset.VX_Ace_A12.Name) cbMaker.SelectedIndex = 10;
+            else if (tilesetName == Tileset.Tileset.VX_Ace_A3.Name) cbMaker.SelectedIndex = 11;
+            else if (tilesetName == Tileset.Tileset.VX_Ace_A4.Name) cbMaker.SelectedIndex = 12;
+            else if (tilesetName == Tileset.Tileset.VX_Ace_A5.Name) cbMaker.SelectedIndex = 13;
+            else if (tilesetName == Tileset.Tileset.VX_Ace_BE.Name) cbMaker.SelectedIndex = 14;
+            else if (tilesetName == Tileset.Tileset.XP_Auto.Name) cbMaker.SelectedIndex = 9;
+            else cbMaker.SelectedIndex = 15; // custom
         }
 
         private void textCustomSize_TextChanged(object sender, EventArgs e)
         {
+            // Since custom tilesets can have any size, why limit them to RM's tileset size?
+            // maybe revert back the sprite size and the tileset size to an int?
+
             textCustomSize.Text = Regex.Replace(textCustomSize.Text, "[^0-9]", "");
 
             if (textCustomSize.Text == "")
                 textCustomSize.Text = "0";
 
-            editor.CustomSpriteSize = Int32.Parse(textCustomSize.Text);
+            int intVal = Int32.Parse(textCustomSize.Text);
+            if (intVal > Byte.MaxValue)
+            {
+                textCustomSize.Text = Byte.MaxValue.ToString();
+                editor.CustomSpriteSize = Byte.MaxValue;
+            }
+            else
+                editor.CustomSpriteSize = Byte.Parse(textCustomSize.Text);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -337,7 +350,13 @@ namespace tilecon
 
         private void Convert(object sender, EventArgs e)
         {
-            converterControl1.Convert((SpriteMode)cbMode.SelectedIndex, GetSelectedInputTileset(), int.Parse(textCustomSize.Text)); 
+            var tileset = GetSelectedInputTileset();
+
+            // replaces the custom tileset with a new custom with the selected size
+            if (tileset.TilesetName() == Tileset.Tileset.Custom(0).Name)
+                tileset = Tileset.Tileset.Custom(Byte.Parse(textCustomSize.Text));
+
+            converterControl1.Convert((SpriteMode)cbMode.SelectedIndex, tileset); 
             setTransparentItem.Enabled = true;
         }
 

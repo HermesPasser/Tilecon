@@ -137,7 +137,7 @@
       <DependentUpon>Form2000.cs</DependentUpon>
     </Compile>
     <Compile Include="Code\ITileset.cs" />
-    <Compile Include="Code\Maker.cs" />
+    <Compile Include="Code\Tileset.cs" />
     <Compile Include="Code\Forms\FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>

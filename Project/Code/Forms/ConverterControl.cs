@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
 using tilecon.Tileset.Converter;
+using tilecon.Tileset;
 
 namespace tilecon
 {
@@ -77,30 +78,34 @@ namespace tilecon
         /// <param name="mode"></param>
         public void UpdateOutputLabel(SpriteMode mode)
         {
-            TilesetConverterVX con = new TilesetConverterVX(new Maker.XP_Tile(), mode, IgnoreAlpha);
+            TilesetConverterVX con = new TilesetConverterVX(Tileset.Tileset.XP_Tile, mode, IgnoreAlpha);
+            string name = con.SetOutputTileset().TilesetName();
 
-            switch (con.SetOutputTileset().TilesetName())
+            // TODO: get the substring from the tileset type then is MV instead
+            if (name == Tileset.Tileset.MV_A12.Name)
             {
-                // TODO: get the substring from the tileset type then is MV instead
-                case Maker.MV_A12.NAME:
-                    labelMVTilesetName.Text = "A1-2";
-                    break;
-                case Maker.MV_A3.NAME:
-                    labelMVTilesetName.Text = "A3";
-                    break;
-                case Maker.MV_A4.NAME:
-                    labelMVTilesetName.Text = "A4";
-                    break;
-                case Maker.MV_A5.NAME:
-                    labelMVTilesetName.Text = "A5";
-                    break;
-                case Maker.MV_BE.NAME:
-                case Maker.Custom.NAME:
-                    labelMVTilesetName.Text = "B-E";
-                    break;
-                default:
-                    labelMVTilesetName.Text = "Character";
-                    break;
+                labelMVTilesetName.Text = "A1-2";
+            }
+            else if (name == Tileset.Tileset.MV_A3.Name)
+            {
+                labelMVTilesetName.Text = "A3";
+            }
+            else if (name == Tileset.Tileset.MV_A4.Name)
+            {
+                labelMVTilesetName.Text = "A4";
+            }
+            else if (name == Tileset.Tileset.MV_A5.Name)
+            {
+                labelMVTilesetName.Text = "A5";
+            }
+            else if (name == Tileset.Tileset.MV_BE.Name || name == Tileset.Tileset.Custom(0).Name)
+            {
+                labelMVTilesetName.Text = "B-E";
+            }
+            else
+            {
+                // which situation we set to 'character'?
+                labelMVTilesetName.Text = "Character";
             }
         }
 
@@ -108,47 +113,40 @@ namespace tilecon
         /// Converts the tileset to a RPG Maker MV tileset
         /// </summary>
         /// <param name="mode">Sprite mode</param>
-        /// <param name="tileset">Input tileset kind</param>
-        /// <param name="customSize">Tile size (only necessary with the tileset = Maker.Custom) </param>
-        public void Convert(SpriteMode mode, ITileset tileset, int customSize = 0)
+        /// <param name="tileset">Input tileset type</param>
+        public void Convert(SpriteMode mode, ITileset tileset)
         {
             TilesetConverterBase con;
+            string name = tileset.TilesetName();
             btnConvert.Text = Vocab.GetText("wait");
             try
             {
                 // TODO: add some reflection here...
-                switch (tileset.TilesetName())
+                if (name == Tileset.Tileset.Alpha.Name)
                 {
-                    case Maker.Alpha.NAME:
-                        con = new TilesetConverterVerticalApha(tileset, mode, IgnoreAlpha);
-                        break;
-
-                    case Maker.R95.NAME:
-                    case Maker.S97.NAME:
-                    case Maker.XP_Tile.NAME:
-                        con = new TilesetConverterVertical(tileset, mode, IgnoreAlpha);
-                        break;
-
-                    case Maker.XP_Auto.NAME:
-                        con = new TilesetConverterAutotileXP(tileset, mode, IgnoreAlpha);
-                        break;
-
-                    case Maker.R2k_2k3_A.NAME:
-                    case Maker.R2k_2k3_B.NAME:
-                    case Maker.R2k_2k3_AB.NAME:
-                    case Maker.R2k_2k3_Auto.NAME:
-                    case Maker.R2k_2k3_AnimObj.NAME:
-                        con = new TilesetConverterVerticalRM2K3(tileset, mode, IgnoreAlpha);
-                        break;
-
-                    case Maker.Custom.NAME:
-                        con = new TilesetConverterCustom(mode, IgnoreAlpha, customSize);
-                        break;
-
-                    default:
-                        con = new TilesetConverterVX(tileset, mode, IgnoreAlpha);
-                        break;
+                    con = new TilesetConverterVerticalApha(tileset, mode, IgnoreAlpha);
                 }
+                else if (name == Tileset.Tileset.R95.Name || name == Tileset.Tileset.S97.Name || name == Tileset.Tileset.XP_Tile.Name)
+                {
+                    con = new TilesetConverterVertical(tileset, mode, IgnoreAlpha);
+                }
+                else if (name == Tileset.Tileset.XP_Auto.Name)
+                {
+                    con = new TilesetConverterAutotileXP(tileset, mode, IgnoreAlpha);
+                }
+                else if (Tileset.Tileset.IsR2k_2k3((Tileset.Tileset) tileset))
+                { // the other place IsR2k_2k3 is used, we disconsider animated tiles but not here, i can't remember why
+                    con = new TilesetConverterVerticalRM2K3(tileset, mode, IgnoreAlpha);
+                }
+                else if (name == Tileset.Tileset.Custom(0).Name)
+                {
+                    con = new TilesetConverterCustom(tileset, mode, IgnoreAlpha);
+                }
+                else
+                {
+                    con = new TilesetConverterVX(tileset, mode, IgnoreAlpha);
+                }
+               
                 convertedBitmaps = con.ConvertToMV(inputTileset);
             }
             catch (ConvertException ex)

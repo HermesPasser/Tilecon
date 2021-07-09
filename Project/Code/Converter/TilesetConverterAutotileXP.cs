@@ -7,40 +7,40 @@ namespace tilecon.Tileset.Converter
     public class TilesetConverterAutotileXP : TilesetConverterVertical
     {
         /// <summary>Default constructor.</summary>
-        /// <param name="inputMaker">Tileset type to be converted</param>
+        /// <param name="inputTilesetImpl">Tileset type to be converted</param>
         /// <param name="mode">Mode how sprites should be pasted into the converted image.</param>
         /// <param name="ignoreAlpha">Flag to ignore empty sprites.</param>
-        public TilesetConverterAutotileXP(ITileset inputMaker, SpriteMode mode, bool ignoreAlpha) : base(inputMaker, mode, ignoreAlpha) { }
+        public TilesetConverterAutotileXP(ITileset inputTilesetImpl, SpriteMode mode, bool ignoreAlpha) : base(inputTilesetImpl, mode, ignoreAlpha) { }
 
         /// <summary>if the image is convertible to MV tileset.</summary>
         /// <param name="img">Image to be checked.</param>
         /// <returns>Return true if the image is convertible and false if not.</returns>
         protected override bool IsConvertible(Image img)
         {
-            if (img.Width == Maker.XP_Auto.SIZE_WIDTH || img.Height == Maker.XP_Auto.SIZE_HEIGHT)
+            if (img.Width == Tileset.XP_Auto.Width || img.Height == Tileset.XP_Auto.Height)
                 return true;
-            else if (img.Width == Maker.XP_Auto.AnimateAuto.SIZE_WIDTH || img.Height == Maker.XP_Auto.AnimateAuto.SIZE_HEIGHT)
+            else if (img.Width == Tileset.XP_AnimatedAuto.Width || img.Height == Tileset.XP_AnimatedAuto.Height)
                 return true;
             return false;
         }
 
         private Bitmap GetMVAutotile(Bitmap bmp)
         {
-            Bitmap temp = new Bitmap(Maker.MV_A12.SPRITE_SIZE, Maker.MV_A12.SPRITE_SIZE);
+            Bitmap temp = new Bitmap(Tileset.MV_A12.Size, Tileset.MV_A12.Size);
             Bitmap mv = new Bitmap(96, 144);
-            Bitmap xp1 = Crop(bmp, 00, 00, Maker.XP_Tile.SPRITE_SIZE, Maker.XP_Tile.SPRITE_SIZE);
-            Bitmap xp2 = Crop(bmp, 64, 00, Maker.XP_Tile.SPRITE_SIZE / 2, Maker.XP_Tile.SPRITE_SIZE / 2);
-            Bitmap xp3 = Crop(bmp, 80, 00, Maker.XP_Tile.SPRITE_SIZE / 2, Maker.XP_Tile.SPRITE_SIZE / 2);
-            Bitmap xp4 = Crop(bmp, 64, 16, Maker.XP_Tile.SPRITE_SIZE / 2, Maker.XP_Tile.SPRITE_SIZE / 2);
-            Bitmap xp5 = Crop(bmp, 80, 16, Maker.XP_Tile.SPRITE_SIZE / 2, Maker.XP_Tile.SPRITE_SIZE / 2);
+            Bitmap xp1 = Crop(bmp, 00, 00, Tileset.XP_Tile.Size, Tileset.XP_Tile.Size);
+            Bitmap xp2 = Crop(bmp, 64, 00, Tileset.XP_Tile.Size / 2, Tileset.XP_Tile.Size / 2);
+            Bitmap xp3 = Crop(bmp, 80, 00, Tileset.XP_Tile.Size / 2, Tileset.XP_Tile.Size / 2);
+            Bitmap xp4 = Crop(bmp, 64, 16, Tileset.XP_Tile.Size / 2, Tileset.XP_Tile.Size / 2);
+            Bitmap xp5 = Crop(bmp, 80, 16, Tileset.XP_Tile.Size / 2, Tileset.XP_Tile.Size / 2);
             Bitmap xp6 = Crop(bmp, 0, 32, 96, 96);
-            Bitmap xp7 = Crop(bmp, 26, 56, Maker.MV_A12.SPRITE_SIZE, Maker.MV_A12.SPRITE_SIZE);
+            Bitmap xp7 = Crop(bmp, 26, 56, Tileset.MV_A12.Size, Tileset.MV_A12.Size);
 
-            mv = Paste(mv, xp1, 8, 8, Maker.XP_Tile.SPRITE_SIZE, Maker.XP_Tile.SPRITE_SIZE);
-            temp = Paste(temp, xp2, 00, 00, Maker.XP_Tile.SPRITE_SIZE / 2, Maker.XP_Tile.SPRITE_SIZE / 2);
-            temp = Paste(temp, xp3, 32, 00, Maker.XP_Tile.SPRITE_SIZE / 2, Maker.XP_Tile.SPRITE_SIZE / 2);
-            temp = Paste(temp, xp4, 00, 32, Maker.XP_Tile.SPRITE_SIZE / 2, Maker.XP_Tile.SPRITE_SIZE / 2);
-            temp = Paste(temp, xp5, 32, 32, Maker.XP_Tile.SPRITE_SIZE / 2, Maker.XP_Tile.SPRITE_SIZE / 2);
+            mv = Paste(mv, xp1, 8, 8, Tileset.XP_Tile.Size, Tileset.XP_Tile.Size);
+            temp = Paste(temp, xp2, 00, 00, Tileset.XP_Tile.Size / 2, Tileset.XP_Tile.Size / 2);
+            temp = Paste(temp, xp3, 32, 00, Tileset.XP_Tile.Size / 2, Tileset.XP_Tile.Size / 2);
+            temp = Paste(temp, xp4, 00, 32, Tileset.XP_Tile.Size / 2, Tileset.XP_Tile.Size / 2);
+            temp = Paste(temp, xp5, 32, 32, Tileset.XP_Tile.Size / 2, Tileset.XP_Tile.Size / 2);
             temp = PasteInAlpha(temp, xp7);
             mv = Paste(mv, temp, 48, 00, 96, 96);
             mv = Paste(mv, xp6, 00, 48, 96, 96);
@@ -49,9 +49,9 @@ namespace tilecon.Tileset.Converter
         
         private Bitmap GetMVTileset(Bitmap bmp)
         {
-            Bitmap mv = new Bitmap(Maker.MV_A12.SIZE_WIDTH, Maker.MV_A12.SIZE_HEIGHT);
+            Bitmap mv = new Bitmap(Tileset.MV_A12.Width, Tileset.MV_A12.Height);
 
-            if (bmp.Width == Maker.XP_Auto.SIZE_WIDTH)
+            if (bmp.Width == Tileset.XP_Auto.Width)
             {
                 Bitmap b = GetMVAutotile(bmp);
                 mv = Paste(mv, b, 288, 0, 96, 144);
