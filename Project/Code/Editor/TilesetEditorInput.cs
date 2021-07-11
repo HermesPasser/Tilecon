@@ -120,7 +120,7 @@ namespace tilecon.Tileset.Editor
             Bitmap[] tiles = SplitImageInSprites(tilesetImage, tileset.SpriteSize());
 
             ClearGrid();
-            int i = 0;
+            ushort i = 0;
 
             // Verify all the options to see if throws any exception.
             try
@@ -129,13 +129,15 @@ namespace tilecon.Tileset.Editor
                 {
                     for (int x = 0; x < width; i++, x += spriteSize)
                     {
-                        Button btn = NewButton(tiles[i], spriteSize);
+                        TileButton btn = NewButton(tiles[i], spriteSize);
                         btn.Click += new EventHandler(ButtonClickEventHandler);
                         grid.Add(btn);
+                        this.tiles.Add(tiles[i]);
+                        btn.Index = i;
 
-                        if (control != null)
+                        if (parent != null)
                         {
-                            control.Controls.Add(btn);
+                            parent.Controls.Add(btn);
                             btn.Location = new Point(x, y);
                         }
                     }

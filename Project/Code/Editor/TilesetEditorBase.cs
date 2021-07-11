@@ -8,14 +8,16 @@ namespace tilecon.Tileset.Editor
     /// <summary>Base of the editor.</summary>
     public abstract class TilesetEditorBase : ImageEditor
     {
+
         /// <summary>Tileset information.</summary>
         protected ITileset tileset;
 
-        /// <summary>Where the grid will be attached.</summary>
-        protected Control control;
+        /// <summary>Where the grid will be attached to.</summary>
+        protected Control parent;
 
-        /// <summary>List with all the buttons used to make the grid.</summary>
-        protected readonly List<Button> grid = new List<Button>();
+
+        internal readonly List<TileButton> grid = new List<TileButton>();
+        protected readonly List<Bitmap> tiles = new List<Bitmap>();
 
         /// <summary>Default constructor.</summary>
         /// <param name="tileset">Tileset information.</param>
@@ -23,18 +25,18 @@ namespace tilecon.Tileset.Editor
         public TilesetEditorBase(ITileset tileset, Control control)
         {
             this.tileset = tileset;
-            this.control = control;
+            this.parent = control;
         }
 
         /// <summary>Clear, dispose, and remove the grid from the attached control.</summary>
         public void ClearGrid()
         {
-            foreach (var pb in grid)
-            {
-                pb.Dispose();
-            }
+            foreach (var pb in grid) pb.Dispose();
+            foreach (var bm in tiles) bm.Dispose();
+
             grid.Clear();
-            control?.Controls.Clear();
+            tiles.Clear();
+            parent?.Controls.Clear();
         }
 
         /// <summary>Set manually the image of a button for be used in the tests.</summary>
@@ -43,21 +45,17 @@ namespace tilecon.Tileset.Editor
         public void SetGridImage(int index, Image img)
         {
             if (index == -1) index = grid.Count - 1;
-            grid[index].Image = img;
+            grid[index].Image = img as Bitmap;
+            //TODO:
+            //grid[index].TileImage = img as Bitmap;
+            tiles[index] = img as Bitmap;
         }
-
-        ///// <summary>Get  the image of a button for be used in the tests.</summary>
-        ///// <param name="index">Button index.</param>
-        //public Image GetGridImage(int index)
-        //{
-        //    return grid[index].Image;
-        //}
 
         /// <summary>Create a new button for the grid with the specify image.</summary>
         /// <param name="img">Image sprite to be used as background of button.</param>
         /// <param name="size">Size of the button.</param>
         /// <returns>The button.</returns>
-        protected Button NewButton(Image img, int size)
+        internal TileButton NewButton(Image img, int size)
         {
             return new TileButton
             { 

@@ -6,7 +6,10 @@ namespace tilecon {
     internal class TileButton : Button
     {
         private bool disposed = false;
-        public Bitmap tileImage;
+
+        public ushort Index = 0;
+        public Bitmap TileImage;
+
 
         public TileButton() : base()
         {
@@ -24,10 +27,10 @@ namespace tilecon {
             base.OnPaint(pevent);
             if (System.Windows.SystemParameters.HighContrast && BackgroundImage != null)
             {
-                if (tileImage == null && !disposed)
-                    tileImage = new Bitmap(BackgroundImage);
+                if (TileImage == null && !disposed)
+                    TileImage = new Bitmap(BackgroundImage);
 
-                pevent.Graphics.DrawImage(tileImage, pevent.ClipRectangle);
+                pevent.Graphics.DrawImage(TileImage, pevent.ClipRectangle);
                 
 				// TODO: duplicate the images for outside of button grid because
 				// if drawrect be called, will draw on top of BackgroundImage
@@ -41,15 +44,15 @@ namespace tilecon {
             if (disposed)
                 return;
 	    
-            tileImage?.Dispose();
+            TileImage?.Dispose();
             disposed = true;
             base.Dispose(disposing);
         }
 
         private void OnBGChanged(object sender, System.EventArgs args)
         {
-            tileImage?.Dispose();
-            tileImage = null;
+            TileImage?.Dispose();
+            TileImage = null;
         }
     }
 }

@@ -33,8 +33,14 @@ namespace tilecon.Tileset.Editor
 
         private void SetTileInButton(object sender)
         {
-            if (input != null)
-               ((TileButton)sender).BackgroundImage = input.selectedImage;
+            if (input == null)
+                return;
+
+            var tileBtn = (TileButton)sender;
+            var bmp = input.selectedImage as Bitmap;
+
+            tileBtn.BackgroundImage = bmp;
+            tiles[tileBtn.Index] = bmp;
         }
 
         /// <summary>Make a tileset of a bitmaps list.</summary>
@@ -43,8 +49,8 @@ namespace tilecon.Tileset.Editor
         {
             // Get the image of buttons
             List<Bitmap> bmps = new List<Bitmap>();
-            foreach (Button b in grid) bmps.Add(b.BackgroundImage as Bitmap);
-
+            foreach (var b in tiles) bmps.Add(b);
+           
             int width = tileset.SizeWidth();
             int height = tileset.SizeHeight();
             int spriteSize = tileset.SpriteSize();
@@ -68,6 +74,7 @@ namespace tilecon.Tileset.Editor
             int width = this.tileset.SizeWidth();
             int height = this.tileset.SizeHeight();
             int spriteSize = this.tileset.SpriteSize();
+            ushort i = 0;
 
             ClearGrid();
 
@@ -76,14 +83,17 @@ namespace tilecon.Tileset.Editor
             {
                 for (int y = 0; y < height; y += spriteSize)
                 {
-                    for (int x = 0; x < width; x += spriteSize)
+                    for (int x = 0; x < width; x += spriteSize, i++)
                     {
-                        Button btn = NewButton(null, spriteSize);
+                        TileButton btn = NewButton(null, spriteSize);
                         btn.Click += new EventHandler(ButtonClickEventHandler);
                         grid.Add(btn);
-                        if (control != null)
+                        tiles.Add(null);
+                        btn.Index = i;
+
+                        if (parent != null)
                         {
-                            control.Controls.Add(btn);
+                            parent.Controls.Add(btn);
                             btn.Location = new Point(x, y);
                         }
                     }
