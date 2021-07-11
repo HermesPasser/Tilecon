@@ -1,5 +1,4 @@
-﻿#pragma warning disable CS1591
-namespace tilecon
+﻿namespace tilecon
 {
     public interface ITileset
     {
@@ -9,15 +8,15 @@ namespace tilecon
 
         /// <summary>Get the sprite size.</summary>
         /// <returns>Sprite size.</returns>
-        int SpriteSize();
+        byte SpriteSize();
 
         /// <summary>Get the tileset width.</summary>
         /// <returns>Tileset width.</returns>
-        int SizeWidth();
+        short SizeWidth();
 
         /// <summary>Get the tileset height.</summary>
         /// <returns>Tileset height.</returns>
-        int SizeHeight();
+        short SizeHeight();
 
         //TODO: add when move to cs8
         //string Name { get; set; }

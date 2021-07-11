@@ -17,9 +17,9 @@ namespace tilecon.Tileset
         }
 
         public override string ToString() => Name;
-        public int SizeWidth() => Width;
-        public int SizeHeight() => Height;
-        public int SpriteSize() => Size;
+        public short SizeWidth() => Width;
+        public short SizeHeight() => Height;
+        public byte SpriteSize() => Size;
         public string TilesetName() => Name;
 
         public static Tileset Custom(byte s) => new Tileset(s, -1, -1, "Custom");
