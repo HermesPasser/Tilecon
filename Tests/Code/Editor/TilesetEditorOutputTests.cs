@@ -232,49 +232,40 @@ namespace tilecon.Tileset.Editor.Tests
         #endregion
 
         #region VX
+
         [TestMethod()]
         public void Editor_VX12ToMV_A12()
         {
-            bool b1 = EmulateEditor("Tests.Images.VX.VX_a12_in.png", "Tests.Images.VX.Editor.VX_Out_MVA12.png", Tileset.R2k_2k3_AB, Tileset.MV_A12);
-            bool b2 = EmulateEditor("Tests.Images.VX.VX_a12_in.png", "Tests.Images.VX.Editor.VX_Out_MVA12.png", Tileset.R2k_2k3_A, Tileset.MV_A12);
-            bool b3 = EmulateEditor("Tests.Images.VX.VX_a12_in.png", "Tests.Images.VX.Editor.VX_Out_MVA12.png", Tileset.R2k_2k3_B, Tileset.MV_A12);
-            Assert.IsTrue(b1 && b2 && b3);
+            bool areEqual = EmulateEditor("Tests.Images.VX.VX_a12_in.png", "Tests.Images.VX.Editor.VX_Out_MVA12.png", Tileset.VX_Ace_A12, Tileset.MV_A12);
+            Assert.IsTrue(areEqual);
         }
 
         [TestMethod()]
         public void Editor_VXToMV_A3()
         {
-            bool b1 = EmulateEditor("Tests.Images.VX.VX_a3_in.png", "Tests.Images.VX.Editor.VX_Out_MVA3.png", Tileset.R2k_2k3_AB, Tileset.MV_A3);
-            bool b2 = EmulateEditor("Tests.Images.VX.VX_a3_in.png", "Tests.Images.VX.Editor.VX_Out_MVA3.png", Tileset.R2k_2k3_A, Tileset.MV_A3);
-            bool b3 = EmulateEditor("Tests.Images.VX.VX_a3_in.png", "Tests.Images.VX.Editor.VX_Out_MVA3.png", Tileset.R2k_2k3_B, Tileset.MV_A3);
-            Assert.IsTrue(b1 && b2 && b3);
+            bool areEqual = EmulateEditor("Tests.Images.VX.VX_a3_in.png", "Tests.Images.VX.Editor.VX_Out_MVA3.png", Tileset.VX_Ace_A3, Tileset.MV_A3);
+            Assert.IsTrue(areEqual);
         }
 
         [TestMethod()]
         public void Editor_VXToMV_A4()
         {
-            bool b1 = EmulateEditor("Tests.Images.VX.VX_a4_in.png", "Tests.Images.VX.Editor.VX_Out_MVA4.png", Tileset.R2k_2k3_AB, Tileset.MV_A4);
-            bool b2 = EmulateEditor("Tests.Images.VX.VX_a4_in.png", "Tests.Images.VX.Editor.VX_Out_MVA4.png", Tileset.R2k_2k3_A, Tileset.MV_A4);
-            bool b3 = EmulateEditor("Tests.Images.VX.VX_a4_in.png", "Tests.Images.VX.Editor.VX_Out_MVA4.png", Tileset.R2k_2k3_B, Tileset.MV_A4);
-            Assert.IsTrue(b1 && b2 && b3);
+            bool areEqual = EmulateEditor("Tests.Images.VX.VX_a4_in.png", "Tests.Images.VX.Editor.VX_Out_MVA4.png", Tileset.VX_Ace_A4, Tileset.MV_A4);
+            Assert.IsTrue(areEqual);
         }
 
         [TestMethod()]
         public void Editor_VXToMV_A5()
         {
-            bool b1 = EmulateEditor("Tests.Images.VX.VX_a5_in.png", "Tests.Images.VX.Editor.VX_Out_MVA5.png", Tileset.R2k_2k3_AB, Tileset.MV_A5);
-            bool b2 = EmulateEditor("Tests.Images.VX.VX_a5_in.png", "Tests.Images.VX.Editor.VX_Out_MVA5.png", Tileset.R2k_2k3_A, Tileset.MV_A5);
-            bool b3 = EmulateEditor("Tests.Images.VX.VX_a5_in.png", "Tests.Images.VX.Editor.VX_Out_MVA5.png", Tileset.R2k_2k3_B, Tileset.MV_A5);
-            Assert.IsTrue(b1 && b2 && b3);
+            bool areEqual = EmulateEditor("Tests.Images.VX.VX_a5_in.png", "Tests.Images.VX.Editor.VX_Out_MVA5.png", Tileset.VX_Ace_A5, Tileset.MV_A5);
+            Assert.IsTrue(areEqual);
         }
 
         [TestMethod()]
         public void Editor_VXToMV_BC()
         {
-            bool b1 = EmulateEditor("Tests.Images.VX.VX_be_in.png", "Tests.Images.VX.Editor.VX_Out_MVBE.png", Tileset.R2k_2k3_AB, Tileset.MV_BE);
-            bool b2 = EmulateEditor("Tests.Images.VX.VX_be_in.png", "Tests.Images.VX.Editor.VX_Out_MVBE.png", Tileset.R2k_2k3_A, Tileset.MV_BE);
-            bool b3 = EmulateEditor("Tests.Images.VX.VX_be_in.png", "Tests.Images.VX.Editor.VX_Out_MVBE.png", Tileset.R2k_2k3_B, Tileset.MV_BE);
-            Assert.IsTrue(b1 && b2 && b3);
+            bool areEqual = EmulateEditor("Tests.Images.VX.VX_be_in.png", "Tests.Images.VX.Editor.VX_Out_MVBE.png", Tileset.VX_Ace_BE, Tileset.MV_BE);
+            Assert.IsTrue(areEqual);
         }
         #endregion
     }
