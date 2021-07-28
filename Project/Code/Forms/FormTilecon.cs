@@ -178,7 +178,7 @@ namespace tilecon
             }
 
             if (tabControl1.SelectedIndex == 0)
-                SaveConverter();
+                SaveConverter(saveFileDialog1.FileName);
             else
                 editor.Save(saveFileDialog1.FileName);
         }
@@ -346,7 +346,7 @@ namespace tilecon
         }
         #endregion
 
-        private void SaveConverter() => converterControl1.SaveTilesets();
+        private void SaveConverter(string filename) => converterControl1.SaveTilesets(filename);
 
         private void Convert(object sender, EventArgs e)
         {

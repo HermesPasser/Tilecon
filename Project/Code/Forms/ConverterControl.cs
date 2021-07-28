@@ -15,7 +15,6 @@ namespace tilecon
     public partial class ConverterControl : UserControl
     {
         private int bmpCurrentIndex;
-        private string inputTilesetFilepath;
         private Image inputTileset;
         private Bitmap[] convertedBitmaps = new Bitmap[0];
 
@@ -66,7 +65,6 @@ namespace tilecon
             if (string.IsNullOrEmpty(filename))
                 throw new NullReferenceException($"{nameof(filename)} is null or empty");
 
-            inputTilesetFilepath = filename;
             inputTileset = Image.FromFile(filename);
             pictureBoxInput.Image = inputTileset;
             Enable();
@@ -176,21 +174,20 @@ namespace tilecon
         /// <summary>
         /// Saves the converted tilesets
         /// </summary>
-        public void SaveTilesets()
+        public void SaveTilesets(string filename)
         {
-            string dir = inputTilesetFilepath;
-
+            // FIXME: this is not portable, use Path.Join instead
             if (convertedBitmaps.Length == 1)
             {
                 if (IsPlayerSprite())
-                    dir = $@"{Path.GetDirectoryName(dir)}\!${Path.GetFileName(dir)}";
-                convertedBitmaps[0].Save(dir);
+                    filename = $@"{Path.GetDirectoryName(filename)}\!${Path.GetFileName(filename)}";
+                convertedBitmaps[0].Save(filename);
             }
             else // multiple bitmaps
             {
-                dir = $@"{Path.GetDirectoryName(dir)}\{Path.GetFileNameWithoutExtension(dir)}";
+                filename = $@"{Path.GetDirectoryName(filename)}\{Path.GetFileNameWithoutExtension(filename)}";
                 for (int i = 0; i < convertedBitmaps.Length; i++)
-                    convertedBitmaps[i].Save($"{dir}_{i + 1}.png");
+                    convertedBitmaps[i].Save($"{filename}_{i + 1}.png");
             }
         }
 
