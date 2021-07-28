@@ -8,18 +8,18 @@ namespace tilecon.Tileset
         public readonly short Height;
         public readonly string Name;
 
-        private Tileset(byte spriteSize, short width, short height, string name)
+        private Tileset(byte tileSize, short width, short height, string name)
         {
             Name = name;
             Width = width;
             Height = height;
-            Size = spriteSize;
+            Size = tileSize;
         }
 
         public override string ToString() => Name;
         public short SizeWidth() => Width;
         public short SizeHeight() => Height;
-        public byte SpriteSize() => Size;
+        public byte TileSize() => Size;
         public string TilesetName() => Name;
 
         public static Tileset Custom(byte s) => new Tileset(s, -1, -1, "Custom");

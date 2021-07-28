@@ -18,7 +18,7 @@ namespace tilecon.Tileset.Converter
         /// <returns>A list of sprites.</returns>
         protected override List<Bitmap> GetSprites(Image img)
         {
-            int spriteSize = inputTileset.SpriteSize();
+            int spriteSize = inputTileset.TileSize();
             int height = inputTileset.SizeHeight();
             int width = inputTileset.SizeWidth();
             Bitmap[] sprites = new Bitmap[(img.Width / spriteSize) * (img.Height / spriteSize)];

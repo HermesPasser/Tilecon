@@ -8,7 +8,7 @@
 
         /// <summary>Get the sprite size.</summary>
         /// <returns>Sprite size.</returns>
-        byte SpriteSize();
+        byte TileSize();
 
         /// <summary>Get the tileset width.</summary>
         /// <returns>Tileset width.</returns>

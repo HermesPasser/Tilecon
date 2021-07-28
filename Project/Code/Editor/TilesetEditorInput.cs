@@ -109,7 +109,7 @@ namespace tilecon.Tileset.Editor
         {
             int width = tileset.SizeWidth();
             int height = tileset.SizeHeight();
-            int spriteSize = tileset.SpriteSize();
+            int spriteSize = tileset.TileSize();
 
             if (width == -1) width = tilesetImage.Width;   // custom
             if (height == -1) height = tilesetImage.Height; // XP and custom
@@ -117,7 +117,7 @@ namespace tilecon.Tileset.Editor
             if (spriteSize <= 0)
                 throw new ConvertException(Vocab.GetText("sizeIsZeroErrorMsg"));
 
-            Bitmap[] tiles = SplitImageInSprites(tilesetImage, tileset.SpriteSize());
+            Bitmap[] tiles = SplitImageInSprites(tilesetImage, tileset.TileSize());
 
             ClearGrid();
             ushort i = 0;

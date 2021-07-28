@@ -42,7 +42,7 @@ namespace tilecon.Tileset.Converter
         /// <param name="fileDir">The directory for the sprites to be saved.</param>
         public virtual void SaveEachSubimage(Image img, string fileDir)
         {
-            int spriteSize = inputTileset.SpriteSize();
+            int spriteSize = inputTileset.TileSize();
             string ex = Path.GetExtension(fileDir);
             fileDir = Path.GetDirectoryName(fileDir) + @"\" + Path.GetFileNameWithoutExtension(fileDir) + "_";
 
@@ -255,7 +255,7 @@ namespace tilecon.Tileset.Converter
         /// <returns>The number of pixels to be moved to center the sprite on the tileset.</returns>
         protected virtual int GetOffset()
         {
-            return outputTileset.SpriteSize() / 2 - inputTileset.SpriteSize() / 2;
+            return outputTileset.TileSize() / 2 - inputTileset.TileSize() / 2;
         }
 
         /// <summary>Split the image in various sprites.</summary>

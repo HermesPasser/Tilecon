@@ -29,7 +29,7 @@ namespace tilecon.Tileset.Converter
         /// <returns>A list of sprites.</returns>
         protected override List<Bitmap> GetSprites(Image img)
         {
-            int spriteSize = inputTileset.SpriteSize();
+            int spriteSize = inputTileset.TileSize();
             List<Bitmap> sprites = new List<Bitmap>();
 
             // starts with 'y'

@@ -53,7 +53,7 @@ namespace tilecon.Tileset.Editor
            
             int width = tileset.SizeWidth();
             int height = tileset.SizeHeight();
-            int spriteSize = tileset.SpriteSize();
+            int spriteSize = tileset.TileSize();
 
             Bitmap bmp = new Bitmap(width, height);
 
@@ -73,7 +73,7 @@ namespace tilecon.Tileset.Editor
         {
             int width = this.tileset.SizeWidth();
             int height = this.tileset.SizeHeight();
-            int spriteSize = this.tileset.SpriteSize();
+            int spriteSize = this.tileset.TileSize();
             ushort i = 0;
 
             ClearGrid();

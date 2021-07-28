@@ -21,10 +21,10 @@ namespace tilecon.Tileset.Converter
         /// <returns>Return true if the image is convertible and false if not.</returns>
         protected override bool IsConvertible(Image img)
         {
-            if (inputTileset.SpriteSize() <= 0)
+            if (inputTileset.TileSize() <= 0)
                 throw new ConvertException(Vocab.GetText("sizeIsZeroErrorMsg"));
             
-            if (inputTileset.SpriteSize() >= img.Width || inputTileset.SpriteSize() >= img.Height)
+            if (inputTileset.TileSize() >= img.Width || inputTileset.TileSize() >= img.Height)
                 throw new ConvertException(Vocab.GetText("sizeOutOfRangeErrorMsg"));
 
             return true;
