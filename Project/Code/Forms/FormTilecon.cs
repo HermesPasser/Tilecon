@@ -186,7 +186,7 @@ namespace tilecon
         private void OnIndexChange(object sender, EventArgs e)
         {
             textCustomSize.Enabled = GetSelectedInputTileset().TilesetName() == Tileset.Tileset.Custom(0).Name;
-            converterControl1.UpdateOutputLabel((SpriteMode)cbMode.SelectedIndex);
+            converterControl1.UpdateOutputLabel((ITileset)cbMaker.SelectedItem);
         }
 
         private void FormTilecon_DragEnter(object sender, DragEventArgs e)

@@ -73,10 +73,10 @@ namespace tilecon
         /// <summary>
         /// Updates the text from the MV's tileset type in the label
         /// </summary>
-        /// <param name="mode"></param>
-        public void UpdateOutputLabel(SpriteMode mode)
+        /// <param name="tileset">Input tileset to the converter decide which MV kind should it be converted to</param>
+        public void UpdateOutputLabel(ITileset tileset)
         {
-            TilesetConverterVX con = new TilesetConverterVX(Tileset.Tileset.XP_Tile, mode, IgnoreAlpha);
+            TilesetConverterVX con = new TilesetConverterVX(tileset, default(SpriteMode), IgnoreAlpha);
             string name = con.SetOutputTileset().TilesetName();
 
             // TODO: get the substring from the tileset type then is MV instead
@@ -115,6 +115,8 @@ namespace tilecon
         public void Convert(SpriteMode mode, ITileset tileset)
         {
             TilesetConverterBase con;
+            UpdateOutputLabel(tileset);
+
             string name = tileset.TilesetName();
             btnConvert.Text = Vocab.GetText("wait");
             try
