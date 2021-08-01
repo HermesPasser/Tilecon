@@ -10,7 +10,7 @@ namespace tilecon
             pt, en
         }
 
-        public static string version = "2.2";
+        public static string version = "2.4";
         public  static Lang currentLanguage = Lang.en;
         private static XmlDocument xml = null;
 
