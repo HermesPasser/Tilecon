@@ -1,17 +1,33 @@
 [![N|Solid](https://4.bp.blogspot.com/-79Hg_oVZLg0/WY80mJfaNqI/AAAAAAAAHfU/Pa6p0ThbNbkX5FZAHvCBtvR7bM0ALTvQwCLcBGAs/s1600/logopng%2B%25281%2529.png)](https://hermespasser.github.io/pages/tilecon.html)
 <br />
 
-A RPG Maker older versions tilesets converter for RPG Maker MV, other functionalities include:
-- align the image on the sides and center;
-- Resize sprites;
-- Cut and save each sprite;
-- Set transparent color;
-- Place each sprite individually.
+Convert old RPG Maker tilesets to RPG Maker MV tileset format.
 
+Supported tilesets (with varying  degrees of success):
+ - 95
+ - Sim 95 (97)
+ - Alpha for Mobile
+ - 2000/2003
+ - XP
+ - VX/Ace
+ 
+ It also includes an option to define the size of the tile so you can try convert non rpg maker tilesets. 
 
-## How open
-Open tilecon.sln with Visual Studio, need install .NET Framework version 4.6.1 or higher. 
+## How to use
 
+The program is split in two tabs, the converter and the editor. There is also a button labeled *split and save* which crops each tile from the given tileset and saves into individual image files.  
+
+**Converter**  
+
+Tilecon's raison d'être. It takes a tileset as input and reorganize the tiles in a way that RMMV undertand. You can set if you want the tiles to be aligned into the sides, center or have them strenched and set a color to be used as transparency.   
+
+**Editor**
+
+It's like the converter but interactive. You can choose individually which tiles you want to place in the output tileset image having the aligment and streching options separated to each tile.  
+
+## Running
+
+You will need to have ``.NET Framework`` version 4.6.1 or higher installed. Open tilecon.sln with Visual Studio and you ready to go (or build it with MSBuild). 
 
 ## Images
 
