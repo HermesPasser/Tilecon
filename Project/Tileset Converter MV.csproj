@@ -58,6 +58,12 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Key\**" />
+    <EmbeddedResource Remove="Key\**" />
+    <None Remove="Key\**" />
+    <Page Remove="Key\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Code\Forms\ConverterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -67,8 +73,6 @@
     <Compile Update="Code\Forms\TileButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <None Include="Key\tilecon_1_TemporaryKey.pfx" />
-    <None Include="Key\tilecon_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
