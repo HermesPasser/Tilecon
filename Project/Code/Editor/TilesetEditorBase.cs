@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using tilecon.Core;
 
 namespace tilecon.Tileset.Editor
 {

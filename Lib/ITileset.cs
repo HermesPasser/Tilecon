@@ -1,4 +1,4 @@
-﻿namespace tilecon
+﻿namespace tilecon.Core
 {
     public interface ITileset
     {

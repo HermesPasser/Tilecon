@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Drawing;
 using System.IO;
-using tilecon.Tileset.Converter;
+using tilecon.Core.Converter;
 using tilecon.Tileset.Editor;
 
 namespace tilecon.Tileset.Tests

@@ -1,4 +1,4 @@
-﻿namespace tilecon
+﻿namespace tilecon.Core
 {
     /// <summary>Enumeration with all the ways to convert the </summary>
     public enum SpriteMode

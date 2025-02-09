@@ -4,8 +4,8 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using tilecon.Tileset.Converter;
-using tilecon.Tileset;
+using tilecon.Core.Converter;
+using tilecon.Core;
 
 namespace tilecon
 {
@@ -139,8 +139,8 @@ namespace tilecon
                 try
                 {
                     // FIXME: prevent stack overflow
-                    tile = tile.TilesetName() == Tileset.Tileset.Custom(0).Name ?
-                        Tileset.Tileset.Custom(byte.Parse(textCustomSize.Text))
+                    tile = tile.TilesetName() == Core.Tileset.Custom(0).Name ?
+                        Core.Tileset.Custom(byte.Parse(textCustomSize.Text))
                         : tile;
 
                     TilesetConverterVertical tilecon = new TilesetConverterCustom(tile, SpriteMode.ALIGN_TOP_LEFT, false);
@@ -185,7 +185,7 @@ namespace tilecon
 
         private void OnIndexChange(object sender, EventArgs e)
         {
-            textCustomSize.Enabled = GetSelectedInputTileset().TilesetName() == Tileset.Tileset.Custom(0).Name;
+            textCustomSize.Enabled = GetSelectedInputTileset().TilesetName() == Core.Tileset.Custom(0).Name;
             converterControl1.UpdateOutputLabel((ITileset)cbMaker.SelectedItem);
         }
 
@@ -234,21 +234,21 @@ namespace tilecon
         private void SetTilesetByMenuItem(object sender, EventArgs e)
         {
             string tilesetName = sender.ToString();
-            if (tilesetName == Tileset.Tileset.R95.Name) cbMaker.SelectedIndex = 0;
-            else if (tilesetName == Tileset.Tileset.S97.Name) cbMaker.SelectedIndex = 1;
-            else if (tilesetName == Tileset.Tileset.Alpha.Name) cbMaker.SelectedIndex = 2;
-            else if (tilesetName == Tileset.Tileset.R2k_2k3_Auto.Name) cbMaker.SelectedIndex = 3;
-            else if (tilesetName == Tileset.Tileset.R2k_2k3_AnimObj.Name) cbMaker.SelectedIndex = 4;
-            else if (tilesetName == Tileset.Tileset.R2k_2k3_AB.Name) cbMaker.SelectedIndex = 5;
-            else if (tilesetName == Tileset.Tileset.R2k_2k3_A.Name) cbMaker.SelectedIndex = 6;
-            else if (tilesetName == Tileset.Tileset.R2k_2k3_B.Name) cbMaker.SelectedIndex = 7;
-            else if (tilesetName == Tileset.Tileset.XP_Tile.Name) cbMaker.SelectedIndex = 8;
-            else if (tilesetName == Tileset.Tileset.VX_Ace_A12.Name) cbMaker.SelectedIndex = 10;
-            else if (tilesetName == Tileset.Tileset.VX_Ace_A3.Name) cbMaker.SelectedIndex = 11;
-            else if (tilesetName == Tileset.Tileset.VX_Ace_A4.Name) cbMaker.SelectedIndex = 12;
-            else if (tilesetName == Tileset.Tileset.VX_Ace_A5.Name) cbMaker.SelectedIndex = 13;
-            else if (tilesetName == Tileset.Tileset.VX_Ace_BE.Name) cbMaker.SelectedIndex = 14;
-            else if (tilesetName == Tileset.Tileset.XP_Auto.Name) cbMaker.SelectedIndex = 9;
+            if (tilesetName == Core.Tileset.R95.Name) cbMaker.SelectedIndex = 0;
+            else if (tilesetName == Core.Tileset.S97.Name) cbMaker.SelectedIndex = 1;
+            else if (tilesetName == Core.Tileset.Alpha.Name) cbMaker.SelectedIndex = 2;
+            else if (tilesetName == Core.Tileset.R2k_2k3_Auto.Name) cbMaker.SelectedIndex = 3;
+            else if (tilesetName == Core.Tileset.R2k_2k3_AnimObj.Name) cbMaker.SelectedIndex = 4;
+            else if (tilesetName == Core.Tileset.R2k_2k3_AB.Name) cbMaker.SelectedIndex = 5;
+            else if (tilesetName == Core.Tileset.R2k_2k3_A.Name) cbMaker.SelectedIndex = 6;
+            else if (tilesetName == Core.Tileset.R2k_2k3_B.Name) cbMaker.SelectedIndex = 7;
+            else if (tilesetName == Core.Tileset.XP_Tile.Name) cbMaker.SelectedIndex = 8;
+            else if (tilesetName == Core.Tileset.VX_Ace_A12.Name) cbMaker.SelectedIndex = 10;
+            else if (tilesetName == Core.Tileset.VX_Ace_A3.Name) cbMaker.SelectedIndex = 11;
+            else if (tilesetName == Core.Tileset.VX_Ace_A4.Name) cbMaker.SelectedIndex = 12;
+            else if (tilesetName == Core.Tileset.VX_Ace_A5.Name) cbMaker.SelectedIndex = 13;
+            else if (tilesetName == Core.Tileset.VX_Ace_BE.Name) cbMaker.SelectedIndex = 14;
+            else if (tilesetName == Core.Tileset.XP_Auto.Name) cbMaker.SelectedIndex = 9;
             else cbMaker.SelectedIndex = 15; // custom
         }
 
@@ -353,8 +353,8 @@ namespace tilecon
             var tileset = GetSelectedInputTileset();
 
             // replaces the custom tileset with a new custom with the selected size
-            if (tileset.TilesetName() == Tileset.Tileset.Custom(0).Name)
-                tileset = Tileset.Tileset.Custom(Byte.Parse(textCustomSize.Text));
+            if (tileset.TilesetName() == Core.Tileset.Custom(0).Name)
+                tileset = Core.Tileset.Custom(Byte.Parse(textCustomSize.Text));
 
             converterControl1.Convert((SpriteMode)cbMode.SelectedIndex, tileset); 
             setTransparentItem.Enabled = true;

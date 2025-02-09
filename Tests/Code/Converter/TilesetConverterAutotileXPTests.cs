@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Drawing;
 using tilecon.Tileset.Tests;
+using tilecon.Core.Converter;
+using tilecon.Core;
 
 namespace tilecon.Tileset.Converter.Tests
 {
@@ -10,7 +12,7 @@ namespace tilecon.Tileset.Converter.Tests
         [TestInitialize]
         public void Initalize()
         {
-            converter = new TilesetConverterAutotileXP(Tileset.XP_Auto, SpriteMode.ALIGN_TOP_LEFT, false);
+            converter = new TilesetConverterAutotileXP(Core.Tileset.XP_Auto, SpriteMode.ALIGN_TOP_LEFT, false);
         }
 
         [TestMethod()]

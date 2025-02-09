@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
-using static tilecon.ImageEditor;
+using static tilecon.Core.ImageEditor;
 
-namespace tilecon.Tileset.Converter
+namespace tilecon.Core.Converter
 {
     /// <summary>Autotile xp converter class.</summary>
     public class TilesetConverterAutotileXP : TilesetConverterVertical
@@ -15,7 +15,7 @@ namespace tilecon.Tileset.Converter
         /// <summary>if the image is convertible to MV tileset.</summary>
         /// <param name="img">Image to be checked.</param>
         /// <returns>Return true if the image is convertible and false if not.</returns>
-        protected override bool IsConvertible(Image img)
+        public override bool IsConvertible(Image img)
         {
             if (img.Width == Tileset.XP_Auto.Width || img.Height == Tileset.XP_Auto.Height)
                 return true;

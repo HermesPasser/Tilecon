@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using tilecon.Core;
 
 namespace tilecon.Tileset.Editor
 {
@@ -18,7 +19,7 @@ namespace tilecon.Tileset.Editor
         {
             this.input = input;
 
-            if (tileset.TilesetName() == Tileset.XP_Tile.Name)
+            if (tileset.TilesetName() == Core.Tileset.XP_Tile.Name)
                 throw new ConvertException("Tileset cannot be XP because this class not contain the information of original image and the default is -1.");
             SetUpGrid();
         }

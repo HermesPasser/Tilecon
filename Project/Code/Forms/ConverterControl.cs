@@ -3,8 +3,8 @@ using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
-using tilecon.Tileset.Converter;
-using tilecon.Tileset;
+using tilecon.Core.Converter;
+using tilecon.Core;
 
 namespace tilecon
 {
@@ -80,23 +80,23 @@ namespace tilecon
             string name = con.SetOutputTileset().TilesetName();
 
             // TODO: get the substring from the tileset type then is MV instead
-            if (name == Tileset.Tileset.MV_A12.Name)
+            if (name == Core.Tileset.MV_A12.Name)
             {
                 labelMVTilesetName.Text = "A1-2";
             }
-            else if (name == Tileset.Tileset.MV_A3.Name)
+            else if (name == Core.Tileset.MV_A3.Name)
             {
                 labelMVTilesetName.Text = "A3";
             }
-            else if (name == Tileset.Tileset.MV_A4.Name)
+            else if (name == Core.Tileset.MV_A4.Name)
             {
                 labelMVTilesetName.Text = "A4";
             }
-            else if (name == Tileset.Tileset.MV_A5.Name)
+            else if (name == Core.Tileset.MV_A5.Name)
             {
                 labelMVTilesetName.Text = "A5";
             }
-            else if (name == Tileset.Tileset.MV_BE.Name || name == Tileset.Tileset.Custom(0).Name)
+            else if (name == Core.Tileset.MV_BE.Name || name == Core.Tileset.Custom(0).Name)
             {
                 labelMVTilesetName.Text = "B-E";
             }
@@ -122,23 +122,23 @@ namespace tilecon
             try
             {
                 // TODO: add some reflection here...
-                if (name == Tileset.Tileset.Alpha.Name)
+                if (name == Core.Tileset.Alpha.Name)
                 {
                     con = new TilesetConverterVerticalApha(tileset, mode, IgnoreAlpha);
                 }
-                else if (name == Tileset.Tileset.R95.Name || name == Tileset.Tileset.S97.Name || name == Tileset.Tileset.XP_Tile.Name)
+                else if (name == Core.Tileset.R95.Name || name == Core.Tileset.S97.Name || name == Core.Tileset.XP_Tile.Name)
                 {
                     con = new TilesetConverterVertical(tileset, mode, IgnoreAlpha);
                 }
-                else if (name == Tileset.Tileset.XP_Auto.Name)
+                else if (name == Core.Tileset.XP_Auto.Name)
                 {
                     con = new TilesetConverterAutotileXP(tileset, mode, IgnoreAlpha);
                 }
-                else if (Tileset.Tileset.IsR2k_2k3((Tileset.Tileset) tileset))
+                else if (Core.Tileset.IsR2k_2k3((Core.Tileset) tileset))
                 { // the other place IsR2k_2k3 is used, we disconsider animated tiles but not here, i can't remember why
                     con = new TilesetConverterVerticalRM2K3(tileset, mode, IgnoreAlpha);
                 }
-                else if (name == Tileset.Tileset.Custom(0).Name)
+                else if (name == Core.Tileset.Custom(0).Name)
                 {
                     con = new TilesetConverterCustom(tileset, mode, IgnoreAlpha);
                 }
@@ -147,7 +147,18 @@ namespace tilecon
                     con = new TilesetConverterVX(tileset, mode, IgnoreAlpha);
                 }
                
+                // This msgbox was inside TilesetConverterBase.IsConvertible. I'm not sure
+                // if my past intent was of only show the error when explicitly call for the 
+                // base method
+                if (!con.IsConvertible(inputTileset)) {
+                    System.Windows.Forms.MessageBox.Show(Vocab.GetText("sizeNotMatchErrorMsg"));
+                }
+
                 convertedBitmaps = con.ConvertToMV(inputTileset);
+            }
+            catch (SizeException ex)
+            {
+                MessageBox.Show(this, Vocab.GetText(ex.Message));
             }
             catch (ConvertException ex)
             {

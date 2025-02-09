@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using static tilecon.ImageEditor;
+﻿using System.Drawing;
+using static tilecon.Core.ImageEditor;
 
-namespace tilecon.Tileset.Converter
+namespace tilecon.Core.Converter
 {
     /// <summary>Converter class for vertical tilesets.</summary>
     public class TilesetConverterVertical : TilesetConverterBase

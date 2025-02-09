@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using tilecon.Tileset.Converter;
+using tilecon.Core.Converter;
+using tilecon.Core;
 
 namespace tilecon.Tileset.Editor
 {
@@ -67,7 +67,7 @@ namespace tilecon.Tileset.Editor
 
             TilesetConverterBase con;
             con = GetTilesetConverter(mode);
-            selectedImage = con.SetModeInSprite(selectedImage, Tileset.MV_A12.Size); // must not be mv sprite size, add param to set this
+            selectedImage = con.SetModeInSprite(selectedImage, Core.Tileset.MV_A12.Size); // must not be mv sprite size, add param to set this
             if (preview != null) preview.Image = selectedImage;
         }
 
@@ -76,23 +76,23 @@ namespace tilecon.Tileset.Editor
             TilesetConverterBase con;
             string name = tileset.TilesetName();
 
-            if (name == Tileset.Alpha.Name)
+            if (name == Core.Tileset.Alpha.Name)
             {
                 con = new TilesetConverterVerticalApha(tileset, mode, false);
             }
-            else if (name == Tileset.R95.Name || name == Tileset.S97.Name || name == Tileset.XP_Tile.Name)
+            else if (name == Core.Tileset.R95.Name || name == Core.Tileset.S97.Name || name == Core.Tileset.XP_Tile.Name)
             {
                 con = new TilesetConverterVertical(tileset, mode, false);
             }
-            else if (name == Tileset.XP_Auto.Name)
+            else if (name == Core.Tileset.XP_Auto.Name)
             {
                 con = new TilesetConverterAutotileXP(tileset, mode, false);
             } 
-            else if (Tileset.IsR2k_2k3((Tileset)tileset) && name != Tileset.R2k_2k3_AnimObj.Name)
+            else if (Core.Tileset.IsR2k_2k3((Core.Tileset)tileset) && name != Core.Tileset.R2k_2k3_AnimObj.Name)
             { // all 2000/2003 tilesets but not an animated object
                 con = new TilesetConverterVerticalRM2K3(tileset, mode, false);
             }
-            else if (name == Tileset.Custom(0).Name)
+            else if (name == Core.Tileset.Custom(0).Name)
             {
                 con = new TilesetConverterCustom(tileset, mode, false);
             } 

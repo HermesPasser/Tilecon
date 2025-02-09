@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
-using static tilecon.ImageEditor;
 
-namespace tilecon.Tileset.Converter
+namespace tilecon.Core.Converter
 {
     /// <summary>Custom tileset class</summary>
     public class TilesetConverterCustom : TilesetConverterVertical
@@ -19,14 +18,13 @@ namespace tilecon.Tileset.Converter
         /// <summary>if the image is convertible to MV tileset.</summary>
         /// <param name="img">Image to be checked.</param>
         /// <returns>Return true if the image is convertible and false if not.</returns>
-        protected override bool IsConvertible(Image img)
+        public override bool IsConvertible(Image img)
         {
             if (inputTileset.TileSize() <= 0)
-                throw new ConvertException(Vocab.GetText("sizeIsZeroErrorMsg"));
+                throw new SizeException("sizeIsZeroErrorMsg");
             
             if (inputTileset.TileSize() >= img.Width || inputTileset.TileSize() >= img.Height)
-                throw new ConvertException(Vocab.GetText("sizeOutOfRangeErrorMsg"));
-
+                throw new SizeException("sizeOutOfRangeErrorMsg");
             return true;
         }
     }

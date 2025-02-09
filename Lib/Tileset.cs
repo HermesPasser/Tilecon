@@ -1,5 +1,5 @@
 ﻿
-namespace tilecon.Tileset
+namespace tilecon.Core
 {
     public class Tileset : ITileset
     {

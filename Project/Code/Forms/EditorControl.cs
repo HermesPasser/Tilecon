@@ -3,7 +3,7 @@ using System.Drawing;
 using System.ComponentModel;
 using System.Windows.Forms;
 using tilecon.Tileset.Editor;
-using tilecon.Tileset;
+using tilecon.Core;
 
 namespace tilecon
 {
@@ -61,14 +61,14 @@ namespace tilecon
 
         public void LoadGrid()
         {
-            if (mvTilesetType.TilesetName() == Tileset.Tileset.Custom(0).Name)
+            if (mvTilesetType.TilesetName() == Core.Tileset.Custom(0).Name)
             {
                 if (customSpriteSize == 0)
                 {
                     MessageBox.Show(Vocab.GetText("sizeIsZeroErrorMsg"));
                     return;
                 }
-                mvTilesetType = Tileset.Tileset.Custom(customSpriteSize);
+                mvTilesetType = Core.Tileset.Custom(customSpriteSize);
             }
 
             Image img = Image.FromFile(originFilename);
@@ -97,12 +97,12 @@ namespace tilecon
 
             switch (cbOutput.SelectedIndex)
             {
-                case 0: tileset = Tileset.Tileset.MV_A12; break;
-                case 1: tileset = Tileset.Tileset.MV_A3; break;
-                case 2: tileset = Tileset.Tileset.MV_A4; break;
-                case 3: tileset = Tileset.Tileset.MV_A5; break;
+                case 0: tileset = Core.Tileset.MV_A12; break;
+                case 1: tileset = Core.Tileset.MV_A3; break;
+                case 2: tileset = Core.Tileset.MV_A4; break;
+                case 3: tileset = Core.Tileset.MV_A5; break;
                 case 4:
-                default: tileset = Tileset.Tileset.MV_BE; break;
+                default: tileset = Core.Tileset.MV_BE; break;
             }
             gridOut = new TilesetEditorOutput(tileset, outputPanel, gridIn);
         }

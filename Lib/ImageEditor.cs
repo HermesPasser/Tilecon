@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 
-namespace tilecon
+namespace tilecon.Core
 {
     /// <summary>Image manipulation routines.</summary>
     public class ImageEditor

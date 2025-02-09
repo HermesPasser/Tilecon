@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using static tilecon.ImageEditor;
+﻿using System.Drawing;
+using static tilecon.Core.ImageEditor;
 
-namespace tilecon.Tileset.Converter
+namespace tilecon.Core.Converter
 {
     /// <summary>Converter class for 2000 and 20003 tilesets.</summary>
     public class TilesetConverterVerticalRM2K3 : TilesetConverterVertical

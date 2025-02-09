@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using static tilecon.ImageEditor;
+﻿using System.Drawing;
+using static tilecon.Core.ImageEditor;
 
-namespace tilecon.Tileset.Converter
+namespace tilecon.Core.Converter
 {
     /// <summary>Super class for all tileset converters.</summary>
     public abstract class TilesetConverterBase
@@ -177,14 +175,13 @@ namespace tilecon.Tileset.Converter
         /// <summary>if the image is convertible to MV tileset.</summary>
         /// <param name="img">Image to be checked.</param>
         /// <returns>Return true if the image is convertible and false if not.</returns>
-        protected virtual bool IsConvertible(Image img)
+        public virtual bool IsConvertible(Image img)
         {
             if (inputTileset.TilesetName() != Tileset.XP_Tile.Name)
             {
                 if (img.Width != inputTileset.SizeWidth() || img.Height != inputTileset.SizeHeight())
                 {
                     System.Console.WriteLine($"{img.Width}x{img.Height} != {inputTileset.SizeWidth()}x{inputTileset.SizeHeight()} | input tileset: {inputTileset}");
-                    System.Windows.Forms.MessageBox.Show(Vocab.GetText("sizeNotMatchErrorMsg"));
                     return false;
                 }
             }
