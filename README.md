@@ -27,7 +27,9 @@ It's like the converter but interactive. You can choose individually which tiles
 
 ## Running
 
-You will need to have ``.NET Framework`` version 4.6.1 or higher installed. Open tilecon.sln with Visual Studio and you ready to go (or build it with MSBuild). 
+You will need to have ``dotnet`` version 8 or higher installed. Open tilecon.sln with Visual Studio and you ready to go (or build it with MSBuild).   
+
+NOTE: This project has dependencies on Winforms and System.Drawing.Common so currently it will not work on any operating system but Window 7 or highter.
 
 ## Images
 
